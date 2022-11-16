@@ -1,0 +1,114 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="s2r://panorama/styles/hud/dota_hud_stat_branch.css" />
+		<include src="s2r://panorama/styles/custom_game/hero_card.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/precache.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/security.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/const.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/hero_card.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="Card">
+			<Button class="CardButton">
+				<Panel id="Card" class="cardRoot">
+					<Panel id="CardBG" hittest="false">
+						<Panel id="CardTopBar">
+							<Image id="CardAttributePrimaryIcon" />
+							<Label id="CardName" class="TitleFont" />
+							<DOTAHeroImage id="CardIcon" />
+						</Panel>
+						<Image id="CardImage" />
+						<Panel id="CardBottomBar">
+							<Panel class="StatBranchCenter">
+								<Panel id="StatBranchColumn" class="TopBottomFlow">
+									<Panel class="BranchPair">
+										<Panel class="UpgradeContainer" hittest="false">
+											<Panel class="StatBonusPanelLeft" hittest="false">
+												<Label id="StatBonusLabel_8" class="StatBonusLabel" text="" />
+											</Panel>
+										</Panel>
+										<Panel class="UpgradeContainer" hittest="false">
+											<Panel class="StatBonusPanelRight" hittest="false">
+												<Label id="StatBonusLabel_7" class="StatBonusLabel" text="" />
+											</Panel>
+										</Panel>
+									</Panel>
+									<Panel class="BranchPair">
+										<Panel class="UpgradeContainer" hittest="false">
+											<Panel class="StatBonusPanelLeft" hittest="false">
+												<Label id="StatBonusLabel_6" class="StatBonusLabel" text="" />
+											</Panel>
+										</Panel>
+										<Panel class="UpgradeContainer" hittest="false">
+											<Panel class="StatBonusPanelRight" hittest="false">
+												<Label id="StatBonusLabel_5" class="StatBonusLabel" text="" />
+											</Panel>
+										</Panel>
+									</Panel>
+									<Panel class="BranchPair">
+										<Panel class="UpgradeContainer" hittest="false">
+											<Panel class="StatBonusPanelLeft" hittest="false">
+												<Label id="StatBonusLabel_4" class="StatBonusLabel" text="" />
+											</Panel>
+										</Panel>
+										<Panel class="UpgradeContainer" hittest="false">
+											<Panel class="StatBonusPanelRight" hittest="false">
+												<Label id="StatBonusLabel_3" class="StatBonusLabel" text="" />
+											</Panel>
+										</Panel>
+									</Panel>
+									<Panel class="BranchPair">
+										<Panel class="UpgradeContainer" hittest="false">
+											<Panel class="StatBonusPanelLeft" hittest="false">
+												<Label id="StatBonusLabel_2" class="StatBonusLabel" text="" />
+											</Panel>
+										</Panel>
+										<Panel class="UpgradeContainer" hittest="false">
+											<Panel class="StatBonusPanelRight" hittest="false">
+												<Label id="StatBonusLabel_1" class="StatBonusLabel" text="" />
+											</Panel>
+										</Panel>
+									</Panel>
+								</Panel>
+								<Panel id="LevelColumn" class="TopBottomFlow">
+									<Panel class="LevelBG">
+										<Label class="ReqLabel" text="25" />
+									</Panel>
+									<Panel class="LevelBG">
+										<Label class="ReqLabel" text="20" />
+									</Panel>
+									<Panel class="LevelBG">
+										<Label class="ReqLabel" text="15" />
+									</Panel>
+									<Panel class="LevelBG">
+										<Label class="ReqLabel" text="10" />
+									</Panel>
+								</Panel>
+							</Panel>
+						</Panel>
+					</Panel>
+				</Panel>
+			</Button>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel id="CardSelection" hittest="false">
+			<Panel id="CardSelection_Body" hittest="false" />
+			<Button id="CardSelection_CloseButton" onactivate="CloseCardSelection()" onmouseover="DOTAShowTextTooltip(&apos;#CardSelection_Close_Description&apos;)" onmouseout="DOTAHideTextTooltip()">
+				<Label class="CardSelection_CloseButtonLabel" text="#CardSelection_Close" />
+			</Button>
+			<Button class="no_battle_pass" id="CardSelection_RerollButton">
+				<Label class="CardSelection_RerollButtonLabel" text="#CardSelection_Reroll" />
+			</Button>
+		</Panel>
+		<Image id="HeroSelectionShow" hittest="false" />
+		<Panel id="HeroPrecacheCountDownPanel" hittest="false">
+			<Label id="HeroPrecacheCountDownLabel" />
+		</Panel>
+	</Panel>
+</root>

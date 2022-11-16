@@ -1,0 +1,220 @@
+"Rounds"
+{   
+    
+    "1" //Phase1
+    {
+		//Total Health 12 *60 = 720
+		"Round_Roshan"
+	    {
+			"1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+	    }
+	    		//Total Health 12 *60 = 720
+		"Round_Explode_Spider"
+		   {
+				"1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+		   }
+	    		//Total Health 12 *60 = 720
+		"Round_Spider3"
+	    {
+			"1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+	    }
+	    		//Total Health 12 *60 = 720
+		"Round_Explode_Spider2"
+		   {
+				"1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+		   }
+	    		//Total Health 12 *60 = 720
+		"Round_Spider5"
+	    {
+            "1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+	    }
+	    		//Total Health 12 *60 = 720
+		"Round_Explode_Spider4"
+		   {
+			"1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+		   }
+	    		//Total Health 12 *60 = 720
+		"Round_Spider7"
+	    {
+              "1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+	    }
+	    		//Total Health 12 *60 = 720
+		"Round_Explode_Spider6"
+		   {
+			"1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+		   }
+	    		//Total Health 12 *60 = 720
+		"Round_Spider9"
+	    {
+			"1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+	    }
+	    		//Total Health 12 *60 = 720
+		"Round_Spider10"
+	    {
+			"1"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"5"
+					"SpawnInterval"			"0.5"
+				}
+				"2"
+				{
+					"UnitName"				"npc_dota_harpy_storm"
+					"UnitNumber"			"2"
+					"SpawnInterval"			"0.5"
+				}
+	    }
+	    
+	}
+    "2" //Phase2
+    {
+				//Total Health 12 *60 = 720
+		"Round_Spider11"
+	    {
+		"1"
+			{
+				"UnitName"				"npc_dota_centaur_khan"
+				"UnitNumber"			"10"
+				"SpawnInterval"			"0.4"
+			}
+	    }
+	 }
+	 "3" //Phase3
+     {
+		  		//Total Health 12 *60 = 720
+		"Round_Spider12"
+	    {
+			"1"
+			{
+				"UnitName"				"npc_dota_centaur_khan"
+				"UnitNumber"			"10"
+				"SpawnInterval"			"0.4"
+			}
+	    }
+	 }
+	 "4" //Phase4
+     {
+        		//Total Health 12 *60 = 720
+		"Round_Spider13"
+	    {
+			"1"
+			{
+				"UnitName"				"npc_dota_centaur_khan"
+				"UnitNumber"			"10"
+				"SpawnInterval"			"0.4"
+			}
+	    }
+     }
+     "5" //Phase5
+     {
+        //Total Health 12 *60 = 720
+		"Round_Spider14"
+	    {
+			"1"
+			{
+				"UnitName"				"npc_dota_centaur_khan"
+				"UnitNumber"			"10"
+				"SpawnInterval"			"0.4"
+			}
+	    }
+     }
+}

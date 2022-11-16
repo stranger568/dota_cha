@@ -1,0 +1,187 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="s2r://panorama/styles/custom_game/inventory.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/lottery.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/handbook.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="CollectionItem">
+			<Panel class="CollectionItemRoot">
+				<Panel id="collection_item_title_panel" class="CollectionItemTitlePanel">
+					<Panel class="CollectionItemTitlePanelInner">
+						<Label id="collection_item_title" class="CollectionItemTitle" />
+					</Panel>
+				</Panel>
+				<Panel class="CollectionItemImagePanel">
+					<Image id="collection_item_image" class="CollectionItemImage" />
+					<Label id="collection_item_rarity" class="CollectionItemRarity" />
+					<Label id="collection_item_index" class="CollectionItemIndex" text="" />
+				</Panel>
+				<Panel class="CollectionButtonsPanel">
+					<Button class="ButtonBevel HandbookButton ButtonFragmentBuy" id="button_buy">
+						<Label id="button_buy_label" text="#fragment_buy" />
+					</Button>
+					<Button class="ButtonBevel HandbookButton" id="button_not_enough">
+						<Label text="#not_enough_fragment" />
+					</Button>
+					<Button class="ButtonBevel HandbookButton" id="button_already">
+						<Label text="#already_have" />
+					</Button>
+					<Button class="ButtonBevel HandbookButton" id="button_limited">
+						<Label text="#limited_can_not_buy" />
+					</Button>
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;z-index:5;" hittest="false">
+		<Panel class="Hidden" id="page_handbook">
+			<Panel id="HandbookTitlePanel">
+				<Label id="HandbookTitle" text="#Handbook" />
+				<Panel id="FragmentStoragePanel">
+					<Image id="FragmentStorageImg" src="s2r://panorama/images/custom_game/inventory/fragment_png.vtex" onmouseover="TipsOver(&apos;fragment_tip_message&apos;,&apos;FragmentStorageImg&apos;)" onmouseout="TipsOut()" />
+					<Label id="FragmentStorageLabel" text="× ?" onmouseover="TipsOver(&apos;fragment_tip_message&apos;,&apos;FragmentStorageLabel&apos;)" onmouseout="TipsOut()" />
+				</Panel>
+				<Button class="HandbookCloseButton" onactivate="CloseHandbook()" />
+			</Panel>
+			<Panel id="HandbookMainPanel">
+				<Panel id="LoadingPanel">
+					<Panel id="LoadingPanelSpinner" class="Spinner" />
+				</Panel>
+				<Panel id="HandbookTabsAndContainer">
+					<Panel id="IndexTabs">
+						<RadioButton id="Treasure_1" group="IndexTabs" class="IndexTabButton" onactivate="FilterIndex(1)">
+							<Label text="#treasure_1" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton id="Treasure_2" group="IndexTabs" class="IndexTabButton" onactivate="FilterIndex(2)">
+							<Label text="#treasure_2" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton id="Treasure_3" group="IndexTabs" class="IndexTabButton" onactivate="FilterIndex(3)">
+							<Label text="#treasure_3" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton id="Treasure_4" group="IndexTabs" class="IndexTabButton" onactivate="FilterIndex(4)">
+							<Label text="#treasure_4" />
+						</RadioButton>
+					</Panel>
+					<Panel id="Tabs">
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;Wearable&apos;)">
+							<Label text="#WearableShort" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;Particle&apos;)">
+							<Label text="#Particle" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;Pet&apos;)">
+							<Label text="#Pet" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;Barrage&apos;)">
+							<Label text="#Barrage" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;KillSound&apos;)">
+							<Label text="#KillSoundShort" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;KillEffect&apos;)">
+							<Label text="#KillEffectShort" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;BlinkEffect&apos;)">
+							<Label text="#BlinkEffect" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;AttackEffect&apos;)">
+							<Label text="#AttackEffect" />
+						</RadioButton>
+						<Label class="TabSeperator" text="/" />
+						<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;CosmeticsAbility&apos;)">
+							<Label text="#CosmeticsAbility" />
+						</RadioButton>
+					</Panel>
+					<Panel id="HandbookContainer" class="Hidden">
+						<Panel class="InventoryClassTitle" id="InventoryWearableTitle">
+							<Label text="#Wearable" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryWearablePanel" />
+						<Panel class="InventoryClassTitle" id="InventoryParticleTitle">
+							<Label text="#Particle" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryParticlePanel" />
+						<Panel class="InventoryClassTitle" id="InventoryPetTitle">
+							<Label text="#Pet" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryPetPanel" />
+						<Panel class="InventoryClassTitle" id="InventoryBarrageTitle">
+							<Label text="#Barrage" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryBarragePanel" />
+						<Panel class="InventoryClassTitle" id="InventoryKillSoundTitle">
+							<Label text="#KillSound" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryKillSoundPanel" />
+						<Panel class="InventoryClassTitle" id="InventoryKillEffectTitle">
+							<Label text="#KillEffect" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryKillEffectPanel" />
+						<Panel class="InventoryClassTitle" id="InventoryBlinkEffectTitle">
+							<Label text="#BlinkEffect" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryBlinkEffectPanel" />
+						<Panel class="InventoryClassTitle" id="InventoryAttackEffectTitle">
+							<Label text="#AttackEffect" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryAttackEffectPanel" />
+						<Panel class="InventoryClassTitle" id="InventoryCosmeticsAbilityTitle">
+							<Label text="#CosmeticsAbility" />
+						</Panel>
+						<Panel class="InventoryClassPanel" id="InventoryCosmeticsAbilityPanel" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel class="NewItemNotify Hidden" id="new_item_notify">
+			<Label id="new_item_confirm_label" text="#ConfirmBuyWithFragment" class="NewItemNotifyLabel" />
+			<Label id="new_item_notify_label" text="#CongratulationNewItem" class="NewItemNotifyLabel" />
+			<Panel id="new_item_notify_container" class="NewItemNotifyContainer">
+				<Panel class="LotteryItemRoot">
+					<Panel id="lottery_item_title_panel" class="LotteryItemTitlePanel">
+						<Panel class="LotteryItemTitlePanelInner">
+							<Label id="lottery_new_item_title" />
+						</Panel>
+					</Panel>
+					<Panel class="LotteryItemImagePanel">
+						<Image id="lottery_new_item_image" />
+						<Label id="lottery_item_rarity" class="LotteryItemRarity" />
+					</Panel>
+				</Panel>
+				<Panel class="NewItemNotifyRight">
+					<Panel id="NewItemNotifyOperate" class="NewItemNotifyOperate">
+						<Button class="ButtonBevel" id="buy_item_confirm" onactivate="ConfirmBuy()">
+							<Label id="buy_item_confirm_label" text="#Confirm" />
+							<Panel id="buy_item_confirm_label_loading" class="Spinner Hidden" style="width:25px;height:25px;" />
+						</Button>
+						<Button class="ButtonBevel" id="buy_item_cancel" onactivate="HideNotify()">
+							<Label id="buy_item_cancel_label" text="#Cancel" />
+							<Panel id="buy_item_cancel_label_loading" class="Spinner Hidden" style="width:25px;height:25px;" />
+						</Button>
+					</Panel>
+					<Panel id="NewItemNotifyConfirm" class="NewItemNotifyConfirm">
+						<Button class="ButtonBevel" style="margin-top:180px;" id="new_item_confirm" onactivate="HideNotify()">
+							<Label text="#Confirm" />
+						</Button>
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

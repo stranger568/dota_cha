@@ -1,0 +1,91 @@
+.Hidden{
+    opacity: 0;
+}
+
+ .TauntMain{
+
+    width:820px;
+    height:500px;
+    vertical-align:center;
+    horizontal-align:center;
+    background-color:#000000cc;
+    border-radius:5px;
+    flow-children:right;
+ }
+
+ .TauntLeft{
+
+    width:620px;
+    height:500px;
+    flow-children:right-wrap;
+    overflow: squish scroll;
+ }
+
+ .TauntRight{
+
+    width:200px;
+    height:500px;
+    flow-children:down;
+ }
+
+
+ .TauntCoolDown{
+
+   margin: 10px;
+   margin-top: 100px;
+   color:#FFFFFF;
+   font-size:35px;
+   font-weight:bold;
+   text-overflow: shrink;
+ }
+
+ .TauntCoolDownNote{
+
+
+   color:#FFFFFF;
+   font-size:15px;
+   margin: 10px;
+   margin-top: 20px;
+ }
+
+
+
+
+ .TauntCloseButton{
+     horizontal-align: center;
+     vertical-align: center;
+     width: 160px;
+     height: 40px;
+     border: 1px solid #000;
+     background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303) );
+     box-shadow: inset #ffffff50 1px 1px 2px 2px;
+     background-image:url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+     background-size:320px 120px;
+ }
+
+
+ .TauntCloseButton:active{
+     background-color: gradient( linear, 0% 0%, 0% 100%, from(#880303), to(#b80803) );
+     box-shadow:fill #00000066 -4px -4px 8px 8px;
+     width: 165px;
+     height: 45px;
+ }
+
+ .TauntCloseButton Label{
+     horizontal-align: center;
+     vertical-align: center;
+     font-size: 30px;
+     color: #fff;
+     text-transform: uppercase;
+     text-shadow:1px 1px 1px 1.0 #000000ff;
+ }
+
+
+ .TauntEmptyNote{
+
+   color:#FFFFFF;
+   font-size:20px;
+   margin: 10px;
+   horizontal-align: center;
+   vertical-align: center;
+}

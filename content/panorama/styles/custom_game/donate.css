@@ -1,0 +1,1456 @@
+.Close {
+    width: 35px;
+    height: 35px;
+    horizontal-align: right;
+    margin-right: 20px;
+    background-image: url("s2r://panorama/images/control_icons/x_close_grey_psd.vtex");
+    background-size: 100% 100%;
+    wash-color: white;
+    transition-property: wash-color;
+    transition-duration: 0.1s;
+    brightness: 3;
+}
+
+.Close:hover {
+    brightness: 1;
+    wash-color: #888888;
+}
+
+.BuyBattlePassWindow .Close {
+    width: 35px;
+    height: 35px;
+    margin-top: 25px;
+    horizontal-align: right;
+    margin-right: 25px;
+    background-image: url("s2r://panorama/images/control_icons/x_close_grey_psd.vtex");
+    background-size: 100% 100%;
+    wash-color: white;
+    transition-property: wash-color;
+    transition-duration: 0.1s;
+    brightness: 3;
+}
+
+.BuyBattlePassWindow .Close:hover {
+    brightness: 1;
+    wash-color: #888888;
+}
+
+.HeaderDonate
+{
+	width: 100%;
+	margin-top: 15px;
+}
+
+.HeaderPanelLabel
+{
+	color: white;
+	align: center center;
+	font-size: 48px;
+	text-shadow: -1px -1px 12px rgba(255,255,255,0.2);
+	font-weight: bold;
+}
+
+#BattlePassButton
+{
+	width: 32px;
+	height: 32px;
+  	background-image: url("file://{images}/custom_game/donate/battlepass/icon.png");
+  	background-size: 100%;
+	margin-top: 12px;
+	margin-left: 245px;
+}
+
+#BattlePassButton:hover
+{
+	brightness: 1.4;
+}
+
+#WheelButton
+{
+	width: 32px;
+	height: 32px;
+  	background-image: url("file://{images}/custom_game/donate/wheel/icon.png");
+  	background-size: 100%;
+	margin-top: 12px;
+	margin-left: 290px;
+}
+
+#WheelButton:hover
+{
+	brightness: 1.4;
+}
+
+#RewardsButton
+{
+	width: 32px;
+	height: 32px;
+  	background-image: url("file://{images}/custom_game/donate/rewards/icon.png");
+  	background-size: 100%;
+	margin-top: 12px;
+	margin-left: 335px;
+}
+
+#RewardsButton:hover
+{
+	brightness: 1.4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.BattlePassWindow
+{
+	align: center center;
+	width: 1200px;
+	height: 700px;
+	background-color: rgba(0,0,0,0.95);
+  	background-image: url("file://{images}/custom_game/donate/battlepass/background.png");
+  	background-size: 100%;
+	flow-children: down;
+	visibility: collapse;
+	pre-transform-scale2d: 0;
+	transition-property: pre-transform-scale2d;
+	transition-duration: 0.5s;
+	margin-bottom: 100px;
+	border: 2px solid #32383677;
+}
+
+#BattlePassWindow.sethidden {
+    pre-transform-scale2d: 0;
+    transition-property: pre-transform-scale2d;
+    transition-duration: 0.5s;
+}
+
+#BattlePassWindow.setvisible {
+    pre-transform-scale2d: 1;
+    transition-property: pre-transform-scale2d;
+    transition-duration: 0.5s;
+}
+
+.BattlePassMain
+{
+	width: 100%;
+	horizontal-align: center;
+	flow-children: down;
+	overflow: squish scroll;
+}
+
+.CurrencyBar
+{
+	margin-top: 20px;
+	width: 100%;
+	height: 100px;
+	flow-children: right;
+}
+
+.ArenaCoinPanel
+{
+	flow-children: right;
+	height: 64px;
+	vertical-align: center;
+	margin-left: 60px;
+}
+
+.ArenaCoinIcon
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/arena_coin.png");
+  	background-size: 100%;
+  	width: 64px;
+  	height: 64px;
+  	border-radius: 64px;
+  	border: 1px solid black;
+  	box-shadow: #ffcc0007 0px 0px 5px 0px;
+}
+
+.ArenaCoinLabel
+{
+	margin-left: 10px;
+	vertical-align: center;
+	font-size: 32px;
+	color: white;
+	font-family: defaultFont;
+	font-weight: bold;
+	text-shadow: 0px 0px 10px #B7894666;
+	width: 120px;
+}
+
+
+.DonateCoinPanel
+{
+	flow-children: right;
+	height: 64px;
+	vertical-align: center;
+	margin-left: 10px;
+}
+
+.DonateCoinIcon
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/donate_coin.png");
+  	background-size: 100%;
+  	width: 64px;
+  	height: 64px;
+  	border-radius: 64px;
+  	border: 1px solid black;
+  	box-shadow: #ffcc0007 0px 0px 5px 0px;
+}
+
+.DonateCoinLabel
+{
+	margin-left: 10px;
+	vertical-align: center;
+	font-size: 32px;
+	color: white;
+	font-family: defaultFont;
+	font-weight: bold;
+	text-shadow: 0px 0px 10px #B7894666;
+	width: 120px;
+}
+
+.BattlePassBuyMain
+{
+	margin-top: 20px;
+	flow-children: right;
+	horizontal-align: center;
+	height: 450px;
+}
+
+.BattlePassBuyPanel
+{
+	width: 300px;
+	height: 398px;
+	background-color: black;
+	margin-left: 40px;
+	margin-right: 40px;
+	vertical-align: center;
+	transition-property: pre-transform-scale2d;
+    transition-duration: 0.1s;
+}
+
+.BattlePassBuyPanel:hover
+{
+	pre-transform-scale2d: 1.1;
+}
+
+.bp_level_1
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/level1.png");
+  	background-size: 100%;
+  	animation-name: bp_level_1;
+  	animation-duration: 2s;
+  	animation-timing-function: linear;
+  	animation-iteration-count: infinite;
+}
+
+.bp_level_2
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/level2.png");
+  	background-size: 100%;
+  	animation-name: bp_level_2;
+  	animation-duration: 2s;
+  	animation-timing-function: linear;
+  	animation-iteration-count: infinite;
+}
+
+.bp_level_3
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/level3.png");
+  	background-size: 100%;
+  	animation-name: bp_level_3;
+  	animation-duration: 2s;
+  	animation-timing-function: linear;
+  	animation-iteration-count: infinite;
+}
+
+.BuyBattlePassLabel
+{
+	color: white;
+	font-weight: bold;
+	font-family: Reaver;
+	horizontal-align: center;
+	margin-top: 4px;
+	text-shadow: 2px 2px 8px 3.0 #333333b0;
+}
+
+.CurrencyDonateButton
+{
+	vertical-align: center;
+	width: 200px;
+	height: 50px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #307663 ), to( #245a4b ));
+	border-right: 1px solid #00000085;
+	border-top: 1px solid #ffffff11;
+	border-left: 1px solid #ffffff06;
+	border-bottom: 1px solid #00000088;
+	margin-left: 10px;
+}
+
+.CurrencyDonateButton:hover
+{
+	brightness: 1.4;
+}
+
+.CurrencyDonateButton:active
+{
+	brightness: 0.8;
+}
+
+.CurrencyDonateButtonLabel
+{
+	align: center center;
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
+	text-shadow: 2px 2px 8px 3.0 #333333b0;
+}
+
+@keyframes 'bp_level_1'{
+     0%{
+         box-shadow: #02c0eb0c 0px 0px 8px 0px;
+     }
+     50%{
+     	box-shadow: #02c0eb0c 0px 0px 16px 1px;
+     }
+     100%{
+     	box-shadow: #02c0eb0c 0px 0px 8px 0px;
+     }
+}
+
+@keyframes 'bp_level_2'{
+     0%{
+         box-shadow: #eb021d0c 0px 0px 8px 0px;
+     }
+     50%{
+     	box-shadow: #eb021d0c 0px 0px 16px 1px;
+     }
+     100%{
+     	box-shadow: #eb021d0c 0px 0px 8px 0px;
+     }
+}
+
+@keyframes 'bp_level_3'{
+     0%{
+         box-shadow: #ebc4020c 0px 0px 8px 0px;
+     }
+     50%{
+     	box-shadow: #ebc4020c 0px 0px 16px 1px;
+     }
+     100%{
+     	box-shadow: #ebc4020c 0px 0px 8px 0px;
+     }
+}
+
+.BuyBattlePassWindow
+{
+	align: center center;
+	width: 1200px;
+	height: 700px;
+	margin-bottom: 100px;
+	visibility: collapse;
+}
+
+#BuyBattlePassWindow_level_1
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/buy_level1.png");
+  	background-size: 100%;
+}
+#BuyBattlePassWindow_level_2
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/buy_level2.png");
+  	background-size: 100%;
+}
+#BuyBattlePassWindow_level_3
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/buy_level3.png");
+  	background-size: 100%;
+}
+#BuyBattlePassWindow_coinshop
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/coin_shop.png");
+  	background-size: 100%;
+}
+
+.BuyBattlePassWindowHeader
+{
+	width: 100%;
+	height: 150px;
+}
+
+.BuyBattlePassWindowHeaderLabel
+{
+	margin-left: 60px;
+	margin-top: 11px;
+	horizontal-align: center;
+	font-weight: bold;
+	color: white;
+	font-size: 30px;
+	text-shadow: 2px 2px 8px 7.0 #333333b0;
+}
+
+.BattlePassDuration
+{
+	vertical-align: center;
+	width: 200px;
+	height: 70px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #101010 ), to( #202020 ));
+	border-top: 1px solid #ffffff11;
+	border-left: 1px solid #ffffff06;
+	border-right: 1px solid #ffffff06;
+	border-bottom: 1px solid  #ffffff11;
+	margin-left: 100px;
+}
+
+.BattlePassDurationLabel
+{
+	color: white;
+	align: center center;
+	text-align: center;
+	font-size: 14px;
+	font-family: Gulim;
+}
+
+.BuyMenu
+{
+	width: 400px;
+	horizontal-align: right;
+	margin-top: 150px;
+	margin-right: 100px;
+	flow-children: down;
+}
+
+.DonateLine_1
+{
+	width: 100%;
+	height: 45px;
+	border-radius: 6px;
+	border: 2px solid #02d0eb9f;
+	padding-left: 70px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.DonateLine_2
+{
+	width: 100%;
+	height: 45px;
+	border-radius: 6px;
+	border: 2px solid #eb02029f;
+	padding-left: 70px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.DonateLine_3
+{
+	width: 100%;
+	height: 45px;
+	border-radius: 6px;
+	border: 2px solid #ebd3029f;
+	padding-left: 70px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.DonateLineText
+{
+	color: white;
+	vertical-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: Reaver;
+}
+
+.DonateLineSum
+{
+	color: gold;
+	vertical-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: Reaver;
+}
+
+.DonateLineIconArena
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/arena_coin.png");
+  	background-size: 100%;
+  	width: 28px;
+  	height: 28px;
+  	vertical-align: center;
+  	margin-left: 5px;
+}
+
+.DonateLineIconDonate
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/donate_coin.png");
+  	background-size: 100%;
+  	width: 28px;
+  	height: 28px;
+  	vertical-align: center;
+  	margin-left: 5px;
+}
+
+.DonateLineButton
+{
+	horizontal-align: right;
+	height: 100%;
+	width: 80px;
+}
+
+.DonateLineButtonText_1
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/level1_button_bg.png");
+  	background-size: 100%;
+  	border-left: 2px solid #02d0eb9f;
+}
+
+.DonateLineButtonText_2
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/level2_button_bg.png");
+  	background-size: 100%;
+  	border-left: 2px solid #eb02029f;
+}
+
+.DonateLineButtonText_3
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/level3_button_bg.png");
+  	background-size: 100%;
+  	border-left: 2px solid #ebd3029f;
+}
+
+.DonateLineButtonText_4
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/coin_shop_button_bg.png");
+  	background-size: 100%;
+  	border-left: 2px solid #eb8e029f;
+}
+
+.DonateLineButton:hover
+{
+	brightness: 1.4;
+}
+
+.DonateLineButton:active
+{
+	brightness: 0.8;
+}
+
+.DonateLineButtonText
+{
+	font-weight: bold;
+	color: white;
+	font-size: 20px;
+	align: center center;
+	text-shadow: 2px 2px 8px 7.0 #333333b0;
+}
+
+.DonateBonus
+{
+	width: 100%;
+	height: 1px;
+	margin-top: 10px;
+	border-top: 1px solid white;
+	border-brush: gradient( radial, 50% 50%, 0% 0%, 51% 55%, from( white ), to( #fff0 ) );
+}
+
+.DonateBonusLabel
+{
+	color: white;
+	margin-top: 15px;
+	font-family: Reaver;
+	height: 280px;
+	overflow: squish scroll;
+}
+
+.CoinShop2Panels
+{
+	align: center center;
+	flow-children: right;
+	height: 440px;
+}
+
+.CoinShopStolb
+{
+	flow-children: down;
+	width: 400px;
+	height: 100%;
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.CoinShopStolbHeader
+{
+	horizontal-align: center;
+	flow-children: right;
+	margin-bottom: 15px;
+}
+
+.CoinShopStolbIcon
+{
+	width: 64px;
+	height: 64px;
+	vertical-align: center;
+	background-image: url("file://{images}/custom_game/donate/battlepass/arena_coin.png");
+  	background-size: 100%;
+}
+
+.CoinShopStolbIcon2
+{
+	width: 64px;
+	height: 64px;
+	vertical-align: center;
+	background-image: url("file://{images}/custom_game/donate/battlepass/donate_coin.png");
+  	background-size: 100%;
+}
+
+.CoinShopStolbName
+{
+	font-family: Reaver;
+	font-size: 32px;
+	color: white;
+	font-weight: bold;
+	vertical-align: center;
+	margin-left: 20px;
+}
+
+
+.coinshop_line
+{
+	width: 100%;
+	height: 45px;
+	border-radius: 6px;
+	border: 2px solid #eb8e029f;
+	padding-left: 40px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+
+
+
+
+#donate_loading_window
+{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.95);
+	visibility: collapse;
+}
+
+#donate_loading_label
+{
+	font-size: 20px;
+	color: white;
+	margin-top: 5px;
+}
+
+#LoadingSpinner
+{
+    width: 30px;
+    height: 30px;
+    align: center center;
+    background-image: url("s2r://panorama/images/status_icons/loadingthrobber_round_psd.vtex");
+    background-size: 100%;
+    animation-name: SpinnerRotate;
+    animation-duration: 1.0s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes 'SpinnerRotate'
+{
+    0%
+    {
+        transform: rotateZ( 360deg );
+    }
+    50%
+    {
+        transform: rotateZ( 180deg );
+    }
+    100%
+    {
+        transform: rotateZ( 0deg );
+    }
+}
+
+#donate_accept_window
+{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.95);
+	visibility: collapse;
+}
+
+#donate_accept_label
+{
+	font-size: 40px;
+	color: #16eb02;
+	margin-top: 5px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: Reaver;
+}
+
+#donate_error_window
+{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.95);
+	visibility: collapse;
+}
+
+#donate_error_label
+{
+	font-size: 40px;
+	color: red;
+	margin-top: 5px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: Reaver;
+}
+
+
+
+.RewardsWindow
+{
+	align: center center;
+	width: 1200px;
+	height: 850px;
+	background-color: rgba(0,0,0,0.95);
+	flow-children: down;
+	visibility: collapse;
+	pre-transform-scale2d: 0;
+	transition-property: pre-transform-scale2d;
+	transition-duration: 0.5s;
+	margin-bottom: 60px;
+}
+
+#RewardsWindow.sethidden {
+    pre-transform-scale2d: 0;
+    transition-property: pre-transform-scale2d;
+    transition-duration: 0.5s;
+}
+
+#RewardsWindow.setvisible {
+    pre-transform-scale2d: 1;
+    transition-property: pre-transform-scale2d;
+    transition-duration: 0.5s;
+}
+
+.RewardsMain
+{
+	margin-top: 20px;
+	width: 100%;
+	horizontal-align: center;
+	flow-children: right-wrap;
+	overflow: squish scroll;
+}
+
+.RewardBlock
+{
+	width: 200px;
+	height: 240px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: gradient( linear, 0% 0%, 90% 100%, from( #181f27 ), to( #181f2715 ) );
+	border: 1px solid gray;
+	flow-children: down;
+}
+
+.RewardName
+{
+	horizontal-align: center;
+	color: white;
+	font-family: Reaver;
+	font-weight: bold;
+	font-size: 24px;
+	margin-top: 5px;
+}
+
+.RewardIcon
+{
+	width: 128px;
+	height: 128px;
+	background-color: gradient( linear, 0% 0%, 90% 100%, from( #2a2d36 ), to( #0f1113 ) );
+	horizontal-align: center;
+	margin-top: 5px;
+	border: 1px solid black;
+}
+
+.RewardDescription
+{
+	horizontal-align: center;
+	color: white;
+	font-family: Reaver;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+.RewardReceive
+{
+	width: 120px;
+	height: 25px;
+	margin-top: 5px;
+	background-image: url("file://{images}/custom_game/donate/rewards/select_active.png");
+  	background-size: 100%;
+	horizontal-align: center;
+}
+
+.RewardReceive:hover
+{
+	brightness: 1.4;
+}
+
+.RewardReceive:active
+{
+	brightness: 0.8;
+}
+
+.RewardReceiveLabel
+{
+	align: center center;
+	color: white;
+	font-weight: bold;
+	text-shadow: 0px 0px 2px 2 black;
+}
+
+#SmilesButton
+{
+	background-image: url("s2r://panorama/images/control_icons/emoticon_icon_psd.vtex");
+	background-position: 50% 50%;
+	width: 30px;
+	height: 100%;
+	padding-left: 5px;
+	background-size: 20px;
+	vertical-align: middle;
+	wash-color: #737f83;
+	background-repeat: no-repeat;
+}
+
+#SmilesButton:hover
+{
+	brightness: 2;
+}
+
+
+
+.SmilesWindow
+{
+	align: center center;
+	width: 300px;
+	height: 0px;
+	margin-left: 26%;
+	margin-top: 12.5%;
+	background-color: rgba(0,0,0,0.75);
+	flow-children: right-wrap;
+	overflow: squish scroll;
+	visibility: collapse;
+	transition-property: height;
+	transition-duration: 0.2s;
+}
+
+#SmilesWindow.sethidden {
+    height: 0px;
+    transition-property: height;
+    transition-duration: 0.2s;
+}
+
+#SmilesWindow.setvisible {
+    height: 300px;
+    transition-property: height;
+    transition-duration: 0.2s;
+}
+
+.SmileBlock
+{
+	width: 44px;
+	height: 44px;
+	transition-property: pre-transform-scale2d;
+    transition-duration: 0.25s;
+    margin: 7px;
+	//background-image: url("file://{images}/custom_game/donate/smiles/roflanebalo.png");
+}
+
+.SmileBlock:hover
+{
+    pre-transform-scale2d: 1.05;
+}
+
+.SmileIcon
+{
+	width: 100%;
+	height: 100%;
+}
+
+.BlockSmile
+{
+	width: 100%;
+	height: 100%;
+	align: center center;
+	background-image: url("s2r://panorama/images/hero_selection/banned_overlay_psd.vtex");
+    background-size: 100% 100%;
+    wash-color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+.WheelWindow
+{
+	align: center center;
+	width: 1300px;
+	height: 950px;
+	background-color: rgba(0,0,0,0.95);
+	flow-children: down;
+	visibility: collapse;
+	pre-transform-scale2d: 0;
+	transition-property: pre-transform-scale2d;
+	transition-duration: 0.5s;
+	margin-top: 50px;
+}
+
+#WheelWindow.sethidden {
+    pre-transform-scale2d: 0;
+    transition-property: pre-transform-scale2d;
+    transition-duration: 0.5s;
+}
+
+#WheelWindow.setvisible {
+    pre-transform-scale2d: 1;
+    transition-property: pre-transform-scale2d;
+    transition-duration: 0.5s;
+}
+
+.WheelMain
+{
+	margin-top: 10px;
+	width: 100%;
+	horizontal-align: center;
+	height: 100%;
+}
+
+.ChestImage
+{
+	width: 150px;
+	height: 150px;
+	box-shadow: black 0px 0px 15px 2px;
+	align: center center;
+}
+
+.QuestSingle
+{
+	font-weight: bold;
+	font-size: 128px;
+	align: center center;
+	color: white;
+	text-shadow: 0px 0px 12px 5 black;
+	text-align: center;
+}
+
+.Closed
+{
+	background-image: url("file://{images}/custom_game/donate/wheel/chest.png");
+  	background-size: 100%;
+}
+
+#chest_1
+{
+	margin-bottom: 710px;
+	margin-right: 1050px;
+}
+
+#chest_2
+{
+	margin-bottom: 710px;
+	margin-right: 700px;
+}
+
+#chest_3
+{
+	margin-bottom: 710px;
+	margin-right: 350px;
+}
+
+#chest_4
+{
+	margin-bottom: 710px;
+}
+
+#chest_5
+{
+	margin-bottom: 710px;
+	margin-left: 350px;
+}
+
+#chest_6
+{
+	margin-bottom: 710px;
+	margin-left: 700px;
+}
+
+#chest_7
+{
+	margin-bottom: 710px;
+	margin-left: 1050px;
+}
+
+#chest_8
+{
+	margin-bottom: 360px;
+	margin-left: 1050px;
+}
+
+#chest_9
+{
+	margin-bottom: 10px;
+	margin-left: 1050px;
+}
+
+#chest_10
+{
+	margin-top: 340px;
+	margin-left: 1050px;
+}
+
+#chest_11
+{
+	margin-top: 695px;
+	margin-left: 1050px;
+}
+
+#chest_12
+{
+	margin-top: 695px;
+	margin-left: 700px;
+}
+
+#chest_13
+{
+	margin-top: 695px;
+	margin-left: 350px;
+}
+
+#chest_14
+{
+	margin-top: 695px;
+}
+
+#chest_15
+{
+	margin-top: 695px;
+	margin-right: 350px;
+}
+
+#chest_16
+{
+	margin-top: 695px;
+	margin-right: 700px;
+}
+
+#chest_17
+{
+	margin-top: 695px;
+	margin-right: 1050px;
+}
+
+#chest_18
+{
+	margin-top: 340px;
+	margin-right: 1050px;
+}
+
+#chest_19
+{
+	margin-bottom: 10px;
+	margin-right: 1050px;
+}
+
+#chest_20
+{
+	margin-bottom: 360px;
+	margin-right: 1050px;
+}
+
+.ChestBGImage
+{
+	background-image: url("file://{images}/custom_game/donate/wheel/chest_bg.png");
+  	background-size: 100%;
+  	width: 300px;
+  	height: 300px;
+  	align: center center;
+  	margin-right: 400px;
+}
+
+.KeyBGImage
+{
+	background-image: url("file://{images}/custom_game/donate/wheel/key.png");
+  	background-size: 100%;
+  	width: 199px;
+  	height: 152px;
+  	align: center center;
+  	margin-left: 400px;
+}
+
+.ArenaCoinChest
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/arena_coin.png");
+  	background-size: 100%;
+  	width: 54px;
+  	height: 54px;
+  	border-radius: 64px;
+  	border: 1px solid black;
+  	box-shadow: #ffcc0007 0px 0px 5px 0px;
+}
+
+.ArenaCoinChestLabel
+{
+	margin-left: 10px;
+	vertical-align: center;
+	font-size: 42px;
+	color: gold;
+	font-family: defaultFont;
+	font-weight: bold;
+	text-shadow: 0px 0px 10px #B7894666;
+	width: 120px;
+}
+
+.ButtonChestOpen
+{
+	width: 200px;
+	height: 50px;
+	background-image: url("file://{images}/custom_game/donate/wheel/button_roll.png");
+  	background-size: 100%;
+  	align: center center;
+  	margin-left: 400px;
+  	margin-top: 370px;
+  	box-shadow: black 0px 0px 5px 1px;
+}
+
+.ButtonChestOpen:Hover
+{
+	brightness: 1.4;
+}
+
+.ButtonChestOpen:Active
+{
+	brightness: 0.8;
+}
+
+.ButtonChestOpenLabel
+{
+	color: white;
+	font-weight: bold;
+	font-family: Reaver;
+	horizontal-align: center;
+	vertical-align: center;
+	text-shadow: 2px 2px 8px 3.0 #333333b0;
+}
+
+.BalanceChest
+{
+	flow-children: right;
+	align: center center;
+	margin-left: 450px;
+	margin-bottom: 300px;
+}
+
+.BalanceCoinChest
+{
+	background-image: url("file://{images}/custom_game/donate/battlepass/arena_coin.png");
+  	background-size: 100%;
+  	width: 54px;
+  	height: 54px;
+  	border-radius: 64px;
+  	border: 1px solid black;
+  	box-shadow: #ffcc0007 0px 0px 5px 0px;
+}
+
+.BalanceCoinChestLabel
+{
+	margin-left: 10px;
+	vertical-align: center;
+	font-size: 42px;
+	color: white;
+	font-family: defaultFont;
+	font-weight: bold;
+	text-shadow: 0px 0px 10px #B7894666;
+	width: 120px;
+}
+
+#wheel_reward_panel
+{
+	align: center center;
+	background-color: rgba(0,0,0,0.99);
+	width: 500px;
+	height: 200px;
+	flow-children: down;
+	visibility: collapse;
+	border: 1px solid gray;
+}
+
+.wheel_reward_panel_label1
+{
+	color: white;
+	horizontal-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+.wheel_reward_panel_label2
+{
+	color: white;
+	horizontal-align: center;
+	margin-top: 35px;
+	font-size: 22px;
+}
+
+.wheel_reward_panel_button
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #60862d ), to( #3d5f1c ) );
+	width: 150px;
+	height: 50px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 10px;
+}
+
+.wheel_reward_panel_label3
+{
+	color: white;
+	font-weight: bold;
+	font-family: Reaver;
+	horizontal-align: center;
+	vertical-align: center;
+	text-shadow: 2px 2px 8px 3.0 #333333b0;
+}
+
+.DonateCallbackInfo
+{
+	align: center center;
+	margin-top: 450px;
+	color: white;
+	font-family: Reaver;
+	text-align: center;
+	width: 650px;
+}
+
+#donate_coin_panel
+{
+	align: center center;
+	width: 500px;
+	height: 300px;
+	background-color: rgba(0,0,0,0.99);
+	background-image: url("s2r://panorama/images/custom_game/donate/battlepass/coin_shop_png.vtex");
+	background-size: 100%;
+	border: 2px solid black;
+	flow-children: down;
+	visibility: collapse;
+}
+
+.CloseInfoItem {
+    align: right top;
+    margin-top: 10px;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    background-image: url("s2r://panorama/images/control_icons/x_close_grey_psd.vtex");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    transition-property: wash-color;
+    transition-duration: 0.1s;
+}
+
+.CloseInfoItem:hover {
+    brightness: 2;
+    pre-transform-scale2d: 1.05;
+}
+
+.CloseInfoItem:Active {
+    pre-transform-scale2d: 0.9;
+}
+
+.QiwiButton
+{
+	width: 250px;
+    height: 94px;
+    margin-top: 10px;
+    background-image: url("file://{images}/custom_game/donate/qiwi.png");
+    background-size: 100%;
+    horizontal-align: center;
+}
+
+.QiwiButton:hover
+{
+	brightness: 1.4;
+}
+
+.QiwiButtonText
+{
+	margin-top: 2px;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	horizontal-align: center;
+}
+
+.DaButton
+{
+	width: 180px;
+    height: 64px;
+    margin-top: 10px;
+    background-image: url("file://{images}/custom_game/donate/da.png");
+    background-size: 100%;
+    horizontal-align: center;
+}
+
+.DaButton:hover
+{
+	brightness: 1.4;
+}
+
+.DaButtonText
+{
+	margin-top: 2px;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	horizontal-align: center;
+}
+
+
+
+
+.Recalibrate_panel
+{
+	align: center center;
+	width: 600px;
+	height: 250px;
+	background-color: rgba(0,0,0,0.95);
+	flow-children: down;
+	visibility: collapse;
+	pre-transform-scale2d: 0;
+	transition-property: pre-transform-scale2d;
+	transition-duration: 0.5s;
+}
+
+#RacalibrateWindow.sethidden {
+    pre-transform-scale2d: 0;
+    transition-property: pre-transform-scale2d;
+    transition-duration: 0.5s;
+}
+
+#RacalibrateWindow.setvisible {
+    pre-transform-scale2d: 1;
+    transition-property: pre-transform-scale2d;
+    transition-duration: 0.5s;
+}
+
+.HeaderPanelLabelRecalibr
+{
+	color: white;
+	align: center center;
+	font-size: 32px;
+	text-shadow: -1px -1px 12px rgba(255,255,255,0.2);
+	font-weight: bold;
+}
+
+.HeaderRecalibrate
+{
+	width: 100%;
+	height: 50px;
+}
+
+.CloseRec 
+{
+    width: 35px;
+    height: 35px;
+    horizontal-align: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-image: url("s2r://panorama/images/control_icons/x_close_grey_psd.vtex");
+    background-size: 100% 100%;
+    wash-color: white;
+    transition-property: wash-color;
+    transition-duration: 0.1s;
+    brightness: 3;
+}
+
+.CloseRec:hover 
+{
+    brightness: 1;
+    wash-color: #888888;
+}
+
+.RecalMain
+{
+	flow-children: down;
+	width: 100%;
+}
+
+.PanelTicket
+{
+	flow-children: left;
+	horizontal-align: center;
+}
+
+.TicketIcon
+{
+	width: 32px;
+	height: 32px;
+	background-image: url("file://{images}/custom_game/donate/rewards/rating_ticket.png");
+  	background-size: 100%;
+  	vertical-align: center;
+}
+
+.TicketCount
+{
+	vertical-align: center;
+	color: white;
+	font-weight: bold;
+	font-family: Reaver;
+	margin-right: 5px;
+}
+
+.RecalButton
+{
+	background-color: #3366aa11;
+	border: 1px solid #3366aa55;
+  	width: 200px;
+  	height: 50px;
+  	horizontal-align: center;
+  	margin-top: 50px;
+}
+
+.RecalButton:hover
+{
+	brightness: 1.4;
+}
+
+.RecalAccept
+{
+	align: center center;
+	color: white;
+	font-family: Reaver;
+	font-weight: bold;
+}

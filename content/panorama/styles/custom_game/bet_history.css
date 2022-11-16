@@ -1,0 +1,104 @@
+.Hidden{
+    opacity: 0;
+}
+
+ .Collapse{
+   visibility: collapse;
+ }
+
+ #BetHistoyHeaderTitle{
+   color:white;
+   font-size: 22px;
+   padding-top: 0px;
+   padding-bottom: 7px;
+   padding-left: 10px;
+   vertical-align: center;
+   font-family:defaultFont;
+ }
+
+
+ .HUDFlipped #BetHistoyMain{
+
+   horizontal-align:left;
+ }
+
+
+ #BetHistoyMain{
+    flow-children: down;
+    margin-top: 210px;
+    width: 400px;
+    transition-property:opacity;
+    transition-duration:0.2s;
+    margin-top: 700px;
+    padding-top: 10px;
+    transition-property: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    horizontal-align:right;
+    max-height: 240px;
+    background-image: url("s2r://panorama/images/custom_game/extract/ability_bg_png.vtex");
+    background-size:100% 100%;
+ }
+
+
+
+
+ #BetHistoyContainer{
+    flow-children: down;
+    overflow: squish scroll;
+    width: 100%;
+ }
+
+ .Odd{
+   background-color: gradient( linear, 100% 0%, 0% 0%, from( #424a4f00 ), to( #2a2d42ff ) );
+ }
+ .Even{
+   background-color: gradient( linear, 100% 0%, 0% 0%, from( #424a4f00 ), to( #373f4888 ) );
+ }
+ #BetHistoyEmptyTitle{
+    font-size: 20px;
+    color:#afd2e3;
+    vertical-align: center;
+    horizontal-align:center;
+    padding: 20px;
+ }
+
+ .HistoryItemPanel{
+    flow-children:right;
+ }
+
+ #Value{
+    margin-left: 10px;
+    vertical-align: center;
+ }
+
+ #Vs{
+   font-size: 30px;
+   vertical-align: center;
+   color: white;
+ }
+
+ .HeroIcon{
+   margin-left: 5px;
+   margin-right: 5px;
+   vertical-align: center;
+ }
+
+ .Defeated{
+   wash-color: #CD5C5C;
+   saturation: 0.6;
+ }
+
+ .Red{
+  color:#EA7070;
+ }
+
+ .Green{
+  color:#70EA72;
+ }
+
+ .YouLabel{
+   font-size: 20px;
+   vertical-align: center;
+   color: white;
+}

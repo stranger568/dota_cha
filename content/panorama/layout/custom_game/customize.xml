@@ -1,0 +1,98 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/customize.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/customize.js" />
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+	</scripts>
+
+	<Panel style="width:100%;height:100%;" hittest="false">
+		
+		<!--<Panel id="GuideCHAButton" onactivate="ToggleGuide();" />-->
+
+		<Panel class="CustomizeProfileWindow sethidden" id="CustomizeProfileWindow" hittest="false">
+			<Panel class="CustomizeProfilelogo">
+				<Label text="#customize_profile_settings" class = "CustomizeProfileLabel"/>	
+				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenCustomize();"/>
+			</Panel>
+
+			<Panel class="ChooseCustomizeBlock">
+				<Label class="ChooseCustomizeBlockTitle" text="#customize_nickname" />
+				<Panel class="SectionHeaderLine" />
+				<Panel class="ChooseList" >
+					<Panel class="ChooseBlock closed" id="nickname_id_0">
+						<Panel class="ChooseBlockImage" id="nickname_id_0_avatar" />
+						<Label class="ChooseBlockName" text="#customize_nickname_white" />
+					</Panel>
+					<Panel class="ChooseBlock closed" id="nickname_id_1">
+						<Panel class="ChooseBlockImage" id="nickname_id_1_avatar" />
+						<Label class="ChooseBlockName" text="#customize_nickname_team" />
+					</Panel>
+					<Panel class="ChooseBlock closed" id="nickname_id_2">
+						<Panel class="ChooseBlockImage" id="nickname_id_2_avatar" />
+						<Label class="ChooseBlockName" text="#customize_nickname_rainbow" />
+					</Panel>
+					<Panel class="ChooseBlock closed" id="nickname_id_3">
+						<Panel class="ChooseBlockImage" id="nickname_id_3_avatar" />
+						<Label class="ChooseBlockName" text="#customize_nickname_gold" />
+					</Panel>
+				</Panel>
+			</Panel>
+
+			<Panel class="ChooseCustomizeBlock">
+				<Label class="ChooseCustomizeBlockTitle" text="#customize_frame" />
+				<Panel class="SectionHeaderLine" />
+				<Panel class="ChooseList" >
+					<Panel class="ChooseBlock closed" id="frame_id_0">
+						<Panel class="ChooseBlockImage" id="frame_id_0_avatar" />
+						<Label class="ChooseBlockName" text="#customize_frame_off" />
+					</Panel>
+					<Panel class="ChooseBlock closed" id="frame_id_1">
+						<Panel class="ChooseBlockImage" id="frame_id_1_avatar" />
+						<Label class="ChooseBlockName" text="#customize_frame_team" />
+					</Panel>
+					<Panel class="ChooseBlock closed" id="frame_id_2">
+						<Panel class="ChooseBlockImage" id="frame_id_2_avatar" />
+						<Label class="ChooseBlockName" text="#customize_frame_rainbow" />
+					</Panel>
+					<Panel class="ChooseBlock closed" id="frame_id_3">
+						<Panel class="ChooseBlockImage" id="frame_id_3_avatar" />
+						<Label class="ChooseBlockName" text="#customize_frame_gold" />
+					</Panel>
+				</Panel>
+			</Panel>
+
+			<Panel class="ChooseCustomizeBlock">
+				<Label class="ChooseCustomizeBlockTitle" text="#customize_effect" />
+				<Panel class="SectionHeaderLine" />
+				<Panel class="ChooseList" >
+					<Panel class="ChooseBlock closed" id="effect_id_0">
+						<Panel class="ChooseBlockImage" id="effect_id_0_avatar" />
+						<Label class="ChooseBlockName" text="#customize_frame_off" />
+					</Panel>
+					<Panel class="ChooseBlock closed" id="effect_id_1">
+						<Panel class="ChooseBlockImage" id="effect_id_1_avatar" />
+						<Label class="ChooseBlockName" text="#customize_effect_1_season" />
+					</Panel>
+					<Panel class="ChooseBlock closed" id="effect_id_2">
+						<Panel class="ChooseBlockImage" id="effect_id_2_avatar" />
+						<Label class="ChooseBlockName" text="#customize_effect_2_season" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>
+
+
+ 
+
+
+ 
+
+
+
+

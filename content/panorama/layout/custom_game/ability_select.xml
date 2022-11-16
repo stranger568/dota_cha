@@ -1,0 +1,49 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="s2r://panorama/styles/custom_game/ability_select.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/security.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/ability_note.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/ability_select.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="AbilitySelectorAbility">
+			<Panel class="AbilitySelectorRoot">
+				<Panel class="AbilityImagePanel">
+					<Panel id="CooldownOverlay" class="Hidden" hittest="false" />
+					<DOTAAbilityImage id="AbilityImage" />
+					<Panel class="LinkedAbility">
+						<Panel id="LinkedAbilityPlusIcon" class="LinkedAbilityPlusIcon LinkedAbilityCollapse" />
+						<DOTAAbilityImage id="LinkedAbilityImage_1" class="LinkedAbilityCollapse" />
+						<DOTAAbilityImage id="LinkedAbilityImage_2" class="LinkedAbilityCollapse" />
+						<DOTAAbilityImage id="LinkedAbilityImage_3" class="LinkedAbilityCollapse" />
+					</Panel>
+				</Panel>
+				<Label id="AbilityName" text="" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel class="AbilitySelectorPanelRootSide" id="AbilitySelectorPanelRoot">
+			<Panel class="AbilitySelectorPanelSide" id="AbilitySelectorPanel">
+				<Label id="AbilitySelectorTitle" text="#AbilitySelectorTitle" />
+				<Panel class="AbilitySelectorAbilityBodySide" id="AbilitySelectorAbilityBody" />
+				<ToggleButton id="SaveSpellBookCheckBox">
+					<Label class="SaveSpellBookLabel" text="#save_spell_book" />
+				</ToggleButton>
+			</Panel>
+			<Panel id="AbilitySelectButtonPanel">
+				<Button id="AbilitySelector_CloseButton" onactivate="CloseAbilitySelect()" onmouseover="DOTAShowTextTooltip(&apos;#AbilitySelection_Close_Description&apos;)" onmouseout="DOTAHideTextTooltip()">
+					<Label class="AbilitySelection_Close" id="AbilitySelection_Close" text="#AbilitySelection_Close" />
+				</Button>
+				<Button id="AbilitySelector_HideButton" onactivate="HideAbilitySelect()" onmouseover="DOTAShowTextTooltip(&apos;#AbilitySelection_Hide_Description&apos;)" onmouseout="DOTAHideTextTooltip()">
+					<Label class="AbilitySelection_Hide" text="#AbilitySelection_Hide" />
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

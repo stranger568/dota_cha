@@ -1,0 +1,8 @@
+douyu_1x8
+{
+	material materials/overviews/douyu_1x8.vmat
+	pos_x -8960
+	pos_y 8960
+	scale 17.500
+}
+

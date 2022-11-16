@@ -1,0 +1,24 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/team_select.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/team_select_player.vjs_c" />
+	</scripts>
+	<Panel class="TeamSelectPlayer">
+		<Panel id="PlayerNamePanel">
+			<DOTAAvatarImage id="PlayerAvatar" />
+			<Label id="PlayerIsHostPanel" />
+			<Label id="PlayerName" text="PLAYER_NAME" />
+		</Panel>
+		<Panel id="Score" class="Score_Label">
+			<Panel id="rank_image" class="rank_image"/>
+			<Label id="rank_number" class="rank_number" />
+		</Panel>
+		<Label id="PlayTime" class="PlayTime_Label" text="0" />
+		<Label id="EarlyLeave" class="EarlyLeave_Label" text="0" />
+	</Panel>
+</root>

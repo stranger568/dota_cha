@@ -1,0 +1,88 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/lottery.vcss_c" />
+		<include src="s2r://panorama/styles/dotastyles.css" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/inventory.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/lottery.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="LotteryItem">
+			<Panel class="LotteryItemRoot">
+				<Panel id="lottery_item_title_panel" class="LotteryItemTitlePanel">
+					<Panel class="LotteryItemTitlePanelInner">
+						<Label id="lottery_item_title" />
+						<Label id="lottery_item_title" />
+					</Panel>
+				</Panel>
+				<Panel class="LotteryItemImagePanel">
+					<Image id="lottery_item_image" />
+					<Label id="lottery_item_rarity" class="LotteryItemRarity" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;z-index:3;" hittest="false">
+		<Panel class="Lottery Hidden" id="page_lottery">
+			<Panel class="LotteryCellRow">
+				<Panel class="LotteryCell" id="LotteryCell_1" />
+				<Panel class="LotteryCell" id="LotteryCell_2" />
+				<Panel class="LotteryCell" id="LotteryCell_3" />
+				<Panel class="LotteryCell" id="LotteryCell_4" />
+				<Panel class="LotteryCell" id="LotteryCell_5" />
+			</Panel>
+			<Panel class="LotteryCellRowMiddle">
+				<Panel class="LotteryCell" id="LotteryCell_14" />
+				<Panel class="LotteryCellMiddle" style="position:250.600037px 230.0px 0.0px;">
+					<Button id="LotteryActiveButton" onactivate="StartLottery()">
+						<Panel class="LotteryActiveButtonIconAndText">
+							<Panel class="LotteryActiveButtonIcon" />
+							<Label class="LotteryActiveButtonText" text="  X  50" />
+						</Panel>
+					</Button>
+					<Button id="LotteryCloseButton" onactivate="CloseLottery()">
+						<Label class="LotteryCloseButtonText" text="#Close" />
+					</Button>
+				</Panel>
+				<Panel class="LotteryCell" style="position:777.600037px 0.0px 0.0px;" id="LotteryCell_6" />
+				<Panel class="LotteryCell" style="position:0.0px 230.0px 0.0px;" id="LotteryCell_13" />
+				<Panel class="LotteryCell" style="position:777.600037px 230.0px 0.0px;" id="LotteryCell_7" />
+			</Panel>
+			<Panel class="LotteryCellRow">
+				<Panel class="LotteryCell" id="LotteryCell_12" />
+				<Panel class="LotteryCell" id="LotteryCell_11" />
+				<Panel class="LotteryCell" id="LotteryCell_10" />
+				<Panel class="LotteryCell" id="LotteryCell_9" />
+				<Panel class="LotteryCell" id="LotteryCell_8" />
+			</Panel>
+		</Panel>
+		<Panel class="NewItemNotify Hidden" id="new_item_notify">
+			<Label id="new_item_notify_label" class="NewItemNotifyLabel" />
+			<Panel id="new_item_notify_container" class="NewItemNotifyContainer">
+				<Panel class="LotteryItemRoot">
+					<Panel id="lottery_item_title_panel" class="LotteryItemTitlePanel">
+						<Panel class="LotteryItemTitlePanelInner">
+							<Label id="lottery_new_item_title" />
+						</Panel>
+					</Panel>
+					<Panel class="LotteryItemImagePanel">
+						<Image id="lottery_new_item_image" />
+						<Label id="lottery_item_rarity" class="LotteryItemRarity" />
+					</Panel>
+				</Panel>
+				<Panel class="NewItemNotifyRight">
+					<Panel id="refund_container" class="NewItemNotifyRightIconAndText Hidden">
+						<Panel class="NewItemFragmentIcon" />
+						<Label id="lottery_refund_text" class="LotteryActiveButtonText" text="  X  50" />
+					</Panel>
+					<Button class="ButtonBevel NewItemNotifyConfirm" id="new_item_confirm" onactivate="HideNotify()">
+						<Label text="#Confirm" />
+					</Button>
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

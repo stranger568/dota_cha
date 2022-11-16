@@ -1,0 +1,8 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/ability_note.vjs_c" />
+	</scripts>
+	<Panel style="visibility: collapse;" />
+</root>

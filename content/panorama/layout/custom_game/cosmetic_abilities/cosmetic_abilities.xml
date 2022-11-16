@@ -1,0 +1,24 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/layout/custom_game/cosmetic_abilities/cosmetic_abilities.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/layout/custom_game/cosmetic_abilities/cosmetic_abilities.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="CosmeticAbility">
+			<Button class="CosmeticAbility">
+				<Image id="CosmeticAbilityImage" />
+				<Panel id="CooldownRoot">
+					<Panel id="CooldownEffect" />
+					<Label id="CooldownValue" />
+				</Panel>
+			</Button>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel id="BarOverItemsOverride" hittest="false" />
+	</Panel>
+</root>

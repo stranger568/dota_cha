@@ -1,0 +1,96 @@
+ .DiscordPanel
+ {
+  background-size: 100%;
+  background-image: url("file://{images}/custom_game/discord.png");
+  width: 230px;
+  height: 230px;
+  img-shadow: 0px 0px 8px 3.0 black;
+       align: left top;
+       margin-top: 200px;
+       margin-left: 20px;
+     z-index: 5;
+         animation-name: discord;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+ }
+
+ .DiscordPanel:hover
+ {
+    brightness: 1.2;
+ }
+ .DiscordPanel:active
+ {
+    brightness: 0.8;
+ }
+
+@keyframes 'discord'
+{
+    0%
+    {
+        img-shadow: 0px 0px 8px 8.0 black;
+    }
+    50%
+    {
+        img-shadow: 0px 0px 8px 3.0 black;
+    }
+    100%
+    {
+        img-shadow: 0px 0px 8px 8.0 black;
+    }
+}
+
+#Movie
+{
+    width: 100%;
+    height: 100%;
+}
+
+#TipContainer{
+     margin-top: 200px;
+     margin-left: 950px;
+     width: 500px;
+     height: 60px;
+     border-radius: 8px;
+     padding: 8px;
+     background-color: gradient( linear, 0% 0%, 0% 100%, from( #272d2eee ), to( #131617ee ) );
+     box-shadow: #868686a8 0px 0px 5px 1px;
+     z-index: 1;
+}
+ #TipText{
+
+     horizontal-align:center;
+
+     margin-right: 8px;
+     margin-left: 8px;
+     max-width: 500px;
+     height: 100%;
+     padding: 2px;
+ }
+ #TipText > Label{
+
+
+   vertical-align: center;
+   color: #ffffff;
+   text-overflow: shrink;
+ }
+ #PrevTip{
+
+     horizontal-align:left;
+     background-image: url("s2r://panorama/images/custom_game/extract/arrow_solid_left_png.vtex");
+ }
+ #NextTip{
+
+     horizontal-align:right;
+     background-image: url("s2r://panorama/images/custom_game/extract/arrow_solid_right_png.vtex");
+ }
+ .TipButton{
+
+     vertical-align: center;
+     width: 18px;
+     height: 18px;
+     background-size: 80% 80%;
+     background-position: 50% 50%;
+     background-repeat: no-repeat;
+     wash-color:white;
+}

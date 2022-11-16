@@ -1,0 +1,49 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/pvp_brief.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/pvp_brief.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="AbilityItem">
+			<Panel class="AbilityItem" hittest="false">
+				<DOTAAbilityImage id="AbilityImage" />
+				<Panel class="Cooldown" hittest="false">
+					<Panel id="CooldownOverlay" class="Hidden" hittest="false" />
+					<Label id="CooldownTimer" hittest="false" />
+				</Panel>
+				<Panel class="AbilityBevel" />
+			</Panel>
+		</snippet>
+		<snippet name="PlayerBetLine">
+			<Panel class="PlayerBetLine">
+				<Image id="HeroIcon" />
+				<Label id="BetValue" />
+				<ProgressBar id="BetValueProgressBar" value="0.5">
+					<Panel id="BetValueProgressBar_Left" class="ProgressBarLeft" />
+				</ProgressBar>
+			</Panel>
+		</snippet>
+		<snippet name="BarBurner">
+			<Panel style="width:100%;height:100%;">
+				<DOTAScenePanel class="SceneLoaded" map="scenes/hud/healthbarburner" camera="camera_1" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel hittest="false" style="width: 100%; height: 100%;">
+		<Panel hittest="false" id="PvPMainHeaderShowPanel" class="Hidden">
+			<Button hittest="true" id="PvPMainHeaderShowButton" onactivate="TogglePvPMain()" />
+		</Panel>
+		<Panel hittest="false" id="PvPMain" class="PvPMain" class="Hidden">
+			<Panel id="PvPMainHeader">
+				<Label id="PvPMainHeaderTitle" text="#bet_rank" />
+				<Panel id="GoldIcon" />
+				<Label id="GoldValue" />
+				<Button id="PvPMainHeaderHideButton" onactivate="TogglePvPMain()" />
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

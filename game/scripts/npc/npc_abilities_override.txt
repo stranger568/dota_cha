@@ -1,0 +1,769 @@
+
+// Dota Abilities Override File
+"DOTAAbilities"
+{
+	"Version"		"1"	
+
+"item_dagon" "REMOVE"
+"item_dagon_2" "REMOVE"
+"item_dagon_3" "REMOVE"
+"item_dagon_4" "REMOVE"
+"item_dagon_5" 		"REMOVE"
+"item_recipe_dagon" "REMOVE"
+"item_recipe_dagon_2" "REMOVE"
+"item_recipe_dagon_3" "REMOVE"
+"item_recipe_dagon_4" "REMOVE"
+"item_recipe_dagon_5" "REMOVE"
+"item_refresher"	"REMOVE"
+"item_recipe_refresher"	"REMOVE"
+
+	"item_smoke_of_deceit"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_rapier"
+	{
+		"ItemPurchasable"				"0"
+	}
+	"item_ghost"
+	{
+		"ItemPurchasable"				"0"
+	}
+
+	"item_recipe_rapier" "REMOVE"
+
+	"winter_wyvern_arctic_burn"
+	{
+		"AbilitySpecial"
+		{			
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"percent_damage"		"3 3.5 4 4.5"
+			}
+		}
+	}
+
+	"life_stealer_feast"
+	{
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"hp_leech_percent"		"1.6 2.2 2.8 3.4"
+				"LinkedSpecialBonus"	"special_bonus_unique_lifestealer_3"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"hp_damage_percent"		"0.4 0.6 0.8 1.0"
+			}
+		}
+	}
+
+	"witch_doctor_death_ward"
+	{	
+	       "AbilityUnitTargetType"			"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+			"AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE | DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+	}
+
+	"doom_bringer_infernal_blade"
+	{
+		"AbilitySpecial"
+		{	
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"burn_damage_pct"		"0.5 1.0 1.5 2.0"
+				"LinkedSpecialBonus"	"special_bonus_unique_doom_1"
+			}
+		}
+	}
+
+	"death_prophet_spirit_siphon"
+	{
+		"AbilitySpecial"
+		{			
+			"02"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"damage_pct"					"0.75 1.5 2.25 3"
+				"LinkedSpecialBonus"	        "special_bonus_unique_death_prophet_3"
+			}
+		}
+	}
+    	
+    "phantom_assassin_blur"
+    {
+    	"HasShardUpgrade"	"0"
+    	"AbilitySpecial"
+		{
+	    	"02"
+			{
+					"var_type"			"FIELD_FLOAT"
+					"duration"			"3"
+			}
+		}
+    }
+
+    "item_ward_observer"
+	{
+        "ItemPurchasable"				"0"
+	}
+
+    //A帐效果带来BUG
+    "skeleton_king_reincarnation"
+    {
+    	"AbilitySpecial"
+		{
+    	    "07"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"scepter_duration"		  "0"
+				"RequiresScepter"		  "1"
+			}
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"aura_radius"	        "0"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"aura_radius_tooltip_scepter"	"0"
+				"RequiresScepter"			    "1"
+			}
+		}
+    }
+
+    "item_ninja_gear"
+	{	
+		"AbilitySpecial"
+		{
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"8.0"
+			}
+		}
+	}
+
+    "item_hand_of_midas"
+	{
+		"AbilityCooldown"				"120"
+	}
+
+	"item_helm_of_the_dominator"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	"item_helm_of_the_overlord"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+    
+    "item_tpscroll"
+	{
+		"ItemPurchasable"				"0"
+	}
+
+	"item_travel_boots"
+	{
+		 "ItemPurchasable"				"0"
+	}
+
+	"item_travel_boots_2"
+	{
+		 "ItemPurchasable"				"0"
+	}
+
+    
+    //为召唤流调整反噬伤害
+	"lone_druid_spirit_bear"
+	{
+		"AbilitySpecial"
+		{
+			"05"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"backlash_damage"			"5.0"
+			}
+		}
+	}
+    //太强
+	"item_horizon"
+	{
+		"AbilityCastRange"				"600"
+	}
+    //会把怪抛出去
+	"snapfire_spit_creep"
+	{
+		"AbilityCastRange"				"1300"
+	}
+    
+    "dazzle_weave"
+    {
+    	"AbilityTextureName"            "dazzle_weave_custom"
+    }
+
+	"razor_static_link"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	}
+
+	"alchemist_unstable_concoction_throw"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	}
+
+	"puck_dream_coil"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	}
+
+	"witch_doctor_maledict"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	}
+
+	"magnataur_skewer"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	}
+
+	"tinker_heat_seeking_missile"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE"
+	}
+
+	"legion_commander_duel"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	}
+
+	"undying_decay"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	}
+
+    //先知召唤太强，2.5被树人天赋这里改没用 从summon.lua调整
+
+    //先知召唤数量从这里改
+    "special_bonus_unique_furion_2"
+	{
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				        "3"
+				"ad_linked_abilities"			"furion_force_of_nature"
+			}
+		}
+	}
+
+    //刃甲通用性太好
+	"item_blade_mail"
+	{
+		"AbilitySpecial"
+		{
+			"06"
+			{
+				"var_type"				    "FIELD_INTEGER"
+				"passive_reflection_pct"	"8"
+			}
+			"07"
+			{
+				"var_type"				     "FIELD_INTEGER"
+				"active_reflection_pct"		 "60"
+			}
+		}
+	}
+    //数量过多卡顿
+
+
+	"special_bonus_unique_phantom_lancer_3"
+	{
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				        "2"
+				"ad_linked_abilities"			"phantom_lancer_juxtapose_custom"
+			}
+		}
+	}
+
+	"ursa_enrage"
+	{
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+	}
+	
+	"special_bonus_unique_oracle_6"
+	{
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				        "11"
+				"ad_linked_abilities"	    "oracle_false_promise"
+			}
+		}
+	}
+
+	"item_aghanims_shard"
+	{
+		"ItemStockTime"					"1"			  
+		"ItemStockInitial"				"0"
+		"ItemStockMax"					"1"
+		"ItemInitialStockTime"			"0.0"
+	}
+
+	"rattletrap_jetpack"
+	{
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"bonus_speed"		"5"
+			}
+			"04"
+			{	
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"3"
+			}
+		}
+	}
+    
+    "item_smoke_of_deceit"
+	{
+		"AbilitySpecial"
+		{
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"16.0"
+			}
+		}
+	}
+
+	"item_recipe_necronomicon"
+	{
+		"ItemPurchasable"				"1"
+		"IsObsolete"                    "0"
+	}
+	"item_recipe_necronomicon_2"
+	{
+		"ItemPurchasable"				"1"
+		"IsObsolete"                    "0"
+	}
+	"item_recipe_necronomicon_3"
+	{
+		"ItemPurchasable"				"1"
+		"IsObsolete"                    "0"
+	}
+	"item_necronomicon"
+	{
+		"ItemPurchasable"				"1"
+		"IsObsolete"                    "0"
+	}
+    "item_necronomicon_2"
+	{
+		"ItemPurchasable"				"1"
+	    "IsObsolete"                    "0"
+	}
+	"item_necronomicon_3"
+	{
+		"ItemPurchasable"				"1"
+		"IsObsolete"                    "0"
+	}
+
+	"beastmaster_hawk_dive"
+	{	
+		"AbilityCastRange"				"400"
+	}
+
+	"venomancer_poison_nova"
+	{
+		"AbilityValues"
+		{
+		    "damage"					"1 1.4 1.8"
+			"damage_scepter"			
+			{	
+				"value"				    "2.0 2.75 3.5"
+				"RequiresScepter"		"1"
+			}
+		}
+	}
+
+	"item_aeon_disk"
+	{
+		"ItemPurchasable"				"0"
+		"IsObsolete"                    "1"
+	}
+
+	"item_recipe_aeon_disk"
+	{
+		"ItemPurchasable"				"0"
+		"IsObsolete"                    "1"
+		"ItemRecipe"					"0"
+	}
+
+    "bloodseeker_blood_mist"
+	{
+		"AbilityValues"
+		{
+			"hp_cost_per_second"	    "2"
+		}
+	}
+
+	"dazzle_bad_juju"
+    {
+        "LinkedAbility"       "dazzle_good_juju_lua"
+    }
+    
+    "night_stalker_hunter_in_the_night"
+	{
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_BASIC"
+	}
+
+	"treant_natures_grasp"
+	{
+		"AbilityTextureName"  "custom/treant_natures_grasp"
+	}
+	 
+	 
+	"treant_overgrowth"
+	{
+		"AbilityTextureName"  "custom/treant_overgrowth"
+	}
+	 
+	 
+	"venomancer_poison_sting"
+	{
+		"AbilityTextureName"  "custom/venomancer_poison_sting"
+	}
+	 
+	 
+	"venomancer_venomous_gale"
+	{
+		"AbilityTextureName"  "custom/venomancer_venomous_gale"
+	}
+	 
+	 
+	"viper_corrosive_skin"
+	{
+		"AbilityTextureName"  "custom/viper_corrosive_skin"
+	}
+	 
+	 
+	"viper_nethertoxin"
+	{
+		"AbilityTextureName"  "custom/viper_nethertoxin"
+	}
+	 
+	 
+	"viper_poison_attack"
+	{
+		"AbilityTextureName"  "custom/viper_poison_attack"
+	}
+	 
+	 
+	"viper_viper_strike"
+	{
+		"AbilityTextureName"  "custom/viper_viper_strike"
+	}
+	 
+	 
+	"viper_viper_strike_custom"
+	{
+		"AbilityTextureName"  "custom/viper_viper_strike_custom"
+	}
+	 
+	 
+	"warlock_upheaval"
+	{
+		"AbilityTextureName"  "custom/warlock_upheaval"
+	}
+	 
+	 
+	"witch_doctor_voodoo_restoration"
+	{
+		"AbilityTextureName"  "custom/witch_doctor_voodoo_restoration"
+	}
+	 
+	 
+	"alchemist_acid_spray"
+	{
+		"AbilityTextureName"  "custom/alchemist_acid_spray"
+	}
+	 
+	 
+	"ancient_apparition_cold_feet"
+	{
+		"AbilityTextureName"  "custom/ancient_apparition_cold_feet"
+	}
+	 
+	 
+	"ancient_apparition_ice_vortex"
+	{
+		"AbilityTextureName"  "custom/ancient_apparition_ice_vortex"
+	}
+	 
+	 
+	"axe_battle_hunger"
+	{
+		"AbilityTextureName"  "custom/axe_battle_hunger"
+	}
+	 
+	 
+	"bane_fiends_grip"
+	{
+		"AbilityTextureName"  "custom/bane_fiends_grip"
+	}
+	 
+	 
+	"batrider_firefly"
+	{
+		"AbilityTextureName"  "custom/batrider_firefly"
+	}
+	 
+	 
+	"batrider_flamebreak"
+	{
+		"AbilityTextureName"  "custom/batrider_flamebreak"
+	}
+	 
+	 
+	"batrider_flaming_lasso"
+	{
+		"AbilityTextureName"  "custom/batrider_flaming_lasso"
+	}
+	 
+	 
+	"beastmaster_drums_of_slom"
+	{
+		"AbilityTextureName"  "custom/beastmaster_drums_of_slom"
+	}
+	 
+	 
+	"crystal_maiden_frostbite"
+	{
+		"AbilityTextureName"  "custom/crystal_maiden_frostbite"
+	}
+	 
+	 
+	"dark_seer_ion_shell"
+	{
+		"AbilityTextureName"  "custom/dark_seer_ion_shell"
+	}
+	 
+	 
+	"dazzle_poison_touch"
+	{
+		"AbilityTextureName"  "custom/dazzle_poison_touch"
+	}
+	 
+	 
+	"disruptor_static_storm"
+	{
+		"AbilityTextureName"  "custom/disruptor_static_storm"
+	}
+	 
+	 
+	"disruptor_thunder_strike"
+	{
+		"AbilityTextureName"  "custom/disruptor_thunder_strike"
+	}
+	 
+	 
+	"doom_bringer_doom"
+	{
+		"AbilityTextureName"  "custom/doom_bringer_doom"
+	}
+	 
+	 
+	"doom_bringer_scorched_earth"
+	{
+		"AbilityTextureName"  "custom/doom_bringer_scorched_earth"
+	}
+	 
+	 
+	"dragon_knight_fireball"
+	{
+		"AbilityTextureName"  "custom/dragon_knight_fireball"
+	}
+	 
+	 
+	"earth_spirit_magnetize"
+	{
+		"AbilityTextureName"  "custom/earth_spirit_magnetize"
+	}
+	 
+	 
+	"ember_spirit_flame_guard"
+	{
+		"AbilityTextureName"  "custom/ember_spirit_flame_guard"
+	}
+	 
+	 
+	"ember_spirit_searing_chains"
+	{
+		"AbilityTextureName"  "custom/ember_spirit_searing_chains"
+	}
+	 
+	 
+	"frostivus2018_huskar_burning_spear"
+	{
+		"AbilityTextureName"  "custom/frostivus2018_huskar_burning_spear"
+	}
+	 
+	 
+	"grimstroke_spirit_walk"
+	{
+		"AbilityTextureName"  "custom/grimstroke_spirit_walk"
+	}
+	 
+	 
+	"jakiro_dual_breath"
+	{
+		"AbilityTextureName"  "custom/jakiro_dual_breath"
+	}
+	 
+	 
+	"jakiro_liquid_fire"
+	{
+		"AbilityTextureName"  "custom/jakiro_liquid_fire"
+	}
+	 
+	 
+	"jakiro_macropyre"
+	{
+		"AbilityTextureName"  "custom/jakiro_macropyre"
+	}
+	 
+	 
+	"ogre_magi_ignite"
+	{
+		"AbilityTextureName"  "custom/ogre_magi_ignite"
+	}
+	 
+	 
+	"phoenix_fire_spirits"
+	{
+		"AbilityTextureName"  "custom/phoenix_fire_spirits"
+	}
+	 
+	 
+	"pudge_dismember"
+	{
+		"AbilityTextureName"  "custom/pudge_dismember"
+	}
+	 
+	 
+	"pudge_rot"
+	{
+		"AbilityTextureName"  "custom/pudge_rot"
+	}
+	 
+	 
+	"pugna_life_drain"
+	{
+		"AbilityTextureName"  "custom/pugna_life_drain"
+	}
+	 
+	 
+	"queenofpain_shadow_strike"
+	{
+		"AbilityTextureName"  "custom/queenofpain_shadow_strike"
+	}
+	 
+	 
+	"sandking_epicenter"
+	{
+		"AbilityTextureName"  "custom/sandking_epicenter"
+	}
+	 
+	 
+	"sandking_sand_storm"
+	{
+		"AbilityTextureName"  "custom/sandking_sand_storm"
+	}
+	 
+	 
+	"shadow_demon_shadow_poison_release"
+	{
+		"AbilityTextureName"  "custom/shadow_demon_shadow_poison_release"
+	}
+	 
+	 
+	"shadow_shaman_shackles"
+	{
+		"AbilityTextureName"  "custom/shadow_shaman_shackles"
+	}
+	 
+	 
+	"shredder_chakram"
+	{
+		"AbilityTextureName"  "custom/shredder_chakram"
+	}
+	 
+	 
+	"shredder_chakram_2"
+	{
+		"AbilityTextureName"  "custom/shredder_chakram_2"
+	}
+	 
+	 
+	"shredder_flamethrower"
+	{
+		"AbilityTextureName"  "custom/shredder_flamethrower"
+	}
+	 
+	 
+	"silencer_curse_of_the_silent"
+	{
+		"AbilityTextureName"  "custom/silencer_curse_of_the_silent"
+	}
+	 
+	 
+	"slark_dark_pact"
+	{
+		"AbilityTextureName"  "custom/slark_dark_pact"
+	}
+	 
+	 
+	"sniper_shrapnel"
+	{
+		"AbilityTextureName"  "custom/sniper_shrapnel"
+	}
+	 
+	 
+	"treant_leech_seed"
+	{
+		"AbilityTextureName"  "custom/treant_leech_seed"
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

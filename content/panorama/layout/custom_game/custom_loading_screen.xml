@@ -1,0 +1,85 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="s2r://panorama/styles/custom_game/custom_loading_screen.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/loading_screen.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/ban_ability.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/loading_screen.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/ban_ability.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="HeroesRow">
+			<Panel class="hBlock">
+				<Panel id="RowNameContainer">
+					<Image id="RowIcon" />
+					<Label id="RowName" text="" />
+				</Panel>
+				<Panel id="RowTable" class="hBlock" />
+			</Panel>
+		</snippet>
+		<snippet name="HeroesRadioButton">
+			<Panel>
+				<RadioButton id="RadioButton">
+					<DOTAHeroImage id="RadioImage" heroname="" />
+				</RadioButton>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel class="OverthrowLoadingRoot">
+		<Image hittest="false" style="height:100%;width:100%;background-size: 100%;" src="file://{images}/custom_game/loadingscreen.png" />
+		
+		<Panel style="width:100%;height:100%;" id="video_bar" />
+
+		<Panel id="TipContainer" onactivate="NextTip()">
+			<Panel id="TipText">
+				<Label id="TipLabel" text="#LoadingTip_1" />
+			</Panel>
+			<Panel id="NextTip" class="TipButton" onactivate="NextTip()" />
+		</Panel>
+
+		<Panel class="DiscordPanel" onactivate="ExternalBrowserGoToURL('https://discord.gg/Fw7Qm2Z');" />
+
+		<Panel id="MainBlock" class="Hidden">
+			<Panel id="Wrapper" class="wrapper">
+				<Panel id="spellShopLeft" class="vBlock ParentCell">
+					<Panel id="heroesTableStrAgi" />
+					<Panel id="OperatePanel" class="hBlock" style="height:120px;">
+						<RadioButton id="HeroImageRadioButton">
+							<DOTAHeroImage id="HeroImage" heroname="" />
+						</RadioButton>
+						<Panel id="Abilities" />
+						<Panel id="ButtonPanel">
+							<Panel id="WaitingContainer">
+								<Panel id="WaitingSpinner" class="Spinner" />
+								<Label id="WaitingLabel" text="#waiting_for_pass" />
+							</Panel>
+							<Button id="BanButton" onactivate="ActiveBan()" class="Hidden">
+								<Label id="BanButtonLabel" />
+							</Button>
+							<Label id="TimeLeftLabel" class="Green Hidden" text="#time_left" />
+							<Button id="CloseButton" onactivate="CloseBanPanel()">
+								<Label id="CloseButtonLabel" text="#close" />
+							</Button>
+						</Panel>
+					</Panel>
+					<Panel id="RecentBannedAbilitiesContainer">
+						<Label id="RecentBannedAbilitiesLabel" text="#recent_ban_abilities" />
+						<Panel id="RecentBannedContainer">
+							<Panel id="RecentBannedAbilities" />
+							<Panel id="RecentBannedHeroes" />
+						</Panel>
+					</Panel>
+				</Panel>
+				<Panel id="spellShopRight" class="vBlock ParentCell">
+					<Panel id="heroesTableInt" />
+				</Panel>
+			</Panel>
+		</Panel>
+		<Button id="OpenBanButton" onactivate="OpenBanPanel()">
+			<Label id="OpenBanButtonLabel" text="#ban_abilities" />
+		</Button>
+	</Panel>
+</root>

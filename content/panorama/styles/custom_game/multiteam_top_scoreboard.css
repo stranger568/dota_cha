@@ -1,0 +1,491 @@
+@define ANIM_TIME:  0.75s;
+ @define EXTRA_PADDING: 50px;
+ @define M_EXTRA_PADDING: -50px;
+
+#RevengeTargetFrame{
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  opacity-mask: url("s2r://panorama/images/masks/softedge_box_sharper_png.vtex");
+}
+
+ .CustomHudRoot{
+
+   width: 100%;
+   height: 100%;
+ }
+
+ #TopBarScoreboard{
+
+   margin-left: 600px;
+     horizontal-align: left;
+     vertical-align: top;
+ }
+
+ .AspectRatio4x3 #TopBarScoreboard{
+
+   margin-left: 455px;
+ }
+
+ #ScoreboardContainer{
+
+     flow-children: right;
+     horizontal-align: left;
+     vertical-align: top;
+ }
+
+ #MultiteamScoreboard{
+
+     horizontal-align: left;
+     vertical-align: top;
+     height: 250px;
+     padding-left: EXTRA_PADDING;
+     padding-right: EXTRA_PADDING;
+
+     flow-children: right;
+ }
+
+ .ScoreboardTeamWrapper{
+
+     height: 100%;
+     border-left: 5px solid transparent;
+     border-right: 5px solid transparent;
+     transition-property: position;
+     transition-duration: ANIM_TIME;
+     margin-left: M_EXTRA_PADDING;
+     margin-right: M_EXTRA_PADDING;
+ }
+
+ #TeamLogo{
+
+   horizontal-align: left;
+   vertical-align: top;
+     width: 24px;
+     height: 24px;
+ }
+
+ .ScoreboardTeamWrapper.no_players{
+
+   visibility: collapse;
+ }
+
+ #ScoreboardTeam{
+
+     margin-left: EXTRA_PADDING;
+     margin-right: EXTRA_PADDING;
+   padding-left: 2px;
+   padding-right: 2px;
+ }
+
+ .AspectRatio4x3 .ScoreboardTeamWrapper{
+
+   padding-left: -5px;
+   padding-right: -5px;
+ }
+
+
+
+
+
+ .ScoreboardTeamWrapper.team_getting_worse{
+
+   animation-duration: ANIM_TIME;
+   animation-timing-function: ease-in-out;
+   animation-name: GettingWorseAnim;
+     z-index: -100;
+ }
+
+ .ScoreboardTeamWrapper.team_getting_better{
+
+   animation-duration: ANIM_TIME;
+   animation-timing-function: ease-in-out;
+   animation-name: GettingBetterAnim;
+     z-index: 100;
+ }
+
+
+ @keyframes 'GettingWorseAnim'{
+
+   0%{
+
+     pre-transform-scale2d: 1;
+   }
+
+   50%{
+
+     pre-transform-scale2d: 1;
+   }
+
+   100%{
+
+     pre-transform-scale2d: 1;
+   }
+ }
+
+
+ @keyframes 'GettingBetterAnim'{
+
+   0%{
+
+     pre-transform-scale2d: 1;
+   }
+
+   50%{
+
+     pre-transform-scale2d: 1.05;
+   }
+
+   100%{
+
+     pre-transform-scale2d: 1;
+   }
+ }
+
+
+ #LogoAndScore{
+
+     height: 100%;
+     width: 64px;
+ }
+
+ #TeamScore{
+
+   vertical-align: bottom;
+   horizontal-align: left;
+   color: #FFCC33FF;
+   font-size: 18px;
+   font-weight: bold;
+   text-shadow: 0px 1px 0px 2.0 #00000077;
+   margin-bottom: -2px;
+   text-overflow: clip;
+ }
+
+ #TeamDarkenWash{
+
+     width: 100%;
+     height: 42px;
+     background-color: gradient( linear, 25px 0%, 40px 0%, from( black ), to( transparent ) );
+ }
+
+ #TeamStatus{
+
+     width: 100%;
+     height: 100%;
+ }
+
+ #PlayersContainer{
+
+     padding-left: 24px;
+     flow-children: right;
+ }
+
+
+
+
+
+ #TeamOverlayBar{
+
+     width: 100%;
+     height: 48px;
+ }
+
+
+
+
+
+ #LocalTeamOverlay{
+
+     width: 100%;
+     height: 43px;
+ }
+
+ .ScoreboardTeamWrapper.local_player_team #LocalTeamOverlay{
+
+   box-shadow: 0px 0px 6px 3px #FFFFFF88;
+ }
+
+ .ScoreboardPlayer{
+
+     border-left: 1px solid black;
+     border-right: 1px solid black;
+ }
+
+
+
+
+
+ .FlowDown{
+
+     flow-children: down;
+ }
+
+
+
+
+
+ .PlayerPortraitWrapper{
+
+     flow-children: down;
+ }
+
+ #PlayerColorBar{
+
+     height: 6px;
+     width: 100%;
+     border-bottom: 1px solid #000000;
+ }
+
+ #HeroIcon{
+
+     width: 64px;
+     height: 36px;
+ }
+
+ .player_dead #HeroIcon{
+
+   wash-color: #CCCCCC;
+   saturation: 0;
+ }
+
+ .player_connection_abandoned #HeroIcon{
+
+   wash-color: #FF0000;
+   saturation: 0;
+ }
+
+ #DisconnectionIndicator{
+
+   opacity: 0;
+   width: 100%;
+   height: 18px;
+   vertical-align: top;
+   margin-top: 24px;
+ }
+
+ .player_connection_abandoned #DisconnectionIndicator,
+.player_connection_failed #DisconnectionIndicator,
+.player_connection_disconnected #DisconnectionIndicator{
+
+
+
+   opacity: 1;
+ }
+
+ #ScoreRow{
+
+     width: 100%;
+ }
+
+ #RespawnIndicator{
+
+   margin-top: 26px;
+   width: 42px;
+   height: 49px;
+     background-size: 100%;
+     background-repeat: no-repeat;
+     background-position: 50% 50%;
+     background-image: url("s2r://panorama/images/custom_game/deathtimer_background_psd.vtex");
+   horizontal-align: center;
+   transform: translateY(-30px);
+   opacity: 0;
+   transition-property: transform;
+   transition-duration: 0.3s;
+   transition-timing-function: ease-out;
+ }
+
+ #RespawnTimer{
+
+     color: #e5460e;
+     width: 100%;
+   text-align: center;
+     vertical-align: bottom;
+   margin-bottom: 4px;
+     font-size: 18px;
+     text-shadow: 2px 2px 2px black;
+ }
+
+ .ScoreboardPlayerWrapper.player_dead #RespawnIndicator{
+
+   opacity: 1;
+   transform: translateY(0px);
+ }
+
+ #LocalPlayerIndicator{
+
+     horizontal-align: center;
+     vertical-align: bottom;
+     visibility: collapse;
+     width: 40px;
+     height: 20px;
+ }
+
+ #UltimateIndicatorContainer{
+
+   horizontal-align: center;
+   width: 20px;
+   height: 20px;
+   margin-top: 32px;
+ }
+
+ .player_ultimate_not_leveled #UltimateIndicatorContainer{
+
+   visibility: collapse;
+ }
+
+ .not_local_player_team #UltimateIndicatorContainer{
+
+   visibility: collapse;
+ }
+
+ .UltimateIndicatorShared{
+
+   width: 100%;
+   height: 100%;
+     background-size: 100%;
+     background-repeat: no-repeat;
+     background-position: 50% 50%;
+ }
+
+ .is_local_player #LocalPlayerIndicator{
+
+     visibility: visible;
+ }
+
+
+ #GoldIcon{
+
+   background-image:url("s2r://panorama/images/hud/reborn/gold_small_psd.vtex");
+   background-size:100% 100%;
+   width: 20px;
+   height: 20px;
+   margin-top: 15px;
+ }
+
+ #PlayerNamePanel{
+
+   margin-top: 15px;
+   width: 100%;
+   height: 49px;
+   horizontal-align: center;
+   opacity: 1;
+   transition-property: transform;
+   transition-duration: 0.3s;
+   transition-timing-function: ease-out;
+ }
+
+
+ #PlayerName{
+
+     color: #ffffff;
+     width: 100%;
+     text-align: center;
+     vertical-align: bottom;
+     font-size: 13px;
+     text-overflow: ellipsis;
+     height: 17px;
+ }
+
+
+
+ #PlayerIsReady{
+
+   width: 20px;
+   height: 20px;
+   margin-left: 46px;
+   margin-top: 28px;
+   visibility: collapse;
+   border-radius: 60%;
+   box-shadow: inset 0 0 2px rgba(0, 255, 0, 0.5);
+}
+
+
+.ScoreboardPlayerWrapper.alt_health_check #TipButtonCustom{opacity: 1;transform: translateY(0px);}
+
+#TipButtonCustom
+{
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #e0c59a ), to( #ae9249 ) );
+  background-size: 100%;
+  height: 15px;
+  width: 100%;
+  margin-top: 63px;
+  transform: translateY(-35px);
+  border: 1px solid black;
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-out;
+}
+
+#TipButtonCustom:hover
+{
+  brightness: 1.5;
+}
+
+.TipText
+{
+  font-size: 12px;
+  text-shadow: 0px 1px 0px 2.0 #00000077;
+  color:white;
+  vertical-align: center;
+  horizontal-align: center;
+}
+
+ .rainbow_nickname_animate
+{
+  animation-name: Colorgradient;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  font-weight: bold;
+  text-shadow: 0px 0px 8px 0 gold;
+}
+
+.rainbow_nickname
+{
+    color: gradient( linear, 100% 0%, 0% 0%, from( rgb(0, 183, 255)), color-stop( 0.5, rgb(0, 255, 85)), to( #8e9198));
+    animation-name: raindbow;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+ @keyframes 'Colorgradient'{
+     0%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( #fedd45, color-stop( 0.5, #fff700), to( #eebb0a));
+          text-shadow: 0px 0px 8px 0 gold;
+     }
+     25%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( #fff700), color-stop( 0.5, #eebb0a), to( #fedd45));
+         text-shadow: 0px 0px 8px 1 gold;
+     }
+     50%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( #eebb0a), color-stop( 0.5, #fedd45), to( #fff700));
+         text-shadow: 0px 0px 8px 2 gold;
+     }
+     75%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( #fff700), color-stop( 0.5, #eebb0a), to( #fedd45));
+         text-shadow: 0px 0px 8px 1 gold;
+     }
+     100%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( #fedd45), color-stop( 0.5, #fff700), to( #eebb0a ));
+         text-shadow: 0px 0px 8px 0 gold;
+     }
+}
+
+ @keyframes 'raindbow'{
+     0%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( rgb(0, 183, 255) ), color-stop( 0.5, rgb(0, 255, 85) ), to( #8e9198 ));
+     }
+     25%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( rgb(0, 255, 85)), color-stop( 0.5, #8e9198), to(  rgb(0, 183, 255)));
+     }
+     50%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( #8e9198), color-stop( 0.5,  rgb(0, 183, 255)), to( rgb(0, 255, 85)));
+     }
+     75%{
+         color: gradient( linear, 100% 0%, 0% 0%, from( rgb(0, 255, 85)), color-stop( 0.5, #8e9198), to(  rgb(0, 183, 255)));
+     }
+     100%{
+         color: gradient( linear, 100% 0%, 0% 0%, from(  rgb(0, 183, 255)), color-stop( 0.5, rgb(0, 255, 85)), to( #8e9198 ));
+     }
+}

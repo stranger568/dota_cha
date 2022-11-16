@@ -1,0 +1,654 @@
+.Hidden{
+
+  opacity: 0;
+}
+
+
+ #CardSelection{
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #000000cc;
+
+  opacity: 0;
+
+  z-index: 1;
+ }
+
+
+ #CardSelection.show{
+
+  opacity: 1;
+ }
+
+ #CardSelection_PlusReDrawButton{
+
+  margin-bottom: 500px;
+  horizontal-align: center;
+  vertical-align: center;
+
+  border-radius: 10px;
+
+  transform: translateY(5000px) scale3d(0.1, 0.1, 0.1);
+
+  padding: 10px;
+
+  box-shadow: fill transparent 0px 0px 0px 0px;
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #ffa91f ), to( #8d7217 ) );
+  background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+  background-size: 328px 50px;
+
+  transition-property: transform, brightness;
+  transition-duration: 0.3s;
+ }
+ #CardSelection_PlusReDrawButton:disabled{
+
+  visibility: collapse;
+ }
+ .show #CardSelection_PlusReDrawButton{
+
+  transform: translateY(0px) scale3d(1, 1, 1);
+  transition-duration: 0.18s;
+ }
+ .Plus #CardSelection_PlusReDrawButton:hover:not(:disabled){
+
+  brightness: 2.0;
+ }
+ .Plus #CardSelection_PlusReDrawButton:active:not(:disabled){
+
+  brightness: 0.5;
+ }
+ #CardSelection_CloseButton{
+
+  margin-top: 670px;
+  horizontal-align: center;
+  vertical-align: center;
+  height: 70px;
+  border-radius: 20px;
+  box-shadow: fill transparent 0px 0px 0px 0px;
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #bd1818 ), to( #811414 ) );
+  background-image: url("file://{images}/custom_game/selectorclose.png");
+  background-size: 100%;
+  transition-property: transform, brightness;
+  transition-duration: 0.3s;
+  width: 200px;
+  box-shadow: #0008 0px 0px 18px 1px;
+  margin-right: 350px;
+  transform: translateY(5000px) scale3d(0.1, 0.1, 0.1);
+  transition-property: transform, brightness;
+  transition-duration: 0.3s;
+ }
+ #CardSelection_CloseButton Label{
+  vertical-align: center;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  horizontal-align: center;
+  text-shadow: 2px 2px 8px 3.0 #333333b0;
+  text-transform: uppercase;
+ }
+ .show #CardSelection_CloseButton{
+
+  transform: translateY(0px) scale3d(1, 1, 1);
+  transition-duration: 0.18s;
+ }
+ #CardSelection_CloseButton:hover{
+
+  brightness: 2.0;
+ }
+
+ #CardSelection_CloseButton:active{
+
+  brightness: 0.5;
+ }
+
+ .no_battle_pass
+ {
+    saturation: 0;
+ }
+
+ #CardSelection_RerollButton{
+
+  margin-top: 670px;
+  horizontal-align: center;
+  vertical-align: center;
+  height: 70px;
+  border-radius: 20px;
+  box-shadow: fill transparent 0px 0px 0px 0px;
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #bd1818 ), to( #811414 ) );
+  background-image: url("file://{images}/custom_game/selectrerrol.png");
+  background-size: 100%;
+  transition-property: transform, brightness;
+  transition-duration: 0.3s;
+  width: 200px;
+  box-shadow: #0008 0px 0px 18px 1px;
+  margin-left: 250px;
+  transform: translateY(5000px) scale3d(0.1, 0.1, 0.1);
+  transition-property: transform, brightness;
+  transition-duration: 0.3s;
+ }
+ #CardSelection_RerollButton Label{
+  vertical-align: center;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  horizontal-align: center;
+  text-shadow: 2px 2px 8px 3.0 #333333b0;
+  text-transform: uppercase;
+ }
+ .show #CardSelection_RerollButton{
+
+  transform: translateY(0px) scale3d(1, 1, 1);
+  transition-duration: 0.18s;
+ }
+ #CardSelection_RerollButton:hover{
+
+  brightness: 2.0;
+ }
+
+ #CardSelection_RerollButton:active{
+
+  brightness: 0.5;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ #CardSelection_Body{
+
+  horizontal-align: center;
+  vertical-align: top;
+     margin-top: 7%;
+  flow-children: right-wrap;
+
+  transform: translateY(5000px) scale3d(0.1, 0.1, 0.1);
+
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+ }
+
+ #CardSelection_Body.draw{
+
+  transform: translateY(0px) scale3d(1, 1, 1);
+  transition-duration: 0s;
+ }
+
+ .CardButton{
+
+  horizontal-align: center;
+  vertical-align: center;
+
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 492px;
+  height: 750px;
+
+  transform: rotateX(5deg);
+
+  overflow: noclip;
+
+  animation-name: wobble;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  transition-property: transform, pre-transform-scale2d;
+  transition-duration: 0.1s;
+ }
+
+ .CardButton:hover{
+
+  pre-transform-scale2d: 1.1;
+  transform: rotateX(0deg);
+
+  animation-name: none;
+ }
+
+
+ .CardButtonSmall{
+
+  width: 49px;
+  height: 75px;
+ }
+
+
+
+ @keyframes 'wobble'{
+
+  25%{
+
+   transform: rotateX(5deg) rotateY(10deg) rotateZ(1deg);
+  }
+  75%{
+
+   transform: rotateX(5deg) rotateY(-10deg) rotateZ(-1deg);
+  }
+ }
+
+
+ .cardRoot{
+
+  border-radius: 12px;
+ }
+
+ #CardBG{
+
+  width: 416px;
+  height: 790px;
+
+  flow-children: down;
+  background-color: #000000;
+ }
+
+ #CardImage{
+
+  width: 100%;
+  height: 471px;
+
+  horizontal-align: center;
+
+  background-color: #ffffffff;
+
+  background-image: url("s2r://panorama/images/custom_game/extract/dota_logo_psd_png.vtex");
+  background-size: 240px 240px;
+  background-position: center;
+  background-repeat: no-repeat;
+ }
+
+ #CardTopBarBG{
+
+  width: 100%;
+  height: 69px;
+
+  background-color: #cac7c8;
+
+  wash-color: #33333380;
+
+  box-shadow: #000000 -4px -4px 8px 8px;
+
+
+  background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+  background-size: 100%;
+
+  horizontal-align: center;
+
+  z-index: 1;
+ }
+ #CardBottomBarBG{
+
+  width: 100%;
+  height: 280px;
+
+  background-color: #cac7c8;
+
+  wash-color: #33333380;
+
+  box-shadow: #000000 -4px -4px 8px 8px;
+
+     background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+
+  background-size: 100%;
+
+  horizontal-align: center;
+
+  z-index: 1;
+ }
+
+ .rarity_r #CardTopBarBG,
+.rarity_r #CardBottomBarBG{
+
+
+  background-color: #bbe3ff;
+
+  wash-color: #2c4b5c80;
+ }
+ .rarity_sr #CardTopBarBG,
+.rarity_sr #CardBottomBarBG{
+
+
+  background-color: #d3bcff;
+
+  wash-color: #4b2c5080;
+ }
+ .rarity_ssr #CardTopBarBG,
+.rarity_ssr #CardBottomBarBG{
+
+
+  background-color: #e1c989;
+
+  wash-color: #74380480;
+ }
+
+ #CardBottomBarBGLight{
+
+  width: 100%;
+  height: 5px;
+
+  blur: gaussian(12);
+
+  background-color: gradient( linear, 0% 0%, 100% 0%, from( #ffffff00 ), color-stop( 0.5, #ffffffff ), to( #ffffff00 ) );
+ }
+
+ #CardInfo{
+
+  width: 416px;
+  height: 852px;
+ }
+
+
+ #CardTopBar{
+
+  vertical-align: top;
+  horizontal-align: center;
+  width: 100%;
+  height: 69px;
+
+  background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+  background-size: 100%;
+ }
+
+ #CardRarityImage{
+
+  vertical-align: center;
+  horizontal-align: left;
+
+  margin-left: 7px;
+
+  width: 57px;
+  height: 57px;
+
+     background-image: url("s2r://panorama/images/custom_game/card/blank_circle_png.vtex");
+
+  background-position: 50%;
+  background-size: 57px 57px;
+  background-repeat: no-repeat;
+ }
+
+ #CardName{
+
+  vertical-align: center;
+  horizontal-align: left;
+  margin-right: 50px;
+  margin-left: 77px;
+  text-overflow: shrink;
+  color: #ffffff;
+  font-size: 36px;
+  text-shadow: 2px 2px 2px 2 #000000;
+ }
+
+
+ #CardIcon{
+
+  vertical-align: center;
+  horizontal-align: right;
+
+  margin-right: 7px;
+
+  width: 57px;
+  height: 57px;
+ }
+
+ #CardAttributePrimaryIcon{
+
+  vertical-align: top;
+  horizontal-align: left;
+
+  width: 64px;
+  height: 64px;
+
+  margin-left: 5px;
+  margin-top: 5px;
+
+  background-image: url("s2r://panorama/images/custom_game/card/blank_circle_png.vtex");
+  background-size: 100%;
+  background-repeat: no-repeat;
+ }
+
+
+
+ #CardBottomBar{
+
+  vertical-align: top;
+  horizontal-align: center;
+  width: 416px;
+  height: 235px;
+
+  background-image: url("s2r://panorama/images/custom_game/card/card_bottom_background_png.vtex");
+
+  background-position: 50%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  flow-children: right;
+ }
+
+ .Ability{
+
+  width: fill-parent-flow(1);
+  height: 100%;
+ }
+
+ #AbilityButton{
+
+  vertical-align: center;
+  horizontal-align: center;
+
+  max-width: 108px;
+
+  width: 80%;
+  height: width-percentage(100%);
+ }
+
+ #AbilityImage{
+
+  vertical-align: center;
+  horizontal-align: center;
+
+  width: 100%;
+  height: 100%;
+ }
+
+ #AbilityBevel{
+
+  width: 100%;
+  height: 100%;
+  background-image: url("s2r://panorama/images/custom_game/extract/ability_bevel_psd_png.vtex");
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#00FF0000), to(#00FF0000));
+  z-index: 1;
+ }
+
+ #RequireUnitIcons{
+
+  vertical-align: bottom;
+  horizontal-align: center;
+
+  flow-children: right;
+ }
+
+ .UnitIcon{
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 30%;
+
+  tooltip-body-position: 50% 100%;
+  tooltip-position: bottom;
+
+  box-shadow: fill #cac7c880 -4px -4px 8px 8px;
+ }
+ .UnitIcon.rarity_r{
+
+  box-shadow: fill #bbe3ff80 -4px -4px 8px 8px;
+ }
+ .UnitIcon.rarity_sr{
+
+  box-shadow: fill #d3bcff80 -4px -4px 8px 8px;
+ }
+ .UnitIcon.rarity_ssr{
+
+  box-shadow: fill #e1c98980 -4px -4px 8px 8px;
+ }
+
+ #Card{
+
+  pre-transform-scale2d: 0.8;
+  box-shadow: #000000 -5px -5px 10px 10px;
+  z-index: 0;
+ }
+
+ #CardFx_sr,
+#CardFx_ssr{
+
+
+  width: 258px;
+  height: 402px;
+
+  horizontal-align: center;
+  vertical-align: center;
+
+  visibility: collapse;
+ }
+
+ .rarity_sr #CardFx_sr{
+
+  visibility: visible;
+ }
+
+ .rarity_ssr #CardFx_ssr{
+
+  visibility: visible;
+ }
+
+
+
+
+
+
+ #LevelColumn{
+  margin-top: 15px;
+ }
+
+ #StatBranchColumn{
+
+  margin-top: 35px;
+ }
+
+ .LevelBG{
+   width: 51px;
+   height: 51px;
+ }
+
+ .StatBonusPanelLeft{
+
+  width: 170px;
+  horizontal-align: center;
+  margin-right: 210px;
+  margin-top: 20px;
+ }
+
+ .StatBonusPanelRight{
+
+  width: 170px;
+  horizontal-align: center;
+  margin-left: 210px;
+  margin-top: 20px;
+ }
+
+ .CardSelection_CloseButtonLabel{
+
+    font-size: 25px;
+ }
+
+
+ #HeroSelectionShow{
+
+  horizontal-align: middle;
+  vertical-align: center;
+  animation-name: none;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  opacity: 0;
+ }
+
+
+
+ @keyframes 'fade-out'{
+
+  0%{
+
+   opacity: 1.0;
+  }
+  100%{
+
+   opacity: 0.0;
+  }
+ }
+
+ #HeroSelectionShow.fade{
+
+  animation-name: fade-out;
+  animation-duration: 3s;
+ }
+
+ @keyframes 'pop-out'{
+
+  0%{
+
+   opacity: 1.0;
+   transform: scaleX(1) scaleY(1);
+  }
+  100%{
+
+   opacity: 0.0;
+   transform: scaleX(2) scaleY(2);
+  }
+ }
+
+
+ #HeroPrecacheCountDownPanel{
+
+  horizontal-align: middle;
+  vertical-align: center;
+ }
+
+ #HeroPrecacheCountDownLabel{
+
+     font-size: 150px;
+     color: yellow;
+     font-weight: bold;
+     text-shadow: 0 0 40px #fe0980;
+ }
+
+
+ #HeroPrecacheCountDownPanel.PopOut{
+
+  animation-name: pop-out;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}

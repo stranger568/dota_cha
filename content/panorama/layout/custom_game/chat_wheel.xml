@@ -1,0 +1,36 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/chat_wheel.vcss_c" />
+		<include src="s2r://panorama/styles/dotastyles.css" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/chat_wheel.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="ChatWheelItem">
+			<Panel class="ChatWheelItemRoot">
+				<Panel class="ChatWheelItemMain" id="chat_wheel_item_main">
+					<Panel class="ChatWheelSoundIcon" />
+					<Label class="ChatWheelLabel" id="chat_wheel_label" text="" />
+				</Panel>
+				<Panel class="Separator" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel class="ChatWheelMain Hidden" hittest="false" id="page_chatwheel">
+			<Panel class="ChatWheelLeft" id="ChatWheelLeft">
+				<Label class="ChatWheelEmptyNote" id="chat_wheel_empty_note" text="#chat_wheel_empty_note" />
+			</Panel>
+			<Panel class="ChatWheelRight">
+				<Label class="ChatWheelCoolDown Hidden" id="chat_wheel_cooldown" text="" />
+				<Label class="ChatWheelCoolDownNote Hidden" id="chat_wheel_cooldown_note" text="#chat_wheel_cooldown_note" />
+				<Button class="ChatWheelCloseButton" onactivate="CloseChatWheel()">
+					<Label text="#ChatWheelClose" />
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

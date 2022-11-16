@@ -1,0 +1,124 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/setting.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/security.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/setting.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="AbilityOrderAbility">
+			<Panel class="AbilityOrderRoot">
+				<Panel>
+					<DOTAAbilityImage id="AbilityImage" />
+				</Panel>
+				<Label id="AbilityName" text="" />
+				<Panel id="ButtonPanel">
+					<Button id="ButtonLeft" />
+					<Button id="ButtonRight" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="AbilityBannedAbility">
+			<Panel class="AbilityBannedRoot">
+				<Panel class="AbilityBannedBackGround" />
+				<Panel class="AbilityBannedContainer">
+					<Panel>
+						<DOTAAbilityImage id="AbilityBannedImage" />
+					</Panel>
+					<Label id="AbilityBannedName" text="" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="HeroBannedHero">
+			<Panel class="HeroBannedRoot">
+				<Panel class="HeroBannedBackGround" />
+				<Panel class="HeroBannedContainer">
+					<Panel>
+						<DOTAHeroImage id="HeroBannedImage" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel id="page_setting" class="AbilityOrderPanelRoot">
+				<Panel class="Close" onactivate="CloseAbilityOrder();"/>
+				<Panel class="MainSettingsContainer">
+					<Panel class="SettingLeft">
+						<Panel id="BarrageSetting">
+							<Label id="BarrageSettingTitle" text="#UISettingTitle" />
+							<Panel class="SectionHeaderLine" />
+							<Panel class="SettingsSliderLabels LeftRightFlow">
+								<Label class="SliderTitle" text="#SetBarrageOpacity" />
+								<Label id="SliderValue" class="SliderValue" text="" />
+							</Panel>
+							<Slider id="BarrageOpacitySlider" direction="horizontal" class="HorizontalSlider" min="0" max="100" onvaluechanged="ChangeBarrageOpacity();" />
+							<Panel id="UICheckBoxes">
+								<Panel id="UIContainer">
+									<ToggleButton class="Checkbox" id="CheckLeftAbilitySelect" onactivate="ToggleLeftAbilitySelect(false)" />
+									<Label class="CameraLabel" id="TextLeftAbilitySelect" text="#right_ability_select" onmouseover="DOTAShowTextTooltip(#right_ability_select_hint)" onmouseout="DOTAHideTextTooltip()" onactivate="ToggleLeftAbilitySelect(true)" />
+								</Panel>
+							</Panel>
+						</Panel>
+						<Panel id="CameraSetting">
+							<Label id="CameraSettingTitle" text="#CameraSettingTitle" />
+							<Panel class="SectionHeaderLine" />
+							<Panel id="CameraCheckBoxes">
+								<Panel id="DuelCameraContainer">
+									<ToggleButton class="Checkbox" id="CheckAutoDuel" onactivate="ToggleAutoDuel(false)" />
+									<Label class="CameraLabel" id="TextAutoDuelVision" text="#auto_duel_vision" onmouseover="DOTAShowTextTooltip(#auto_duel_vision_hint)" onmouseout="DOTAHideTextTooltip()" onactivate="ToggleAutoDuel(true)" />
+								</Panel>
+								<Panel id="CreepsCameraContainer">
+									<ToggleButton class="Checkbox" id="CheckAutoCreep" onactivate="ToggleAutoCreep(false)" />
+									<Label class="CameraLabel" id="CreepsCamLabel" text="#auto_creeps_camera" onmouseover="DOTAShowTextTooltip(#auto_creeps_camera_hint)" onmouseout="DOTAHideTextTooltip()" onactivate="ToggleAutoCreep(true)" />
+								</Panel>
+							</Panel>
+						</Panel>
+					</Panel>
+					<Panel class="SettingRight">
+						<Panel class="ButtonWithChatWheel" onactivate="GameUI.CustomUIConfig().OpenChatWheel();">
+							<Panel class="ChatWheelImage" />
+							<Label class="ChatWheelName" text="#change_chat_wheel_settings" />
+						</Panel>
+						<Panel class="ButtonWithKeyBind" onactivate="GameUI.CustomUIConfig().OpenKeybind();">
+							<Panel class="KeybindImage" />
+							<Label class="KeybindName" text="#change_keybind_settings" />
+						</Panel>
+						<Panel class="ButtonWithGuide" onactivate="GameUI.CustomUIConfig().OpenGuide();">
+							<Panel class="GuideImage" />
+							<Label class="GuideName" text="#guide_settings" />
+						</Panel>
+						<Panel class="ButtonWithCustomize" onactivate="GameUI.CustomUIConfig().OpenCustomize();">
+							<Panel class="CustomizeImage" />
+							<Label class="CustomizeName" text="#customize_profile_settings" />
+						</Panel>
+						<Panel class="ButtonWithCalibrate" onactivate="GameUI.CustomUIConfig().OpenCalibrate();">
+							<Panel class="CalibrateImage" />
+							<Label class="CalibrateName" text="#calibrate_settings" />
+						</Panel>
+					</Panel>
+				</Panel>
+
+				<Panel id="BanAbilityPanel">
+					<Label id="BanAbilityTitle" text="#BanAbilityTitle" />
+					<Panel class="SectionHeaderLine" />
+					<Panel id="BanAbilityContainer" />
+				</Panel>
+				<Panel id="BanHeroPanel">
+					<Label id="BanHeroTitle" text="#BanHeroTitle" />
+					<Panel class="SectionHeaderLine" />
+					<Panel id="BanHeroContainer" />
+				</Panel>
+				<Panel class="AbilityOrderPanel" id="AbilityOrderPanel">
+					<Label id="AbilityOrderTitle" text="#AbilityOrderTitle" />
+					<Label id="AbilityOrderSubTitle" text="#AbilityOrderSubTitle" />
+					<Panel class="SectionHeaderLine" />
+					<Panel id="AbilityOrderAbilityBody" />
+				</Panel>
+		</Panel>
+	</Panel>
+</root>

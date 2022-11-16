@@ -1,0 +1,43 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="s2r://panorama/layout/custom_game/feedback/feedback.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/layout/custom_game/feedback/feedback.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="PlayerMessage">
+			<Panel class="PlayerMessage">
+				<Label id="PlayerMessageText" />
+			</Panel>
+		</snippet>
+		<snippet name="AuthorReply">
+			<Panel class="AuthorReply">
+				<Label id="AuthorReplyText" />
+				<Panel class="SeparatorLine" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel class="FeedbackRoot" hittest="false">
+		<Panel class="FeedbackReply" id="FeedbackReply" hittest="false">
+			<Panel id="FeedbackReplyHeader">
+				<Label class="FeedbackHeader" text="#author_reply" />
+			</Panel>
+			<Panel id="FeedbackReplyContainer" />
+		</Panel>
+		<Panel class="FeedbackInput" id="FeedbackInput" hittest="false">
+			<Panel id="FeedbackInputHeader">
+				<Label class="FeedbackHeader" style="padding-left:25px;" text="#feedback" />
+				<Button id="CloseFeedback" onactivate="CloseFeedback()" />
+			</Panel>
+			<TextEntry id="FeedbackText" multiline="true" onactivate="CheckDefaultText()" placeholder="#default_feedback" ontextentrychange="UpdateFeedbackText()" />
+			<Label id="MaxSymbols" text="{s:curr}/{s:max}" />
+			<Button id="FeedbackSendButton" class="Blocked" onactivate="SendFeedback()" onmouseover="FeedbackTooltip()" onmouseout="DOTAHideTextTooltip()">
+				<Label id="FeedbackSendButtonText" text="#feedback_send" />
+			</Button>
+		</Panel>
+	</Panel>
+</root>

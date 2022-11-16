@@ -1,0 +1,146 @@
+.Hidden{
+    opacity: 0;
+}
+
+
+
+ #PlayerLosePanel{
+
+  width:350px;
+  height:500px;
+  background-color:#111;
+  background-image: url("s2r://panorama/images/coaching/tiny_coach_dashboard_background_png.vtex");
+     background-size:100% 100%;
+     box-shadow: fill #00000066 -4px -4px 8px 8px;
+     vertical-align: center;
+     horizontal-align:center;
+     transition-property: position;
+     transition-duration: 2s;
+     margin-top: 250px;
+     margin-left: 750px;
+
+     transition-property: opacity;
+     transition-duration: 0.3s;
+     transition-timing-function: ease-in-out;
+     flow-children:down;
+ }
+
+ .PlayerLoseLabel{
+     color:#ff0000;
+     font-size:22px;
+     margin-top:60px;
+     font-weight: bold;
+     horizontal-align:center;
+ }
+
+ .PlayerLoseRank{
+
+     width:100%;
+     height:100px;
+     background-color: rgba(255,255,255,0.02);
+     flow-children:right;
+ }
+
+
+ .PlayerLoseRankInner{
+
+     horizontal-align:center;
+     flow-children:right;
+ }
+
+
+ #RankInner1{
+     color: white;
+     font-size:30px;
+     vertical-align: center;
+     line-height: 80px;
+ }
+ #RankInner2{
+     font-size:80px;
+     vertical-align: center;
+     font-weight: bold;
+     line-height: 80px;
+     color:#ffff00;
+ }
+ #RankInner3{
+     color: white;
+     font-size:30px;
+     vertical-align: center;
+     line-height: 80px;
+ }
+
+
+ .SafeLeaveLabel{
+     width:100%;
+     height:110px;
+     background-color: rgba(255,255,255,0.02);
+     flow-children:right;
+     font-size:20px;
+     color: white;
+     padding: 20px;
+ }
+
+
+ .ConfirmButton{
+
+   width: 150px;
+   height: 30px;
+   margin-left:100px;
+   margin-top: 30px;
+   background-color:gradient( linear, 0% 0%, 0% 100%, from( #722217 ), to( #DD4A29 ) );
+   background-image:url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+   background-size: 150px 30px;
+   padding: 3px;
+ }
+
+ .ConfirmButtonLabel{
+
+   width: 100%;
+   height: 100%;
+   text-align: center;
+   font-size: 20px;
+   color:white;
+ }
+ .ConfirmButtonLabel:hover{
+
+    color:red;
+ }
+
+
+
+ .DotaMindScore{
+
+     width:100%;
+     background-color: rgba(255,255,255,0.02);
+     flow-children:down;
+     margin-top: 20px;
+ }
+
+ .DotaMindScoreInner{
+     horizontal-align:center;
+     flow-children:right;
+ }
+
+
+ #DotaMindLabel{
+     color: white;
+     font-size:30px;
+     vertical-align: center;
+     horizontal-align: center;
+     line-height: 30px;
+ }
+
+ .DotaMindInner{
+     font-size:30px;
+     vertical-align: center;
+     line-height: 50px;
+     color:white;
+ }
+
+ .Green{
+     color:green;
+ }
+
+ .Red{
+     color:red;
+}

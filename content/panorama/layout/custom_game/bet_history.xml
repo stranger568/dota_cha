@@ -1,0 +1,35 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/bet_history.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/bet_history.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="HistoryItem">
+			<Panel class="HistoryItemPanel" hittest="false">
+				<Label id="YouWinner" text="#you_brackets" class="Hidden YouLabel" />
+				<Image id="HeroIconWinner_1" class="HeroIcon" src="" />
+				<Image id="HeroIconWinner_2" class="HeroIcon" src="" />
+				<Label id="Vs" text="VS" />
+				<Image id="HeroIconLoser_1" class="HeroIcon" src="" />
+				<Image id="HeroIconLoser_2" class="HeroIcon" src="" />
+				<Label id="YouLoser" text="#you_brackets" class="Hidden YouLabel" />
+				<Label id="Value" text="" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel hittest="false" id="BetHistoyMain" class="Hidden">
+			<Panel id="BetHistoyHeader">
+				<Label id="BetHistoyHeaderTitle" text="#bet_hisotry" />
+			</Panel>
+			<Panel id="BetHistoyContainer">
+				<Label id="BetHistoyEmptyTitle" text="#bet_empty" />
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

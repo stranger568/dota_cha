@@ -1,0 +1,26 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	custom_net_tables =
+	[
+              "rank_data",
+              "econ_data",
+              "econ_rarity",
+              "econ_type",
+              "hero_info",
+              "spawner_info",
+              "round_info",
+              "subsidiary_list",
+              "player_info",
+              "team_rank",
+              "pvp_record",
+              "end_game_data",
+              "cha_server_data",
+              "mmr_player",
+              "ban_count",
+              "tip_cooldown",
+              "spell_damage",
+              "spell_damage_income",
+              "pause_owner",
+              "coins_table",
+	]
+}

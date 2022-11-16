@@ -1,0 +1,53 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/ban_ability.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/security.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/omniscient_book.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="HeroesRow">
+			<Panel class="hBlock">
+				<Panel id="RowNameContainer">
+					<Image id="RowIcon" />
+					<Label id="RowName" text="" />
+				</Panel>
+				<Panel id="RowTable" class="hBlock" />
+			</Panel>
+		</snippet>
+		<snippet name="HeroesRadioButton">
+			<Panel>
+				<RadioButton id="RadioButton">
+					<DOTAHeroImage id="RadioImage" heroname="" />
+				</RadioButton>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel id="OmniscientMain" class="Hidden">
+			<Panel id="Wrapper" class="OmniscientWrapper">
+				<Panel id="spellShopLeft" class="vBlock ParentCell">
+					<Panel id="heroesTableStrAgi" />
+				</Panel>
+				<Panel id="spellShopRight" class="vBlock ParentCell">
+					<Panel id="heroesTableInt" />
+					<Panel id="OperatePanel" class="hBlock" style="height:120px; margin-top:50px;margin-left:30px;">
+						<DOTAHeroImage id="HeroImage" heroname="" />
+						<Panel id="Abilities" style="width:800px;" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel id="OmniscientButtonPanel" class="Hidden" hittest="false">
+			<Button id="SelectButton" onactivate="OminiscientSelectAbility()" hittest="true">
+				<Label id="SelectButtonLabel" text="#confirm" />
+			</Button>
+			<Button id="HideButton" onactivate="HideAllAbilitySelection()">
+				<Label id="HideButtonLabel" text="#AbilitySelection_Hide" hittest="true" />
+			</Button>
+		</Panel>
+	</Panel>
+</root>

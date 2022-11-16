@@ -1,0 +1,35 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/shared_scoreboard_styles.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/multiteam_flyout_scoreboard.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/shared_scoreboard_updater.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/multiteam_flyout_scoreboard.vjs_c" />
+	</scripts>
+	<Panel hittest="false" class="FlyoutScoreboardRoot">
+		<Panel class="ScoreboardHeader">
+			<Label class="ScoreboardHeaderLabel" id="HeaderPlayer" text="#Player" />
+			<Label class="ScoreboardHeaderLabel" id="HeaderScore" text="#TeamScore" />
+			<Label class="ScoreboardHeaderLabel" id="HeaderKills" text="#Kills" />
+			<Label class="ScoreboardHeaderLabel" id="HeaderDeaths" text="#Deaths" />
+			<Label class="ScoreboardHeaderLabel" id="HeaderAssists" text="#Assists" />
+			<Label class="ScoreboardHeaderLabel" id="HeaderItems" text="#Items" />
+			<Label class="ScoreboardHeaderLabel" id="HeaderAbilities" text="#Abilities" />
+		</Panel>
+		<Panel id="TeamsContainer" />
+		<Panel class="ScoreboardFooter">
+			<ToggleButton class="FooterToggle" id="ToggleAbilities" onactivate="ToggleAbilities();" onmouseover="DOTAShowTextTooltip(#ToggleAbilitiesDisplay)" onmouseout="DOTAHideTextTooltip()">
+				<Label text="#ToggleAbilities" />
+			</ToggleButton>
+			<ToggleButton class="FooterToggle" id="ToggleItems" onactivate="ToggleItems();" onmouseover="DOTAShowTextTooltip(#ToggleItemsDisplay)" onmouseout="DOTAHideTextTooltip()">
+				<Label text="#ToggleItems" />
+			</ToggleButton>
+			<Button id="MuteAllButton" onactivate="ToggleAllMute();" onmouseover="DOTAShowTextTooltip(#DOTA_MuteChat)" onmouseout="DOTAHideTextTooltip()" />
+			<Label class="MuteAllLabel" text="Mute All"/>
+		</Panel>
+	</Panel>
+</root>

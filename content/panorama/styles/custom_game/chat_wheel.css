@@ -1,0 +1,131 @@
+.Hidden{
+    opacity: 0;
+}
+
+ .ChatWheelItemRoot{
+
+    flow-children:down;
+    margin:15px;
+    width: 100%;
+ }
+ .ChatWheelItemMain{
+
+    flow-children:right;
+ }
+
+ .Separator{
+
+
+   height:4px;
+   width: 100%;
+   background-color:#3b3f40;
+   margin-top:8px;
+   margin-bottom:8px;
+ }
+
+
+ .ChatWheelSoundIcon{
+
+    width:30px;
+    height:30px;
+    margin-right:4px;
+    background-image:url("s2r://panorama/images/hud/reborn/icon_scoreboard_mute_sound_psd.vtex");
+    background-repeat:no-repeat;
+    background-size:contain;
+ }
+
+ .ChatWheelLabel{
+
+   vertical-align: middle;
+   color:#FFFFFF;
+   font-size:30px;
+   font-weight:bold;
+   font-family:defaultFont;
+ }
+
+ .ChatWheelMain{
+
+    width:600px;
+    height:400px;
+    vertical-align:center;
+    horizontal-align:center;
+    background-color:#000000cc;
+    border-radius:5px;
+    flow-children:right;
+ }
+
+ .ChatWheelLeft{
+
+    width:400px;
+    height:400px;
+    flow-children:down;
+    overflow: squish scroll;
+ }
+
+ .ChatWheelRight{
+
+    width:200px;
+    height:400px;
+    flow-children:down;
+ }
+
+
+ .ChatWheelCoolDown{
+
+   margin: 10px;
+   margin-top: 100px;
+   color:#FFFFFF;
+   font-size:35px;
+   font-weight:bold;
+   text-overflow: shrink;
+ }
+
+
+ .ChatWheelCoolDownNote{
+
+
+   color:#FFFFFF;
+   font-size:15px;
+   margin: 10px;
+   margin-top: 20px;
+ }
+
+
+
+ .ChatWheelCloseButton{
+     horizontal-align: center;
+     vertical-align: center;
+     width: 160px;
+     height: 40px;
+     border: 1px solid #000;
+     background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303) );
+     box-shadow: inset #ffffff50 1px 1px 2px 2px;
+     background-image:url("s2r://");
+     background-size:320px 120px;
+ }
+
+
+ .ChatWheelCloseButton:active{
+     background-color: gradient( linear, 0% 0%, 0% 100%, from(#880303), to(#b80803) );
+     box-shadow:fill #00000066 -4px -4px 8px 8px;
+     width: 165px;
+     height: 45px;
+ }
+
+ .ChatWheelCloseButton Label{
+     horizontal-align: center;
+     vertical-align: center;
+     font-size: 30px;
+     color: #fff;
+     text-transform: uppercase;
+     text-shadow:1px 1px 1px 1.0 #000000ff;
+ }
+
+ .ChatWheelEmptyNote{
+
+   color:#FFFFFF;
+   font-size:20px;
+   margin: 10px;
+   horizontal-align: center;
+   margin-top: 180px;
+}

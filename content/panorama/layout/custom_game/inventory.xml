@@ -1,0 +1,281 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/inventory.vcss_c" />
+		<include src="s2r://panorama/styles/dotastyles.css" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/inventory.vjs_c" />
+	</scripts>
+	<snippets>
+		<snippet name="CollectionItem">
+			<Panel class="CollectionItemRoot">
+				<Panel id="collection_item_title_panel" class="CollectionItemTitlePanel">
+					<Panel class="CollectionItemTitlePanelInner">
+						<Label id="collection_item_title" class="CollectionItemTitle" />
+					</Panel>
+				</Panel>
+				<Panel class="CollectionItemImagePanel">
+					<Image id="collection_item_image" class="CollectionItemImage" />
+					<Label id="collection_item_rarity" class="CollectionItemRarity" />
+					<Label id="collection_item_demo" class="CollectionItemDemo Hidden" text="#demo" />
+				</Panel>
+				<Panel class="CollectionButtonsPanel">
+					<Button class="ButtonBevel ButtonEquip" id="button_equip">
+						<Label text="#Equip" />
+					</Button>
+					<Button class="ButtonBevel ButtonRemove" id="button_remove">
+						<Label text="#Remove" />
+					</Button>
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel style="width:100%;height:100%; z-index:2;" hittest="false">
+		<Panel id="PaymentContainer" class="Hidden">
+			<Panel id="PaymentTabs">
+				<Panel id="PaymentTabsContainer">
+					<TabButton id="WeChat" class="PaymentTab" onactivate="ChangePaymentType(&apos;wechat&apos;)">
+						<Panel class="WeChatLogo LogoCenter" />
+					</TabButton>
+					<TabButton id="AliPay" class="PaymentTab" onactivate="ChangePaymentType(&apos;alipay&apos;)">
+						<Panel class="AliPayLogo LogoCenter" />
+					</TabButton>
+					<TabButton id="Paypal" class="PaymentTab" onactivate="ChangePaymentType(&apos;paypal&apos;)">
+						<Panel class="PayPalTabLogo LogoCenter" />
+					</TabButton>
+					<TabButton id="GrabPay" class="PaymentTab" onactivate="ChangePaymentType(&apos;grabpay_ph&apos;)">
+						<Panel class="GrabPayTabLogo LogoCenter" />
+					</TabButton>
+				</Panel>
+				<Button class="PaymentContainerCloseButton" onactivate="ClosePaymentContainer()" />
+			</Panel>
+			<Panel id="PaymentTier" class="PaymentTier">
+				<Panel id="PaymentTierContainer" class="PaymentTierContainer Hidden">
+					<Panel id="Tier1" class="Tier">
+						<Label class="TierName" text="#coin_80" />
+						<Label class="Discount" text="" />
+						<Panel class="TierButtons">
+							<TextButton class="BuyBtn Tier1-btn" onactivate="GetPaymentQRCode(&apos;1&apos;)">
+								<Label text="#buy_rmb_11" />
+							</TextButton>
+						</Panel>
+					</Panel>
+					<Panel id="Tier2" class="Tier">
+						<Label class="TierName" text="#coin_400" />
+						<Label class="Discount" text="#off_11" />
+						<Panel class="TierButtons">
+							<TextButton class="BuyBtn Tier2-btn" onactivate="GetPaymentQRCode(&apos;2&apos;)">
+								<Label text="#buy_rmb_49" />
+							</TextButton>
+						</Panel>
+					</Panel>
+					<Panel id="Tier3" class="Tier">
+						<Label class="TierName" text="#coin_1280" />
+						<Label class="Discount" text="#off_22" />
+						<Panel class="TierButtons">
+							<TextButton class="BuyBtn Tier3-btn" onactivate="GetPaymentQRCode(&apos;3&apos;)">
+								<Label text="#buy_rmb_139" />
+							</TextButton>
+						</Panel>
+					</Panel>
+				</Panel>
+				<Label id="SelectPaymentLabel" class="SelectPaymentLabel" text="#PleaseSelectPayment" />
+			</Panel>
+		</Panel>
+		<Panel id="PaymentWindow" class="Hidden" onactivate="">
+			<Panel id="PaymentWindowContent">
+				<HTML id="PaymentWindowHTML" acceptsinput="true" />
+				<Panel id="PaymentWindowLoader">
+					<Panel class="Spinner" />
+				</Panel>
+				<Panel id="PaymentWindowWaitExternalBrowser">
+					<Label id="PaymentWindowWaitExternalBrowserMessage" text="#UseBrowerToPay" />
+				</Panel>
+				<Panel id="PaymentWindowError">
+					<Label id="PaymentWindowErrorMessage" />
+				</Panel>
+			</Panel>
+			<Button class="CloseButton" onactivate="SetPaymentWindowStatus(&apos;closed&apos;)" />
+		</Panel>
+		<Panel id="PassPanel" class="Hidden">
+			<Button id="PassCloseButton" onactivate="ClosePassPanel()" />
+			<Panel id="BGImage" />
+			<Panel id="PassContainer">
+				<Label id="PassContainerTitle" text="#pass_title" />
+				<Label id="PassContainerText" text="#pass_text" />
+				<Panel id="ButtonContainer">
+					<Button id="CoinSubscribe" class="PassSubscribeButton" onactivate="SubscribeByCoins()">
+						<Label id="CoinSubscribeLabel" text="#subscribe_by_coins" />
+						<Panel id="CoinSubscribeLoading" class="Spinner Hidden" />
+					</Button>
+					<Button id="CashScribe" class="PassSubscribeButton" onactivate="SubscribeByCash()">
+						<Label text="#SubscribeByCash" />
+					</Button>
+				</Panel>
+				<Panel id="PassPaymentPanel">
+					<Panel id="PassTaoBaoPanel" class="Hidden">
+						<Panel id="PassTaoBaoQRCode" />
+					</Panel>
+					<Panel id="PassPayPalPanel" class="Hidden">
+						<Panel id="PayPalLogo" />
+						<Panel id="PayPalMain">
+							<Panel id="PassPayPalLink" class="PayPalLink" />
+							<Label id="PassCodeToolTip" text="#CodeToolTip" />
+							<TextEntry id="PassPayPalCodeEntry" />
+						</Panel>
+					</Panel>
+					<Panel id="PassCashPanel" class="Hidden">
+						<Panel id="PassPaymentTabs">
+							<Panel class="WeChatLogo PassLogo" onactivate="GetPaymentQRCode(&apos;pass&apos;,&apos;wechat&apos;)" />
+							<Panel class="AliPayLogo PassLogo" onactivate="GetPaymentQRCode(&apos;pass&apos;,&apos;alipay&apos;)" />
+							<Panel class="PayPalTabLogo PassLogo" onactivate="GetPaymentQRCode(&apos;pass&apos;,&apos;paypal&apos;)" />
+							<Panel class="GrabPayTabLogo PassLogo" onactivate="GetPaymentQRCode(&apos;pass&apos;,&apos;grabpay_ph&apos;)" />
+							<Panel class="QiwiTabLogo PassLogo" onactivate="GetPaymentQRCode(&apos;pass&apos;,&apos;qiwi&apos;)" />
+						</Panel>
+						<Label id="PassSelectPaymentLabel" class="SelectPaymentLabel" text="#PleaseSelectPayment" />
+					</Panel>
+					<Panel id="PassPayPalPanelLoading" class="Spinner Hidden" />
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel class="Inventory Hidden" id="page_inventory">
+			<Panel class="InventoryTop">
+				<Panel id="InventoryLabelPanel" onactivate="ShowHandBookPage()">
+					<Label text="#Inventory" class="InventoryTitle" />
+					<Label text="#Handbook" class="HandbookTitle" />
+				</Panel>
+				<Panel id="MoneyStoragePanel">
+					<TextButton id="PassButton" onactivate="TogglePassPanel()">
+						<Label id="PassButtonLabel" text="#subscribe_pass" />
+					</TextButton>
+					<Image id="MoneyStorageImg" src="s2r://panorama/images/custom_game/inventory/token_png.vtex" onmouseover="TipsOver(&apos;money_tip_message&apos;,&apos;MoneyStorageImg&apos;)" onmouseout="TipsOut()" />
+					<Label id="MoneyStorageLabel" text="× ?" onmouseover="TipsOver(&apos;money_tip_message&apos;,&apos;MoneyStorageLabel&apos;)" onmouseout="TipsOut()" />
+					<Button id="BuyRabbitCoinButton" onactivate="ShowPaymentContainer()" class="EvolveButton">
+						<Label id="SubmitTaobaoCodeButtonLabel" text="#BuyCoin" />
+					</Button>
+				</Panel>
+				<Button class="InventoryCloseButton" onactivate="CloseInventory()" />
+				<Label id="TaobaoCodeNotify" Class="Hidden" text="" />
+			</Panel>
+			<Panel class="InventoryMain">
+				<Panel class="InventoryLeft">
+					<Panel class="InventoryLeftPic">
+						<Image id="InventoryLeftImg" src="s2r://panorama/images/custom_game/econ/lottery_png.vtex" />
+					</Panel>
+					<Button id="DrawButton1" class="DrawButton" onactivate="ShowLotteryPage(1)">
+						<Panel class="DrawMutationButtonIconAndText">
+							<Label class="DrawMutationButtonText" text="#Draw1" />
+							<Panel class="DrawMutationButtonIcon" />
+							<Label class="DrawMutationButtonText" text="X50)" />
+						</Panel>
+					</Button>
+					<Button id="DrawButton2" class="DrawButton" onactivate="ShowLotteryPage(2)">
+						<Panel class="DrawMutationButtonIconAndText">
+							<Label class="DrawMutationButtonText" text="#Draw2" />
+							<Panel class="DrawMutationButtonIcon" />
+							<Label class="DrawMutationButtonText" text="X50)" />
+						</Panel>
+					</Button>
+					<Button id="DrawButton3" class="DrawButton" onactivate="ShowLotteryPage(3)">
+						<Panel class="DrawMutationButtonIconAndText">
+							<Label class="DrawMutationButtonText" text="#Draw3" />
+							<Panel class="DrawMutationButtonIcon" />
+							<Label class="DrawMutationButtonText" text="X50)" />
+						</Panel>
+					</Button>
+					<Button id="DrawButton4" class="DrawButton" onactivate="ShowLotteryPage(4)">
+						<Panel class="DrawMutationButtonIconAndText">
+							<Label class="DrawMutationButtonText" text="#Draw4" />
+							<Panel class="DrawMutationButtonIcon" />
+							<Label class="DrawMutationButtonText" text="X50)" />
+						</Panel>
+					</Button>
+				</Panel>
+				<Panel class="InventoryRight" id="InventoryRight">
+					<Panel id="LoadingPanel">
+						<Panel id="LoadingPanelSpinner" class="Spinner" />
+					</Panel>
+					<Panel class="InventoryRightMain Hidden" id="InventoryRightMain">
+						<Panel id="Tabs">
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;Wearable&apos;)">
+								<Label text="#WearableShort" />
+							</RadioButton>
+							<Label class="TabSeperator" text="/" />
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;Particle&apos;)">
+								<Label text="#Particle" />
+							</RadioButton>
+							<Label class="TabSeperator" text="/" />
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;Pet&apos;)">
+								<Label text="#Pet" />
+							</RadioButton>
+							<Label class="TabSeperator" text="/" />
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;Barrage&apos;)">
+								<Label text="#Barrage" />
+							</RadioButton>
+							<Label class="TabSeperator" text="/" />
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;KillSound&apos;)">
+								<Label text="#KillSoundShort" />
+							</RadioButton>
+							<Label class="TabSeperator" text="/" />
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;KillEffect&apos;)">
+								<Label text="#KillEffectShort" />
+							</RadioButton>
+							<Label class="TabSeperator" text="/" />
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;BlinkEffect&apos;)">
+								<Label text="#BlinkEffect" />
+							</RadioButton>
+							<Label class="TabSeperator" text="/" />
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;AttackEffect&apos;)">
+								<Label text="#AttackEffect" />
+							</RadioButton>
+							<Label class="TabSeperator" text="/" />
+							<RadioButton class="TabButton" onactivate="ScrollInventory(&apos;CosmeticsAbility&apos;)">
+								<Label text="#CosmeticsAbility" />
+							</RadioButton>
+						</Panel>
+						<Panel class="InventoryRightContainer" id="InventoryRightContainer">
+							<Panel class="InventoryClassTitle" id="InventoryWearableTitle">
+								<Label text="#Wearable" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryWearablePanel" />
+							<Panel class="InventoryClassTitle" id="InventoryParticleTitle">
+								<Label text="#Particle" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryParticlePanel" />
+							<Panel class="InventoryClassTitle" id="InventoryPetTitle">
+								<Label text="#Pet" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryPetPanel" />
+							<Panel class="InventoryClassTitle" id="InventoryBarrageTitle">
+								<Label text="#Barrage" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryBarragePanel" />
+							<Panel class="InventoryClassTitle" id="InventoryKillSoundTitle">
+								<Label text="#KillSound" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryKillSoundPanel" />
+							<Panel class="InventoryClassTitle" id="InventoryKillEffectTitle">
+								<Label text="#KillEffect" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryKillEffectPanel" />
+							<Panel class="InventoryClassTitle" id="InventoryBlinkEffectTitle">
+								<Label text="#BlinkEffect" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryBlinkEffectPanel" />
+							<Panel class="InventoryClassTitle" id="InventoryAttackEffectTitle">
+								<Label text="#AttackEffect" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryAttackEffectPanel" />
+							<Panel class="InventoryClassTitle" id="InventoryCosmeticsAbilityTitle">
+								<Label text="#CosmeticsAbility" />
+							</Panel>
+							<Panel class="InventoryClassPanel" id="InventoryCosmeticsAbilityPanel" />
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

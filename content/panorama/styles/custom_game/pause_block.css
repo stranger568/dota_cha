@@ -1,0 +1,35 @@
+.PauseOwner
+{
+	width: 500px;
+	height: 120px;
+	margin-bottom: 48%;
+	align: center center;
+	background-color: #000000cc;
+	visibility: collapse;
+	flow-children: down;
+	border-radius: 5px;
+}
+
+.PauseAvatar
+{
+	width: 64px;
+	height: 64px;
+	vertical-align: center;
+}
+
+.PauseName
+{
+	vertical-align: center;
+	margin-left: 20px;
+	width: 150px;
+	height: 20px;
+}
+
+.PauseOwnerLabel
+{
+	horizontal-align: center;
+	color: white;
+	font-weight: bold;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}

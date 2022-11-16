@@ -1,0 +1,1 @@
+golem_anti_blademail = class({})

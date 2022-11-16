@@ -1,0 +1,676 @@
+
+ @define time_frame: .5s;
+
+ @keyframes 'MoveUpAnimation'{
+
+     0%{
+
+       transform: translateY( 0px );
+     }
+     100%{
+
+       transform: translateY( -100px );
+     }
+ }
+
+ @keyframes 'MoveDownAnimation'{
+
+     0%{
+
+       transform: translateY( 0px );
+     }
+     100%{
+
+       transform: translateY( 100px );
+     }
+ }
+
+ .Hidden{
+    opacity:0.0;
+ }
+
+ .PvPMainBackground{
+     background-color:#000000cc;
+ }
+
+
+ .AbilityBevel{
+   width: 100%;
+   height: 100%;
+   background-image: url("s2r://panorama/images/custom_game/pvp_icon/ability_bevel_png.vtex");
+   background-size: contain;
+   background-position: 50% 50%;
+   background-repeat: no-repeat;
+   z-index: 1;
+   transition-property: brightness, background-color;
+   transition-duration: 0.2s;
+ }
+
+ .MoveUp{
+
+    animation-name: MoveUpAnimation;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+ }
+
+
+ .MoveDown{
+
+    animation-name: MoveDownAnimation;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+ }
+
+
+
+ .HUDFlipped .PvPMainHidden{
+    transform: translatex(500px);
+ }
+
+ .PvPMainHidden{
+    opacity:0.0;
+    transform: translatex(-500px);
+ }
+
+ .TeamBriefPvpPanel{
+    flow-children: down;
+    width: 100%;
+ }
+
+
+ .HUDFlipped #PvPMain{
+   horizontal-align:right;
+ }
+
+
+ .PvPMain{
+    flow-children: down;
+    margin-top: 160px;
+    width: 370px;
+    transition-property:opacity;
+    transition-duration:0.2s;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition-property: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+ }
+
+  .PvPMain2x6{
+    flow-children: down;
+    margin-top: 50px;
+    width: 365px;
+    transition-property:opacity;
+    transition-duration:0.2s;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition-property: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+ }
+
+ .HealthContainer{
+   width:100%;
+   height:20px;
+   margin: 2px;
+ }
+
+ .HealthLabel{
+   text-align:center;
+   font-weight:bold;
+   font-size:14px;
+   color:white;
+   margin-top:1px;
+   margin-bottom:2px;
+   horizontal-align:center;
+   text-shadow:1px 1px 0px 2.0 #000000;
+   z-index: 2;
+ }
+
+ .HealthProgress{
+   border-radius:0px;
+   width:100%;
+   height:100%;
+   margin-top:-2px;
+   background-color:none;
+   border:1px solid black;
+   transition-property: width;
+   transition-duration: time_frame;
+   transition-timing-function: ease-out;
+ }
+
+ .HealthProgressLeft{
+   border-radius:3px;
+   background-color:gradient( linear, 0% 0%, 0% 100%, from( #425d25  ), color-stop( 0.2, #5BA539 ), color-stop( .5, #4D9030), to( #425d25) );
+ }
+
+ .HealthProgressRight{
+
+   background-color:gradient( linear, 0% 0%, 0% 100%, from( #17200d  ), color-stop( 0.2, #222e13 ), color-stop( .5, #1e2911), to( #17200d) );
+ }
+
+ .DotaSceneContainer{
+   width: 100%;
+   height: 100%;
+ }
+
+ .SceneLoaded{
+   width: 100%;
+   height: 100%;
+ }
+
+ .DotaSceneContainer DOTAScenePanel{
+   width: 100%;
+   height: 100%;
+   overflow:noclip;
+ }
+
+ .ManaContainer{
+   width:100%;
+   height:20px;
+   margin: 2px;
+ }
+
+
+ .ManaLabel{
+     text-align:center;
+   font-weight:bold;
+   font-size:14px;
+   color:white;
+   margin-top:1px;
+   margin-bottom:2px;
+   horizontal-align:center;
+   text-shadow:1px 1px 0px 2.0 #000000;
+   z-index: 2;
+ }
+
+ .ManaProgress{
+   border-radius:0px;
+   width:100%;
+   height:100%;
+   margin-top:-2px;
+   background-color:none;
+   border:0px;
+   border:1px solid black;
+ }
+
+ .ManaProgressLeft{
+   border-radius:3px;
+   background-color:gradient( linear, 0% 0%, 0% 100%, from( #2b4287 ), color-stop( 0.2, #4165ce ), color-stop( .5, #4a73ea), to( #2b4287 ) );
+ }
+
+ .ManaProgressRight{
+   border-radius:3px;
+   background-color:gradient( linear, 0% 0%, 0% 100%, from( #101932 ), color-stop( 0.2, #172447 ), color-stop( .5, #162244), to( #101932 ) );
+ }
+
+ .DotaSceneManaContainer{
+   width: 100%;
+   height: 100%;
+ }
+
+ .DotaSceneManaContainer DOTAScenePanel{
+   width: 100%;
+   height: 100%;
+   overflow:noclip;
+   hue-rotation:50deg ;
+   opacity:0.4 ;
+ }
+
+ .AbilityPanel{
+   margin-top: 5px;
+   border: 1px solid black;
+   background-color: rgba(0,0,0,0.95);
+   flow-children: right-wrap;
+   width: 284px;
+   background-image: url("file://{images}/custom_game/abilitypanel.png");
+   background-size: 284px 94px;
+   margin-bottom: 5px;
+ }
+
+ .PlayerAbilityPanel{
+     flow-children: down;
+ }
+
+ .AbilityItem{
+   width: 45px;
+   height: 45px;
+   margin: 1px;
+   border: 1px solid black;
+   transition-property: saturation;
+   transition-duration: time_frame;
+ }
+
+  .ItemPanel{
+   flow-children: right;
+   width: 360px;
+   height: 36px;
+   border: 1px solid black;
+   background-color: rgba(0,0,0,0.95);
+ }
+
+ .ItemPanel  DOTAItemImage{
+   width: 39px;
+   height: 28px;
+   vertical-align: center;
+   margin: 1px;
+   background-image: url("file://{images}/custom_game/item_no.png");
+   background-size: 100%;
+ }
+
+ .ItemPanel  DOTAItemImage{
+   width: 39px;
+   height: 28px;
+   vertical-align: center;
+   margin: 1px;
+   background-image: url("file://{images}/custom_game/item_no.png");
+   background-size: 100%;
+ }
+
+ .Passive{
+   box-shadow:  inset #000000bb 4px 4px 8px 8px;
+   border: 1px solid black !important;
+ }
+
+ .Passive .AbilityBevel{
+   wash-color:#00000088;
+   transform: rotateZ(180deg);
+   brightness: 1;
+ }
+
+ .HeroIcon{
+   height: 45px;
+     width: 75px;
+     border: 1px solid black;
+     margin-bottom: 5px;
+ }
+
+
+ .BetInfoContainer{
+    flow-children: down;
+    width: 100%;
+ }
+
+ .PlayerBetLine{
+    width: 100%;
+    height: 20px;
+    flow-children: right;
+ }
+
+ #HeroIcon{
+   width: 20px;
+   height: 20px;
+   vertical-align: center;
+ }
+
+ #BetValueProgressBar{
+
+     width:  100%;
+   height: 100%;
+   border-radius: 0px;
+   border-width: 0px;
+   box-shadow: none;
+   background-color: transparent;
+   padding-left: 10px;
+   padding-right: 4px;
+ }
+
+
+ #BetValueProgressBar_Left{
+   vertical-align: center;
+   max-height: 3px;
+   flow-children: right;
+   border-radius: 10px;
+   background-color: #F3C670;
+ }
+
+ #BetValueProgressBar_Right{
+   vertical-align: center;
+   margin-left: -5px;
+   margin-top: 2px;
+   min-width: 7px;
+   min-height: 7px;
+   max-width: 7px;
+   max-height: 7px;
+   background-image: url("s2r://panorama/images/custom_game/pvp_icon/progress_bar_indicator_png.vtex");
+   background-size: 100%;
+ }
+
+ #BetValue{
+   vertical-align: center;
+   font-size: 14px;
+   color: #F3C670;
+  font-weight: bold;
+  text-shadow: -1px 1px 4px 2 #000000;
+ }
+
+ #CooldownTimer{
+
+    color:white;
+    font-size:12px;
+    text-shadow:0px 0px 6px 6 #000000;
+    width:100%;
+    text-align:center;
+    vertical-align:center;
+    text-overflow:shrink;
+ }
+
+
+ .Cooldown{
+  align: center center;
+   width: 100%;
+   height: 100%;
+ }
+
+
+ #CooldownOverlay{
+   transition-property: clip;
+   transition-duration: 0.45s;
+   background-color:#000000dc;
+   width:100%;
+   height: 100%;
+   brightness: 1.2;
+ }
+
+#CooldownTimerItem{
+
+    color:white;
+    font-size:12px;
+    text-shadow:0px 0px 6px 6 #000000;
+    width:100%;
+    text-align:center;
+    vertical-align:center;
+    text-overflow:shrink;
+ }
+
+
+ .CooldownItem{
+  align: center center;
+   width: 100%;
+   height: 100%;
+ }
+
+
+ #CooldownOverlayItem{
+   transition-property: clip;
+   transition-duration: 0.45s;
+   background-color:#000000dc;
+   width:100%;
+   height: 100%;
+   brightness: 1.2;
+ }
+
+ .InsufficientMana{
+   wash-color:#1569be;
+ }
+
+
+ #VsLogo{
+   width: 0px;
+   height: 0px;
+  visibility: collapse;
+   opacity: 0;
+   horizontal-align: center;
+   margin-bottom: 10px;
+ }
+
+
+ #VsLogo Image{
+   width: 0%;
+   height: 0%;
+   visibility: collapse;
+   opacity: 0;
+   align: center center;
+   horizontal-align: center;
+ }
+
+ #PvPMainHeader{
+
+   width: 100%;
+   height: 30px;
+   flow-children: right;
+   margin-top: 5px;
+   margin-bottom: 10px;
+ }
+
+
+ #PvPMainHeaderTitle{
+
+   width: 30%;
+   height: 100%;
+   color:white;
+   font-size: 25px;
+   text-overflow:shrink;
+ }
+
+
+ .HUDFlipped #PvPMainHeaderHideButton{
+     background-image: url("s2r://panorama/images/custom_game/pvp_icon/arrow_solid_right_png.vtex");
+ }
+
+
+ #PvPMainHeaderHideButton{
+
+     vertical-align: center;
+     horizontal-align: right;
+     width: 50px;
+     height: 20px;
+     background-image: url("s2r://panorama/images/custom_game/pvp_icon/arrow_solid_left_png.vtex");
+     background-size: 50% 100%;
+ }
+
+ .HUDFlipped #PvPMainHeaderShowPanel{
+   horizontal-align:right;
+ }
+
+ #PvPMainHeaderShowPanel{
+
+     background-color:#000000cc;
+     margin-top: 215px;
+     width: 50px;
+     height: 35px;
+ }
+
+
+ .HUDFlipped #PvPMainHeaderShowButton{
+     background-image: url("s2r://panorama/images/custom_game/pvp_icon/arrow_solid_left_png.vtex");
+ }
+
+
+
+ #PvPMainHeaderShowButton{
+     width: 40px;
+     height: 25px;
+     vertical-align: center;
+     horizontal-align: center;
+     background-image: url("s2r://panorama/images/custom_game/pvp_icon/arrow_solid_right_png.vtex");
+     background-size: 50% 100%;
+     background-repeat: repeat no-repeat;
+ }
+
+
+ .TeamLogoBrief{
+   height: 20px;
+   width: 20px;
+   background-color: rgba(0,0,0,0.90);
+   z-index: 10;
+   transform: translateY(-2px);
+ }
+
+ .TeamLogoBrief Image{
+   height: 20px;
+   width: 20px;
+ }
+
+ .TeamLogoBriefIcon{
+   wash-color: black;
+ }
+
+ #GoldIcon{
+   background-image:url("s2r://panorama/images/custom_game/pvp_icon/gold_small_png.vtex");
+   background-size:100% 100%;
+   width: 40px;
+   height: 100%;
+   margin-top: -2px;
+ }
+
+ #GoldValue{
+   color:white;
+   font-size:25px;
+   height:100%;
+}
+
+.HeroIconAndHealthAndMana
+{
+  flow-children: right;
+}
+
+
+.HealthAndManaPanel
+{
+   width: 100%;
+   height: 50px;
+   flow-children: down;
+}
+ .BonusPlayerInformation
+ {
+  flow-children: right;
+ }
+
+ .HeroRank
+ {
+   margin-left: 1px;
+   width: 47px;
+   height: 47px;
+   background-image: url("file://{images}/custom_game/ranks/rank0.png");
+   background-size: 100%;
+ }
+
+ .HeroInfoAndRating
+ {
+  flow-children: down;
+ }
+
+ .HeroInfoLevel
+ {
+  flow-children: right;
+  width: 150px;
+ }
+
+ .LevelCircle
+ {
+    border: 1px solid #D9B67C;
+    background-color: black;
+    width: 26px;
+    height: 26px;
+    border-radius: 25px;
+ }
+
+ .LevelLabel
+ {
+  align: center center;
+  font-family: Roboto;
+  color: #A78348;
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+ }
+
+ .GoldInfoLabel
+ {
+  flow-children: right;
+  horizontal-align: right;
+ }
+
+ .GoldInfoLabelText
+ {
+    width: 95px;
+    color: #F3C670;
+    font-size: 20px;
+    font-family: Roboto;
+    text-align: right;
+ }
+
+ .GoldInfoIcon
+ {
+  background-image: url("file://{images}/custom_game/gold_icon.png");
+   background-size: 100%;
+   width: 26px;
+   height: 19px;
+ }
+
+ .HeroInfoRating
+ {
+  margin-top: 1px;
+  width: 150px;
+ }
+
+ .HeroInfoRatingLabel
+ {
+  margin-top: 4px;
+    background-color: rgba(0,0,0,0.2);
+    color: white;
+    font-family: Roboto;
+    font-size: 14px;
+ }
+   .NeutralItem
+ {
+  border-radius: 28px;
+  border:1px solid #717879;
+  height: 28px;
+  width: 28px;
+  vertical-align: center;
+  
+ }
+
+  .rank_number
+ {
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 0px 0px 3px 3.0 black;
+    background-color: rgba(0,0,0,0.2);
+    color: white;
+    width: 100%;
+    font-weight: bold;
+    z-index: 10;
+    vertical-align: bottom;
+    transform: translateY(2px);
+ }
+
+
+ .AbilityBevel
+ {
+  width: 100%;
+  height: 100%;
+
+ }
+
+ .ability_levelbox
+ {
+  vertical-align: bottom;
+  flow-children: right;
+  horizontal-align: center;
+  z-index: 5;
+ }
+
+ .ability_level_quad
+ {
+    width: 5px;
+    height: 5px;
+    background-color: gradient( linear, 0% 0%, 0% 100%, from( #E7D291 ), to( #887845 ) );
+    margin-left: 2px;
+    margin-right: 2px;
+    box-shadow: #000000bb 0px 0px 1px 1px;
+ }
+
+ .ability_level_quad_not_learn
+ {
+    width: 5px;
+    height: 5px;
+    background-color: gradient( linear, 0% 0%, 0% 100%, from( #111111ff ), to( #000000ff ) );
+    margin-left: 2px;
+    margin-right: 2px;
+    box-shadow: #000000bb 0px 0px 1px 1px;
+ }

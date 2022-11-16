@@ -1,0 +1,36 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/player_lose.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/security.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/player_lose.vjs_c" />
+	</scripts>
+	<Panel hittest="false">
+		<Panel id="PlayerLosePanel" class="Hidden" hittest="false">
+			<Label class="PlayerLoseLabel" text="#you_lose" />
+			<Panel class="PlayerLoseRank">
+				<Panel class="PlayerLoseRankInner">
+					<Label id="RankInner1" text="#your_rank" />
+					<Label id="RankInner2" text="8" />
+					<Label id="RankInner3" text="/8" />
+				</Panel>
+			</Panel>
+			<Panel class="DotaMindScore">
+				<Label id="DotaMindLabel" text="#dota_mind_score" />
+				<Panel class="DotaMindScoreInner">
+					<Label id="DotaMindInner1" class="DotaMindInner" text="0" />
+					<Label id="DotaMindInner2" class="DotaMindInner" text="→" />
+					<Label id="DotaMindInner3" class="DotaMindInner" text="0" />
+					<Label id="DotaMindInner4" class="DotaMindInner" />
+				</Panel>
+			</Panel>
+			<Label class="SafeLeaveLabel" text="#safe_leave" />
+			<Button class="ConfirmButton" onactivate="Confirm()">
+				<Label class="ConfirmButtonLabel" text="#confirm" />
+			</Button>
+		</Panel>
+	</Panel>
+</root>

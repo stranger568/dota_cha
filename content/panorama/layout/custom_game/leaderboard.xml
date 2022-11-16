@@ -1,0 +1,56 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/leaderboard.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/leaderboard.js" />
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+	</scripts>
+
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel id="LeaderBoardButton" onactivate="ToggleLeaderboard();" />
+
+		<Panel class="LeaderboardWindow sethidden" id="LeaderboardWindow" hittest="false">
+			<Panel class="Leaderboardlogo">
+				<Label text="#cha_leaderboard" class = "LeaderboardNameLabel"/>	
+				<Panel class="Close" onactivate="ToggleLeaderboard();"/>
+			</Panel> 
+
+			<Panel class="Leaderboardblock" hittest="false">
+				<Panel style="flow-children:right;horizontal-align:center;">
+					<Panel class="RankContainer" hittest="false">
+						<Panel class="RankContainerHeader" id="RankContainerHeaderSolo">
+							<Label text="#cha_leaderboard_rank" class="cha_leaderboard_rank"/>
+							<Label text="#cha_leaderboard_solo" class="cha_leaderboard_map"/>
+							<Label text="#cha_leaderboard_rating" class="cha_leaderboard_rating"/>
+						</Panel>
+						<Panel class="PlayersTable" id="PlayersTableSolo" />
+					</Panel>
+
+					<Panel class="RankContainer" hittest="false">
+						<Panel class="RankContainerHeader" id="RankContainerHeaderDuo">
+							<Label text="#cha_leaderboard_rank" class="cha_leaderboard_rank"/>
+							<Label text="#cha_leaderboard_duo" class="cha_leaderboard_map"/>
+							<Label text="#cha_leaderboard_rating" class="cha_leaderboard_rating"/>
+						</Panel>
+						<Panel class="PlayersTable" id="PlayersTableDuo" />
+					</Panel>
+
+					<Panel class="RankContainer" hittest="false">
+						<Panel class="RankContainerHeader" id="RankContainerHeaderPVE">
+							<Label text="#cha_leaderboard_rank" class="cha_leaderboard_rank"/>
+							<Label text="#cha_leaderboard_pve" class="cha_leaderboard_map"/>
+							<Label text="Time" class="cha_leaderboard_rating"/>
+						</Panel>
+						<Panel class="PlayersTable" id="PlayersTablePVE" />
+					</Panel>
+				</Panel>
+			</Panel>
+
+
+
+		</Panel>
+	</Panel>
+</root>

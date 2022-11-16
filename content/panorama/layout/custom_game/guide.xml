@@ -1,0 +1,220 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/guide.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/guide.js" />
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+	</scripts>
+
+	<Panel style="width:100%;height:100%;" hittest="false">
+		
+		<!--<Panel id="GuideCHAButton" onactivate="ToggleGuide();" />-->
+
+		<Panel class="GuideWindow sethidden" id="GuideWindow" hittest="false">
+			<Panel class="Guidelogo">
+				<Label text="#cha_guide" class = "GuideNameLabel"/>	
+				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenGuide();"/>
+			</Panel>
+
+			<Panel class="Guideblock" hittest="false">
+
+
+				<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon skystaff" />
+							<Label class="ItemName" text="Sky Staff" />
+						</Panel>
+						<Panel class="ItemList">
+							<Panel class="ItemIcon forceofstar" />
+							<Label class="ItemName" text="Force of Star" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Значительно увеличивает Ваш урон от магических умений за каждую единицу <font color='#629dff'>интеллекта</font> не увеличивает урон от умений, наносящих урон в % от здоровья цели." />
+						<Label class="SecondBlockDescription" html="true" text="Примеры заклинаний:" />
+						<Panel class="AbilityIcon beast" />
+						<Panel class="AbilityIcon sky" />
+						<Panel class="AbilityIcon cm" />
+						<Label class="SecondBlockDescription" html="true" text="Играя на герое с магическими умениями эти предметы лучше всего собирать в первую очередь, для увеличения своего магического урона на крипах, а также в дуэли с другими героями" />
+					</Panel>
+				</Panel>
+
+				<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon pipe1" />
+							<Label class="ItemName" text="Torture Pipe I" />
+						</Panel>
+						<Panel class="ItemList">
+							<Panel class="ItemIcon pipe2" />
+							<Label class="ItemName" text="Torture Pipe II" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Значительно увеличивает периодический урон (урон в секунду) от Ваших умений за каждую единицу <font color='#ff0000'>силы</font>, <font color='#03c404'>ловкости</font>, <font color='#629dff'>интеллекта</font>.<br>не увеличивает урон от умений, наносящих урон в % от здоровья цели." />
+						<Label class="SecondBlockDescription" html="true" text="Примеры заклинаний:" />
+						<Panel class="AbilityIcon sk" />
+						<Panel class="AbilityIcon jakiro" />
+						<Panel class="AbilityIcon timber" />
+						<Label class="SecondBlockDescription" html="true" text="Если у Вашего героя есть умения с периодическим уроном, то самый лучший вариант собрать его в первую очередь." />
+						<Label class="SecondBlockDescription" html="true" text="В дальнейшем можно приобрести также" />
+						<Panel class="AbilityIcon kaya1" />
+						<Panel class="AbilityIcon kaya2" />
+						<Label class="SecondBlockDescription" html="true" text="чтобы еще больше усилить свой урон. Также этот предмет дает сопротивление к магии, что поможет Вам на дуэлях против магов." />
+						<Label class="SecondBlockDescription" html="true" text="Работает с предметами: " />
+						<Panel class="AbilityIcon radiance" />
+						<Panel class="AbilityIcon cloack" />
+					</Panel>
+				</Panel>
+
+
+				<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon bloodstone" />
+							<Label class="ItemName" text="Bloodstone II" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Хороший предмет для увеличения хп/мп, а также урона от заклинаний и дает эффект магического вампиризма." />
+						<Label class="SecondBlockDescription" html="true" text="Данный предмет стоит собирать вторым, после" />
+						<Panel class="AbilityIcon kaya2" />
+						<Label class="SecondBlockDescription" html="true" text="или" />
+						<Panel class="AbilityIcon pipe_mini" />
+						<Label class="SecondBlockDescription" html="true" text="За каждого убитого героя на дуэли дает 1 заряд, увеличивающий Ваш урон. Не теряет заряды при смерти на дуэли." />
+					</Panel>
+				</Panel>
+
+
+
+				<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon mask" />
+							<Label class="ItemName" text="Mask of Dominator" />
+						</Panel>
+						<Panel class="ItemList">
+							<Panel class="ItemIcon hood" />
+							<Label class="ItemName" text="Hood of Dominator" />
+						</Panel>
+						<Panel class="ItemList">
+							<Panel class="ItemIcon crown" />
+							<Label class="ItemName" text="Crown of Dominator" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Увеличивает характеристики ваших сумонов, каждый аттрибут влияет на разные показатели сумонов. Очень хорошо работает с:" />
+						<Label class="SecondBlockDescription" html="true" text="Примеры заклинаний: " />
+						<Panel class="AbilityIcon wd" />
+						<Panel class="AbilityIcon shaman" />
+						<Panel class="AbilityIcon warlock" />
+						<Label class="SecondBlockDescription" html="true" text="Примеры предметов: " />
+						<Panel class="AbilityIcon necr1" />
+						<Panel class="AbilityIcon necr2" />
+						<Panel class="AbilityIcon necr3" />
+						<Panel class="AbilityIcon necr4" />
+						<Label class="SecondBlockDescription" html="true" text="Игра для сумонерах очень не простая, но они очень эффективны на ранних стадиях игры для победы на дуэлях. Для сумонов будут очень эффективны такие умения как:" />
+						<Label class="SecondBlockDescription" html="true" text="Примеры заклинаний: " />
+						<Panel class="AbilityIcon invoker" />
+						<Panel class="AbilityIcon legion" />
+						<Panel class="AbilityIcon magnus" />
+					</Panel>
+				</Panel>
+
+								<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon battle_fury_2" />
+							<Label class="ItemName" text="Battle Fury ||" />
+						</Panel>
+						<Panel class="ItemList">
+							<Panel class="ItemIcon battle_fury_3" />
+							<Label class="ItemName" text="Eternal Battle Fury" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Данный предмет хорош тем, что дает возможность атаковать сплешом вокруг цели, а не перед героем.Также на поздней стадии его можно улучшить в Eternal Battle Fury, который даст урон в % от максимального хп цели." />
+						<Label class="SecondBlockDescription" html="true" text="% урон не работает на Рошана и отключается в" />
+						<Panel class="AbilityIcon viper" />
+						<Label class="SecondBlockDescription" html="true" text="<br> Battle Fury 2 можно собрать к раунду 30-35, а Eternal Battle Fury к раунду 45-50." />
+					</Panel>
+				</Panel>
+
+				<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon ranged_cleave" />
+							<Label class="ItemName" text="Replica Rackatee" />
+						</Panel>
+						<Panel class="ItemList">
+							<Panel class="ItemIcon ranged_cleave_2" />
+							<Label class="ItemName" text="Beadie's Boomstick" />
+						</Panel>
+						<Panel class="ItemList">
+							<Panel class="ItemIcon ranged_cleave_3" />
+							<Label class="ItemName" text="Eternal Beadie's Boomstick" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Аналог Battle Fury, но для героев дальнего боя. Дает сплеш от атак вокруг цели. На поздней стадии улучшается в Eternal Beadie's Boomstick, который даст урон в % от максимального хп цели." />
+						<Label class="SecondBlockDescription" html="true" text="% урон не работает на Рошана и отключается в" />
+						<Panel class="AbilityIcon viper" />
+						<Label class="SecondBlockDescription" html="true" text="<br> Replica Rackatee можно собрать к раунду 15-25, а Eternal Beadie's Boomstick к раунду 45-50" />
+					</Panel>
+				</Panel>
+
+				<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon butterfly_2" />
+							<Label class="ItemName" text="Batterfly 2" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Предмет объединяющий в себе Butterfly + Butterfly. Хороший предмет для поздней стадии игры, для того чтобы освободить 1 слот инвентаря для более нужных предметов.<br>Обычно лучший вариант купить этот предмет ближе к 40-50 раунду." />
+					</Panel>
+				</Panel>
+
+				<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon hellmask" />
+							<Label class="ItemName" text="Hellmask" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Хороший предмет для героев с физическим уроном. Включает в себя предмет Assault Cuirass и Satanic. Этот предмет рекомендуется собирать одним из первых, так как вы навсегда получаете заряды брони за убийство крипов (заряды брони не работает без Hellmask в инвентаре). <br>Очень подходит для героев у которых мало базовой брони, а это герои с основным аттрибутом <font color='#ff0000'>сила</font> и <font color='#629dff'>интеллект</font>." />
+					</Panel>
+				</Panel>
+
+				<Panel class="NewGuideBlock">
+					<Panel class="FirstBlock">
+						<Panel class="ItemList">
+							<Panel class="ItemIcon dark_moon_shard" />
+							<Label class="ItemName" text="Dark Moonshard" />
+						</Panel>
+					</Panel>
+					<Panel class="SecondBlock">
+						<Label class="SecondBlockDescription" html="true" text="Предмет уменьшающий Ваш интервал атак на 23%. Необходим для увеличения предела Вашей максимальной скорости атаки. Необходимо покупать, когда Вы достигли своего предела максимальной скорости атаки." />
+					</Panel>
+				</Panel>
+
+
+			</Panel>
+		</Panel>
+	</Panel>
+</root>
+
+
+ 
+
+
+ 
+
+
+
+
