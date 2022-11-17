@@ -1751,17 +1751,6 @@
       //=================================================================================================================
       // Drow ranger
       //=================================================================================================================
-
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom"                           "Marksmanship"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_Description"                  "Боевой опыт героя увеличивает его эффективность в битве, наделяя дополнительной ловкостью. Бонус пропадает, если в радиусе 400 единиц есть вражеские герои.\n\nУлучшается с Aghanim's Scepter."
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_aghanim_description"          "Стрелы героя разделяются при попадании, нанося урон случайным существам вокруг цели. Каждая такая стрела считается обычной атакой, но наносит уменьшенный урон."
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_split_count_scepter"          "ДОП. СТРЕЛ СО СКИПЕТРОМ:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_scepter_range"             "РАДИУС ДЕЙСТВИЯ:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_damage_reduction_scepter"         "%СНИЖЕНИЕ УРОНА СО СКИПЕТРОМ:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_Lore"                       "Траксекс — воплощение мастерства стрельбы из лука."
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_marksmanship_agility_bonus"      "ДОП. ЛОВКОСТЬ:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_ability_note"      "Нельзя найти Juxtapose и Marksmanship вместе"
-
       "DOTA_Tooltip_modifier_drow_ranger_trueshot_lua_aura_effect"               "Precision Aura"
       "DOTA_Tooltip_modifier_drow_ranger_trueshot_lua_aura_effect_Description"    "Урон от атак увеличен на %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE%"
 
@@ -1771,20 +1760,20 @@
       "DOTA_Tooltip_ability_drow_ranger_trueshot_lua_trueshot_ranged_damage"     "%ДОПОЛНИТЕЛЬНЫЙ УРОН:"
       "DOTA_Tooltip_ability_drow_ranger_trueshot_lua_radius"                  "РАДИУС:"
       
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_ability_note"                   "Только эффект <font color='#B694FF'>Скипетра Аганима</font> <font color='#B694FF'>Marksmanship</font> работает на героев <font color='#B694FF'>ближнего боя</font>.<br>Аура бонуса ловкости эффект от<font color='#B694FF'>Marksmanship</font> не работает для <font color='#B694FF'>ближних героев</font>.<br>Нельзя найти Juxtapose и Marksmanship вместе"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua"                           "Marksmanship"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_Description"                  "Опыт в бою позволяет герою стрелять метче и эффективнее. С каждой атакой есть вероятность выпустить стрелу, игнорирующую базовую броню врага. Также даёт герою и союзникам дальнего боя неподалёку дополнительную ловкость, зависящую от ловкости владельца. Способность не действует, если в радиусе %disable_range% от её владельца есть вражеские герои."
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_scepter_Description"          "Стрелы героя разделяются при попадании, нанося урон случайным существам вокруг цели. Каждая такая стрела считается обычной атакой, но наносит уменьшенный урон."
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_split_count_scepter"          "ДОП. СТРЕЛ:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_damage_reduction_scepter"     "%СНИЖЕНИЕ УРОНА СТРЕЛ:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_Lore"                   "Траксекс — воплощение мастерства стрельбы из лука."
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_Note0"                     "Сработавшая атака имеет эффект True Strike."
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_chance"                    "%ШАНС:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_bonus_damage"              "УРОН СРАБАТЫВАНИЯ:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_agility_multiplier"           "%ДОП. ЛОВКОСТИ:"
-      "DOTA_Tooltip_ability_drow_ranger_marksmanship_lua_agility_range"             "РАДИУС ПОИСКА ВРАЖЕСКОГО ГЕРОЯ:"
-      "DOTA_Tooltip_modifier_drow_ranger_marksmanship_lua_effect"                         "Marksmanship Aura"
-      "DOTA_Tooltip_modifier_drow_ranger_marksmanship_lua_effect_description"             "Получение %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS% дополнительной ловкости."
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_ability_note"                   "Только эффект <font color='#B694FF'>Скипетра Аганима</font> <font color='#B694FF'>Marksmanship</font> работает на героев <font color='#B694FF'>ближнего боя</font>.<br>Аура бонуса ловкости эффект от<font color='#B694FF'>Marksmanship</font> не работает для <font color='#B694FF'>ближних героев</font>.<br>Нельзя найти Juxtapose и Marksmanship вместе"
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom"                           "Marksmanship"
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_Description"                  "Опыт в бою позволяет герою стрелять метче и эффективнее. С каждой атакой есть вероятность выпустить стрелу, игнорирующую базовую броню врага. Также даёт герою и союзникам дальнего боя неподалёку дополнительную ловкость, зависящую от ловкости владельца. Способность не действует, если в радиусе %disable_range% от её владельца есть вражеские герои."
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_scepter_Description"          "Стрелы героя разделяются при попадании, нанося урон случайным существам вокруг цели. Каждая такая стрела считается обычной атакой, но наносит уменьшенный урон."
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_split_count_scepter"          "ДОП. СТРЕЛ:"
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_damage_reduction_scepter"     "%СНИЖЕНИЕ УРОНА СТРЕЛ:"
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_Lore"                   "Траксекс — воплощение мастерства стрельбы из лука."
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_Note0"                     "Сработавшая атака имеет эффект True Strike."
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_chance"                    "%ШАНС:"
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_bonus_damage"              "УРОН СРАБАТЫВАНИЯ:"
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_agility_multiplier"           "%ДОП. ЛОВКОСТИ:"
+      "DOTA_Tooltip_ability_drow_ranger_marksmanship_custom_agility_range"             "РАДИУС ПОИСКА ВРАЖЕСКОГО ГЕРОЯ:"
+      "DOTA_Tooltip_modifier_drow_ranger_marksmanship_custom_effect"                         "Marksmanship Aura"
+      "DOTA_Tooltip_modifier_drow_ranger_marksmanship_custom_effect_description"             "Получение %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS% дополнительной ловкости."
 
       //=================================================================================================================
       // Ember spirit

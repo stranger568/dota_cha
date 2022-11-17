@@ -100,7 +100,7 @@ function ThinkCameraPosition()
 
     let map = Game.GetMapInfo().map_display_name
 
-    if (map == "1x8") {
+    if (map == "1x8" || map == "1x8_pve") {
 	    let center_arena = 	[0,0,0]
 
 	    let arena1_position = [5376, 320, 128]

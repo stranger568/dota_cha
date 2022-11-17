@@ -59,7 +59,7 @@ function modifier_drow_ranger_marksmanship_custom:OnCreated( kv )
 	if not IsServer() then return end
 	self.records = {}
 	self.procs = false
-
+	self.procs_miss = false
 	self.info = 
 	{
 		Ability = self:GetAbility(),	
@@ -103,12 +103,13 @@ function modifier_drow_ranger_marksmanship_custom:OnAttackStart( params )
 	local rand = RandomInt( 0, 100 )
 	if rand>self.chance then return end
 	self.procs = true
+	self.procs_miss = true
 end
 
 function modifier_drow_ranger_marksmanship_custom:CheckState(kv)
 	return 
 	{
-		[MODIFIER_STATE_CANNOT_MISS] = self.procs
+		[MODIFIER_STATE_CANNOT_MISS] = self.procs_miss
 	}
 end
 
@@ -118,9 +119,11 @@ function modifier_drow_ranger_marksmanship_custom:OnAttack( params )
 	if params.attacker~=self:GetParent() then return end
 	if self:GetAbility().split and self:GetAbility().split_procs then
 		self.procs = true
+		self.procs_miss = true
 	end
 	if not self.procs then return end
 	self.procs = false
+	self.procs_miss = false
 	self.records[params.record] = true
 end
 

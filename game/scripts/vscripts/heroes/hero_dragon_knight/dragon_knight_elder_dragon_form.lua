@@ -274,7 +274,9 @@ function modifier_dragon_knight_elder_dragon_form_custom:Corrosive( target )
 end
 
 function modifier_dragon_knight_elder_dragon_form_custom:Splash( target, damage )
-	-- find enemies
+	
+	if self:GetParent().split_attack then return end
+
 	local enemies = FindUnitsInRadius(
 		self.parent:GetTeamNumber(),	-- int, your team number
 		target:GetOrigin(),	-- point, center point

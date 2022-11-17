@@ -1887,8 +1887,8 @@ function HeroBuilder:AddScepterLinkAbilities(hHero)
             if hLoopAbility and not hLoopAbility:IsNull() and hLoopAbility.sRemovalTimer==nil then
                 for i,sAbilityName in ipairs(abilityList) do
                     local hAbility = hHero:FindAbilityByName(sAbilityName)
-                    if hAbility.rubick_spell == nil then
-                        if not (hAbility and hAbility.sRemovalTimer==nil) then
+                    if not (hAbility and hAbility.sRemovalTimer==nil) then
+                        if hLoopAbility.rubick_spell == nil then
                             local hScepterAbility= hHero:AddAbility(sAbilityName)
                             if hScepterAbility and (not hScepterAbility:IsNull()) then
                                 hScepterAbility:SetLevel(1)
@@ -1921,8 +1921,8 @@ function HeroBuilder:AddShardLinkAbilities(hHero)
             if hLoopAbility and not hLoopAbility:IsNull() and hLoopAbility.sRemovalTimer==nil then
                 for i,sAbilityName in ipairs(abilityList) do
                     local hAbility = hHero:FindAbilityByName(sAbilityName)
-                    if hAbility.rubick_spell == nil then
-                        if not (hAbility and hAbility.sRemovalTimer==nil) then
+                    if not (hAbility and hAbility.sRemovalTimer==nil) then
+                        if hLoopAbility.rubick_spell == nil then
                             local hShardAbility= hHero:AddAbility(sAbilityName)
                             if hShardAbility and (not hShardAbility:IsNull()) then                        
                                 if sAbilityName ~= "shadow_demon_demonic_cleanse" then

@@ -454,7 +454,7 @@ function GameMode:OnGameRulesStateChange()
                 Timers:CreateTimer(0,function()
                     local hPlayer = PlayerResource:GetPlayer(nPlayerNumber)
                     if hPlayer then
-                        if not IsInToolsMode() then
+                        if not IsInToolsMode() and GetMapName() ~= "1x8_pve" then
                             HeroBuilder:MakeRandomHeroSelection(nPlayerNumber)
                         end
                         Timers:CreateTimer(1, function()
