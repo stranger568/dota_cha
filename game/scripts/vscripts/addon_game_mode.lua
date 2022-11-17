@@ -614,9 +614,16 @@ function GameMode:StartGame()
         for nTeamNumber,bAlive in pairs(GameMode.vAliveTeam) do
             local bTeamAbandon = true
             for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nTeamNumber]) do
+                
                 if PlayerResource:GetConnectionState(nPlayerID) ~= DOTA_CONNECTION_STATE_ABANDONED then
                     bTeamAbandon = false
                 end
+
+                table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage, function(x,y) return y.damage < x.damage end )
+                CustomNetTables:SetTableValue("spell_damage", tostring(nPlayerID), ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage)
+
+                table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage_income, function(x,y) return y.damage < x.damage end )
+                CustomNetTables:SetTableValue("spell_damage_income", tostring(nPlayerID), ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage_income)
 
                 local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
                 if hHero and hHero.bTakenOverByBot then
@@ -754,56 +761,60 @@ function GameMode:ToggleAutoCreep(keys)
 end
 
 function GameMode:TeamLose(nTeamNumber)
-     GameMode.vAliveTeam[nTeamNumber] = false
+    GameMode.vAliveTeam[nTeamNumber] = false
 
-     local data={}
-     data.type = "team_lose"
+    local data={}
+    data.type = "team_lose"
 
-     data.nTeamNumber = nTeamNumber
+    data.nTeamNumber = nTeamNumber
 
-     Barrage:FireBullet(data)
+    Barrage:FireBullet(data)
 
-     for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nTeamNumber]) do
+    for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nTeamNumber]) do
+
         if nPlayerID and GameMode.nRank then
-          ChaServerData.SetPlayerStatsGameEnd(nPlayerID, GameMode.nRank)
+            ChaServerData.SetPlayerStatsGameEnd(nPlayerID, GameMode.nRank)
         end
-        local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-        if hHero then
-           hHero:SetGold(0, true)
-        end
-     end
 
-     if GameMode.currentRound.spanwers[nTeamNumber]  then
+        local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
+
+        if hHero then
+            hHero:SetGold(0, true)
+        end
+    end
+
+    if GameMode.currentRound.spanwers[nTeamNumber]  then
         GameMode.currentRound.spanwers[nTeamNumber].bForceStop = true
         for i, hCreep in ipairs( GameMode.currentRound.spanwers[nTeamNumber].vCurrentCreeps ) do
-            if  hCreep and (not hCreep:IsNull()) and  hCreep:IsAlive() then
-               
-               hCreep.nSpawnerTeamNumber =nil
-               hCreep:ForceKill(false)
+            if hCreep and (not hCreep:IsNull()) and  hCreep:IsAlive() then
+                hCreep.nSpawnerTeamNumber =nil
+                hCreep:ForceKill(false)
             end
         end            
-     end
+    end
 
-     Util:CleanPvpPair(nTeamNumber)
+    Util:CleanPvpPair(nTeamNumber)
 
-     if GameMode.nValidTeamNumber == 1 and GameMode.nRank == 1 then 
+    if GameMode.nValidTeamNumber == 1 and GameMode.nRank == 1 then 
         if string.find(GetMapName(),"1x8") then
-
             if not GameRules:IsCheatMode() or (IsInToolsMode()) then
-
+                if GetMapName() == "1x8_pve" then
+                    ChaServerData.PostDataPVE()
+                    GameRules:SetGameWinner(nTeamNumber)
+                end
             else
                 Notifications:BottomToAll({ text = "#cheat_no_record", duration = 4, style = { color = "Red" }})
-               Timers:CreateTimer(4, function()
-                  GameRules:SetGameWinner(nTeamNumber)
+                Timers:CreateTimer(4, function()
+                    GameRules:SetGameWinner(nTeamNumber)
                 end)
             end
         end
 
         if GetMapName()=="2x6" or GetMapName()=="5v5" then
-           Notifications:BottomToAll({ text = "#one_team_in_multi_map_no_record", duration = 4, style = { color = "Red" }})
-              Timers:CreateTimer(4, function()
+            Notifications:BottomToAll({ text = "#one_team_in_multi_map_no_record", duration = 4, style = { color = "Red" }})
+            Timers:CreateTimer(4, function()
                 GameRules:SetGameWinner(nTeamNumber)
-           end)
+            end)
         end
      else
          if GameMode.nValidTeamNumber >= 2 and GameMode.nRank == 2 then

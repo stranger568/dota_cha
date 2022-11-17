@@ -95,12 +95,12 @@ function GetPlayersDataPve()
     {
         if (topmmr[i] != null)
         {
-            CreatePlayer(topmmr[i].steamid, topmmr[i].rating, $("#PlayersTablePVE"), i, true)
+            CreatePlayerPve(topmmr[i].steamid, topmmr[i].rating, $("#PlayersTablePVE"), i, true, topmmr[i].round)
         }    
     }
 }
 
-function CreatePlayer(id, rating, panel, number, time) 
+function CreatePlayer(id, rating, panel, number, time, round) 
 {
 
     var Line = $.CreatePanel("Panel", panel, "");
@@ -137,8 +137,41 @@ function CreatePlayer(id, rating, panel, number, time)
         var minutes = Math.floor(rating / 60) - (hours * 60);
         var seconds = rating % 60;
         var formatted = hours + ':' + minutes + ':' + seconds;
-        Rating.text = String(formatted)
+        Rating.text = String(formatted) + " (" + round + ")"
         RankImage.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
+    } else {
+        Rating.text = String(rating)
+    }
+}
+
+function CreatePlayerPve(id, rating, panel, number, time, round) 
+{
+    var Line = $.CreatePanel("Panel", panel, "");
+    Line.AddClass("LinePlayer_pve");
+
+    var RankPanel = $.CreatePanel("Panel", Line, "");
+    RankPanel.AddClass("RankPanel_pve");
+
+    var Rank_number = $.CreatePanel("Label", RankPanel, "");
+    Rank_number.AddClass("Rank_number_pve");
+    Rank_number.text = number
+
+    var AvatarNicknamePanel = $.CreatePanel("Panel", Line, "");
+    AvatarNicknamePanel.AddClass("AvatarNicknamePanel_pve");
+
+    $.CreatePanelWithProperties("DOTAAvatarImage", AvatarNicknamePanel, "AvatarLeaderboard_pve", { style: "width:40px;height:40px;vertical-align:center;", accountid: id });
+    $.CreatePanelWithProperties("DOTAUserName", AvatarNicknamePanel, "AvatarLeaderboard_pve", { style: "vertical-align:center;margin-left:25px;height: 20px;", accountid: id });
+
+    var Rating = $.CreatePanel("Label", Line, "");
+    Rating.AddClass("RatingLabel_pve");
+
+    if (time)
+    {   
+        var hours = Math.floor(rating / 60 / 60);
+        var minutes = Math.floor(rating / 60) - (hours * 60);
+        var seconds = rating % 60;
+        var formatted = hours + ':' + minutes + ':' + seconds;
+        Rating.text = String(formatted) + " (" + round + ")"
     } else {
         Rating.text = String(rating)
     }

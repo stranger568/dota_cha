@@ -46,122 +46,122 @@ function GameMode:DamageFilter(damageTable)
        end 
     end
 
-    -- ВРЕМЕННО
-    --if hAttacker and hAttacker.GetPlayerOwnerID and hAttacker:GetPlayerOwnerID() and hAttacker:GetOwner() and not hAttacker:IsHero() then
-    --    local no_found = true
-    --    if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()] then
-    --      if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage then
-    --          local ability_type = "unit"
-    --
-    --          for _, hero_table in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage) do
-    --              if hero_table.name == hAttacker:GetUnitName() then
-    --                  no_found = false
-    --                  if hero_table.damage then
-    --                    hero_table.damage = hero_table.damage + damageTable.damage
-    --                  else
-    --                      hero_table.damage = damageTable.damage
-    --                  end
-    --              end
-    --          end
-    --
-    --          if no_found then
-    --            if hAttacker ~= hVictim then
-    --              table.insert(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage, {name = hAttacker:GetUnitName(), damage = damageTable.damage, index = hAttacker:entindex(), damage_type = damageTable.damagetype_const, type = ability_type})
-    --            end
-    --          end
-    --
-    --          table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage, function(x,y) return y.damage < x.damage end )
-    --          CustomNetTables:SetTableValue("spell_damage", tostring(hAttacker:GetPlayerOwnerID()), ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage)
-    --      end
-    --    end
-    --end
+    if hAttacker and hAttacker.GetPlayerOwnerID and hAttacker:GetPlayerOwnerID() and hAttacker:GetOwner() and not hAttacker:IsHero() then
+        local no_found = true
+        if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()] then
+            if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage then
+                local ability_type = "unit"
+    
+                for _, hero_table in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage) do
+                    if hero_table.name == hAttacker:GetUnitName() then
+                        no_found = false
+                        if hero_table.damage then
+                            hero_table.damage = hero_table.damage + damageTable.damage
+                        else
+                            hero_table.damage = damageTable.damage
+                        end
+                    end
+                end
+    
+                if no_found then
+                    if hAttacker ~= hVictim then
+                        table.insert(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage, {name = hAttacker:GetUnitName(), damage = damageTable.damage, index = hAttacker:entindex(), damage_type = damageTable.damagetype_const, type = ability_type})
+                    end
+                end
+                
+                -- table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage, function(x,y) return y.damage < x.damage end )
+                --CustomNetTables:SetTableValue("spell_damage", tostring(hAttacker:GetPlayerOwnerID()), ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerOwnerID()].spell_damage)
+            end
+        end
+    end
 
-    --if hVictim and hVictim:IsRealHero() and damageTable.damage > 0 then
-    --    local no_found = true
-    --    if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()] then
-    --      if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income then
-    --          local ability_name = nil
-    --          local ability_type = "attack"
-    --          if damageTable.entindex_inflictor_const ~= nil then
-    --            ability_name = EntIndexToHScript(damageTable.entindex_inflictor_const):GetAbilityName()
-    --          else
-    --              ability_name = "attack"
-    --          end
-    --          for _, hero_table in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income) do
-    --              if hero_table.name == ability_name then
-    --                  no_found = false
-    --                  if hero_table.damage then
-    --                    hero_table.damage = hero_table.damage + damageTable.damage
-    --                  else
-    --                      hero_table.damage = damageTable.damage
-    --                  end
-    --              end
-    --          end
-    --
-    --          if damageTable.entindex_inflictor_const ~= nil then
-    --              if EntIndexToHScript(damageTable.entindex_inflictor_const):IsItem() then
-    --                ability_type = "item"
-    --              else
-    --                ability_type = "ability"
-    --              end
-    --          else
-    --              ability_type = "attack"
-    --          end
-    --
-    --          if no_found then
-    --            table.insert(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income, {name = ability_name, damage = damageTable.damage, index = hVictim:entindex(), damage_type = damageTable.damagetype_const, type = ability_type})
-    --          end
-    --
-    --          table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income, function(x,y) return y.damage < x.damage end )
-    --
-    --          CustomNetTables:SetTableValue("spell_damage_income", tostring(hVictim:GetPlayerID()), ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income)
-    --      end
-    --    end
-    --end
+    if hVictim and hVictim:IsRealHero() and damageTable.damage > 0 then
+        local no_found = true
+        if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()] then
+            if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income then
+                local ability_name = nil
+                local ability_type = "attack"
 
-    -- hAttacker and hAttacker:IsHero() and damageTable.damage > 0 then
-    --  local no_found = true
-    --  if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()] then
-    --    if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage then
-    --        local ability_name = nil
-    --        local ability_type = "attack"
-    --        if damageTable.entindex_inflictor_const ~= nil then
-    --          ability_name = EntIndexToHScript(damageTable.entindex_inflictor_const):GetAbilityName()
-    --        else
-    --            ability_name = "attack"
-    --        end
-    --        for _, hero_table in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage) do
-    --            if hero_table.name == ability_name then
-    --                no_found = false
-    --                if hero_table.damage then
-    --                  hero_table.damage = hero_table.damage + damageTable.damage
-    --                else
-    --                    hero_table.damage = damageTable.damage
-    --                end
-    --            end
-    --        end
+                if damageTable.entindex_inflictor_const ~= nil then
+                    ability_name = EntIndexToHScript(damageTable.entindex_inflictor_const):GetAbilityName()
+                else
+                    ability_name = "attack"
+                end
 
-    --        if damageTable.entindex_inflictor_const ~= nil then
-    --            if EntIndexToHScript(damageTable.entindex_inflictor_const):IsItem() then
-    --              ability_type = "item"
-    --            else
-    --              ability_type = "ability"
-    --            end
-    --        else
-    --            ability_type = "attack"
-    --        end
+                for _, hero_table in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income) do
+                  if hero_table.name == ability_name then
+                        no_found = false
+                        if hero_table.damage then
+                            hero_table.damage = hero_table.damage + damageTable.damage
+                        else
+                            hero_table.damage = damageTable.damage
+                        end
+                    end
+                end
+    
+                if damageTable.entindex_inflictor_const ~= nil then
+                    if EntIndexToHScript(damageTable.entindex_inflictor_const):IsItem() then
+                        ability_type = "item"
+                    else
+                        ability_type = "ability"
+                    end
+                else
+                    ability_type = "attack"
+                end
+    
+                if no_found then
+                    table.insert(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income, {name = ability_name, damage = damageTable.damage, index = hVictim:entindex(), damage_type = damageTable.damagetype_const, type = ability_type})
+                end
+    
+                --table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income, function(x,y) return y.damage < x.damage end )
+                --CustomNetTables:SetTableValue("spell_damage_income", tostring(hVictim:GetPlayerID()), ChaServerData.PLAYERS_GLOBAL_INFORMATION[hVictim:GetPlayerID()].spell_damage_income)
+            end
+        end
+    end
 
+    if hAttacker and hAttacker:IsHero() and damageTable.damage > 0 then
+        local no_found = true
+        if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()] then
+            if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage then
+                local ability_name = nil
+                local ability_type = "attack"
 
+                if damageTable.entindex_inflictor_const ~= nil then
+                    ability_name = EntIndexToHScript(damageTable.entindex_inflictor_const):GetAbilityName()
+                else
+                    ability_name = "attack"
+                end
 
-    --        if no_found then
-    --          table.insert(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage, {name = ability_name, damage = damageTable.damage, index = hAttacker:entindex(), damage_type = damageTable.damagetype_const, type = ability_type})
-    --        end
+                for _, hero_table in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage) do
+                    if hero_table.name == ability_name then
+                        no_found = false
+                        if hero_table.damage then
+                            hero_table.damage = hero_table.damage + damageTable.damage
+                        else
+                            hero_table.damage = damageTable.damage
+                        end
+                    end
+                end
 
-    --        table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage, function(x,y) return y.damage < x.damage end )
+                if damageTable.entindex_inflictor_const ~= nil then
+                    if EntIndexToHScript(damageTable.entindex_inflictor_const):IsItem() then
+                        ability_type = "item"
+                    else
+                        ability_type = "ability"
+                    end
+                else
+                    ability_type = "attack"
+                end
 
-    --        CustomNetTables:SetTableValue("spell_damage", tostring(hAttacker:GetPlayerID()), ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage)
-    --    end
-    --  end
-    --end
+                if no_found then
+                    table.insert(ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage, {name = ability_name, damage = damageTable.damage, index = hAttacker:entindex(), damage_type = damageTable.damagetype_const, type = ability_type})
+                end
+
+                --table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage, function(x,y) return y.damage < x.damage end )
+                --CustomNetTables:SetTableValue("spell_damage", tostring(hAttacker:GetPlayerID()), ChaServerData.PLAYERS_GLOBAL_INFORMATION[hAttacker:GetPlayerID()].spell_damage)
+            end
+        end
+    end
+
     return true
 end

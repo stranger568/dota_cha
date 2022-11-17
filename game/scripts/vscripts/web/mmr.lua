@@ -323,6 +323,7 @@ function ChaServerData.PostDataPVE()
             map_name = tostring(GetMapName()),
             steamid = info.steamid,
             time = GameRules:GetDOTATime(false, false),
+            round = GameMode.currentRound.nRoundNumber,
             games = 1,
             chatwheel_1 = ChaServerData.GetChatWheel(id, "1"),
             chatwheel_2 = ChaServerData.GetChatWheel(id, "2"),
