@@ -735,17 +735,18 @@ function HeroBuilder:InitPlayerHero( hHero )
 
     CustomGameEventManager:Send_ServerToAllClients( 'UpdatePassInfo', {})
 
+    -- 1будь
+
     for i = 0, 23 do
         local hAbility = hHero:GetAbilityByIndex(i)
         if hAbility then
             local sAbilityName = hAbility:GetAbilityName()
             if not string.find(sAbilityName, "special_bonus") then
-               hHero:RemoveAbility(sAbilityName)
+                hHero:RemoveAbility(sAbilityName)
             end
         end
     end
 
-    
     local hTp = hHero:FindItemInInventory('item_tpscroll')
     if hTp then
         hTp:RemoveSelf()
@@ -1468,6 +1469,7 @@ end
 function HeroBuilder:ChooseRandomOneAbility(nPlayerID)
     local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
     local tempList = table.deepcopy(HeroBuilder.allAbilityNames)
+
     for _, sAbilityName in ipairs(hHero.abilitiesList) do
         table.remove_item(tempList,sAbilityName)
         if abilityExclusion[sAbilityName] then
@@ -1476,6 +1478,17 @@ function HeroBuilder:ChooseRandomOneAbility(nPlayerID)
             end
         end
     end
+
+    local rubick_skill = hHero:FindAbilityByName("rubick_spell_steal_custom")
+    if rubick_skill then
+        if rubick_skill.currentSpell ~= nil then
+            table.remove_item(tempList,rubick_skill.currentSpell:GetAbilityName())
+        end
+        if rubick_skill.currentSpell_2 ~= nil then
+            table.remove_item(tempList,rubick_skill.currentSpell_2:GetAbilityName())
+        end
+    end
+
     if heroExclusion[hHero:GetUnitName()] then
         for _,sAbilityName in ipairs(heroExclusion[hHero:GetUnitName()]) do
             table.remove_item(tempList,sAbilityName)

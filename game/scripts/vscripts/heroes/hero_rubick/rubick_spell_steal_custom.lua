@@ -48,9 +48,6 @@ function rubick_spell_steal_custom:CastFilterResultTarget( hTarget )
 		if self:GetLastSpell( hTarget )==nil then
 			return UF_FAIL_OTHER
 		end
-		if self:GetCaster():HasAbility(self:GetLastSpell( hTarget ):GetAbilityName()) then
-			return UF_FAIL_OTHER
-		end
 		if self:GetLastSpell( hTarget ):GetAbilityName() == "rubick_spell_steal_custom" then
 			return UF_FAIL_OTHER
 		end
@@ -77,13 +74,13 @@ end
 
 rubick_spell_steal_custom.activate_ability = nil
 
+function rubick_spell_steal_custom:OnAbilityPhaseStart()
+
+end
+
 function rubick_spell_steal_custom:OnSpellStart()
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
-
-	--if target:TriggerSpellAbsorb( self ) then
-	--	return
-	--end
 
 	self.activate_ability = true
 
@@ -112,6 +109,26 @@ function rubick_spell_steal_custom:OnProjectileHit( target, location )
 	if target == nil then return end
 
 	if not target:IsAlive() then return end
+
+	if self:GetAutoCastState() then
+		if self:GetCaster():HasAbility(self.stolenSpell.lastSpell:GetAbilityName()) and self.currentSpell_2 == nil then
+			return
+		end
+	else
+		if self:GetCaster():HasAbility(self.stolenSpell.lastSpell:GetAbilityName()) and self.currentSpell == nil then
+			return
+		end
+	end
+
+	if self:GetAutoCastState() then
+		if self:GetCaster():HasAbility(self.stolenSpell.lastSpell:GetAbilityName()) and self.currentSpell_2 == nil then
+			return
+		end
+	else
+		if self:GetCaster():HasAbility(self.stolenSpell.lastSpell:GetAbilityName()) and self.currentSpell == nil then
+			return
+		end
+	end
 
 	if self:GetCaster():HasScepter() then
 		if self:GetAutoCastState() then
@@ -175,16 +192,19 @@ end
 function rubick_spell_steal_custom:SetStolenSpell( spellData )
 	local spell = spellData.lastSpell
 
-	if self.currentSpell~=nil then 
-		if self.currentSpell_2 ~= nil and self.currentSpell_2:GetAbilityName() == self.currentSpell:GetAbilityName() then
-			self:ForgetSpellScepter()
-		end
-		if self.currentSpell:GetAbilityName() ~= spell:GetAbilityName() then
-			self:ForgetSpell()
-		else
-			return
-		end
+	-- Удаление старой способности
+
+	if self.currentSpell_2 ~= nil and self.currentSpell_2:GetAbilityName() == spell:GetAbilityName() then
+		self:ForgetSpellScepter()
+		print("delte 1")
 	end
+
+	if self.currentSpell ~= nil then
+		self:ForgetSpell()
+		print("delte 2")
+	end
+
+	-------------------------------------------------------------------------------------------------------
 
     local old_spell = false
     for _,hSpell in pairs(self:GetCaster().spell_steal_history) do
@@ -217,16 +237,19 @@ end
 function rubick_spell_steal_custom:SetStolenSpellScepter( spellData )
 	local spell = spellData.lastSpell
 
-	if self.currentSpell_2~=nil then 
-		if self.currentSpell ~= nil and self.currentSpell_2:GetAbilityName() == self.currentSpell:GetAbilityName() then
-			self:ForgetSpell()
-		end
-		if self.currentSpell_2:GetAbilityName() ~= spell:GetAbilityName() then
-			self:ForgetSpellScepter()
-		else
-			return
-		end
+	-- Удаление старой способности
+
+	if self.currentSpell ~= nil and self.currentSpell:GetAbilityName() == spell:GetAbilityName() then
+		self:ForgetSpell()
+		print("delte 1")
 	end
+
+	if self.currentSpell_2 ~= nil then
+		self:ForgetSpellScepter()
+		print("delte 2")
+	end
+
+	-------------------------------------------------------------------------------------------------------
 
     local old_spell = false
     for _,hSpell in pairs(self:GetCaster().spell_steal_history) do

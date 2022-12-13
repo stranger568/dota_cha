@@ -144,6 +144,50 @@
 		}
 	}
 
+	"npc_unit_yam"
+	{
+		"BaseClass"					"npc_dota_creature"	
+		"Model"						"models/heroes/viper/viper.vmdl"	
+		"ModelScale"				"0.75"
+		"Level"						"1"	
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"RingRadius"				"50"
+		"HealthBarOffset"			"250"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"	
+		"CanBeDominated"            "0"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"420"
+		"MovementTurnRate"			"400"
+		"StatusHealth"				"1"
+		"VisionDaytimeRange"		"0"	
+		"VisionNighttimeRange"		"0"
+		"Creature"
+		{
+			"AttachWearables"
+			{
+				"Wearable1"
+				{
+					"ItemDef"			"519" // [ambient_effects] - Viper's Ambient Effects
+				}
+
+				"Wearable2"
+				{
+					"ItemDef"			"611" // [back] - Viper's Wings
+				}
+
+				"Wearable3"
+				{
+					"ItemDef"			"623" // [head] - Viper's Head
+				}
+
+				"Wearable4"
+				{
+					"ItemDef"			"654" // [tail] - Viper's Tail
+				}
+			}
+		}
+	}
+
 	"npc_unit_portrait_test"
 	{
    		"MinimapIcon"                "minimap_rune_bounty"

@@ -303,6 +303,57 @@ function arc_warden_tempest_double_lua:OnSpellStart()
 	    		ability:ToggleAbility()
 	    	end
 	    end
+	    local modifier_item_hellmask = self:GetCaster():FindAllModifiersByName("modifier_item_hellmask")
+		if #modifier_item_hellmask > 0 then
+			local original_modifier_item_hellmask = modifier_item_hellmask[1]
+			if original_modifier_item_hellmask then
+				local original_item = original_modifier_item_hellmask:GetAbility()
+				if original_item then
+					local clone_item = hClone:FindItemInInventory("item_hellmask")
+					if clone_item then
+						clone_item:SetCurrentCharges(original_item:GetCurrentCharges())
+					end
+				end
+			end
+		end
+
+		local rubick_empty1 = self:GetCaster():FindAbilityByName("rubick_empty1")
+		if rubick_empty1 then
+			print(rubick_empty1:IsHidden())
+			if rubick_empty1:IsHidden() then
+				local rubick_empty1_clone = hClone:FindAbilityByName("rubick_empty1")
+				if rubick_empty1_clone then
+					rubick_empty1_clone:SetHidden(true)
+				end
+			end
+		end
+
+		local rubick_empty2 = self:GetCaster():FindAbilityByName("rubick_empty2")
+		if rubick_empty2 then
+			print(rubick_empty2:IsHidden())
+			if rubick_empty2:IsHidden() then
+				local rubick_empty2_clone = hClone:FindAbilityByName("rubick_empty2")
+				if rubick_empty2_clone then
+					rubick_empty2_clone:SetHidden(true)
+				end
+			end
+		end
+
+		local modifier_lion_finger_of_death_custom_passive = self:GetCaster():FindModifierByName("modifier_lion_finger_of_death_custom_passive")
+		if modifier_lion_finger_of_death_custom_passive then
+			local modifier_lion_finger_of_death_custom_passive_clone = hClone:FindModifierByName("modifier_lion_finger_of_death_custom_passive")
+			if modifier_lion_finger_of_death_custom_passive_clone then
+				modifier_lion_finger_of_death_custom_passive_clone:SetStackCount(modifier_lion_finger_of_death_custom_passive:GetStackCount())
+			end
+		end
+
+		local modifier_lina_laguna_blade_custom_passive = self:GetCaster():FindModifierByName("modifier_lina_laguna_blade_custom_passive")
+		if modifier_lina_laguna_blade_custom_passive then
+			local modifier_lina_laguna_blade_custom_passive_clone = hClone:FindModifierByName("modifier_lina_laguna_blade_custom_passive")
+			if modifier_lina_laguna_blade_custom_passive_clone then
+				modifier_lina_laguna_blade_custom_passive_clone:SetStackCount(modifier_lina_laguna_blade_custom_passive:GetStackCount())
+			end
+		end
     end)
 
 
@@ -349,4 +400,13 @@ function arc_warden_tempest_double_lua:OnSpellStart()
 	end)
 	
 	hCaster:EmitSound("Hero_ArcWarden.TempestDouble")
+end
+
+function close_empty_all(hero)
+	for i=1,5 do
+		local ability = hero:FindAbilityByName("empty_"..i)
+		if ability then
+			ability:SetHidden(true)
+		end
+	end
 end

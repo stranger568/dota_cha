@@ -3,7 +3,7 @@ if BotAI == nil then BotAI = class({}) end
 
 function BotAI:Init()
    
-   if not IsInToolsMode() then return end
+   if true then return end
 
    ListenToGameEvent("npc_spawned", Dynamic_Wrap(BotAI, "OnNPCSpawned"), self)
 

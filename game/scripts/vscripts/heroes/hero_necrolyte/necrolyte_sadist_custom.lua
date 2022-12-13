@@ -40,15 +40,17 @@ end
 
 function modifier_ghost_shroud_custom_active:DeclareFunctions()
 	return {
-		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DECREPIFY_UNIQUE,
+		MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
 		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
 		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_PROPERTY_MP_RESTORE_AMPLIFY_PERCENTAGE 
 	}
 end
 
-function modifier_ghost_shroud_custom_active:GetModifierMagicalResistanceDecrepifyUnique( params )
-	return self:GetAbility():GetSpecialValueFor("bonus_damage") * (-1)
+function modifier_ghost_shroud_custom_active:GetModifierTotalDamageOutgoing_Percentage( params )
+	if params.damage_type == DAMAGE_TYPE_MAGICAL then
+		return self:GetAbility():GetSpecialValueFor("bonus_damage") * (-1)
+	end
 end
 
 function modifier_ghost_shroud_custom_active:GetAbsoluteNoDamagePhysical()
@@ -66,10 +68,10 @@ end
 
 function modifier_ghost_shroud_custom_active:CheckState()
 	return
-		{
-			[MODIFIER_STATE_DISARMED] = true,
-			[MODIFIER_STATE_ATTACK_IMMUNE] = true,
-		}
+	{
+		[MODIFIER_STATE_DISARMED] = true,
+		[MODIFIER_STATE_ATTACK_IMMUNE] = true,
+	}
 end
 
 function modifier_ghost_shroud_custom_active:OnCreated()

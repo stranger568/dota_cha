@@ -46,6 +46,12 @@
 
 	"life_stealer_feast"
 	{
+		"ID"							"5250"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+
 		"AbilitySpecial"
 		{
 			"01"
@@ -56,8 +62,9 @@
 			}
 			"02"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"hp_damage_percent"		"0.4 0.6 0.8 1.0"
+				"var_type"						"FIELD_FLOAT"
+				"hp_damage_percent"				"0.4 0.6 0.8 1.0"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
 	}

@@ -73,9 +73,12 @@ function modifier_meepo_ransack_custom:TakeDamageScriptModifier( params )
 	    damage_table.damage_flags = DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS
 
 	    local heal = ApplyDamage(damage_table)
+
+	    if params.inflictor == nil then
+	    	self:GetParent():Heal(heal, nil)
+	    end
 	    
 	    if params.inflictor == nil and params.unit:IsHero() then
-	    	self:GetParent():Heal(heal, self:GetAbility())
 	    	params.unit:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_meepo_ransack_custom_debuff", {duration = duration})
 	    end
 	end
@@ -94,12 +97,12 @@ function modifier_meepo_ransack_custom_debuff:OnRefresh()
 end
 
 function modifier_meepo_ransack_custom_debuff:DeclareFunctions()
-	return {
+	return 
+	{
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET,
 		MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE
-
 	}
 end
 

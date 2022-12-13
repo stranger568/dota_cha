@@ -237,6 +237,14 @@ function GameMode:SpawnCreators()
         npc_unit_demna:AddNewModifier( npc_unit_demna, nil, "modifier_creator_statue", {} )
         npc_unit_demna:SetRenderColor(255, 255, 0)
     end
+    local npc_unit_yam_spawn = Entities:FindByName(nil, "spawn_yamich")
+    if npc_unit_yam_spawn then
+        local origin = npc_unit_yam_spawn:GetAbsOrigin()
+        local npc_unit_yam = CreateUnitByName( "npc_unit_yam", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
+        npc_unit_yam:SetForwardVector((Vector(0,0,0) - npc_unit_yam:GetAbsOrigin()):Normalized())
+        npc_unit_yam:AddNewModifier( npc_unit_yam, nil, "modifier_creator_statue", {} )
+        npc_unit_yam:SetRenderColor(255, 255, 0)
+    end
 end
 
 function GameMode:AssembleHeroesData()

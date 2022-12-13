@@ -478,7 +478,7 @@ for nTeamNumber,bAlive in pairs(GameMode.vAliveTeam) do
             for team_count = 0, 20 do
               if nTeamNumber ~= team_count then
                   if hHero and not hHero:IsNull() then
-                    AddFOWViewer(team_count, hHero:GetAbsOrigin(), 50, 1, false)
+                    AddFOWViewer(team_count, hHero:GetAbsOrigin(), 600, 1, false)
                   end
                 end
             end
@@ -491,7 +491,7 @@ for nTeamNumber,bAlive in pairs(GameMode.vAliveTeam) do
                 for team_count = 0, 20 do
                   if nTeamNumber ~= team_count then
                     if hHero and not hHero:IsNull() then
-                        AddFOWViewer(team_count, hHero:GetAbsOrigin(), 50, 1, false)
+                        AddFOWViewer(team_count, hHero:GetAbsOrigin(), 600, 1, false)
                     end
                   end
                 end
