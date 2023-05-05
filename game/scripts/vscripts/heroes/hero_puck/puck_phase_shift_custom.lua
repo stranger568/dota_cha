@@ -113,7 +113,7 @@ function modifier_puck_phase_shift_custom:OnOrder(keys)
             [DOTA_UNIT_ORDER_PICKUP_ITEM]   = true,
         }
         
-        if cancel_commands[keys.order_type] and self:GetElapsedTime() >= 0.1 then
+        if cancel_commands[keys.order_type] then
         	self:Destroy()
         end
     end

@@ -103,7 +103,7 @@ function modifier_axe_counter_helix_lua:AttackLandedModifier(params)
         end
 
         -- cooldown
-        self:GetAbility():UseResources(false, false, true)
+        self:GetAbility():UseResources(false, false, false, true)
 
         -- effects
         self:PlayEffects()

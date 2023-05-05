@@ -45,12 +45,12 @@ function DamageToggleButton(tab, button) {
 	$("#" + tab).style.visibility = "visible";
 
 	for (var i = 0; i < $("#MenuButtons").GetChildCount(); i++) {
-		$("#MenuButtons").GetChild(i).GetChild(0).RemoveClass("button_select")
+		$("#MenuButtons").GetChild(i).RemoveClass("button_select")
 	}
 
 	current_sub_tab = tab;
 
-	$("#" + button).GetChild(0).AddClass("button_select")
+	$("#" + button).AddClass("button_select")
 }
 
 
@@ -67,11 +67,14 @@ function CheckBattlePass()
 			UpdateAbilitiesHudDamageIncoming()
 		} else {
 			$( "#DamageAbilities" ).RemoveAndDeleteChildren()
+			var panel_book = $.CreatePanel( "Panel", $( "#DamageAbilities" ), "BattlePassTier2Only_panel" );
 			var BattlePassTier2Only = $.CreatePanel( "Label", $( "#DamageAbilities" ), "BattlePassTier2Only" );
 			BattlePassTier2Only.text = $.Localize("#BattlePassTier2Only")
 			$( "#DamageAbilitiesIncome" ).RemoveAndDeleteChildren()
+			var panel_book = $.CreatePanel( "Panel", $( "#DamageAbilitiesIncome" ), "BattlePassTier2Only_panel" );
 			var BattlePassTier2Only = $.CreatePanel( "Label", $( "#DamageAbilitiesIncome" ), "BattlePassTier2Only" );
 			BattlePassTier2Only.text = $.Localize("#BattlePassTier2Only")
+			$( "#DamageRoundHistoryHeadLabel" ).style.visibility = "collapse"
 		}
 	}
 }
@@ -103,7 +106,7 @@ function UpdateAbilitiesHudDamage() {
 
 	if (current_sub_tab == "DamageAbilities")
 	{
-		$("#DamageRoundHistoryHeadLabel").text = $.Localize("#DamageRoundHistoryHeadLabel") + "<br>" + $.Localize("#DamageRoundHistoryHeadLabel_maximum") + ": " + maximum_damage.toFixed(0)
+		$("#DamageRoundHistoryHeadLabel").text = $.Localize("#DamageRoundHistoryHeadLabel_maximum") + ": " + maximum_damage.toFixed(0)
 	}
 
 	if (table_units) {
@@ -140,7 +143,7 @@ function UpdateAbilitiesHudDamageIncoming() {
 
 	if (current_sub_tab == "DamageAbilitiesIncome")
 	{
-		$("#DamageRoundHistoryHeadLabel").text = $.Localize("#DamageRoundHistoryHeadLabel") + "<br>" + $.Localize("#DamageRoundHistoryHeadLabel_maximum") + ": " + maximum_damage.toFixed(0)
+		$("#DamageRoundHistoryHeadLabel").text = $.Localize("#DamageRoundHistoryHeadLabel_maximum") + ": " + maximum_damage.toFixed(0)
 	}
 
 	if (table_units) {

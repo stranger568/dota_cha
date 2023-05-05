@@ -78,11 +78,10 @@ modifier_multicast_lua = {
 	IsPurgable = function() return false end,
 	GetEffectName = function() return "particles/arena/units/heroes/hero_ogre_magi/multicast_aghanims_buff.vpcf" end,
 	GetEffectAttachType = function() return PATTACH_ABSORIGIN_FOLLOW end,
-	DeclareFunctions = function() return { MODIFIER_EVENT_ON_ABILITY_EXECUTED } end,
 }
 
 if IsServer() then
-	function modifier_multicast_lua:OnAbilityExecuted(keys)
+	function modifier_multicast_lua:OnAbilityExecutedCustom(keys)
 		local parent = self:GetParent()
 		if parent ~= keys.unit then return end
 		local castedAbility = keys.ability
@@ -149,11 +148,14 @@ if IsServer() then
 		rubick_spell_steal_custom = MULTICAST_TYPE_NONE,
 		item_refresher_arena = MULTICAST_TYPE_NONE,
 		item_refresher_core = MULTICAST_TYPE_NONE,
+		abyssal_underlord_firestorm_custom = MULTICAST_TYPE_NONE,
 		beastmaster_wild_axes = MULTICAST_TYPE_INSTANT,
 		custom_phantom_assassin_fan_of_knives = MULTICAST_TYPE_SAME,
-		
+		item_refresher_custom = MULTICAST_TYPE_NONE,
 		invoker_deafening_blast_lua = MULTICAST_TYPE_DIFFERENT,
-
+		sandking_burrowstrike = MULTICAST_TYPE_NONE,
+		obsidian_destroyer_astral_imprisonment = MULTICAST_TYPE_NONE,
+		item_book_of_shadows = MULTICAST_TYPE_NONE,
 		invoker_quas = MULTICAST_TYPE_NONE,
 		invoker_wex = MULTICAST_TYPE_NONE,
 		invoker_exort = MULTICAST_TYPE_NONE,

@@ -39,7 +39,7 @@ function modifier_loser_curse:GetModifierIncomingDamage_Percentage(params)
 	if true==self:GetParent().bJoiningPvp then
 		return 0
 	else
-		return 15*self:GetStackCount()
+		return 25*self:GetStackCount()
 	end
 end
 
@@ -48,7 +48,7 @@ function modifier_loser_curse:GetModifierTotalDamageOutgoing_Percentage(params)
 	if true==self:GetParent().bJoiningPvp then
 		 return 0
     else
-         return -12*self:GetStackCount()
+         return -25*self:GetStackCount()
     end
 end
 

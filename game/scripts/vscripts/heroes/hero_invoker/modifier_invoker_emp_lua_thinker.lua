@@ -1,3 +1,5 @@
+LinkLuaModifier("modifier_emp_pull_custom", "heroes/hero_invoker/modifier_invoker_emp_lua_thinker", LUA_MODIFIER_MOTION_NONE)
+
 modifier_invoker_emp_lua_thinker = class({})
 
 --------------------------------------------------------------------------------
@@ -53,7 +55,7 @@ function modifier_invoker_emp_lua_thinker:OnDestroy()
             for _, enemy in pairs(enemies) do
                 -- burn mana
                 local mana_burn = math.min(enemy:GetMana(), self.burn)
-                enemy:ReduceMana(mana_burn)
+                enemy:Script_ReduceMana(mana_burn, self:GetAbility())
 
                 -- damage based on mana burned
                 damageTable.victim = enemy
@@ -99,4 +101,58 @@ function modifier_invoker_emp_lua_thinker:PlayEffects2()
 
     -- Create Sound
     EmitSoundOnLocationWithCaster(self:GetParent():GetOrigin(), sound_cast, self:GetCaster())
+end
+
+function modifier_invoker_emp_lua_thinker:GetAuraRadius()
+    return self:GetAbility():GetSpecialValueFor("area_of_effect")
+end
+
+function modifier_invoker_emp_lua_thinker:GetAuraSearchTeam()
+    return DOTA_UNIT_TARGET_TEAM_ENEMY
+end
+
+function modifier_invoker_emp_lua_thinker:GetAuraSearchType()
+    return DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC
+end
+
+function modifier_invoker_emp_lua_thinker:GetAuraDuration()
+    return 0
+end
+
+function modifier_invoker_emp_lua_thinker:GetModifierAura()
+    return "modifier_emp_pull_custom"
+end
+
+function modifier_invoker_emp_lua_thinker:IsAura()
+    return self:GetCaster():HasShard()
+end
+
+modifier_emp_pull_custom = class({})
+
+function modifier_emp_pull_custom:IsHidden() return true end
+function modifier_emp_pull_custom:IsPurgable() return false end
+
+function modifier_emp_pull_custom:OnCreated()
+    if not IsServer() then return end
+    self:StartIntervalThink(FrameTime())
+end
+
+function modifier_emp_pull_custom:OnIntervalThink()
+    if not IsServer() then return end
+    if self:GetAuraOwner() == nil then return end
+    local unit_location = self:GetParent():GetAbsOrigin()
+    local vector_distance = self:GetAuraOwner():GetAbsOrigin() - unit_location
+    local distance = (vector_distance):Length2D()
+    local direction = (vector_distance):Normalized()
+
+    if distance >= 50 then
+        self:GetParent():SetAbsOrigin(unit_location + direction * (100 * FrameTime()))
+    else
+        self:GetParent():SetAbsOrigin(unit_location)
+    end
+end
+
+function modifier_emp_pull_custom:OnDestroy()
+    if not IsServer() then return end
+    FindClearSpaceForUnit(self:GetParent(), self:GetParent():GetAbsOrigin(), true)
 end

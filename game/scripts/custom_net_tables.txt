@@ -2,10 +2,6 @@
 {
 	custom_net_tables =
 	[
-              "rank_data",
-              "econ_data",
-              "econ_rarity",
-              "econ_type",
               "hero_info",
               "spawner_info",
               "round_info",
@@ -22,5 +18,8 @@
               "spell_damage_income",
               "pause_owner",
               "coins_table",
+              "skills_table",
+              "quests_table",
+              "aegis_count",
 	]
 }

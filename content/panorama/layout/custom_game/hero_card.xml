@@ -12,6 +12,7 @@
 		<include src="s2r://panorama/scripts/custom_game/const.vjs_c" />
 		<include src="s2r://panorama/scripts/custom_game/hero_card.vjs_c" />
 	</scripts>
+
 	<snippets>
 		<snippet name="Card">
 			<Button class="CardButton">
@@ -22,80 +23,13 @@
 							<Label id="CardName" class="TitleFont" />
 							<DOTAHeroImage id="CardIcon" />
 						</Panel>
-						<Image id="CardImage" />
-						<Panel id="CardBottomBar">
-							<Panel class="StatBranchCenter">
-								<Panel id="StatBranchColumn" class="TopBottomFlow">
-									<Panel class="BranchPair">
-										<Panel class="UpgradeContainer" hittest="false">
-											<Panel class="StatBonusPanelLeft" hittest="false">
-												<Label id="StatBonusLabel_8" class="StatBonusLabel" text="" />
-											</Panel>
-										</Panel>
-										<Panel class="UpgradeContainer" hittest="false">
-											<Panel class="StatBonusPanelRight" hittest="false">
-												<Label id="StatBonusLabel_7" class="StatBonusLabel" text="" />
-											</Panel>
-										</Panel>
-									</Panel>
-									<Panel class="BranchPair">
-										<Panel class="UpgradeContainer" hittest="false">
-											<Panel class="StatBonusPanelLeft" hittest="false">
-												<Label id="StatBonusLabel_6" class="StatBonusLabel" text="" />
-											</Panel>
-										</Panel>
-										<Panel class="UpgradeContainer" hittest="false">
-											<Panel class="StatBonusPanelRight" hittest="false">
-												<Label id="StatBonusLabel_5" class="StatBonusLabel" text="" />
-											</Panel>
-										</Panel>
-									</Panel>
-									<Panel class="BranchPair">
-										<Panel class="UpgradeContainer" hittest="false">
-											<Panel class="StatBonusPanelLeft" hittest="false">
-												<Label id="StatBonusLabel_4" class="StatBonusLabel" text="" />
-											</Panel>
-										</Panel>
-										<Panel class="UpgradeContainer" hittest="false">
-											<Panel class="StatBonusPanelRight" hittest="false">
-												<Label id="StatBonusLabel_3" class="StatBonusLabel" text="" />
-											</Panel>
-										</Panel>
-									</Panel>
-									<Panel class="BranchPair">
-										<Panel class="UpgradeContainer" hittest="false">
-											<Panel class="StatBonusPanelLeft" hittest="false">
-												<Label id="StatBonusLabel_2" class="StatBonusLabel" text="" />
-											</Panel>
-										</Panel>
-										<Panel class="UpgradeContainer" hittest="false">
-											<Panel class="StatBonusPanelRight" hittest="false">
-												<Label id="StatBonusLabel_1" class="StatBonusLabel" text="" />
-											</Panel>
-										</Panel>
-									</Panel>
-								</Panel>
-								<Panel id="LevelColumn" class="TopBottomFlow">
-									<Panel class="LevelBG">
-										<Label class="ReqLabel" text="25" />
-									</Panel>
-									<Panel class="LevelBG">
-										<Label class="ReqLabel" text="20" />
-									</Panel>
-									<Panel class="LevelBG">
-										<Label class="ReqLabel" text="15" />
-									</Panel>
-									<Panel class="LevelBG">
-										<Label class="ReqLabel" text="10" />
-									</Panel>
-								</Panel>
-							</Panel>
-						</Panel>
+						<Panel id="CardImage"/>
 					</Panel>
 				</Panel>
 			</Button>
 		</snippet>
 	</snippets>
+
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel id="CardSelection" hittest="false">
 			<Panel id="CardSelection_Body" hittest="false" />
@@ -112,3 +46,6 @@
 		</Panel>
 	</Panel>
 </root>
+
+
+$.CreatePanelWithProperties("DOTAScenePanel", $("#HeroPickedContainer"), "hero_model", { style: "width:600px;height:600px;", drawbackground: "0", unit:kv.hero, particleonly:"false", renderdeferred:"false", antialias:"true", renderwaterreflections:"true" });

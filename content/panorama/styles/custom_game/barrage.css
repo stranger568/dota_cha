@@ -152,7 +152,7 @@
 
  .BulletPanel{
     height: 40px;
-    font-size:35px;
+    font-size:25px;
     flow-children: right;
     animation-name: BulletMove;
     animation-duration: 17s;
@@ -225,72 +225,77 @@
 
 
  #PlayerFinsh{
-    font-size:35px;
+    font-size:25px;
  }
 
  #PlayerName{
-    font-size:35px;
+    font-size:25px;
     margin-right: 5px;
  }
 
  #AttackPumpkin{
-    font-size:35px;
+    font-size:25px;
  }
  #DealDamage{
-    font-size:35px;
+    font-size:25px;
  }
 
  #GoldValue{
-    font-size:35px;
+    font-size:24px;
+    margin-top: 2px;
     color: #FFCC33FF;
+    margin-right: 5px;
  }
 
  #DamageValue{
-    font-size:35px;
+    font-size:25px;
  }
 
  #Plus{
-    font-size:35px;
+    font-size:25px;
  }
 
 
  #GoldIcon{
    background-image:url("s2r://panorama/images/hud/reborn/gold_small_psd.vtex");
    background-size:100% 100%;
-   width: 40px;
-   height: 40px;
+   width: 24px;
+   height: 24px;
    margin-left: 5px;
+   margin-right: 4px;
+   margin-top: 5px;
  }
 
  #Round{
-   font-size:35px;
+   font-size:25px;
  }
 
  #RoundNumber{
-   font-size:35px;
+   font-size:25px;
  }
 
  #Finished{
-   font-size:35px;
+   font-size:25px;
  }
 
 
  #Colon{
-    font-size:35px;
+    font-size:25px;
  }
 
  #Content{
-    font-size:35px;
+    font-size:25px;
  }
 
  .Content{
-    font-size:35px;
+    font-size:25px;
  }
 
  .TeamLogo{
 
-   height: 40px;
-   width: 40px;
+   height: 24px;
+   width: 24px;
+   margin-top: 5px;
  }
 
 
@@ -302,11 +307,14 @@
 
 
  #TeamName{
-    font-size:35px;
+    font-size:25px;
  }
 
  #HeroIcon{
    margin-top: 4px;
+   width: 24px;
+   height: 24px;
+   margin-right: 5px;
 }
 
 .rainbow_nickname
@@ -330,8 +338,9 @@
 
 #smile_icon
 {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
+  margin-top: 5px;
 }
 
  @keyframes 'Colorgradient'{

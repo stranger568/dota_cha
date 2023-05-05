@@ -27,8 +27,6 @@ function modifier_item_dark_moon_shard:OnCreated()
     self.flBaseAttackTime = flBaseAttackTime* (100-nbaseAttackReduction)/100
 end
 
-
-
 function modifier_item_dark_moon_shard:DeclareFunctions()
 	local funcs = 
 	{
@@ -37,11 +35,12 @@ function modifier_item_dark_moon_shard:DeclareFunctions()
 	return funcs
 end
 
-
 function modifier_item_dark_moon_shard:GetModifierBaseAttackTimeConstant()
-    
     if self.flBaseAttackTime then
-       return self.flBaseAttackTime
+        local bonus = 0
+        if self:GetParent():HasModifier("modifier_skill_swiftness") then
+            bonus = -0.2
+        end
+        return self.flBaseAttackTime + bonus
     end
-
 end

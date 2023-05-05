@@ -10,9 +10,12 @@
 	</scripts>
 
 	<Panel style="width:100%;height:100%;" hittest="false">
-		<Panel id="BattlePassButton" onactivate="ToggleBattlePass();" />
-		<Panel id="WheelButton" onactivate="ToggleWheel();" />
-		<Panel id="RewardsButton" onactivate="ToggleRewards();" />
+
+
+
+
+
+
 		<Panel id="SmilesButton" onactivate="ToggleSmiles();" />
 
 		<Panel class="SmilesWindow sethidden" id="SmilesWindow" hittest="false">
@@ -22,26 +25,54 @@
 		<Panel class="BattlePassWindow sethidden" id="BattlePassWindow" hittest="false">
 			<Panel class="HeaderDonate">
 				<Label text="#cha_battlepass" class="HeaderPanelLabel"/>	
-				<Panel class="Close" onactivate="ToggleBattlePass();"/>
+				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenPass();"/>
 			</Panel> 
 
 			<Panel class="BattlePassMain">
+
+
 				<Panel class="CurrencyBar">
+					<Panel class="DonateCoinPanel">
+						<Panel class="DonateBPIcon1" />
+						<Panel class="PanelBack">
+							<Label class="DonateBattlePassDays" id="DonateBattlePassDays1" text="0" />
+						</Panel>
+					</Panel>
+
+					<Panel class="DonateCoinPanel">
+						<Panel class="DonateBPIcon2" />
+						<Panel class="PanelBack">
+							<Label class="DonateBattlePassDays" id="DonateBattlePassDays2" text="0" />
+						</Panel>
+					</Panel>
+
+					<Panel class="DonateCoinPanel">
+						<Panel class="DonateBPIcon3" />
+						<Panel class="PanelBack">
+							<Label class="DonateBattlePassDays" id="DonateBattlePassDays3" text="0" />
+						</Panel>
+					</Panel>
+
 					<Panel class="ArenaCoinPanel">
 						<Panel class="ArenaCoinIcon" />
-						<Label class="ArenaCoinLabel" id="ArenaCoinLabel" text="0" />
+						<Panel class="PanelBack">
+							<Label class="ArenaCoinLabel" id="ArenaCoinLabel" text="0" />
+							<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />
+						</Panel>
 					</Panel>
 					<Panel class="DonateCoinPanel">
 						<Panel class="DonateCoinIcon" />
-						<Label class="DonateCoinLabel" id="DonateCoinLabel" text="0" />
-					</Panel>
-					<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');">
-						<Label class="CurrencyDonateButtonLabel" text="#bp_currency_donate" />
-					</Panel>
-					<Panel class="BattlePassDuration">
-						<Label class="BattlePassDurationLabel" id="BattlePassDurationLabel" html="true" text="#bp_current_info" />
+						<Panel class="PanelBack">
+							<Label class="DonateCoinLabel" id="DonateCoinLabel" text="0" />
+							<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />
+						</Panel>
 					</Panel>
 				</Panel>
+
+
+
+
+
 				<Panel class="BattlePassBuyMain">
 					<Panel class="BattlePassBuyPanel bp_level_1" onactivate="OpenBattlePassInfo('BuyBattlePassWindow_level_1');">
 						<Label class="BuyBattlePassLabel" text="#bp_level_1" />
@@ -357,7 +388,7 @@
 		<Panel class="WheelWindow sethidden" id="WheelWindow" hittest="false">
 			<Panel class="HeaderDonate">
 				<Label text="#cha_wheel" class="HeaderPanelLabel"/>	
-				<Panel class="Close" onactivate="ToggleWheel();"/>
+				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenWheel();"/>
 			</Panel> 
 
 			<Panel class="WheelMain" hittest="false">
@@ -423,7 +454,7 @@
 				</Panel>
 				<Panel class="ChestBGImage" />
 				<Panel class="KeyBGImage" />
-				<Panel style="flow-children:right;align:center center;margin-left:430px;margin-top:220px;">
+				<Panel style="flow-children:right;align:center center;margin-left:250px;margin-top:130px;">
 					<Panel class="ArenaCoinChest" />
 					<Label class="ArenaCoinChestLabel" text="100" />
 				</Panel>
@@ -440,9 +471,15 @@
 
 		<Button id="donate_coin_panel">
 			<Panel class="CloseInfoItem" onactivate="CloseDonateInfo();"/>
-			<Panel style="flow-children:down;horizontal-align:center;vertical-align:center;" onactivate="ExternalBrowserGoToURL('https://qiwi.com/n/CUSTOMHEROARENA');">
-				<Panel class="QiwiButton" />
-				<Label class="QiwiButtonText" text="" />
+			<Panel style="flow-children:right;horizontal-align:center;vertical-align:center;">
+				<Panel style="flow-children:down;horizontal-align:center;vertical-align:center;" onactivate="ExternalBrowserGoToURL('https://qiwi.com/n/CUSTOMHEROARENA');">
+					<Panel class="QiwiButton" />
+					<Label class="QiwiButtonText" text="#donate_button_description_2" />
+				</Panel>
+				<Panel style="flow-children:down;horizontal-align:center;vertical-align:center;" onactivate="ExternalBrowserGoToURL('https://patreon.com/CustomHeroArena');">
+					<Panel class="PatreonButton" />
+					<Label class="QiwiButtonText" text="#donate_button_description_1" />
+				</Panel>
 			</Panel>
 		</Button>
 
@@ -450,7 +487,7 @@
 		<Panel class="RewardsWindow sethidden" id="RewardsWindow" hittest="false">
 			<Panel class="HeaderDonate">
 				<Label text="#cha_rewards" class="HeaderPanelLabel"/>	
-				<Panel class="Close" onactivate="ToggleRewards();"/>
+				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenRewards();"/>
 			</Panel> 
 
 			<Panel class="RewardsMain" id="RewardsMain" hittest="false">

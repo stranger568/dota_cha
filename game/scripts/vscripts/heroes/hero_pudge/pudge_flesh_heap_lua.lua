@@ -174,7 +174,7 @@ function modifier_pudge_flesh_heap_lua:GetModifierMagicalResistanceBonus() retur
 --------------------------------------------------------------------------------
 -- On death
 
-function modifier_pudge_flesh_heap_lua:OnDeath(keys)
+function modifier_pudge_flesh_heap_lua:OnDeathEvent(keys)
 	if not IsServer() or not keys.unit or not keys.attacker or keys.unit:IsReincarnating() then return end
 
 	local hKiller = keys.attacker:GetPlayerOwner()

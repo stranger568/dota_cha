@@ -39,7 +39,7 @@ function modifier_item_aeon_disk_lua:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_HEALTH_BONUS,
 		MODIFIER_PROPERTY_MANA_BONUS,
-		MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK
+		MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK,
 	}
 end
 
@@ -56,7 +56,7 @@ function modifier_item_aeon_disk_lua:GetModifierTotal_ConstantBlock(keys)
 	local health_threshold = parent:GetMaxHealth() * self.health_threshold_pct
 
 	if IsValidEntity(self.ability) and self.ability:IsCooldownReady() and parent:GetHealth() - keys.damage <= (health_threshold + 1) then
-		self.ability:UseResources(true, true, true)
+		self.ability:UseResources(true, false, true, true)
 
 		parent:EmitSound("DOTA_Item.ComboBreaker")
 
@@ -70,8 +70,6 @@ function modifier_item_aeon_disk_lua:GetModifierTotal_ConstantBlock(keys)
 		return keys.damage * 10
 	end
 end
-
-
 
 modifier_item_aeon_disk_lua_buff = class({})
 
@@ -110,7 +108,12 @@ function modifier_item_aeon_disk_lua_buff:DeclareFunctions()
 		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
 		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL,
 		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE,
+		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
 	}
+end
+
+function modifier_item_aeon_disk_lua_buff:GetModifierIncomingDamage_Percentage(keys)
+	return -99999999
 end
 
 function modifier_item_aeon_disk_lua_buff:GetModifierStatusResistanceStacking()

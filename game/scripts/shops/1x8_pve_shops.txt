@@ -9,6 +9,7 @@
 		"item"		"item_enchanted_mango"
 		"item"		"item_flask"
 		"item"		"item_tango"
+		"item"		"item_blood_grenade"
 		"item"		"item_tome_of_knowledge"
 		"item"		"item_dust"	
 		"item"		"item_bottle"
@@ -24,6 +25,8 @@
 		"item"      "item_relearn_book_lua"
 		"item"      "item_paragon_book"
 		"item"      "item_paragon_book_2"
+		"item"		"item_reroll_neutral_book"
+		"item"		"item_essence_of_speed"
  	}
 
 	"attributes"
@@ -45,6 +48,7 @@
 		"item"		"item_ogre_axe"
 		"item"		"item_blade_of_alacrity"
 		"item"		"item_staff_of_wizardry"
+		"item"		"item_diadem"
         
        	"item"      "item_extra_creature_kobold"
 		"item"      "item_extra_creature_gnoll_assassin"
@@ -81,6 +85,7 @@
 		"item"      "item_extra_creature_big_thunder_lizard"
 		"item"      "item_extra_creature_spider_range"
 		"item"      "item_extra_creature_granite_golem"
+		"item"		"item_extra_creature_ogreseal"
 	}
 			
 	"misc"
@@ -141,20 +146,22 @@
 		"item"		"item_buckler"
 		"item"		"item_ring_of_basilius"
 		"item"		"item_headdress"
-		"item"		"item_urn_of_shadows"
+		"item"		"item_urn_of_shadows_custom"
 		"item"		"item_tranquil_boots"
 		"item"		"item_medallion_of_courage"
+		"item"		"item_pavise"
 		"item"		"item_arcane_boots"
 		"item"		"item_ancient_janggo"
-		"item"		"item_mekansm"					
+		"item"		"item_mekansm_custom"					
 		"item"		"item_holy_locket"	
 		"item"		"item_vladmir"
-		"item"		"item_spirit_vessel"			
+		"item"		"item_spirit_vessel_custom"			
 		"item"		"item_pipe"			
-		"item"		"item_guardian_greaves"
+		"item"		"item_guardian_greaves_custom"
 		"item"      "item_boots_of_bearing"
 		"item"      "item_wraith_pact"
 		"item"      "item_revenants_brooch"
+		"item"		"item_disperser_custom"
 		"item"		"item_torture_pipe_1_datadriven"			
 		"item"		"item_torture_pipe_2_datadriven"
 	}
@@ -244,6 +251,7 @@
  		"item"		"item_maelstrom"
  		"item"		"item_diffusal_blade"		
  		"item"		"item_mage_slayer"
+ 		"item"		"item_phylactery"
  		"item"		"item_heavens_halberd"
  		"item"		"item_kaya_and_sange"
  		"item"		"item_sange_and_yasha"
@@ -254,8 +262,11 @@
  		"item"		"item_overwhelming_blink"		
  		"item"		"item_swift_blink"		
  		"item"		"item_arcane_blink"
+ 		"item"		"item_harpoon"	
  		"item"		"item_kaya_2_lua"
  		"item"		"item_kaya_3_lua"
+ 		"item"		"item_magilys_custom"
+		"item"		"item_gleipnir_magic_custom"
 	}
 
 	"sideshop1"
@@ -288,6 +299,7 @@
 	{				
 		"item"		"item_ring_of_health"
 		"item"		"item_void_stone"
+		"item"		"item_cornucopia"
 		"item"		"item_energy_booster"
 		"item"		"item_vitality_booster"
 		"item"		"item_point_booster"

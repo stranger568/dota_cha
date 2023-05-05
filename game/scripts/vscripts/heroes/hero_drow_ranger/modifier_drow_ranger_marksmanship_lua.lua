@@ -183,7 +183,7 @@ function modifier_drow_ranger_marksmanship_lua:GetModifierProcAttack_Feedback( p
 	local ability = self:GetAbility()
 	if (not ability) or ability:IsNull() then return end
 	if ability.split then
-		local frost_arrows_ability = parent:FindAbilityByName("drow_ranger_frost_arrows")
+		local frost_arrows_ability = parent:FindAbilityByName("drow_ranger_frost_arrows_custom")
 		if frost_arrows_ability and not frost_arrows_ability:IsNull() and frost_arrows_ability:GetAutoCastState() then
 			parent:GiveMana(frost_arrows_ability:GetManaCost(-1))
 		end

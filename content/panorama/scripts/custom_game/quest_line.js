@@ -1,62 +1,152 @@
-function CreatQuest(data) {
-    newPanel = $.CreatePanel('Panel', $('#QuestPanel'), data.name);
-    newPanel.BLoadLayoutSnippet("QuestLine");
-    newPanel.AddClass("Panle_MarginStyle")
-    RefreshQuest(data)
+function RefreshQuest(data) 
+{
+    let round_name = data.text_value_2
+    let creep_kill = data.svalue
+    let creep_count = data.evalue
+
+    $("#QuestPanel").style.opacity = "1"
+
+    if ((typeof round_name !== 'undefined') && (typeof creep_kill !== 'undefined') && (typeof creep_count !== 'undefined'))
+    {
+        $("#RoundName").text = $.Localize(round_name) + " " + "("+creep_kill+"/"+creep_count+")"
+        $("#RoundPanel").style.backgroundImage = 'url("file://{images}/custom_game/rounds/' + round_name.replace("#", '') + '.png")';
+        $("#RoundPanel").style.backgroundSize = '100%';
+    } else if ((typeof round_name !== 'undefined'))
+    {
+       $("#RoundName").text = $.Localize(round_name) 
+       $("#RoundPanel").style.backgroundImage = 'url("file://{images}/custom_game/rounds/' + round_name.replace("#", '') + '.png")';
+       $("#RoundPanel").style.backgroundSize = '100%';
+    }
+
+    if ((typeof data.text_value !== 'undefined'))
+    {
+        $("#RoundLabel").text = data.text_value
+    }
 }
 
-function RefreshQuest(data) {
+function RefreshPrepare(data) 
+{
+    let round_name = data.text_value_2
+    let time = data.svalue
+    let full_time = data.evalue
 
-    var panleId = data.name
-    var panleSvalue = data.svalue
-    var panleEvalue = data.evalue
-    
-    var questPanle = $('#QuestPanel').FindChild(panleId)
-    var valuePercent = parseInt(panleSvalue) / parseInt(panleEvalue) * 100;
-    if (questPanle) {
-        sliderPanle = questPanle.GetChild(0);
-        sliderPanle.GetChild(0).style.width = valuePercent.toString() + "%"
-        sliderPanle.GetChild(1).style.width = (100 - valuePercent).toString() + "%"
-        questPanle.GetChild(1).GetChild(0).text = panleText
+    if (data.svalue == 0)
+    {
+        $("#LinePanelActive").SetHasClass("LinePanelActive_anim", false)
+    } else {
+        $("#LinePanelActive").SetHasClass("LinePanelActive_anim", true)
+    }
 
-        var panleText = $.Localize(data.text, questPanle.GetChild(1).GetChild(0)) + "(" + panleSvalue + "/" + panleEvalue + ")"
-        if (data.text_value!=undefined)
-        {
-            panleText=panleText.replace("[!s:value]",data.text_value)
-        }
-        if (data.text_value_2!=undefined)
-        {
-            panleText=panleText.replace("[!s:value_2]",$.Localize(data.text_value_2))
-        }
+    var percent = ((full_time-time)*100)/full_time
 
-        if (data.unique!=undefined)
+    if (percent != "NaN") 
+    {
+        $("#LinePanelActive").style['width'] = percent +'%';
+    }
+
+    $("#QuestPanel").style.opacity = "1"
+
+    if ((typeof round_name !== 'undefined'))
+    {
+       $("#RoundName").text = $.Localize(round_name) 
+       $("#RoundPanel").style.backgroundImage = 'url("file://{images}/custom_game/rounds/' + round_name.replace("#", '') + '.png")';
+       $("#RoundPanel").style.backgroundSize = '100%';
+    }
+
+    if ((typeof data.text_value !== 'undefined'))
+    {
+        $("#RoundLabel").text = data.text_value
+    }
+
+    $("#LinePanelActive").SetHasClass("color_round", false)
+    $("#LinePanelActive").SetHasClass("color_prepare", true)
+
+    var times = full_time-time
+    var min = Math.trunc((times)/60) 
+    var sec_n =  (times) - 60*Math.trunc((times)/60) 
+    var hour = String( Math.trunc((min)/60) )
+    var min = String(min - 60*( Math.trunc(min/60) ))
+    var sec = String(sec_n)
+    if (sec_n < 10) 
+    {
+        sec = '0' + sec
+    }
+
+    $("#RoundTime").text=min + ':' + sec
+
+    if ((typeof data.abilities !== 'undefined'))
+    {
+        $("#AbilitiesRound").RemoveAndDeleteChildren()
+        for (var i = 1; i <= Object.keys(data.abilities).length; i++) 
         {
-            questPanle.GetChild(1).GetChild(0).text = data.text_value + " " + $.Localize(data.text_value_2) + "<br>" + panleText
-        } else {
-            questPanle.GetChild(1).GetChild(0).text = panleText
+            var ability_panel = $.CreatePanel('DOTAAbilityImage', $("#AbilitiesRound"), '');
+            ability_panel.abilityname = data.abilities[i];
+            ability_panel.AddClass('RoundAbility');
+            SetShowAbDesc(ability_panel, data.abilities[i]);
         }
     }
 }
 
-
-
-
-function RemoveQuest(data) {
-
-    var removePanleList = $('#QuestPanel').FindChildrenWithClassTraverse("QuestLine")
-    //遍历全部 移除
-    for (var i = 0; i < removePanleList.length; i++) {
-        if (removePanleList[i].id==data.name)
-        {
-            removePanleList[i].DeleteAsync(0)
-        }
-    }
-
+function SetShowAbDesc(panel, ability)
+{
+    panel.SetPanelEvent('onmouseover', function() {
+        $.DispatchEvent('DOTAShowAbilityTooltip', panel, ability); });
+        
+    panel.SetPanelEvent('onmouseout', function() {
+        $.DispatchEvent('DOTAHideAbilityTooltip', panel);
+    });       
 }
 
+function UpdateRoundTimer(data)
+{
+    let time = data.svalue
+    let full_time = data.evalue
 
-(function () {
-    GameEvents.Subscribe("CreateQuest", CreatQuest);
+    if (data.svalue == full_time)
+    {
+        $("#LinePanelActive").SetHasClass("LinePanelActive_anim", false)
+    } else {
+        $("#LinePanelActive").SetHasClass("LinePanelActive_anim", true)
+    }
+
+    $("#LinePanelActive").SetHasClass("color_round", true)
+    $("#LinePanelActive").SetHasClass("color_prepare", false)
+
+    var percent = ((full_time-time)*100)/full_time
+
+    if (percent != "NaN") 
+    {
+        $("#LinePanelActive").style['width'] = (100 - percent) +'%';
+    } else {
+       $("#LinePanelActive").style['width'] = '0%'; 
+    }
+
+    $("#QuestPanel").style.opacity = "1"
+
+
+    if ((typeof data.berserk !== 'undefined') && data.berserk != 0)
+    {
+        $("#RoundTime").text = "Berserk stack: " + data.berserk
+    }
+    else
+    {
+        var times = time
+        var min = Math.trunc((times)/60) 
+        var sec_n =  (times) - 60*Math.trunc((times)/60) 
+        var hour = String( Math.trunc((min)/60) )
+        var min = String(min - 60*( Math.trunc(min/60) ))
+        var sec = String(sec_n)
+        if (sec_n < 10) 
+        {
+            sec = '0' + sec
+        }
+        $("#RoundTime").text=min + ':' + sec
+    }
+}
+
+(function() 
+{
     GameEvents.Subscribe("RefreshQuest", RefreshQuest);
-    GameEvents.Subscribe("RemoveQuest", RemoveQuest);
+    GameEvents.Subscribe("RefreshPrepare", RefreshPrepare);
+    GameEvents.Subscribe("UpdateRoundTimer", UpdateRoundTimer);
 })();

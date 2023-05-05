@@ -164,7 +164,12 @@ function SetAbilityPanelEvent(panel,abilityName) {
    
     var parent = $("#AbilitySelectorAbilityBody");
 
-   panel.SetPanelEvent("onactivate", function(){
+   panel.SetPanelEvent("onactivate", function()
+   {
+        if (!$("#AbilitySelectorPanelRoot").BHasClass("Show"))
+        {
+            return
+        }
         GameEvents.SendCustomGameEventToServer("AbilitySelected", {
             ability_name : abilityName,
             player_id : Players.GetLocalPlayer(),

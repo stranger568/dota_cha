@@ -20,7 +20,7 @@ function alchemist_goblins_greed_custom:OnChannelFinish(bInterrupted)
 
 	self:GetCaster():RemoveModifierByName("modifier_alchemist_goblins_greed_custom_anim")
 
-	self:UseResources(false, false, true)
+	self:UseResources(false, false, false, true)
 
 	if self.particle then
 		ParticleManager:DestroyParticle(self.particle, false)
@@ -68,8 +68,8 @@ function modifier_alchemist_goblins_greed_custom:OnRefresh( kv )
 end
 
 function modifier_alchemist_goblins_greed_custom:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_DEATH,
+	local funcs = 
+	{
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE
 	}
 	return funcs
@@ -84,18 +84,18 @@ function modifier_alchemist_goblins_greed_custom:OnDeathEvent( params )
 	if params.attacker:GetTeamNumber() ~= self:GetParent():GetTeamNumber() then return end
 	if self:GetCaster():GetTeamNumber()==params.unit:GetTeamNumber() then return end
 	if not self:GetParent():IsAlive() then return end
-
 	local gold = self:GetStackCount()
 	PlayerResource:ModifyGold( self:GetParent():GetPlayerOwnerID(), gold, false, DOTA_ModifyGold_Unspecified )
 	self:AddStack()
 end
 
 function modifier_alchemist_goblins_greed_custom:AddStack()
-	self.actual_stack = self.actual_stack + 1
-	self:CalculateStack()
-	local duration = self.duration
-	local modifier = self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_alchemist_goblins_greed_custom_stack", {} )
-	modifier.parent_modifier = self
+	if self.actual_stack * self.bonus_gold < self.max_gold then
+		self.actual_stack = self.actual_stack + 1
+		self:CalculateStack()
+		local modifier = self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_alchemist_goblins_greed_custom_stack", {} )
+		modifier.parent_modifier = self
+	end
 end
 
 function modifier_alchemist_goblins_greed_custom:RemoveStack()

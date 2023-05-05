@@ -119,7 +119,7 @@ function modifier_liquid_ice_lua_orb:OnAttack(keys)
 	end
 	self:SetStackCount(1)
 	self:GetParent():StartGesture(ACT_DOTA_ATTACK2)
-	self:GetAbility():UseResources(true, true, true)
+	self:GetAbility():UseResources(true, false, true, true)
 end
 
 function modifier_liquid_ice_lua_orb:AttackLandedModifier(keys)

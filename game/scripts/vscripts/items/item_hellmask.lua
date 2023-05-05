@@ -40,7 +40,7 @@ function modifier_item_hellmask:OnCreated()
 		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_item_hellmask_aura_buff", {})
 		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_item_hellmask_aura_debuff", {})
 	end
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(1)
 end
 
 function modifier_item_hellmask:OnDestroy()
@@ -69,13 +69,22 @@ function modifier_item_hellmask:DeclareFunctions()
         MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
         MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
         MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+        MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE,
         --MODIFIER_EVENT_ON_DEATH,
-        MODIFIER_PROPERTY_TOOLTIP
+        MODIFIER_PROPERTY_TOOLTIP,
+        MODIFIER_PROPERTY_TOOLTIP2
     }
 end
 
 function modifier_item_hellmask:OnTooltip()
+	if self:GetCaster():HasModifier("modifier_skill_hellcrown") then
+		return self:GetAbility():GetCurrentCharges() * (self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack") + 0.1)
+	end
 	return self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack")
+end
+
+function modifier_item_hellmask:OnTooltip2()
+	return self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_damage_per_stack")
 end
 
 function modifier_item_hellmask:GetModifierBonusStats_Strength()
@@ -84,15 +93,27 @@ function modifier_item_hellmask:GetModifierBonusStats_Strength()
 	end
 end
 
+function modifier_item_hellmask:GetModifierDamageOutgoing_Percentage()
+	if not self:GetParent():HasModifier("modifier_skill_hellcrown") then return end
+	local bonus_unique = self:GetAbility():GetCurrentCharges()
+	if self:GetAbility():GetSecondaryCharges() == 1 then bonus_unique = 0 end
+	return 0.2 * bonus_unique
+end
+
 function modifier_item_hellmask:GetModifierPreAttack_BonusDamage()
 	if self:GetAbility() then
-		return self:GetAbility():GetSpecialValueFor("bonus_damage")
+		local bonus_unique = self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_damage_per_stack")
+		if self:GetAbility():GetSecondaryCharges() == 1 then bonus_unique = 0 end
+		return self:GetAbility():GetSpecialValueFor("bonus_damage") + bonus_unique
 	end
 end
 
 function modifier_item_hellmask:GetModifierPhysicalArmorBonus()
 	if self:GetAbility() then
 		local bonus_unique = self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack")
+		if self:GetCaster():HasModifier("modifier_skill_hellcrown") then
+			bonus_unique = self:GetAbility():GetCurrentCharges() * (self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack") + 0.1)
+		end
 		if self:GetAbility():GetSecondaryCharges() == 1 then bonus_unique = 0 end
 		return self:GetAbility():GetSpecialValueFor("bonus_armor") + bonus_unique
 	end
@@ -160,6 +181,12 @@ function modifier_item_hellmask:OnDeathEvent(params)
 	if params.unit:IsOther() then return end
 	if (params.unit:GetAbsOrigin() - self:GetParent():GetAbsOrigin()):Length2D() > 1500 then return end
 	self:GetAbility():SetCurrentCharges(self:GetAbility():GetCurrentCharges() + 1)
+	if self:GetAbility():GetCurrentCharges() >= 250 then
+		Quests_arena:QuestProgress(self:GetParent():GetPlayerOwnerID(), 60, 2)
+	end
+	if self:GetAbility():GetCurrentCharges() >= 400 then
+		Quests_arena:QuestProgress(self:GetParent():GetPlayerOwnerID(), 78, 3)
+	end
 	if params.attacker:IsTempestDouble() then
 		local owner = params.attacker.owner
 		if owner then

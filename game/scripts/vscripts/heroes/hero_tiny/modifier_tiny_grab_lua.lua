@@ -151,6 +151,6 @@ function modifier_tiny_grab_lua:OnRemoved()
 
 	local tree_grab_ability = parent:FindAbilityByName("tiny_tree_grab_lua")
 	if tree_grab_ability then
-		tree_grab_ability:UseResources(false, false, true)
+		tree_grab_ability:UseResources(false, false, false, true)
 	end
 end

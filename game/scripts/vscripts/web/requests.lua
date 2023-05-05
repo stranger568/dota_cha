@@ -1,8 +1,7 @@
 function RequestData(url, callback)
     local req = CreateHTTPRequestScriptVM("GET", url)
     req:Send(function(res)
-        if res.StatusCode ~= 200 then
-            print("[Birzha Request] Не удалось подключится к серверу")   
+        if res.StatusCode ~= 200 then 
             return
         end
 

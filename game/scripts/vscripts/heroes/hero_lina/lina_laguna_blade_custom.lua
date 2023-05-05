@@ -158,5 +158,8 @@ function modifier_lina_laguna_blade_custom_damage:OnDeathEvent(params)
 	local modifier = self:GetCaster():FindModifierByName("modifier_lina_laguna_blade_custom_passive")
 	if modifier then
 		modifier:IncrementStackCount()
+		if modifier:GetStackCount() >= 40 then
+			Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 90, 3)
+		end
 	end
 end

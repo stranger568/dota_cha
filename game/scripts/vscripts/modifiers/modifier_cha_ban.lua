@@ -34,7 +34,7 @@ function modifier_cha_ban:DeclareFunctions()
 end
 
 function modifier_cha_ban:GetModifierIncomingDamage_Percentage(params)
-	return 15
+	return 25
 end
 
 function modifier_cha_ban:OnTooltip()
@@ -42,17 +42,17 @@ function modifier_cha_ban:OnTooltip()
 end
 
 function modifier_cha_ban:GetModifierTotalDamageOutgoing_Percentage(params)
-    return -15
+    return -25
 end
 
 function modifier_cha_ban:GetModifierBonusStats_Strength(params)
-    return -0.1*self:GetParent():GetBaseStrength()
+    return -0.15*self:GetParent():GetBaseStrength()
 end
 
 function modifier_cha_ban:GetModifierBonusStats_Agility(params)
-    return -0.1*self:GetParent():GetBaseAgility()
+    return -0.15*self:GetParent():GetBaseAgility()
 end
 
 function modifier_cha_ban:GetModifierBonusStats_Intellect(params)
-    return -0.1*self:GetParent():GetBaseIntellect()
+    return -0.15*self:GetParent():GetBaseIntellect()
 end

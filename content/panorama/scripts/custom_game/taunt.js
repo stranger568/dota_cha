@@ -113,8 +113,6 @@ function TauntDataChanged()
 
 (function()
 {
-    CustomNetTables.SubscribeNetTableListener("econ_data", TauntDataChanged);
-    TauntDataChanged()
     $("#page_taunt").tauntCooldown = 0
     TauntCountDown();
 })();

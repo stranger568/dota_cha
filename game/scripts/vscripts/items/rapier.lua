@@ -7,8 +7,8 @@ function item_rapier_custom:Spawn()
     local item = self
     if item and item.itembuydisabled == nil and item.timerscreated == nil then
         item.timerscreated = false
+        item:SetCurrentCharges(self:GetSpecialValueFor("max_charges"))
         Timers:CreateTimer(10, function()
-            print("Айтем нельзя продать больше")
             if item and not item:IsNull() then
                 item.itembuydisabled = false
                 item:SetSellable(false)
@@ -19,14 +19,11 @@ end
 
 function item_rapier_custom:OnOwnerDied(params)
     local hOwner = self:GetOwner()
-    -- Non-heroes should automatically drop rapier and return so they can't crash script at hOwner:IsReincarnating() check
-    if not hOwner:IsRealHero() then
-        self:DropItem(self, true, true)
-        return
-    end
-    
-    if not hOwner:IsReincarnating() then
-        self:DropItem(self, true, true)
+    if not hOwner:IsReincarnating() and hOwner:IsRealHero() then
+        self:SetCurrentCharges(self:GetCurrentCharges() - 1)
+        if self:GetCurrentCharges() <= 0 then
+            self:Destroy()
+        end
     end
 end
 
@@ -38,9 +35,6 @@ function item_rapier_custom:DropItem(hItem, sNewItemName, bLaunchLoot)
     if hItem then
         sName = hItem:GetName()
         self:GetCaster():DropItemAtPositionImmediate(hItem, vLocation)
-        --hItem:SetPurchaser(nil)
-        --hItem:SetPurchaseTime(0)
-        --hItem:SetDroppable(false)
     else
         sName = sNewItemName
         hItem = CreateItem(sNewItemName, nil, nil)
@@ -68,15 +62,14 @@ function modifier_item_rapier_custom:IsHidden() return true end
 
 function modifier_item_rapier_custom:OnCreated(args)
     if not IsServer() then return end
-    self.truestrike = false
-    self.critProc = false
+    self.critProc = true
 end
 
 function modifier_item_rapier_custom:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-        MODIFIER_EVENT_ON_ATTACK_LANDED,
-        --MODIFIER_EVENT_ON_ATTACK_RECORD,
+        --MODIFIER_EVENT_ON_ATTACK_LANDED,
+        MODIFIER_EVENT_ON_ATTACK_RECORD,
         MODIFIER_EVENT_ON_DEATH
     }
 end
@@ -86,8 +79,11 @@ function modifier_item_rapier_custom:OnAttackRecord(keys)
         if keys.target:IsOther() then
             return nil
         end
+        self.critProc = true
         self.chance = self:GetAbility():GetSpecialValueFor("truestrike_chance")
-        if self.chance >= RandomInt(1, 100) then
+        if RollPercentage(self.chance-20) then
+            self.critProc = false
+        else
             self.critProc = true
         end
     end
@@ -107,10 +103,8 @@ end
 
 function modifier_item_rapier_custom:CheckState()
     local state = {}
-    
     if self.critProc then
         state = {[MODIFIER_STATE_CANNOT_MISS] = true}
     end
-
     return state
 end

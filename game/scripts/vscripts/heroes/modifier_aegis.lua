@@ -1,3 +1,5 @@
+LinkLuaModifier("modifier_skill_second_life_cooldown", "modifiers/skills/modifier_skill_second_life", LUA_MODIFIER_MOTION_NONE)
+
 modifier_aegis = class({})
 
 function modifier_aegis:IsHidden()
@@ -49,8 +51,17 @@ function modifier_aegis:ReincarnateTime()
         return nil
     end
 
+    if (self:GetParent():HasModifier("modifier_skill_second_life") and not self:GetParent():HasModifier("modifier_skill_second_life_cooldown")) and true~=self:GetParent().bJoiningPvp then
+		local parent = self:GetParent()
+	    Timers:CreateTimer(0, function()
+			if parent and not parent:IsAlive() then return 0.1 end
+			parent:AddNewModifier(parent, nil, "modifier_skill_second_life_cooldown", {duration = 300})
+		end)
+		return 5
+    end
+
     --如果层数不够就不触发了
-    if self:GetStackCount()<=0 then
+    if self:GetStackCount()<=0  then
        return nil
     end
 
@@ -92,6 +103,10 @@ function modifier_aegis:OnDeathEvent(keys)
           	  local flReincarnateTime = self.reincarnate_time
           	  local flReincarnateBuffTime = self.reincarnate_buff_time
 
+          	  if self:GetParent():HasModifier("modifier_skill_rebirth") then
+          	  		flReincarnateBuffTime = flReincarnateBuffTime + 20
+          	  end
+
 		      Timers:CreateTimer({ endTime = flReincarnateTime, 
 				        callback = function()
 				          local nParticle = ParticleManager:CreateParticle("particles/items_fx/aegis_respawn_timer.vpcf", PATTACH_ABSORIGIN_FOLLOW, hCaster)
@@ -111,6 +126,7 @@ function modifier_aegis:OnDeathEvent(keys)
 			  --削减层数
 			  local nStackCount = self:GetStackCount()
               self:SetStackCount(nStackCount-1)
+              CustomNetTables:SetTableValue("aegis_count", tostring(self:GetParent():GetPlayerOwnerID()), {count = nStackCount-1})
 		  end
 	   end
 	end

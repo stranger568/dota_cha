@@ -7,7 +7,7 @@
      margin-top: 250px;
      margin-left: 750px;
      width: 600px;
-     height: 400px;
+     height: 250px;
      background-color: #000000ee;
      flow-children: down;
      box-shadow: fill #00000066 -4px -4px 8px 8px;
@@ -85,10 +85,10 @@
      margin-left: 50px;
      border: 1px solid #000;
      background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
-     box-shadow: inset #ffffff50 1px 1px 2px 2px;
+     box-shadow: #ffffff50 0px 0px 0px 1px;
      background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
      background-size: 320px 120px;
-     margin-left: 350px;
+     margin-left: 365px;
  }
 
  #ActorDeclineButton:active{

@@ -1,0 +1,13 @@
+.top_player{padding:2px;flow-children: right;}
+
+#AvatarLocal
+{
+	width: 32px;
+	height: 32px;
+}
+
+#NicknameLocal
+{
+	vertical-align: center;
+	margin-left: 10px;
+}

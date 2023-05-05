@@ -4,61 +4,61 @@ chen_holy_persuasion_custom.unit_information = {
 	["npc_dota_beastmaster_boar"] = {
 		["duration"] = 60,
 		["type"] = "basic",
-		["count"] = 2,
+		["count"] = 1,
 		["units"] = {"npc_dota_beastmaster_boar", "npc_dota_beastmaster_boar", "npc_dota_beastmaster_boar", "npc_dota_beastmaster_boar"}
 	},
 	["npc_dota_lycan_wolf"] = {
 		["duration"] = 50,
 		["type"] = "basic",
-		["count"] = 2,
+		["count"] = 1,
 		["units"] = {"npc_dota_lycan_wolf1", "npc_dota_lycan_wolf2", "npc_dota_lycan_wolf3", "npc_dota_lycan_wolf4"}
 	},
 	["npc_dota_unit_undying_zombie"] = {
 		["duration"] = 30,
 		["type"] = "basic",
-		["count"] = 5,
+		["count"] = 3,
 		["units"] = {"npc_dota_unit_undying_zombie", "npc_dota_unit_undying_zombie", "npc_dota_unit_undying_zombie", "npc_dota_unit_undying_zombie"}
 	},
 	["npc_dota_wraith_king_skeleton_warrior"] = {
 		["duration"] = 60,
 		["type"] = "basic",
-		["count"] = 4,
+		["count"] = 2,
 		["units"] = {"npc_dota_wraith_king_skeleton_warrior", "npc_dota_wraith_king_skeleton_warrior", "npc_dota_wraith_king_skeleton_warrior", "npc_dota_wraith_king_skeleton_warrior"}
 	},
 	["npc_dota_broodmother_spiderling"] = {
 		["duration"] = 60,
 		["type"] = "basic",
-		["count"] = 4,
+		["count"] = 2,
 		["units"] = {"npc_dota_broodmother_spiderling", "npc_dota_broodmother_spiderling", "npc_dota_broodmother_spiderling", "npc_dota_broodmother_spiderling"}
 	},
 	["npc_dota_clinkz_skeleton_archer"] = {
 		["duration"] = 30,
 		["type"] = "basic",
-		["count"] = 2,
+		["count"] = 1,
 		["units"] = {"npc_dota_clinkz_skeleton_archer_custom", "npc_dota_clinkz_skeleton_archer_custom", "npc_dota_clinkz_skeleton_archer_custom", "npc_dota_clinkz_skeleton_archer_custom"}
 	},
 	["npc_dota_venomancer_plague_ward"] = {
 		["duration"] = 40,
 		["type"] = "basic",
-		["count"] = 3,
+		["count"] = 2,
 		["units"] = {"npc_dota_venomancer_plague_ward_1", "npc_dota_venomancer_plague_ward_2", "npc_dota_venomancer_plague_ward_3", "npc_dota_venomancer_plague_ward_4"}
 	},
 	["npc_dota_eidolon"] = {
 		["duration"] = 40,
 		["type"] = "basic",
-		["count"] = 3,
+		["count"] = 2,
 		["units"] = {"npc_dota_eidolon", "npc_dota_eidolon", "npc_dota_eidolon", "npc_dota_eidolon"}
 	},
 	["npc_dota_invoker_forged_spirit"] = {
 		["duration"] = 80,
 		["type"] = "basic",
-		["count"] = 2,
+		["count"] = 1,
 		["units"] = {"npc_dota_invoker_forged_spirit", "npc_dota_invoker_forged_spirit", "npc_dota_invoker_forged_spirit", "npc_dota_invoker_forged_spirit"}
 	},
 	["npc_dota_furion_treant"] = {
 		["duration"] = 60,
 		["type"] = "basic",
-		["count"] = 4,
+		["count"] = 2,
 		["units"] = {"npc_dota_furion_treant_1", "npc_dota_furion_treant_2", "npc_dota_furion_treant_3", "npc_dota_furion_treant_4"}
 	},
 	["npc_dota_warlock_golem"] = {
@@ -111,7 +111,7 @@ chen_holy_persuasion_custom.unit_information = {
 	},
 }
 
-chen_holy_persuasion_custom.familiar = {}
+chen_holy_persuasion_custom.created_units = {}
 
 function chen_holy_persuasion_custom:OnSpellStart()
 	local random_unit = nil
@@ -124,6 +124,15 @@ function chen_holy_persuasion_custom:OnSpellStart()
 	local basic_unit = self:GetSpecialValueFor("basic_unit")
 	local group_count = self:GetSpecialValueFor("group_count")
 	self:GetCaster():EmitSound("Hero_Chen.HolyPersuasionCast")
+
+	for i = #self.created_units, 1, -1 do
+        if self.created_units[i] ~= nil then
+        	if not self.created_units[i]:IsNull() and self.created_units[i]:IsAlive() then
+        		self.created_units[i]:ForceKill(false)
+        	end
+            table.remove(self.created_units, i)
+        end
+    end
 
 	for group = 1, group_count do
 
@@ -142,23 +151,13 @@ function chen_holy_persuasion_custom:OnSpellStart()
 		if random_unit ~= nil and count ~= nil and duration ~= nil then
 			for i = 1, count do
 				local unit = CreateUnitByName(random_unit, self:GetCaster():GetAbsOrigin()+self:GetCaster():GetForwardVector()*RandomInt(200, 500), true, self:GetCaster(), self:GetCaster(), self:GetCaster():GetTeamNumber())
+				table.insert(self.created_units, unit)
 				FindClearSpaceForUnit(unit, unit:GetAbsOrigin(), true)
 				unit:AddNewModifier(self:GetCaster(), self, "modifier_phased", {duration = 0.2})
-				if random_unit == "npc_dota_visage_familiar1" or random_unit == "npc_dota_visage_familiar2" or random_unit == "npc_dota_visage_familiar3" then
-					if #self.familiar >= 3 then
-						if self.familiar[1] then
-							if not self.familiar[1]:IsNull() and self.familiar[1]:IsAlive() then
-								self.familiar[1]:ForceKill(false)
-							end
-							table.remove(self.familiar, 1)
-						end
-					end
-					table.insert(self.familiar, unit)
-				end
-
 				local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_chen/chen_holy_persuasion.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
 				ParticleManager:SetParticleControl(particle, 0, unit:GetAbsOrigin())
 				ParticleManager:SetParticleControl(particle, 1, unit:GetAbsOrigin())
+				ParticleManager:ReleaseParticleIndex(particle)
 
 				unit:SetControllableByPlayer(self:GetCaster():GetPlayerID(), true)
 				unit:SetBaseMaxHealth(math.max(unit:GetBaseMaxHealth(), health_min))

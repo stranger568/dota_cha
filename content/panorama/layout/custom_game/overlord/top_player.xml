@@ -1,0 +1,13 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/overlord/top_player.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/overlord/top_player.vjs_c" />
+	</scripts>
+	<Panel hittest="false" class="top_player">
+		<DOTAAvatarImage steamid="local" id="AvatarLocal" />
+		<DOTAUserName steamid="local" id="NicknameLocal" />
+	</Panel>
+</root>

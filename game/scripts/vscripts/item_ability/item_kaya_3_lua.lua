@@ -42,10 +42,18 @@ function modifier_item_kaya_3_lua:OnCreated()
        end	     
 	     if hCaster:HasModifier("modifier_item_kaya_3_lua") then
 	        local hAbility = hCaster:FindModifierByName("modifier_item_kaya_3_lua"):GetAbility()
-	        hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
+	        if self:GetParent():HasModifier("modifier_skill_overbuffed") then
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.5
+	        else
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
+	        end
 	     elseif hCaster:HasModifier("modifier_item_kaya_2_lua") then
 	        local hAbility = hCaster:FindModifierByName("modifier_item_kaya_2_lua"):GetAbility()
-	        hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
+	        if self:GetParent():HasModifier("modifier_skill_overbuffed") then
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.5
+	        else
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
+	        end
 	     else
 	        hCaster.flSP = nil
 	     end
@@ -64,10 +72,18 @@ function modifier_item_kaya_3_lua:OnDestroy()
        end	     
 	     if hCaster:HasModifier("modifier_item_kaya_3_lua") then
 	        local hAbility = hCaster:FindModifierByName("modifier_item_kaya_3_lua"):GetAbility()
-	        hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
+	        if self:GetParent():HasModifier("modifier_skill_overbuffed") then
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.5
+	        else
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
+	        end
 	     elseif hCaster:HasModifier("modifier_item_kaya_2_lua") then
 	        local hAbility = hCaster:FindModifierByName("modifier_item_kaya_2_lua"):GetAbility()
-	        hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
+	        if self:GetParent():HasModifier("modifier_skill_overbuffed") then
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.5
+	        else
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
+	        end
 	     else
 	        hCaster.flSP = nil
 	     end

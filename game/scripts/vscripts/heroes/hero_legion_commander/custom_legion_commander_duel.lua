@@ -151,7 +151,6 @@ function modifier_duel_buff:OnIntervalThink()
 
   	if not self.target:HasModifier("modifier_duel_buff") then
   		if not self.duel_end then
-	      	self:GetAbility():WinDuel(self:GetParent(), self.target)
 	      	self.duel_end = true
 	      	self:Destroy()
 	      	return
@@ -166,7 +165,7 @@ end
 function modifier_duel_buff:OnDestroy()
   	if not IsServer() then return end
 
- 	self:GetCaster():StopSound("Hero_LegionCommander.Duel")
+ 	  self:GetCaster():StopSound("Hero_LegionCommander.Duel")
 
   	if self:GetCaster().particle then 
   		ParticleManager:DestroyParticle(self:GetCaster().particle, false)
@@ -174,6 +173,11 @@ function modifier_duel_buff:OnDestroy()
 
   	self:GetParent():SetForceAttackTarget(nil)
   	self:GetParent():MoveToPositionAggressive(self:GetParent():GetAbsOrigin())
+    local parent = self:GetParent()
+    Timers:CreateTimer(0.25, function()
+      print("dada lk")
+      parent:SetForceAttackTarget(nil)
+    end)
 end
 
 -----------

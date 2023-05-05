@@ -80,3 +80,73 @@
      transform: scaleX(1) scaleY(1);
    }
 }
+
+.notification_banned
+{
+     align: center top;
+     margin-top: 10%;
+     flow-children: down;
+     background-image: url("file://{images}/custom_game/bg_hud_inspect_psd.png");
+     background-size: 100%;
+     padding: 10px;
+     box-shadow: black 0px 0px 5px 1px;
+}
+
+.notification_label_banned
+{
+     font-size:24px;
+     color:white;
+     font-weight:bold;
+     text-shadow: 1px 1px 3px 3.0 black
+     color: white;
+     horizontal-align: center;
+     margin-bottom: 5px;
+     text-transform: uppercase;
+}
+
+.HeroImageBanned
+{
+     width: 70px;
+     height: 70px;
+     border-radius: 50%;
+     margin-top: 10px;
+     horizontal-align: center;
+     margin: 5px;
+     box-shadow: black 0px 0px 5px 0px;
+}
+
+.banned_ab
+{
+     width: 64px;
+     height: 64px;
+     margin: 5px;
+     box-shadow: black 0px 0px 5px 0px;
+}
+
+.notification_banned_banned_heroes
+{
+     flow-children: right-wrap;
+     horizontal-align: center;
+     margin: 10px;
+}
+
+.notification_banned_banned_abilities
+{
+     flow-children: right-wrap;
+     horizontal-align: center;
+     margin: 10px;
+}
+
+.notification_close
+{
+     width: 20px;
+     height: 20px;
+     horizontal-align: right;
+     background-image: url("s2r://panorama/images/control_icons/x_close_grey_psd.vtex");
+     background-size: 100% 100%;
+     wash-color: white;
+     transition-property: wash-color;
+     transition-duration: 0.1s;
+     brightness: 3;
+     margin-bottom: 5px;
+}

@@ -11,10 +11,8 @@
 		<Panel hittest="false" id="ScoreboardTeam">
 			<Panel id="LocalTeamOverlay" />
 			<Panel hittest="false" id="PlayersContainer" />
-			<Panel hittest="false" id="TeamOverlayBar">
-				<Panel hittest="false" id="TeamDarkenWash" />
-				<Panel hittest="false" id="LogoAndScore">
-					<Panel hittest="false" id="TeamLogo" />
+			<Panel hittest="false" id="LogoAndScore">
+				<Panel class="GoldPanel">
 					<Panel hittest="false" id="GoldIcon" />
 					<Label hittest="false" id="TeamScore" text="600" />
 				</Panel>

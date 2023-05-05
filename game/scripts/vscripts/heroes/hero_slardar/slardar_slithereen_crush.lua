@@ -19,9 +19,9 @@ function slardar_slithereen_crush_custom:OnSpellStart()
 		enemy:AddNewModifier( self:GetCaster(), self, "slardar_slithereen_crush_custom_debuff", { duration = stun_duration + slow_duration } )
 
 		if self:GetCaster():HasShard() then
-			local corrosive_ability = self:GetCaster():FindAbilityByName("slardar_amplify_damage")
+			local corrosive_ability = self:GetCaster():FindAbilityByName("slardar_amplify_damage_custom")
 			if corrosive_ability then
-				enemy:AddNewModifier(self:GetCaster(), corrosive_ability, "modifier_slardar_amplify_damage", {duration = self:GetSpecialValueFor("shard_amp_duration")})
+				enemy:AddNewModifier(self:GetCaster(), corrosive_ability, "modifier_slardar_amplify_damage_custom", {duration = self:GetSpecialValueFor("shard_amp_duration")})
 			end
 		end
 	end

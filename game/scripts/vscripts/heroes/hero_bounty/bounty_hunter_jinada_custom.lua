@@ -78,7 +78,7 @@ function modifier_bounty_hunter_jinada_custom_crit:AttackLandedModifier( params 
         self.particle_hit_fx = ParticleManager:CreateParticle("particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinda_slow.vpcf", PATTACH_ABSORIGIN, self:GetParent())
         ParticleManager:SetParticleControl(self.particle_hit_fx, 0, target:GetAbsOrigin())
         ParticleManager:ReleaseParticleIndex(self.particle_hit_fx)
-        self:GetAbility():UseResources(false, false, true)
+        self:GetAbility():UseResources(false, false, false, true)
 
         if target:IsRealHero() then
             self.money_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_bounty_hunter/bounty_hunter_jinada.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
@@ -86,7 +86,7 @@ function modifier_bounty_hunter_jinada_custom_crit:AttackLandedModifier( params 
             ParticleManager:ReleaseParticleIndex(self.money_particle)
             local gold = self:GetAbility():GetSpecialValueFor("gold_steal")
             self:GetParent():ModifyGold(gold, true, 0)
-            params.target:SpendGold(-gold, 0)
+            params.target:SpendGold(gold, 0)
             SendOverheadEventMessage(self:GetParent(), OVERHEAD_ALERT_GOLD, self:GetParent(), gold, nil)
         end
         

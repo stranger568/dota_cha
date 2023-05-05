@@ -110,9 +110,46 @@ function AddNotification(msg, panel) {
   }
 }
 
+function banned_this_game_information(data)
+{
+    let notification = $.CreatePanel('Panel', $.GetContextPanel(), '');
+    notification.AddClass("notification_banned")
+
+    let notification_close = $.CreatePanel('Panel', notification, '');
+    notification_close.AddClass("notification_close")
+
+    notification_close.SetPanelEvent("onactivate", function() 
+    { 
+        notification.DeleteAsync(0);
+    });
+
+    let notification_label = $.CreatePanel('Label', notification, '');
+    notification_label.AddClass("notification_label_banned")
+    notification_label.text = $.Localize("#banned_in_this_game")
+
+    let notification_banned_heroes = $.CreatePanel('Panel', notification, '');
+    notification_banned_heroes.AddClass("notification_banned_banned_heroes")
+
+    let notification_banned_abilities = $.CreatePanel('Panel', notification, '');
+    notification_banned_abilities.AddClass("notification_banned_banned_abilities")
+
+    for (var i = 1; i <= Object.keys(data.abilities).length; i++) 
+    {
+        var ability_panel = $.CreatePanel('DOTAAbilityImage', notification_banned_abilities, '');
+        ability_panel.abilityname = data.abilities[i]
+        ability_panel.AddClass("banned_ab")
+    }
+    for (var f = 1; f <= Object.keys(data.heroes).length; f++) 
+    {
+        var HeroImage = $.CreatePanelWithProperties(`DOTAHeroImage`, notification_banned_heroes, "", {scaling: "stretch-to-cover-preserve-aspect", heroname : String(data.heroes[f]), tabindex : "auto", class: "HeroImageBanned", heroimagestyle : "portrait"});
+    }
+    notification.DeleteAsync(30);
+}
+
 
 (function () {
   GameEvents.Subscribe( "top_notification", TopNotification );
+  GameEvents.Subscribe( "banned_this_game_information", banned_this_game_information );
   GameEvents.Subscribe( "bottom_notification", BottomNotification );
   GameEvents.Subscribe( "top_remove_notification", TopRemoveNotification );
   GameEvents.Subscribe( "bottom_remove_notification", BottomRemoveNotification );

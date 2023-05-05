@@ -140,7 +140,6 @@ function modifier_monkey_king_jingu_mastery_lua_buff:DeclareFunctions()
 		--MODIFIER_EVENT_ON_TAKEDAMAGE,
 		--MODIFIER_EVENT_ON_ATTACK_LANDED,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-		MODIFIER_EVENT_ON_ABILITY_EXECUTED,
 	}
 
 	return funcs
@@ -201,7 +200,7 @@ function modifier_monkey_king_jingu_mastery_lua_buff:OnDestroy( )
 	
 end
 
-function modifier_monkey_king_jingu_mastery_lua_buff:OnAbilityExecuted( keys )
+function modifier_monkey_king_jingu_mastery_lua_buff:OnAbilityExecutedCustom( keys )
 	local caster = self:GetCaster()
 	
 	if caster == self:GetParent() then

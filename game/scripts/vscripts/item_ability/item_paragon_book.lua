@@ -7,6 +7,7 @@ function item_paragon_book:OnSpellStart()
 		local hPlayer =  hCaster:GetPlayerOwner()
 		if hCaster and hCaster:IsRealHero() and not hCaster:IsTempestDouble() and not hCaster:HasModifier("modifier_arc_warden_tempest_double_lua")  then          
 	       
+	       Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 29, 1)
 
        	   if GetMapName()=="random_1x8" then
                CustomGameEventManager:Send_ServerToPlayer(hPlayer,"SendHudError",{message="dota_hud_error_random_map_can_not_use"} )
@@ -53,6 +54,7 @@ function item_paragon_book_2:OnSpellStart()
 		local hPlayer =  hCaster:GetPlayerOwner()
 		if hCaster and hCaster:IsRealHero() and not hCaster:IsTempestDouble() and not hCaster:HasModifier("modifier_arc_warden_tempest_double_lua")  then          
 	       
+			Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 70, 2)
 
        	   if GetMapName()=="random_1x8" then
                CustomGameEventManager:Send_ServerToPlayer(hPlayer,"SendHudError",{message="dota_hud_error_random_map_can_not_use"} )

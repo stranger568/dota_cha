@@ -1,18 +1,18 @@
-function Confirm() {
-
+function Confirm() 
+{
     $("#PlayerLosePanel").AddClass("Hidden");
-
 }
 
-function ShowPlayerLose(keys) {
+function ShowPlayerLose(keys) 
+{
     $("#PlayerLosePanel").RemoveClass("Hidden");
     $("#RankInner2").text = keys.game_rank;
-    $("#RankInner3").text = "/"+keys.valid_team;
+    $("#RankInner3").text = " / "+keys.valid_team;
     DotaMindScoreChanged();
 }
 
-function DotaMindScoreChanged() {
-
+function DotaMindScoreChanged() 
+{
      var playerInfo = Game.GetPlayerInfo( Players.GetLocalPlayer() );
 
      var player_data = CustomNetTables.GetTableValue("mmr_player", String(Players.GetLocalPlayer()));
@@ -36,9 +36,9 @@ function DotaMindScoreChanged() {
 	    	$("#DotaMindInner3").AddClass("Green")
 	    }
 
-        if (player_data_main.calibrating_games[3] > 0)
+        if (player_data_main.calibrating_games[5] > 0)
         {
-           $("#DotaMindInner4").text = "("+$.Localize("#dota_mind_calibrating")+")";
+           $("#DotaMindInner4").text = "( "+$.Localize("#dota_mind_calibrating")+" )";
         }
     }
 }

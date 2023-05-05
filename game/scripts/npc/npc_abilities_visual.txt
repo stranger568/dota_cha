@@ -7548,30 +7548,21 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"arc_damage"			"90 120 150 180"
-				"LinkedSpecialBonus"	"special_bonus_unique_zeus_2"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"				"500 500 500 500"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"jump_count"			"5 7 9 15"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"jump_delay"			"0.25 0.25 0.25 0.25"
-			}
-		}
+        "AbilityValues"
+        {
+            "arc_damage"
+            {
+                "value"             "90 120 150 180"
+            }
+            "radius"                "500 500 500 500"
+            "jump_count"            "5 7 9 15"
+            "jump_delay"            "0.25 0.25 0.25 0.25"
+            "damage_health_pct"     
+            {
+                "value"             "3 4 5 6"
+                "special_bonus_unique_zeus_2"   "+4"
+            }               
+        }
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 	

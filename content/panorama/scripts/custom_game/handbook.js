@@ -454,7 +454,5 @@ function FilterIndex(treasureIndex)
 
 (function()
 {   
-    CustomNetTables.SubscribeNetTableListener("econ_data", EconDataArrive);
-    GameEvents.Subscribe( "BuyItemResultArrive", BuyItemResultArrive ); //持久化服务器对于购买处理完毕
-    EconDataArrive()
+
 })();

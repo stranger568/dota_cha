@@ -12,7 +12,7 @@ var first_time = false;
 var cooldown_panel = false
 var current_sub_tab = "";
 
-function ToggleLeaderboard() {
+GameUI.CustomUIConfig().OpenLeaderboard = function ToggleLeaderboard() {
     if (toggle === false) {
         if (cooldown_panel == false) {
             toggle = true;

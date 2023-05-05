@@ -10,12 +10,11 @@
 	</scripts>
 
 	<Panel style="width:100%;height:100%;" hittest="false">
-		<Panel id="LeaderBoardButton" onactivate="ToggleLeaderboard();" />
 
 		<Panel class="LeaderboardWindow sethidden" id="LeaderboardWindow" hittest="false">
 			<Panel class="Leaderboardlogo">
 				<Label text="#cha_leaderboard" class = "LeaderboardNameLabel"/>	
-				<Panel class="Close" onactivate="ToggleLeaderboard();"/>
+				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenLeaderboard();"/>
 			</Panel> 
 
 			<Panel class="Leaderboardblock" hittest="false">

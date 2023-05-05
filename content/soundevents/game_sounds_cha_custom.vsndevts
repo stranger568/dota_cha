@@ -497,7 +497,7 @@
                               "value0"        "sounds/item_wheel_16.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "6.50000"  }
+                    "volume"            {   "value"     "3.50000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -529,7 +529,7 @@
                               "value0"        "sounds/item_wheel_17.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "4.50000"  }
+                    "volume"            {   "value"     "2.50000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -1105,7 +1105,7 @@
                               "value0"        "sounds/item_wheel_35.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "3.50000"  }
+                    "volume"            {   "value"     "2.00000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -1137,7 +1137,7 @@
                               "value0"        "sounds/item_wheel_36.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "3.50000"  }
+                    "volume"            {   "value"     "2.00000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -1169,7 +1169,7 @@
                               "value0"        "sounds/item_wheel_37.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "4.50000"  }
+                    "volume"            {   "value"     "2.00000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -1201,7 +1201,7 @@
                               "value0"        "sounds/item_wheel_38.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "2.50000"  }
+                    "volume"            {   "value"     "1.00000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -1682,7 +1682,7 @@
                               "value0"        "sounds/item_wheel_107.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "5.50000"  }
+                    "volume"            {   "value"     "2.50000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -1778,7 +1778,7 @@
                               "value0"        "sounds/item_wheel_110.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "14.50000"  }
+                    "volume"            {   "value"     "8.50000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -1810,7 +1810,7 @@
                               "value0"        "sounds/item_wheel_111.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "9.50000"  }
+                    "volume"            {   "value"     "4.50000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -1842,7 +1842,7 @@
                               "value0"        "sounds/item_wheel_112.vsnd"
                         }
                     }
-                    "volume"            {   "value"     "9.50000"  }
+                    "volume"            {   "value"     "4.50000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }
@@ -2319,6 +2319,39 @@
                         }
                     }
                     "volume"            {   "value"     "14.50000"  }
+                    "pitch_rand_min"    {   "value"     "-0.05000"  }
+                    "pitch_rand_max"    {   "value"     "0.050000"  }
+                    "pitch"             {   "value"     "1.000000"  }
+                    "soundlevel"        {   "value"     "100.00000" }
+                    "distance_max"      {   "value"     "1600.000"  }
+                    "event_type"        {   "value"     "1.000000"  }
+                }
+            }
+        }
+    }
+}
+
+"shamp_cast"
+{
+    "operator_stacks"
+    {
+        "update_stack"
+        {
+            "reference_operator"
+            {
+                "operator"              "sos_reference_stack"
+                "reference_stack"       "dota_src1_3d"
+                "operator_variables"
+                {
+                    "vsnd_files"
+                    {
+                        "value"
+                        {
+                              "value0"        "sounds/chap_1.vsnd"
+                              "value0"        "sounds/chap_2.vsnd"
+                        }
+                    }
+                    "volume"            {   "value"     "6.50000"  }
                     "pitch_rand_min"    {   "value"     "-0.05000"  }
                     "pitch_rand_max"    {   "value"     "0.050000"  }
                     "pitch"             {   "value"     "1.000000"  }

@@ -11,7 +11,6 @@
 	<Panel hittest="false">
 		<Panel class="Hidden" id="ActorPanel" hittest="false">
 			<Panel id="ActorPanelTop">
-				<Label id="ActorPanelTopLabel" text="#mark_as_actor" />
 				<Panel id="ActorPlayer">
 					<DOTAAvatarImage id="ActorPlayerImage" steamid="" />
 					<Panel class="HeroInfo">
@@ -22,11 +21,8 @@
 				</Panel>
 			</Panel>
 			<Panel id="ActorPanelDown">
-				<Button id="ActorAcceptButton" hittest="true" onactivate="Confirm()">
-					<Label text="#confirm" />
-				</Button>
 				<Button id="ActorDeclineButton" hittest="true" onactivate="Cancle()">
-					<Label text="#cancle" />
+					<Label text="Close" />
 				</Button>
 			</Panel>
 		</Panel>

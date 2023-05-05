@@ -50,7 +50,8 @@
 #ChatWheelSettingsPanel {
     width: 1300px;
     height: 850px;
-    background-color: rgba(0,0,0,0.9);
+    margin-top: 50px;
+    background-color: rgba(0,0,0,1);
     background-image: url("s2r://panorama/images/custom_game/extract/ability_bg_png.vtex");
     background-size: 100%;
     align: center center;

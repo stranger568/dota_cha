@@ -10,7 +10,7 @@
 	</scripts>
 	<snippets>
 		<snippet name="FinishRound">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Image id="HeroIcon" src="" />
 				<Label id="PlayerName" text="" />
 				<Label id="PlayerFinsh" text="#player_finish" />
@@ -20,14 +20,14 @@
 			</Panel>
 		</snippet>
 		<snippet name="PlayerSay">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Image id="HeroIcon" src="" />
 				<Label id="PlayerName" text="" />
 				<Label id="Content" />
 			</Panel>
 		</snippet>
 		<snippet name="BetSummary">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Label class="Content" text="#total" />
 				<Panel id="GoldIcon" />
 				<Label id="GoldValue" />
@@ -43,7 +43,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="BetSummarySolo">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Label class="Content" text="#total" />
 				<Panel id="GoldIcon" />
 				<Label id="GoldValue" />
@@ -54,7 +54,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="BetWin">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Image id="HeroIcon" src="" />
 				<Label id="PlayerName" text="" />
 				<Label class="Content" text="#bet_bonus" />
@@ -63,7 +63,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="PvpWin">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Image id="HeroIcon" src="" />
 				<Label id="PlayerName" text="" />
 				<Label class="Content" text="#pvp_earn_bonus" />
@@ -72,7 +72,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="BetJackpot">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Image id="HeroIcon" src="" />
 				<Label id="PlayerName" text="" />
 				<Label class="Content" text="#bet_jackpot" />
@@ -81,7 +81,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="TeamLose">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Panel class="TeamLogo">
 					<Image id="IconShadow" src="s2r://panorama/images/custom_game/team_icons/team_shield_shadow_01_psd.vtex" />
 					<Image id="ShieldBorder" src="s2r://panorama/images/custom_game/team_icons/team_shield_border_01_psd.vtex" />
@@ -94,7 +94,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="CompensateRelearnBook">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Label id="Round" text="#round" />
 				<Label id="RoundNumber" />
 				<Label id="Finished" text="#finish" />
@@ -104,7 +104,7 @@
 			</Panel>
 		</snippet>
 		<snippet name="SettlePumpkinKing">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Image id="HeroIcon" src="" />
 				<Label id="PlayerName" text="" />
 				<Label id="AttackPumpkin" text="#attack_pumpkin" />
@@ -116,14 +116,14 @@
 			</Panel>
 		</snippet>
 		<snippet name="DonateSmile">
-			<Panel class="BulletPanel" hittest="false">
+			<Panel class="BulletPanel" hittest="false" hittestchildren="false" >
 				<Image id="HeroIcon" src="" />
 				<Label id="PlayerName" text="" />
 				<Panel id="smile_icon" />
 			</Panel>
 		</snippet>
 	</snippets>
-	<Panel style="width:100%;height:100%;" hittest="false">
-		<Panel id="BarrgeMainPanel" style="width:1925px; height:980px;margin-top:150px;" hittest="false" />
+	<Panel style="width:100%;height:100%;" hittest="false" hittestchildren="false" >
+		<Panel id="BarrgeMainPanel" style="width:1925px; height:980px;margin-top:150px;" hittest="false" hittestchildren="false"  />
 	</Panel>
 </root>

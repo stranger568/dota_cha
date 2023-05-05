@@ -2,51 +2,56 @@ if GameMode == nil then
 	_G.GameMode = class({}) 
 end
 
-require("web/mmr")
-require('web/requests')
+------------Дополнительные библиотеки
 require( "utils/utility_functions" )
 require( "utils/timers" )
 require( "utils/bit" )
-require( "utils/json" )
 require( "utils/table" )
 require( "utils/notifications" )
 require( "utils/cdota_base_npc" )
 require( "utils/cdota_base_ability" )
 require( "utils/cdota_modifier_lua" )
-require( "hero_builder" )
-require( "debugger" )
-require( "round" )
-require( "spawner" )
-require( "barrage" )
-require( "pvp_module" )
+require( 'utils/disconnect' )
 require( "util" )
-require( "econ" )
-require( "item_loot" )
-require( "summon" )
-require( "pass" )
-require( "illusion" )
-require( "extra_creature" )
-require( "bot_ai" )
+require( "overlord/playertables" )
+require( "overlord/worldpanels" )
+---------------------------------------------
+
+------ Фильтры --------------------------
 require( "filter/damage_filter" )
 require( "filter/order_filter" )
 require( "filter/modifier_filter" )
-require( "utils/sha" )
+-------------------------------------------
+
+require("quests") -- Квесты
+require("skills") -- Навыки
+require('web/requests') -- Библиотека реквестов
+require("web/mmr") -- Рейтинг и вебдата
+require( "pass" ) -- Донатные функции
+require( "hero_builder" ) -- Функции создания героя и способностей
+require( "debugger" ) -- Дебаггер
+require( "round" ) -- Создание раундов
+require( "spawner" ) -- Спавн крипов на аренах
+require( "barrage" ) -- Летающий текст
+require( "pvp_module" ) -- Дуэли
+require( "item_loot" ) -- Нейтральные предметы
+require( "summon" ) -- Библиотека на суммонеров
+require( "illusion" ) -- Создание иллюзий
+require( "extra_creature" ) -- Спавн мобов с книг
 require( "utils/keyvalues" )
-require( "halloween" )
-require( "setting" )
-require( "utils/custom_chat")
 require( "utils/error_tracking")
 require( "utils/event_driver")
-require( "wearable")
-require( "libraries/activity_modifier")
-require( 'utils/disconnect' )
+
+------ Данные--------------------------------------------------------------------------------------
 
 GameRules.allHeroesKV = LoadKeyValues("scripts/npc/herolist.txt")
 GameRules.heroesPoolList = {}
 GameRules.heroesPoolList_strength_list = {}
 GameRules.heroesPoolList_agility_list = {}
 GameRules.heroesPoolList_intellect_list = {}
+GameRules.heroesPoolList_all_list = {}
 GameRules.hero_list_duplicate = {}
+GameRules.nian_count = 0
 
 for k,_ in pairs(GameRules.allHeroesKV) do
     table.insert(GameRules.heroesPoolList,k)
@@ -61,8 +66,12 @@ for _,hero in pairs(GameRules.heroesPoolList) do
         table.insert(GameRules.heroesPoolList_agility_list, hero)
     elseif heroes_list[hero].AttributePrimary == "DOTA_ATTRIBUTE_INTELLECT" then
         table.insert(GameRules.heroesPoolList_intellect_list, hero)
+    elseif heroes_list[hero].AttributePrimary == "DOTA_ATTRIBUTE_ALL" then
+        table.insert(GameRules.heroesPoolList_all_list, hero)
     end
 end
+
+--------------------------------------------------------------------------------------
 
 Precache = require "Precache"
 
@@ -71,38 +80,40 @@ function Precache( context )
 end
 
 function Activate()
+    ListenToGameEvent("player_reconnected", Dynamic_Wrap(GameMode, "OnPlayerReconnected"), self)
+    Chadisconnect:RegListeners()
     GameMode:InitGameMode()
     SendToServerConsole("tv_delay 0")
 end
 
 function GameMode:InitGameMode()
     GameRules:GetGameModeEntity().GameMode = self
-    Chadisconnect:RegListeners()
+    Pass:Init()
     HeroBuilder:Init()
     Debugger:Init()
     Barrage:Init()
     PvpModule:Init()
-    Econ:Init()
     ItemLoot:Init()
     Summon:Init()
-    Pass:Init()
     Illusion:Init()
     ExtraCreature:Init()
-    BotAI:Init()
-    Halloween:Init()
-    Setting:Init()
+
     GameRules.teamAbandonMap = {}
-    GameMode.damageCount={}
     GameMode.reportActorTime = {}
     GameMode.feedbackTime = {}
-    GameMode.partyListMap={}
-    GameMode.nPartyNumber=0
-    GameMode.partyNumberMap={}
+    GameMode.partyListMap= {}
+    GameMode.nPartyNumber= 0
+    GameMode.partyNumberMap= {}
+    GameMode.fow_viwer_teams = {}
+
     GameRules:SetSameHeroSelectionEnabled(true)
     GameRules:SetHeroSelectionTime(5)
     GameRules:SetStrategyTime(7)
     GameRules:SetShowcaseTime(0)
     GameRules:SetSafeToLeave(true)
+    GameRules:SetCustomGameSetupRemainingTime(-1)
+    GameRules:SetCustomGameSetupTimeout(-1)
+    GameRules:SetCustomGameSetupAutoLaunchDelay(-1)
 
     if IsInToolsMode() then
        GameRules:SetPreGameTime(12)
@@ -116,7 +127,9 @@ function GameMode:InitGameMode()
     GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(999)
 
     local xpTable = {230,600,1080,1660,2260,2980,3730,4510,5320,6160,7030,7930,9155,10405,11680,12980,14305,15805,17395,18995,20845,22945,25295,27895}
+
     xpTable[0] = 0
+
     for i = 25, 1000 do
         xpTable[i] = xpTable[i-1]+(i-24)*1000+2500
     end
@@ -130,38 +143,43 @@ function GameMode:InitGameMode()
     GameRules:GetGameModeEntity():SetFixedRespawnTime(99990000)
     GameRules:SetUseUniversalShopMode( true )
     GameRules:GetGameModeEntity():SetFogOfWarDisabled(false) 
+    GameRules:GetGameModeEntity():SetDaynightCycleDisabled(true) 
     GameRules:GetGameModeEntity():SetTPScrollSlotItemOverride("item_smoke_of_deceit_custom")
     GameRules:GetGameModeEntity():SetNeutralStashEnabled(true)
     GameRules:GetGameModeEntity():SetDefaultStickyItem( "item_smoke_of_deceit_custom" )
-    GameRules:SetCustomGameSetupAutoLaunchDelay(10)
     GameRules:SetCustomGameEndDelay( 120 )
     GameRules:SetCustomVictoryMessageDuration(120)
     GameRules:SetPostGameTime(120)
     GameRules:GetGameModeEntity():SetBountyRunePickupFilter( Dynamic_Wrap( GameMode, "BountyRunePickupFilter" ), self )
+
     SendToServerConsole("dota_max_physical_items_purchase_limit 9999")
     ListenToGameEvent( "game_rules_state_change", Dynamic_Wrap( GameMode, 'OnGameRulesStateChange' ), self )
     ListenToGameEvent("dota_item_purchased", Dynamic_Wrap(GameMode, "OnItemPurchased"), self)
     ListenToGameEvent("dota_player_gained_level", Dynamic_Wrap(GameMode, "OnHeroLevelUp"), self)
-    ListenToGameEvent("player_reconnected", Dynamic_Wrap(GameMode, "OnPlayerReconnected"), self)
     ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(GameMode, "OnPlayerUsedAbility"), self)
     ListenToGameEvent("dota_player_learned_ability", Dynamic_Wrap(GameMode, "OnHeroLearnAbility"), self)
     ListenToGameEvent("npc_spawned", Dynamic_Wrap(GameMode, "OnNPCSpawned"), self)
+    ListenToGameEvent( "dota_item_picked_up", Dynamic_Wrap( self, "OnItemPickUp"), self )
     ListenToGameEvent('player_connect_full', Dynamic_Wrap(GameMode, 'OnConnectFull'), self)
+
     CustomGameEventManager:RegisterListener("HeroIconClicked", Dynamic_Wrap(GameMode, 'HeroIconClicked'))
     CustomGameEventManager:RegisterListener("ToggleAutoDuel", Dynamic_Wrap(GameMode, 'ToggleAutoDuel'))
     CustomGameEventManager:RegisterListener("ToggleAutoCreep", Dynamic_Wrap(GameMode, 'ToggleAutoCreep'))
     CustomGameEventManager:RegisterListener("ClientReconnected", Dynamic_Wrap(GameMode, 'ClientReconnected'))
-    CustomGameEventManager:RegisterListener("SendFeedback", Dynamic_Wrap(GameMode, 'SendFeedback'))
-    CustomGameEventManager:RegisterListener("FeedbackRead", Dynamic_Wrap(GameMode, 'FeedbackRead'))
     CustomGameEventManager:RegisterListener("cha_update_camera_visible", Dynamic_Wrap(GameMode, 'cha_update_camera_visible'))
     CustomGameEventManager:RegisterListener("StartGameCodeOk", Dynamic_Wrap(GameMode, 'StartGameCodeOk'))
     CustomGameEventManager:RegisterListener("RemoveSmoke", Dynamic_Wrap(GameMode, 'RemoveSmoke'))
+    CustomGameEventManager:RegisterListener("ChooseSkill", Dynamic_Wrap(Skills,'ChooseSkill'))
+    CustomGameEventManager:RegisterListener("ChooseSkillReal", Dynamic_Wrap(Skills,'ChooseSkillReal'))
+    CustomGameEventManager:RegisterListener("ChangeQuest", Dynamic_Wrap(Quests_arena,'ChangeQuest'))
+
     GameRules:GetGameModeEntity():SetDamageFilter(Dynamic_Wrap(GameMode, "DamageFilter"), self)
     GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(GameMode, "OrderFilter"), self)
     GameRules:GetGameModeEntity():SetModifierGainedFilter(Dynamic_Wrap(GameMode, "ModifierGainedFilter"), self)
     GameRules:GetGameModeEntity():SetModifyGoldFilter(Dynamic_Wrap(GameMode, "ModifyGoldFilter"), self)
     GameRules:GetGameModeEntity():SetBuybackEnabled(false)
     GameRules:SetTreeRegrowTime(60)
+
     local vTeamColors = {}
     vTeamColors[DOTA_TEAM_GOODGUYS] = { 61, 210, 150 }  
     vTeamColors[DOTA_TEAM_BADGUYS]  = { 243, 201, 9 }   
@@ -173,17 +191,39 @@ function GameMode:InitGameMode()
     vTeamColors[DOTA_TEAM_CUSTOM_6] = { 27, 192, 216 }  
     vTeamColors[DOTA_TEAM_CUSTOM_7] = { 199, 228, 13 }  
     vTeamColors[DOTA_TEAM_CUSTOM_8] = { 140, 42, 244 }  
+
     for nTeamNumber = 0, (DOTA_TEAM_COUNT-1) do
         local color = vTeamColors[ nTeamNumber ]
         if color then
             SetTeamCustomHealthbarColor( nTeamNumber, color[1], color[2], color[3] )
         end
     end
+
     for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS do
         GameMode.feedbackTime[nPlayerID]=10
     end
+
     local fix_pos_timer = SpawnEntityFromTableSynchronous("info_target", { targetname = "Fix_position" })
-    fix_pos_timer:SetThink( FixPosition, FrameTime() )
+    fix_pos_timer:SetThink( FixPosition, 1 )
+end
+
+function GameMode:OnItemPickUp( event )
+    local item = EntIndexToHScript( event.ItemEntityIndex )
+    local owner
+    if event.HeroEntityIndex then
+        owner = EntIndexToHScript(event.HeroEntityIndex)
+    elseif event.UnitEntityIndex then
+        owner = EntIndexToHScript(event.UnitEntityIndex)
+    end
+    if event.itemname == "item_bag_of_gold" then
+        local gold = 300
+        if GameMode.currentRound.nRoundNumber > 10 then
+            gold = math.min(1000, 300 + (math.floor(GameMode.currentRound.nRoundNumber / 10) * 100) )
+        end
+        PlayerResource:ModifyGold( owner:GetPlayerID(), gold, true, 0 )
+        SendOverheadEventMessage( owner, OVERHEAD_ALERT_GOLD, owner, gold, nil )
+        UTIL_Remove( item )
+    end 
 end
 
 function FixPosition()
@@ -196,7 +236,6 @@ function FixPosition()
                 if mapCenter then
                     if not GridNav:IsTraversable(origin) and not hero:HasFlyingVision() and not hero:HasFlyMovementCapability() then
                         if not hero:IsCurrentlyHorizontalMotionControlled() and not hero:IsCurrentlyVerticalMotionControlled() then
-                            print("Автоматичкая телепортация за выход вне карты")
                             FindClearSpaceForUnit(hero, mapCenter:GetAbsOrigin(), true)
                         end
                     end
@@ -204,7 +243,7 @@ function FixPosition()
             end
         end
     end
-    return FrameTime()
+    return 1
 end
 
 function GameMode:BountyRunePickupFilter( data )
@@ -214,6 +253,7 @@ function GameMode:BountyRunePickupFilter( data )
         if alchemist and alchemist:GetLevel() > 0 then
             data["gold_bounty"] = data["gold_bounty"] * alchemist:GetSpecialValueFor("bounty_multiplier")
         end
+        Quests_arena:QuestProgress(hero:GetPlayerOwnerID(), 24, 1)
     end
     return true
 end
@@ -222,64 +262,47 @@ LinkLuaModifier("modifier_abilities_optimization_thinker", "modifiers/modifier_a
 LinkLuaModifier("modifier_creator_statue", "modifiers/modifier_creator_statue", LUA_MODIFIER_MOTION_NONE)
 
 function GameMode:SpawnCreators()
-    local npc_unit_hunter_spawn = Entities:FindByName(nil, "spawn_hunter")
-    if npc_unit_hunter_spawn then
-        local origin = npc_unit_hunter_spawn:GetAbsOrigin()
-        local npc_unit_hunter = CreateUnitByName( "npc_unit_hunter", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
-        npc_unit_hunter:SetForwardVector((Vector(0,0,0) - npc_unit_hunter:GetAbsOrigin()):Normalized())
-        npc_unit_hunter:AddNewModifier( npc_unit_hunter, nil, "modifier_creator_statue", {} )
-    end 
-    local npc_unit_demna_spawn = Entities:FindByName(nil, "spawn_demna")
-    if npc_unit_demna_spawn then
-        local origin = npc_unit_demna_spawn:GetAbsOrigin()
-        local npc_unit_demna = CreateUnitByName( "npc_unit_demna", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
-        npc_unit_demna:SetForwardVector((Vector(0,0,0) - npc_unit_demna:GetAbsOrigin()):Normalized())
-        npc_unit_demna:AddNewModifier( npc_unit_demna, nil, "modifier_creator_statue", {} )
-        npc_unit_demna:SetRenderColor(255, 255, 0)
-    end
-    local npc_unit_yam_spawn = Entities:FindByName(nil, "spawn_yamich")
-    if npc_unit_yam_spawn then
-        local origin = npc_unit_yam_spawn:GetAbsOrigin()
-        local npc_unit_yam = CreateUnitByName( "npc_unit_yam", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
-        npc_unit_yam:SetForwardVector((Vector(0,0,0) - npc_unit_yam:GetAbsOrigin()):Normalized())
-        npc_unit_yam:AddNewModifier( npc_unit_yam, nil, "modifier_creator_statue", {} )
-        npc_unit_yam:SetRenderColor(255, 255, 0)
-    end
+    Timers:CreateTimer(2.5, function()
+        local npc_unit_top1_spawn = Entities:FindByName(nil, "spawn_top1")
+        if npc_unit_top1_spawn then
+            local origin = npc_unit_top1_spawn:GetAbsOrigin()
+            local top_unit_one = CreateUnitByName( "npc_unit_top1", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
+            top_unit_one:SetForwardVector((Vector(0,0,0) - top_unit_one:GetAbsOrigin()):Normalized())
+            top_unit_one:AddNewModifier( top_unit_one, nil, "modifier_creator_statue", {id = "444746023"} )
+            top_unit_one:SetAbsOrigin(top_unit_one:GetAbsOrigin() + (Vector(0,0,60)))
+        end 
+    end)
+    Timers:CreateTimer(1, function()
+        local npc_unit_top2_spawn = Entities:FindByName(nil, "spawn_top2")
+        if npc_unit_top2_spawn then
+            local origin = npc_unit_top2_spawn:GetAbsOrigin()
+            local top_unit_two = CreateUnitByName( "npc_unit_top2", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
+            top_unit_two:SetForwardVector((Vector(0,0,0) - top_unit_two:GetAbsOrigin()):Normalized())
+            top_unit_two:AddNewModifier( top_unit_two, nil, "modifier_creator_statue", {id = "1155253013"} )
+            top_unit_two:SetAbsOrigin(top_unit_two:GetAbsOrigin() + (Vector(0,0,40)))
+        end
+    end)
+    Timers:CreateTimer(1.5, function()
+        local npc_unit_top3_spawn = Entities:FindByName(nil, "spawn_top3")
+        if npc_unit_top3_spawn then
+            local origin = npc_unit_top3_spawn:GetAbsOrigin()
+            local top_unit_three = CreateUnitByName( "npc_unit_top3", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
+            top_unit_three:SetForwardVector((Vector(0,0,0) - top_unit_three:GetAbsOrigin()):Normalized())
+            top_unit_three:AddNewModifier( top_unit_three, nil, "modifier_creator_statue", {id = "376804643"} )
+            top_unit_three:SetAbsOrigin(top_unit_three:GetAbsOrigin() + (Vector(0,0,20)))
+        end
+    end)
 end
 
 function GameMode:AssembleHeroesData()
-    local heroKV =LoadKeyValues("scripts/npc/npc_heroes_visual.txt")
+    local heroKV = LoadKeyValues("scripts/npc/heroes_list.txt")
     local abilityKV = LoadKeyValues("scripts/npc/npc_abilities_visual.txt")
     for szHeroName, data in pairs(heroKV) do
         if data and type(data) == "table" then
             local heroInfo={}
             heroInfo.szHeroName = szHeroName
             heroInfo.szAttributePrimary = data.AttributePrimary
-            heroInfo.talentNames={}
-            heroInfo.talentValues={}
-            for i=1,24 do
-                if data["Ability"..i] and string.find(data["Ability"..i], "special_bonus_") then
-                    local sTalentName = data["Ability"..i]
-                    table.insert(heroInfo.talentNames, sTalentName) 
-                    table.insert(heroInfo.talentValues, FindTalentValue(abilityKV,heroKV,sTalentName,szHeroName)  ) 
-                end
-            end
-            CustomNetTables:SetTableValue( "hero_info",szHeroName,heroInfo)
-        end
-    end
-end
-
-function GameMode:cha_update_camera_visible(data)
-    if data.PlayerID == nil then return end
-    local playerid = data.PlayerID
-    local player =  PlayerResource:GetPlayer(playerid)
-    if player then
-        local hero = player:GetAssignedHero()
-        if hero then
-            local team_number = hero:GetTeamNumber()
-            local point = Vector(data.x, data.y, data.z)
-            AddFOWViewer(team_number, point, 2500, 1, false)
-            AddFOWViewer(team_number, hero:GetAbsOrigin(), 1500, 1, false)
+            CustomNetTables:SetTableValue( "hero_info", szHeroName, heroInfo)
         end
     end
 end
@@ -332,16 +355,18 @@ end
 
 function GameMode:ReadRoundConfigurations()
     GameMode.vRoundData={}
+    GameMode.vRoundDataAbilities={}
     GameMode.vRoundListRaw = {}
     GameMode.vRoundList = {}
     GameMode.vRoundListFull = {}
    
-    for i=1,50 do
-        GameMode.vRoundListRaw[i]={}
-        GameMode.vRoundList[i]={}
+    for i=1, 50 do
+        GameMode.vRoundListRaw[i] = {}
+        GameMode.vRoundList[i] = {}
     end
 
     local roundsKV =LoadKeyValues("scripts/kv/rounds.txt")
+    local units_txt =LoadKeyValues("scripts/npc/npc_units_custom.txt")
 
     for sPhase, phaseData in pairs(roundsKV) do
         if phaseData and type(phaseData) == "table" then
@@ -354,25 +379,61 @@ function GameMode:ReadRoundConfigurations()
                             vData.UnitNumber = math.ceil(tonumber(vData.UnitNumber)*2)
                         end
                     end
-
                     GameMode.vRoundData[sRoundName] = roundData
                 end
             end
         end
-   end
+    end
 
-   for i=2,50 do
-        if #GameMode.vRoundList[i]<10 then
+    for i=2,50 do
+        if #GameMode.vRoundList[i] < 10 then
             local randomPool = {}
-            for j=1,i-1 do
+
+            for j=1, i-1 do
                 randomPool=table.join(randomPool,GameMode.vRoundListRaw[j])
             end
+
             local nToSupplement = 10 - #GameMode.vRoundList[i]
             local supplementList = table.random_some(randomPool, nToSupplement)
             GameMode.vRoundList[i] = table.join(GameMode.vRoundList[i], supplementList)
         end
-   end
-   GameMode.vRoundListFull = table.deepcopy(GameMode.vRoundList)
+    end
+
+    GameMode.vRoundListFull = table.deepcopy(GameMode.vRoundList)
+
+    for round_name, round_info in pairs(GameMode.vRoundData) do
+        GameMode.vRoundDataAbilities[round_name]={}
+        for unit_id, unit_info in pairs(round_info) do
+            if units_txt[unit_info.UnitName] then
+                for ab = 1, 10 do
+                    if units_txt[unit_info.UnitName]["Ability" ..ab] ~= nil and  units_txt[unit_info.UnitName]["Ability"..ab] ~= "" and  units_txt[unit_info.UnitName]["Ability"..ab] ~= "generic_hidden" then
+                        table.insert(GameMode.vRoundDataAbilities[round_name], units_txt[unit_info.UnitName]["Ability" ..ab])
+                    end
+                end
+            end
+        end
+    end
+
+    for phase, rounds in pairs(GameMode.vRoundList) do
+        if phase >= 6 then
+            local has_randomcreeps = false
+            for id, name in pairs(rounds) do
+                if name == "Round_RandomCreeps" then
+                    has_randomcreeps = true
+                end
+            end
+            if not has_randomcreeps then
+                for id, name in pairs(rounds) do
+                    if name ~= "Round_Roshan" and name ~= "Round_Nian" then
+                        if not has_randomcreeps then
+                            GameMode.vRoundList[phase][id] = "Round_RandomCreeps"
+                            has_randomcreeps = true
+                        end
+                    end
+                end
+            end
+        end
+    end
 end
 
 function GameMode:OnHeroLevelUp(keys)
@@ -426,10 +487,46 @@ function GameMode:OnPlayerReconnected(keys)
     end})
 end
 
+function GameMode:cha_update_camera_visible(data)
+    if data.PlayerID == nil then return end
+    local playerid = data.PlayerID
+    local player =  PlayerResource:GetPlayer(playerid)
+    if player then
+        local hero = player:GetAssignedHero()
+        if hero then
+            local team_number = hero:GetTeamNumber()
+            if GameMode.fow_viwer_teams[team_number] ~= nil then
+                RemoveFOWViewer(team_number, GameMode.fow_viwer_teams[team_number])
+                GameMode.fow_viwer_teams[team_number] = nil
+            end
+            local point = Vector(data.x, data.y, data.z)
+            local new_fow = AddFOWViewer(team_number, point, 2500, 99999, false)
+            GameMode.fow_viwer_teams[team_number] = new_fow
+        end
+    end
+end
+
+function GameMode:BanSystem()
+    local ban_timer_stage = 20
+    if GameRules:IsCheatMode() then
+        ban_timer_stage = 5
+    end
+    CustomGameEventManager:Send_ServerToAllClients("UpdateTimerBanStage", {time = ban_timer_stage} )
+    Timers:CreateTimer(1, function()
+        ban_timer_stage = ban_timer_stage - 1
+        CustomGameEventManager:Send_ServerToAllClients("UpdateTimerBanStage", {time = ban_timer_stage} )
+        if ban_timer_stage <= 0 then
+            GameRules:FinishCustomGameSetup()
+            return nil
+        end
+        return 1
+    end)
+end
+
 function GameMode:OnGameRulesStateChange()
   xpcall( function() 
 
-    local nNewState = GameRules:State_Get()     
+    local nNewState = GameRules:State_Get()   
 
     -- Загрузка
     if nNewState == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
@@ -441,14 +538,24 @@ function GameMode:OnGameRulesStateChange()
                 GameRules.sValidePlayerSteamIds=GameRules.sValidePlayerSteamIds..nPlayerSteamId..","
                 GameMode.nValidPlayerNumber = GameMode.nValidPlayerNumber + 1
                 GameRules.vPlayerSteamIdMap[nPlayerSteamId]=nPlayerID
-                if Econ.vPlayerData[nPlayerID] == nil then
-                    Econ.vPlayerData[nPlayerID]={}
-                end
             end
         end
         if string.sub(GameRules.sValidePlayerSteamIds,string.len(GameRules.sValidePlayerSteamIds))=="," then   
             GameRules.sValidePlayerSteamIds=string.sub(GameRules.sValidePlayerSteamIds,0,string.len(GameRules.sValidePlayerSteamIds)-1)
         end
+        ----------------------------------------------------------------------------------------------------------------------------------
+
+        local pre_ban_time = 4
+        
+        Timers:CreateTimer(1, function()
+            CustomGameEventManager:Send_ServerToAllClients("ClosePlayers", {} )
+            pre_ban_time = pre_ban_time - 1
+            if pre_ban_time <= 0 then
+                GameMode:BanSystem()
+                return nil
+            end
+            return 1
+        end)
     end
   
     -- Выбор героев
@@ -460,59 +567,60 @@ function GameMode:OnGameRulesStateChange()
         Timers:CreateTimer(0.1, function()
             for nPlayerNumber = 0, DOTA_MAX_TEAM_PLAYERS do
                 Timers:CreateTimer(0,function()
-                    local hPlayer = PlayerResource:GetPlayer(nPlayerNumber)
-                    if hPlayer then
-                        if not IsInToolsMode() and GetMapName() ~= "1x8_pve" then
-                            HeroBuilder:MakeRandomHeroSelection(nPlayerNumber)
-                        end
-                        Timers:CreateTimer(1, function()
-                            if GameRules:IsGamePaused() then
-                                return 0.03 
+                    if PlayerResource:IsValidTeamPlayerID(nPlayerNumber) or PlayerResource:IsFakeClient(nPlayerNumber) then
+                        local hPlayer = PlayerResource:GetPlayer(nPlayerNumber)
+                        if hPlayer then
+                            if not IsInToolsMode() and GetMapName() ~= "1x8_pve" then
+                                HeroBuilder:MakeRandomHeroSelection(nPlayerNumber)
                             end
-                            local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerNumber)
-                            if not hHero then
-                                return 0.03
-                            end
-                            Timers:CreateTimer(function()
-                                if not IsValidAlive(hHero) then
-                                    hHero:RespawnHero(false, false)
+                            Timers:CreateTimer(1, function()
+                                if GameRules:IsGamePaused() then
+                                    return 0.03 
                                 end
+                                local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerNumber)
+                                if not hHero then
+                                    return 0.03
+                                end
+                                Timers:CreateTimer(function()
+                                    if not IsValidAlive(hHero) then
+                                        hHero:RespawnHero(false, false)
+                                    end
+                                end)
+                                if GameMode.autoDuelMap==nil then
+                                    GameMode.autoDuelMap = {}
+                                end
+                                GameMode.autoDuelMap[nPlayerNumber]=true
+                                if GameMode.autoCreepMap==nil then
+                                    GameMode.autoCreepMap = {}
+                                end
+                                GameMode.autoCreepMap[nPlayerNumber]=false                         
+                                table.insert(GameMode.vTeamPlayerMap[hHero:GetTeamNumber()], nPlayerNumber)
+                                if true~=GameMode.vAliveTeam[hHero:GetTeamNumber()] then
+                                    GameMode.vAliveTeam[hHero:GetTeamNumber()] =true
+                                    GameMode.nRank = GameMode.nRank + 1
+                                    GameMode.nValidTeamNumber = GameMode.nValidTeamNumber + 1
+                                    CustomNetTables:SetTableValue("team_rank", tostring(hHero:GetTeamNumber()), {rank=0,defeat_round=0})
+                                end
+                                CustomNetTables:SetTableValue("pvp_record", tostring(nPlayerNumber), {win=0,lose=0,total_bet_reward=0})
+                                if PlayerResource:GetPartyID(nPlayerNumber) and tostring(PlayerResource:GetPartyID(nPlayerNumber))~="0" then
+                                    local sPartyID = tostring(PlayerResource:GetPartyID(nPlayerNumber))
+                                    if GameMode.partyListMap[sPartyID]==nil then
+                                        GameMode.nPartyNumber = GameMode.nPartyNumber + 1
+                                        GameMode.partyListMap[sPartyID] = GameMode.nPartyNumber
+                                    end     
+                                    GameMode.partyNumberMap[nPlayerNumber] = GameMode.partyListMap[sPartyID]
+                                end
+                                CustomNetTables:SetTableValue("hero_info", "party_map", GameMode.partyNumberMap)
+                                Timers:CreateTimer(RandomFloat(0, 0.2), function()
+                                    if not hHero.bInited then
+                                        HeroBuilder:InitPlayerHero(hHero)
+                                    end                               
+                                end)
                             end)
-                            if GameMode.autoDuelMap==nil then
-                                GameMode.autoDuelMap = {}
-                            end
-                            GameMode.autoDuelMap[nPlayerNumber]=true
-                            if GameMode.autoCreepMap==nil then
-                                GameMode.autoCreepMap = {}
-                            end
-                            GameMode.autoCreepMap[nPlayerNumber]=false
-                            GameMode.damageCount[nPlayerNumber] = 0                          
-                            table.insert(GameMode.vTeamPlayerMap[hHero:GetTeamNumber()], nPlayerNumber)
-                            if true~=GameMode.vAliveTeam[hHero:GetTeamNumber()] then
-                                GameMode.vAliveTeam[hHero:GetTeamNumber()] =true
-                                GameMode.nRank = GameMode.nRank + 1
-                                GameMode.nValidTeamNumber = GameMode.nValidTeamNumber + 1
-                                CustomNetTables:SetTableValue("team_rank", tostring(hHero:GetTeamNumber()), {rank=0,defeat_round=0})
-                            end
-                            CustomNetTables:SetTableValue("pvp_record", tostring(nPlayerNumber), {win=0,lose=0,total_bet_reward=0})
-                            if PlayerResource:GetPartyID(nPlayerNumber) and tostring(PlayerResource:GetPartyID(nPlayerNumber))~="0" then
-                                local sPartyID = tostring(PlayerResource:GetPartyID(nPlayerNumber))
-                                if GameMode.partyListMap[sPartyID]==nil then
-                                    GameMode.nPartyNumber = GameMode.nPartyNumber + 1
-                                    GameMode.partyListMap[sPartyID] = GameMode.nPartyNumber
-                                end     
-                                GameMode.partyNumberMap[nPlayerNumber] = GameMode.partyListMap[sPartyID]
-                            end
-                            CustomNetTables:SetTableValue("hero_info", "party_map", GameMode.partyNumberMap)
-                            Timers:CreateTimer(RandomFloat(0, 0.2), function()
-                                if not hHero.bInited then
-                                    HeroBuilder:InitPlayerHero(hHero)
-                                end                               
-                            end)
-                        end)
-                        return nil
+                            return nil
+                        end
+                        return 0.1
                     end
-                    return 0.1
                 end)
             end
         end)
@@ -533,20 +641,10 @@ function GameMode:OnGameRulesStateChange()
     -- Пре гейм гдет на выборе
     if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
         ChaServerData.UpdateLastBanneds()
-        GameMode:SpawnCreators()
 
         Timers:CreateTimer(2.0, function()
-            for _,abilityName in ipairs(Pass.banAbilityList) do
-                Notifications:BottomToAll({ continue=true, text = "#DOTA_Tooltip_ability_"..abilityName, duration = 10, style = { color = "Red" ,["margin-right"]="30px;" }})
-            end
-
-            for _,heroName in ipairs(Pass.banHeroList) do
-                Notifications:BottomToAll({ continue=true, text = "#"..heroName, duration = 10, style = { color = "Red" ,["margin-right"]="30px;" }})
-            end
-      
-            if #Pass.banAbilityList>0 or #Pass.banHeroList>0 then
-               Notifications:BottomToAll({ continue=true, text = "#banned_in_game", duration = 10, style = { color = "Red" }})
-            end
+            CustomGameEventManager:Send_ServerToAllClients("banned_this_game_information", {heroes = Pass.banHeroList, abilities = Pass.banAbilityList} )
+            GameMode:SpawnCreators()
         end)
 
         local retryTimes = 0;
@@ -576,6 +674,7 @@ function GameMode:OnGameRulesStateChange()
 
    end,
      function(e)
+        print("------------------ОШИБКА--------------------")
        print(e)
    end)
 end
@@ -590,61 +689,77 @@ function GameMode:RemoveSmoke(data)
     end
 end
 
+function spawn_creeps_timer()
+    GameMode:AsyncSpawn()
+    return 0
+end
+
+local spawn_table = {}
+local max_per_tick = 6
+
+function GameMode:CreateUnitCustom(name, vector, clear_space, npc_owner, entity_owner, team, callback)
+    table.insert(spawn_table, function() 
+        callback(CreateUnitByName(name, vector, clear_space, npc_owner, entity_owner, team))
+    end)
+end
+
+function GameMode:AsyncSpawn()
+    local limit = 0
+    while true do 
+        local callback = spawn_table[1]
+    
+        if not callback then 
+            return 0
+        end
+
+        table.remove(spawn_table,1)
+        callback()
+
+
+        limit = limit + 1
+        if limit >= max_per_tick then 
+            return 0
+        end
+    end
+end
+
 function GameMode:StartGame()
+    Notifications:BottomToAll({ text = "#best_tournament_mans", duration = 3, style = { color = "Red" }})
     CreateModifierThinker(nil, nil, "modifier_abilities_optimization_thinker", {}, Vector(0,0,0), DOTA_TEAM_NEUTRALS, false)
+    GameRules:GetGameModeEntity():SetThink( spawn_creeps_timer, "spawn_creeps_timer", 0 )
     HeroBuilder:RunAbilitySoundPrecache()
-
-    if GameMode.nValidTeamNumber==1 then
-        if string.find(GetMapName(),"1x8") then
-            Notifications:BottomToAll({ text = "#suicide_note", duration = 10, style = { color = "Red" }})
-        end
-        if GetMapName()=="2x6" or GetMapName()=="5v5"  then
-            Notifications:BottomToAll({ text = "#one_team_in_multi_map_no_record", duration = 10, style = { color = "Red" }})
-        end
-    end
-
-    if GameRules:IsCheatMode() then
-        Notifications:BottomToAll({ text = "#cheat_lobby_note", duration = 60, style = { color = "Red" }})
-    end
-
-    GameRules.nGameStartTime=GameRules:GetGameTime()
-    GameMode.currentRound= Round()
+    GameRules.nGameStartTime = GameRules:GetGameTime()
+    GameMode.currentRound = Round()
     GameMode.currentRound:Prepare(1)
-    Util:InitHeroFence()
 
+    -- Запускает проверку на аганим и проверку на дальность от арены
+    Util:InitHeroFence()
     Timers:CreateTimer(FrameTime(), function()
         HeroBuilder:FixAttackCapability()
         HeroBuilder:ProcessScepterOwners()
         return FrameTime()
     end)
          
-    Timers:CreateTimer(1.5, function()
+    Timers:CreateTimer(2, function()
         for nTeamNumber,bAlive in pairs(GameMode.vAliveTeam) do
             local bTeamAbandon = true
             for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nTeamNumber]) do
-                
                 if PlayerResource:GetConnectionState(nPlayerID) ~= DOTA_CONNECTION_STATE_ABANDONED then
                     bTeamAbandon = false
                 end
+                if ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID] and ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage and ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage_income then
+                    table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage, function(x,y) return y.damage < x.damage end )
+                    CustomNetTables:SetTableValue("spell_damage", tostring(nPlayerID), ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage)
 
-                table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage, function(x,y) return y.damage < x.damage end )
-                CustomNetTables:SetTableValue("spell_damage", tostring(nPlayerID), ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage)
-
-                table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage_income, function(x,y) return y.damage < x.damage end )
-                CustomNetTables:SetTableValue("spell_damage_income", tostring(nPlayerID), ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage_income)
-
-                local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-                if hHero and hHero.bTakenOverByBot then
-                    if PlayerResource:GetPlayer(nPlayerID) then
-                        CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(nPlayerID),"KickPlayer",{player_id=nPlayerID})
-                    end
+                    table.sort( ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage_income, function(x,y) return y.damage < x.damage end )
+                    CustomNetTables:SetTableValue("spell_damage_income", tostring(nPlayerID), ChaServerData.PLAYERS_GLOBAL_INFORMATION[nPlayerID].spell_damage_income)
                 end
             end
             if bTeamAbandon then
                 GameRules.teamAbandonMap[nTeamNumber] = true
             end
         end
-        return 1
+        return 2
     end)
 end
 
@@ -693,7 +808,6 @@ function GameMode:SetTeam()
         GameRules:SetCustomGameTeamMaxPlayers(nTeamNumber, nTeamMaxPlayers )
         GameMode.vAliveTeam[nTeamNumber] =false
         GameMode.vTeamPlayerMap[nTeamNumber] = {}
-        print(nTeamNumber)
         local wayPoint = Entities:FindByName(nil, "center_"..nTeamNumber)
         GameMode.vTeamLocationMap[nTeamNumber] = wayPoint:GetOrigin()
         ExtraCreature.teamCreatureMap[nTeamNumber] = {}
@@ -704,6 +818,15 @@ function GameMode:ModifyGoldFilter(keys)
     Timers:CreateTimer( GameRules:GetGameFrameTime(), function()
         GameMode:UpdatePlayerGold(keys.player_id_const)
     end)
+    if keys.reason_const == DOTA_ModifyGold_HeroKill then
+        local playerID = keys.player_id_const
+        local heroUnit = playerID and PlayerResource:GetSelectedHeroEntity(playerID)
+        if heroUnit then
+            if heroUnit:HasModifier("modifier_skill_head_hunter") then
+                keys.gold = keys.gold * 4
+            end
+        end
+    end
     return true
 end
 
@@ -714,11 +837,126 @@ function GameMode:UpdatePlayerGold(nPlayerID)
         local nGold =math.ceil(PlayerResource:GetGoldPerMin(nPlayerID) * (GameRules:GetGameTime() - GameRules.nGameStartTime)/60)+600-PvpModule.betValueSum[nPlayerID]
         nGold = math.max(nGold, PlayerResource:GetNetWorth(nPlayerID))
         CustomNetTables:SetTableValue("player_info", tostring(nPlayerID), {gold=nGold})
+        if nGold >= 150000 then
+            Quests_arena:QuestProgress(nPlayerID, 88, 3)
+        end
     end
 end
 
 function GameMode:OnItemPurchased(keys)
     CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "UpdateBetInput", {})
+
+    local PlayerID = keys.PlayerID
+    local item_name = keys.itemname
+    local gold_item = keys.itemcost
+
+    if PlayerID ~= nil then
+        if item_name == "item_aegis_lua" then
+            Quests_arena:QuestProgress(PlayerID, 73, 2)
+        end
+
+        local hero = PlayerResource:GetSelectedHeroEntity(PlayerID)
+
+        if hero.cashback_info == nil then
+            hero.cashback_info = {}
+        end
+
+        if hero and hero:HasModifier("modifier_skill_merchant") then
+            Timers:CreateTimer(0, function()
+                hero.cashback_info[item_name] = false
+                for i=0, 18 do
+                    local item = hero:GetItemInSlot(i)
+                    if item and item:GetAbilityName() == item_name then
+                        item:SetPurchaseTime(0)
+                        item:SetSellable(false)
+                        Timers:CreateTimer(FrameTime(), function()
+                            if item ~= nil and not item:IsNull() then
+                                item:SetSellable(true)
+                            end
+                        end)
+                        if hero.cashback_info[item_name] == false then
+                            hero.cashback_info[item_name] = true
+                            local cashback = gold_item / 100 * 20
+                            print("cashback 1")
+                            hero:ModifyGold(cashback, true, 0)
+                        end
+                    end
+                end
+            end)
+        end
+
+        if hero and hero:HasModifier("modifier_skill_highroller") and item_name == "item_relearn_book_lua" then
+            Timers:CreateTimer(0, function()
+                hero.cashback_info[item_name] = false
+                for i=0, 18 do
+                    local item = hero:GetItemInSlot(i)
+                    if item and item:GetAbilityName() == item_name then
+                        item:SetPurchaseTime(0)
+                        item:SetSellable(false)
+                        Timers:CreateTimer(2, function()
+                            if item ~= nil and not item:IsNull() then
+                                item:SetSellable(true)
+                            end
+                        end)
+                        if hero.cashback_info[item_name] == false then
+                            hero.cashback_info[item_name] = true
+                            local cashback = gold_item / 100 * 35
+                            print("cashback 2")
+                            hero:ModifyGold(cashback, true, 0)
+                        end
+                    end
+                end
+            end)
+        end
+
+        if hero and hero:HasModifier("modifier_skill_highroller") and (item_name == "item_paragon_book" or item_name == "item_paragon_book_2") then
+            Timers:CreateTimer(0, function()
+                hero.cashback_info[item_name] = false
+                for i=0, 18 do
+                    local item = hero:GetItemInSlot(i)
+                    if item and item:GetAbilityName() == item_name then
+                        item:SetPurchaseTime(0)
+                        item:SetSellable(false)
+                        Timers:CreateTimer(2, function()
+                            if item ~= nil and not item:IsNull() then
+                                item:SetSellable(true)
+                            end
+                        end)
+                        if hero.cashback_info[item_name] == false then
+                            hero.cashback_info[item_name] = true
+                            local cashback = gold_item / 100 * 25
+                            print("cashback 3")
+                            hero:ModifyGold(cashback, true, 0)
+                        end
+                    end
+                end
+            end)
+        end
+
+        if hero and hero:HasModifier("modifier_skill_zoo_enjoyer") and string.find(item_name, "item_extra_creature") then
+            Timers:CreateTimer(0, function()
+                hero.cashback_info[item_name] = false
+                for i=0, 18 do
+                    local item = hero:GetItemInSlot(i)
+                    if item and item:GetAbilityName() == item_name then
+                        item:SetPurchaseTime(0)
+                        item:SetSellable(false)
+                        Timers:CreateTimer(2, function()
+                            if item ~= nil and not item:IsNull() then
+                                item:SetSellable(true)
+                            end
+                        end)
+                        if hero.cashback_info[item_name] == false then
+                            hero.cashback_info[item_name] = true
+                            local cashback = gold_item / 100 * 30
+                            print("cashback 4")
+                            hero:ModifyGold(cashback, true, 0)
+                        end
+                    end
+                end
+            end)
+        end
+    end
 end
 
 function GameMode:HeroIconClicked(keys) 
@@ -730,7 +968,7 @@ function GameMode:HeroIconClicked(keys)
     local hTargetHero =  PlayerResource:GetSelectedHeroEntity(nTargetPlayerID)  
 
     if hTargetHero then                             
-        if nDoubleClick==1  or nControldown==1 then
+        if nDoubleClick==1 or nControldown==1 then
             PlayerResource:SetCameraTarget(nPlayerID,hTargetHero)
             Timers:CreateTimer({ endTime = 0.1, 
                 callback = function()
@@ -756,7 +994,7 @@ function GameMode:ToggleAutoDuel(keys)
     local nPlayerID = keys.PlayerID
     local bSelected = (1==keys.selected)
     if nPlayerID and GameMode.autoDuelMap then
-       GameMode.autoDuelMap[nPlayerID]=bSelected
+        GameMode.autoDuelMap[nPlayerID]=bSelected
     end
 end
 
@@ -764,28 +1002,22 @@ function GameMode:ToggleAutoCreep(keys)
     local nPlayerID = keys.PlayerID
     local bSelected = (1==keys.selected)
     if nPlayerID and GameMode.autoCreepMap then
-       GameMode.autoCreepMap[nPlayerID]=bSelected
+        GameMode.autoCreepMap[nPlayerID]=bSelected
     end
 end
 
 function GameMode:TeamLose(nTeamNumber)
     GameMode.vAliveTeam[nTeamNumber] = false
-
     local data={}
     data.type = "team_lose"
-
     data.nTeamNumber = nTeamNumber
-
     Barrage:FireBullet(data)
 
     for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nTeamNumber]) do
-
         if nPlayerID and GameMode.nRank then
             ChaServerData.SetPlayerStatsGameEnd(nPlayerID, GameMode.nRank)
         end
-
         local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-
         if hHero then
             hHero:SetGold(0, true)
         end
@@ -817,70 +1049,63 @@ function GameMode:TeamLose(nTeamNumber)
                 end)
             end
         end
-
         if GetMapName()=="2x6" or GetMapName()=="5v5" then
             Notifications:BottomToAll({ text = "#one_team_in_multi_map_no_record", duration = 4, style = { color = "Red" }})
             Timers:CreateTimer(4, function()
                 GameRules:SetGameWinner(nTeamNumber)
             end)
         end
-     else
-         if GameMode.nValidTeamNumber >= 2 and GameMode.nRank == 2 then
+    else
+        if GameMode.nValidTeamNumber >= 2 and GameMode.nRank == 2 then
             local nWinnerTeam 
             for nAliveTeamNumber,bAlive in pairs(GameMode.vAliveTeam) do
                  if bAlive then
                      nWinnerTeam = nAliveTeamNumber
                  end
             end
-
             GameMode.rankMap[2] = nTeamNumber
             CustomNetTables:SetTableValue("team_rank", tostring(nTeamNumber), {rank=2,defeat_round=GameMode.currentRound.nRoundNumber})
             GameMode.rankMap[1] = nWinnerTeam
             CustomNetTables:SetTableValue("team_rank", tostring(nWinnerTeam), {rank=1,defeat_round=GameMode.currentRound.nRoundNumber})
-
             if (not GameRules:IsCheatMode() or IsInToolsMode()) then
-               if GetMapName()=="5v5" then
-                  Notifications:BottomToAll({ text = "#5v5_no_record", duration = 4, style = { color = "Red" } })
-                  Timers:CreateTimer(4, function()
-                    GameRules:SetGameWinner(nWinnerTeam)
-                  end)
-               else
-                  for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nWinnerTeam]) do
-                    if nPlayerID then
-                      ChaServerData.SetPlayerStatsGameEnd(nPlayerID, 1)
+                if GetMapName()=="5v5" then
+                    Notifications:BottomToAll({ text = "#5v5_no_record", duration = 4, style = { color = "Red" } })
+                    Timers:CreateTimer(4, function()
+                        GameRules:SetGameWinner(nWinnerTeam)
+                    end)
+                else
+                    for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nWinnerTeam]) do
+                        if nPlayerID then
+                            Quests_arena:QuestProgress(nPlayerID, 58, 2)
+                            Quests_arena:QuestProgress(nPlayerID, 79, 3)
+                            ChaServerData.SetPlayerStatsGameEnd(nPlayerID, 1)
+                        end
                     end
-                  end
-                  ChaServerData.PostData()
-                  GameRules:SetGameWinner(nWinnerTeam)
-               end
+                    ChaServerData.PostData()
+                    GameRules:SetGameWinner(nWinnerTeam)
+                end
             else
-               Notifications:BottomToAll({ text = "#cheat_no_record", duration = 4, style = { color = "Red" } })
-               Timers:CreateTimer(4, function()
-                  GameRules:SetGameWinner(nWinnerTeam)
-               end)
+                Notifications:BottomToAll({ text = "#cheat_no_record", duration = 4, style = { color = "Red" } })
+                Timers:CreateTimer(4, function()
+                    GameRules:SetGameWinner(nWinnerTeam)
+                end)
             end
             GameMode.nRank = GameMode.nRank-1
-         else
+        else
             for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nTeamNumber]) do
-               local hPlayer = PlayerResource:GetPlayer(nPlayerID)
-               if hPlayer then
-                 CustomGameEventManager:Send_ServerToPlayer(hPlayer,"ShowPlayerLose",{game_rank= GameMode.nRank,valid_team=GameMode.nValidTeamNumber})
-               end
+                local hPlayer = PlayerResource:GetPlayer(nPlayerID)
+                if hPlayer then
+                    CustomGameEventManager:Send_ServerToPlayer(hPlayer,"ShowPlayerLose",{game_rank= GameMode.nRank,valid_team=GameMode.nValidTeamNumber})
+                end
+                if GameMode.nRank <= 4 then
+                    Quests_arena:QuestProgress(nPlayerID, 21, 1)
+                end
             end
             GameMode.rankMap[GameMode.nRank] = nTeamNumber
             CustomNetTables:SetTableValue("team_rank", tostring(nTeamNumber), {rank=GameMode.nRank,defeat_round=GameMode.currentRound.nRoundNumber})
             GameMode.nRank = GameMode.nRank -1
-         end
-      end
-end
-
-function GameMode:AddDouyuBanner()
-      local mapCenter = Entities:FindByName(nil, "map_center")
-      if mapCenter then
-        local nParticleIndex = ParticleManager:CreateParticle("particles/econ/douyu_cup.vpcf",PATTACH_ABSORIGIN_FOLLOW,mapCenter)
-        ParticleManager:SetParticleControlEnt(nParticleIndex,0,mapCenter,PATTACH_ABSORIGIN_FOLLOW,"follow_origin",mapCenter:GetAbsOrigin(),true)
-        ParticleManager:ReleaseParticleIndex(nParticleIndex)
-      end
+        end
+    end
 end
 
 function GameMode:OnPlayerUsedAbility(keys)
@@ -888,133 +1113,189 @@ function GameMode:OnPlayerUsedAbility(keys)
 end
 
 function GameMode:ClientReconnected(keys)
-   local nPlayerID = keys.PlayerID
-   if GameMode.reconnectedConfirm then
-      GameMode.reconnectedConfirm[nPlayerID] = true
-   end
+    local nPlayerID = keys.PlayerID
+    if GameMode.reconnectedConfirm then
+        GameMode.reconnectedConfirm[nPlayerID] = true
+    end
 end
 
 function GameMode:OnHeroLearnAbility(keys)
    local hHero = PlayerResource:GetSelectedHeroEntity(keys.PlayerID)
-   if "lone_druid_true_form_custom" ==  keys.abilityname and hHero and hHero:IsRealHero() and not hHero:IsTempestDouble() and not hHero:HasModifier("modifier_arc_warden_tempest_double_lua") then
+   if "lone_druid_true_form_custom" == keys.abilityname and hHero and hHero:IsRealHero() and not hHero:IsTempestDouble() and not hHero:HasModifier("modifier_arc_warden_tempest_double_lua") then
        local hAbility1 = hHero:FindAbilityByName("lone_druid_true_form_druid") 
        if hAbility1 then
-           hAbility1:SetLevel(hAbility1:GetLevel()+1)
+            hAbility1:SetLevel(hAbility1:GetLevel()+1)
        end
        local hAbility2 = hHero:FindAbilityByName("lone_druid_true_form_battle_cry") 
        if hAbility2 then
            hAbility2:SetLevel(hAbility2:GetLevel()+1)
        end
    end
-   if "lone_druid_true_form_druid" ==  keys.abilityname and hHero and hHero:IsRealHero() and not hHero:IsTempestDouble() and not hHero:HasModifier("modifier_arc_warden_tempest_double_lua") then
-       local hAbility1 = hHero:FindAbilityByName("lone_druid_true_form_battle_cry") 
-       if hAbility1 then
+    if "lone_druid_true_form_druid" ==  keys.abilityname and hHero and hHero:IsRealHero() and not hHero:IsTempestDouble() and not hHero:HasModifier("modifier_arc_warden_tempest_double_lua") then
+        local hAbility1 = hHero:FindAbilityByName("lone_druid_true_form_battle_cry") 
+        if hAbility1 then
            hAbility1:SetLevel(hAbility1:GetLevel()+1)
-       end
-   end
-end
-
-function GameMode:GetAllTeamInfo()
-  local nMaxTeamNumber = 8
-  local nMaxPerTeam = 1
-  if string.find(GetMapName(),"1x8") then
-    nMaxTeamNumber = 8
-    nMaxPerTeam = 1
-  end
-  if GetMapName()== "2x6" then
-    nMaxTeamNumber = 6
-    nMaxPerTeam = 2
-  end
-  if GetMapName()== "5v5" then
-    nMaxTeamNumber = 2
-    nMaxPerTeam = 5
-  end
-  return nMaxTeamNumber,nMaxPerTeam
-end
-
-function GameMode:SetUpBots()
-    if GameRules.bStartBoot then
-       return
-    end
-    GameRules.bStartBoot = true
-    GameMode.teamSet={}
-    local nMaxTeamNumber,nMaxPerTeam = GameMode:GetAllTeamInfo()
-    local nBotCount = nMaxTeamNumber*nMaxPerTeam - PlayerResource:GetPlayerCount()
-    for i=1,nBotCount do
-      Tutorial:AddBot(table.random(HeroBuilder.allHeroeNames), '', '', true)
-    end
-    for i=1,#GameMode.vTeamList do
-        local nTeamNumber = GameMode.vTeamList[i]
-        local nCurrentPlayerNumber = PlayerResource:GetPlayerCountForTeam( nTeamNumber ) 
-        for i=1,nMaxPerTeam-nCurrentPlayerNumber do
-            GameMode:FillTeamWithBot(nTeamNumber)
         end
     end
 end
 
-
-function GameMode:FillTeamWithBot(nTeamNumber)
-    for nPlayerID = DOTA_MAX_TEAM_PLAYERS,0,-1 do
-       if PlayerResource:IsFakeClient(nPlayerID) and GameMode.teamSet[nPlayerID]==nil then
-          GameMode.teamSet[nPlayerID] = true
-          PlayerResource:SetCustomTeamAssignment(nPlayerID,nTeamNumber)
-          Timers:CreateTimer(0.05, function()
-              local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-              if hHero ~= nil then
-                 hHero:SetTeam(nTeamNumber)
-                 return nil
-              end
-              return 0.01
-          end)
-
-          break;
-       end
+function GameMode:GetAllTeamInfo()
+    local nMaxTeamNumber = 8
+    local nMaxPerTeam = 1
+    if string.find(GetMapName(),"1x8") then
+        nMaxTeamNumber = 8
+        nMaxPerTeam = 1
     end
+    if GetMapName()== "2x6" then
+        nMaxTeamNumber = 6
+        nMaxPerTeam = 2
+    end
+    if GetMapName()== "5v5" then
+        nMaxTeamNumber = 2
+        nMaxPerTeam = 5
+    end
+    return nMaxTeamNumber,nMaxPerTeam
 end
 
 function GameMode:OnNPCSpawned(keys)
-  local hSpawnedUnit = EntIndexToHScript(keys.entindex)
-  if hSpawnedUnit then
-
-    hSpawnedUnit:RemoveModifierByName("modifier_fountain_invulnerability")
-
-    local hOwner = hSpawnedUnit:GetOwner()
-    if hOwner and hOwner.HasModifier  and hOwner:HasModifier("modifier_hero_refreshing") then
-      if hSpawnedUnit and hSpawnedUnit:GetUnitName()=="npc_dota_phoenix_sun" then
-          hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_hero_refreshing", {})
-      end
-      if hSpawnedUnit and (hSpawnedUnit:GetName() == "npc_dota_brewmaster_storm" or hSpawnedUnit:GetName() == "npc_dota_brewmaster_fire"  or hSpawnedUnit:GetName() == "npc_dota_brewmaster_earth")  then
-          hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_hero_refreshing", {})
-      end
+    local hSpawnedUnit = EntIndexToHScript(keys.entindex)
+    if hSpawnedUnit then
+        Timers:CreateTimer(0.1, function()
+            Illusion:InitIllusion(hSpawnedUnit)
+        end)
+        hSpawnedUnit:RemoveModifierByName("modifier_fountain_invulnerability")
+        local hOwner = hSpawnedUnit:GetOwner()
+        if hOwner and hOwner.HasModifier and hOwner:HasModifier("modifier_hero_refreshing") then
+            if hSpawnedUnit and hSpawnedUnit:GetUnitName()=="npc_dota_phoenix_sun" then
+                hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_hero_refreshing", {})
+            end
+            if hSpawnedUnit and (hSpawnedUnit:GetName() == "npc_dota_brewmaster_storm" or hSpawnedUnit:GetName() == "npc_dota_brewmaster_fire"  or hSpawnedUnit:GetName() == "npc_dota_brewmaster_earth")  then
+                hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_hero_refreshing", {})
+            end
+        end
+        if IsInToolsMode() then
+            if hSpawnedUnit:IsRealHero() then
+                Timers:CreateTimer(RandomFloat(0, 0.2), function()
+                    if not hSpawnedUnit.bInited then
+                        HeroBuilder:InitPlayerHero(hSpawnedUnit)
+                    end                               
+                end)
+                if GameMode.autoDuelMap==nil then
+                    GameMode.autoDuelMap = {}
+                end
+                if GameMode.autoCreepMap==nil then
+                    GameMode.autoCreepMap = {}
+                end
+                GameMode.autoDuelMap[hSpawnedUnit:GetPlayerOwnerID()]=true
+                GameMode.autoCreepMap[hSpawnedUnit:GetPlayerOwnerID()]=false                         
+                table.insert(GameMode.vTeamPlayerMap[hSpawnedUnit:GetTeamNumber()], hSpawnedUnit:GetPlayerOwnerID())
+                if true~=GameMode.vAliveTeam[hSpawnedUnit:GetTeamNumber()] then
+                    GameMode.vAliveTeam[hSpawnedUnit:GetTeamNumber()] =true
+                    GameMode.nRank = GameMode.nRank + 1
+                    GameMode.nValidTeamNumber = GameMode.nValidTeamNumber + 1
+                    CustomNetTables:SetTableValue("team_rank", tostring(hSpawnedUnit:GetTeamNumber()), {rank=0,defeat_round=0})
+                end
+                CustomNetTables:SetTableValue("pvp_record", tostring(hSpawnedUnit:GetPlayerOwnerID()), {win=0,lose=0,total_bet_reward=0})
+            end
+        end
+        if hSpawnedUnit and not hSpawnedUnit:IsNull() and hSpawnedUnit.GetUnitName and  hSpawnedUnit:GetUnitName() and not hSpawnedUnit:IsIllusion() and not hSpawnedUnit:IsTempestDouble() and not hSpawnedUnit:HasModifier("modifier_arc_warden_tempest_double_lua") then
+            if hSpawnedUnit:IsSummoned() or Summon.efficiency[hSpawnedUnit:GetUnitName()] then
+                local flWaitTime = 0
+                if "npc_dota_clinkz_skeleton_archer" == hSpawnedUnit:GetUnitName() then
+                    hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_clinkz_skeletons", {})
+                    flWaitTime=0.1  
+                end
+                Timers:CreateTimer(flWaitTime, function()               
+                    if not hSpawnedUnit or hSpawnedUnit:IsNull() then return end
+                    local hOwner = hSpawnedUnit:GetOwner()
+                    if hOwner and hOwner:IsRealHero() then
+                        if hOwner:HasModifier("modifier_item_summoner_crown") or hOwner:HasModifier("modifier_item_wraith_dominator") then
+                            local flEfficiency = Summon.efficiency[hSpawnedUnit:GetUnitName()] or 1.0
+                            if hOwner:HasAbility("special_bonus_unique_furion") and Summon.treant[hSpawnedUnit:GetUnitName()] then
+                                local hTalent = hOwner:FindAbilityByName("special_bonus_unique_furion")
+                                if hTalent:GetLevel() > 0 then
+                                    flEfficiency = flEfficiency * 0.6
+                                end
+                            end
+                            local hSourceItem = hOwner:FindItemInInventory("item_wraith_dominator") or hOwner:FindItemInInventory("item_summoner_crown_3") or hOwner:FindItemInInventory("item_summoner_crown_2") or hOwner:FindItemInInventory("item_summoner_crown_1")
+                            if hSourceItem and not hSourceItem:IsNull() then
+                                local hBuffAgi = hSpawnedUnit:AddNewModifier(hOwner, hSourceItem, "modifier_item_summoner_crown_buff_agi", {})
+                                if (not hBuffAgi) or hBuffAgi:IsNull() then
+                                    return nil
+                                end
+                                hBuffAgi:SetStackCount(hOwner:GetAgility() * flEfficiency)                          
+                                local hBuffInt = hSpawnedUnit:AddNewModifier(hOwner, hSourceItem, "modifier_item_summoner_crown_buff_int", {})
+                                hBuffInt:SetStackCount(hOwner:GetIntellect() * flEfficiency)
+                                hSpawnedUnit:AddNewModifier(hOwner, hSourceItem, "modifier_item_summoner_crown_model_size", {})
+                                Timers:CreateTimer(FrameTime(), function()                             
+                                    if hSourceItem and not hSourceItem:IsNull() then
+                                        if hSpawnedUnit and not hSpawnedUnit:IsNull() and hSpawnedUnit:IsAlive() then
+                                            local nCurrentHealth = hSpawnedUnit:GetMaxHealth()                     
+                                            if hSpawnedUnit:GetName() == "npc_dota_lone_druid_bear" then
+                                                nCurrentHealth = 2000 + 75 * hSpawnedUnit:GetLevel()
+                                            end
+                                          
+                                            if nCurrentHealth>1 then
+                                                hSpawnedUnit.nOldHealth = nCurrentHealth
+                                                local nNewHealth = math.floor(nCurrentHealth * (1 + 0.01 * hOwner:GetStrength() * flEfficiency * hSourceItem:GetSpecialValueFor("hp_bonus_per_str") ))
+                                                if nNewHealth>1 then
+                                                    hSpawnedUnit:SetBaseMaxHealth(nNewHealth)
+                                                    hSpawnedUnit:SetMaxHealth(nNewHealth)
+                                                    hSpawnedUnit:SetHealth(nNewHealth)
+                                                end
+                                            end
+                                        end
+                                    end
+                                end)
+                                if hSpawnedUnit:GetName() == "npc_dota_lone_druid_bear" then 
+                                    if hOwner and hOwner:IsRealHero() and hOwner.bUsedBearDarkMoon and  not hSpawnedUnit:HasModifier("modifier_item_dark_moon_shard") then
+                                        hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_item_dark_moon_shard", {})
+                                    end
+                                end     
+                            end               
+                        else
+                            hSpawnedUnit:RemoveModifierByName("modifier_item_summoner_crown_buff_agi")
+                            hSpawnedUnit:RemoveModifierByName("modifier_item_summoner_crown_buff_int")
+                            hSpawnedUnit:RemoveModifierByName("modifier_item_summoner_crown_model_size")
+                            Timers:CreateTimer(FrameTime(), function()
+                                if hSpawnedUnit and not hSpawnedUnit:IsNull() and hSpawnedUnit:GetName() == "npc_dota_lone_druid_bear" then
+                                    local nCurrentHealth = 2000 + 75 * hSpawnedUnit:GetLevel()
+                                    hSpawnedUnit:SetBaseMaxHealth(nCurrentHealth)
+                                    hSpawnedUnit:SetMaxHealth(nCurrentHealth)
+                                    hSpawnedUnit:SetHealth(nCurrentHealth)
+                                end
+                            end)
+                        end
+                        if hSpawnedUnit:GetName() == "npc_dota_lone_druid_bear" then 
+                            if hOwner and hOwner:IsRealHero() and hOwner.bUsedBearDarkMoon and  not hSpawnedUnit:HasModifier("modifier_item_dark_moon_shard") then
+                                hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_item_dark_moon_shard", {})
+                            end
+                        end 
+                    end     
+                end)
+                if hSpawnedUnit:GetName() == "npc_dota_lone_druid_bear" then 
+                    Timers:CreateTimer(2.0, function()
+                       if hSpawnedUnit and not hSpawnedUnit:IsNull() and hSpawnedUnit:IsAlive() then
+                            Summon:RefreshBear(hSpawnedUnit)
+                            return 2.0
+                        else
+                            return nil
+                        end
+                    end) 
+                end
+            end
+        end
     end
-  end
 end
 
 function GameMode:OnConnectFull(data)
-  local player_index = EntIndexToHScript( data.index )
-  if player_index == nil then
-    return
-  end
-
-  local hPlayer = PlayerResource:GetPlayer(data.PlayerID)
-  if hPlayer then
-    CustomGameEventManager:Send_ServerToPlayer(hPlayer,"loading_screen_event",{})
-  end
-
-  ChaServerData:RegisterPlayerSiteInfo(data.PlayerID)
-end
-
-
-function GameMode:SendFeedback(keys) 
-    local nPlayerID = keys.PlayerID
-    if  GameMode.feedbackTime[tonumber(nPlayerID)]>=1 then
-        GameMode.feedbackTime[tonumber(nPlayerID)] = GameMode.feedbackTime[tonumber(nPlayerID)] -1
+    local player_index = EntIndexToHScript( data.index )
+    if player_index == nil then
+        return
     end
-end
-
-function GameMode:FeedbackRead(keys) 
-    local nPlayerID = keys.PlayerID
-    if nPlayerID then
-
+    local hPlayer = PlayerResource:GetPlayer(data.PlayerID)
+    if hPlayer then
+        CustomGameEventManager:Send_ServerToPlayer(hPlayer,"loading_screen_event",{})
     end
+    ChaServerData:RegisterPlayerSiteInfo(data.PlayerID)
 end

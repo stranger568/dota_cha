@@ -30,7 +30,7 @@ function modifier_hero_refreshing:OnCreated( kv )
 		self.nParticleIndex = ParticleManager:CreateParticle("particles/items_fx/bottle.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 		self:StartIntervalThink( self.flInterval )
 		--禁用技能表
-		self.disableAbilityList={"furion_teleportation", "rubick_spell_steal_custom", "lion_finger_of_death_custom", "lina_laguna_blade_custom", "bounty_hunter_track", "ursa_earthshock", "ursa_enrage", "doom_bringer_doom", "chen_holy_persuasion_custom", "doom_bringer_doom", "abyssal_underlord_firestorm_custom", "pudge_meat_hook", "monkey_king_tree_dance", "oracle_false_promise_custom", "enigma_midnight_pulse_custom", "wisp_relocate","phoenix_supernova","shredder_timber_chain","ancient_apparition_ice_blast","brewmaster_primal_split","life_stealer_infest","axe_berserkers_call","rattletrap_hookshot","magnataur_reverse_polarity","treant_overgrowth","faceless_void_chronosphere","medusa_stone_gaze","venomancer_poison_nova","enigma_black_hole","puck_dream_coil","queenofpain_sonic_wave","warlock_rain_of_chaos","elder_titan_earth_splitter","dawnbreaker_fire_wreath","bristleback_quill_spray","earth_spirit_magnetize"}
+		self.disableAbilityList={"furion_teleportation", "rubick_spell_steal_custom", "muerta_pierce_the_veil", "pangolier_gyroshell", "life_stealer_infest", "lion_finger_of_death_custom", "lina_laguna_blade_custom", "bounty_hunter_track", "ursa_earthshock", "ursa_enrage", "doom_bringer_doom", "chen_holy_persuasion_custom", "doom_bringer_doom", "abyssal_underlord_firestorm_custom", "pudge_meat_hook", "monkey_king_tree_dance", "oracle_false_promise_custom", "enigma_midnight_pulse_custom", "wisp_relocate","phoenix_supernova","shredder_timber_chain","ancient_apparition_ice_blast","brewmaster_primal_split","life_stealer_infest","axe_berserkers_call","rattletrap_hookshot","magnataur_reverse_polarity","treant_overgrowth","faceless_void_chronosphere","medusa_stone_gaze","venomancer_poison_nova_custom","enigma_black_hole","puck_dream_coil","queenofpain_sonic_wave","warlock_rain_of_chaos","elder_titan_earth_splitter","dawnbreaker_fire_wreath","bristleback_quill_spray","earth_spirit_magnetize"}
 
 	    self:OnIntervalThink()
 	end
@@ -148,6 +148,9 @@ function modifier_hero_refreshing:OnIntervalThink()
             if hAbility and hAbility.GetAbilityName and hAbility:GetAbilityName()=="axe_culling_blade_custom" then
                hAbility.bRoundDueled=false
             end
+            if hAbility and hAbility.GetAbilityName and hAbility:GetAbilityName()=="doom_bringer_devour_custom" then
+               hAbility.bRoundDueled=false
+            end
         end
 
         --灌瓶
@@ -184,6 +187,7 @@ function modifier_hero_refreshing:DeclareFunctions()
 		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
 		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL,
 		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE,
+		MODIFIER_PROPERTY_CAST_RANGE_BONUS_STACKING
 	}
 	return funcs
 end
@@ -208,4 +212,13 @@ function modifier_hero_refreshing:GetModifierTotalPercentageManaRegen(params)
 	return 4
 end
 
- 
+ function modifier_hero_refreshing:GetModifierCastRangeBonusStacking(params)
+	if params.ability then
+		if params.ability.GetCastRange then
+			local new = params.ability:GetCastRange(params.ability:GetCaster():GetAbsOrigin(), params.ability:GetCaster()) + self:GetParent():GetCastRangeBonus()
+			if new > 0 then
+				return (new * 0.5) * -1
+			end
+		end
+	end
+end

@@ -3,10 +3,18 @@ function ToggleTorturePipe(keys)
     local hAbility = keys.ability
     if hCaster:HasModifier("modifier_torture_pipe_2_datadriven") then
         local hAbility = hCaster:FindModifierByName("modifier_torture_pipe_2_datadriven"):GetAbility()
-        hCaster.flDotSP = hAbility:GetSpecialValueFor("dot_amplify")
+        if hCaster:HasModifier("modifier_skill_overbuffed") then
+            hCaster.flDotSP = hAbility:GetSpecialValueFor("dot_amplify") + 0.25
+        else
+            hCaster.flDotSP = hAbility:GetSpecialValueFor("dot_amplify")
+        end
     elseif hCaster:HasModifier("modifier_torture_pipe_1_datadriven") then
         local hAbility = hCaster:FindModifierByName("modifier_torture_pipe_1_datadriven"):GetAbility()
-        hCaster.flDotSP = hAbility:GetSpecialValueFor("dot_amplify")
+        if hCaster:HasModifier("modifier_skill_overbuffed") then
+            hCaster.flDotSP = hAbility:GetSpecialValueFor("dot_amplify") + 0.25
+        else
+            hCaster.flDotSP = hAbility:GetSpecialValueFor("dot_amplify")
+        end
     else
         hCaster.flDotSP = nil
     end

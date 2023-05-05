@@ -43,7 +43,6 @@ end
 function modifier_leshrac_lightning_storm_lua:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
-		MODIFIER_EVENT_ON_ATTACKED,
 	}
 
 	return funcs

@@ -22,6 +22,9 @@ function item_relearn_book_lua:OnSpellStart()
 	           		hook:SetActivated(false)
 	           end
 
+	           Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 27, 1)
+	           Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 68, 2)
+
 		       self:SpendCharge()
 		       hCaster.bRemovingAbility = true
 		       hCaster.sUISecret= CreateSecretKey()

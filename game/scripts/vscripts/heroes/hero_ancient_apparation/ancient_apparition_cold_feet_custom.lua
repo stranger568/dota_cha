@@ -15,21 +15,15 @@ function ancient_apparition_cold_feet_custom:OnSpellStart()
 	local radius = self:GetSpecialValueFor("radius")
 	local duration = self:GetSpecialValueFor("duration")
 	
-	if target ~= nil then
+	if target then
 		if not target:TriggerSpellAbsorb(self) then
 			target:AddNewModifier(self:GetCaster(), self, "modifier_ancient_apparition_cold_feet_custom", {})
-		end
-
-		local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			if enemy ~= target then
-				enemy:AddNewModifier(self:GetCaster(), self, "modifier_ancient_apparition_cold_feet_custom", {})
+			local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
+			for _, enemy in pairs(enemies) do
+				if enemy ~= target then
+					enemy:AddNewModifier(self:GetCaster(), self, "modifier_ancient_apparition_cold_feet_custom", {})
+				end
 			end
-		end
-	else
-		local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			enemy:AddNewModifier(self:GetCaster(), self, "modifier_ancient_apparition_cold_feet_custom", {})
 		end
 	end
 end

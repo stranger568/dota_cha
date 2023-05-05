@@ -62,26 +62,9 @@ function refreshTopPanel(gamemode, data) {
 	}
 }
 
-function RebuildRank(){
-	var pve = CustomNetTables.GetTableValue("rank_data", 'pve');
-	if (pve != undefined) {
-	   refreshTopPanel('pve_mode_players', pve)	
-    }
+function RebuildRank()
+{
 
-	var solo = CustomNetTables.GetTableValue("rank_data", 'solo');
-	if (solo != undefined) {
-	   refreshTopPanel('solo_mode_players', solo);
-	}
-
-    var limited = CustomNetTables.GetTableValue("rank_data", 'duos');
-	if (limited != undefined) {
-	   refreshTopPanel('duos_mode_players', limited);
-	}
-
-    var limited = CustomNetTables.GetTableValue("rank_data", 'limited');
-	if (limited != undefined) {
-	   refreshTopPanel('limited_mode_players', limited);
-	}
 }
 
 (function(){

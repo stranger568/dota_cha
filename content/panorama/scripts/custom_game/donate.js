@@ -8,7 +8,7 @@ var first_time_battlepass = false;
 var cooldown_panel_battlepass = false
 var timer_loading = -1
 
-function ToggleBattlePass() {
+GameUI.CustomUIConfig().OpenPass = function ToggleBattlePass() {
     if (toggle_battlepass === false) {
         if (cooldown_panel_battlepass == false) {
             toggle_battlepass = true;
@@ -47,7 +47,7 @@ var toggle_wheel = false;
 var first_time_wheel = false;
 var cooldown_panel_wheel = false
 
-function ToggleWheel() {
+GameUI.CustomUIConfig().OpenWheel = function ToggleWheel() {
     if (toggle_wheel === false) {
         if (cooldown_panel_wheel == false) {
             toggle_wheel = true;
@@ -86,7 +86,7 @@ var toggle_rewards = false;
 var first_time_rewards = false;
 var cooldown_panel_rewards = false
 
-function ToggleRewards() {
+GameUI.CustomUIConfig().OpenRewards = function ToggleRewards() {
     if (toggle_rewards === false) {
         if (cooldown_panel_rewards == false) {
             toggle_rewards = true;
@@ -126,7 +126,10 @@ function UpdateInformation()
     let player_info = CustomNetTables.GetTableValue("cha_server_data", String(Players.GetLocalPlayer()))
     if (player_info) 
     {
-        $("#BattlePassDurationLabel").text = $.Localize("#bp_level_1_info") + ": " + $.Localize("#bp_time_left") + (player_info.pass_level_1_days || 0) + $.Localize("#bp_time_days") + "<br>" + $.Localize("#bp_level_2_info") + ": " + $.Localize("#bp_time_left") + (player_info.pass_level_2_days || 0) + $.Localize("#bp_time_days") + "<br>" + $.Localize("#bp_level_3_info") + ": " + $.Localize("#bp_time_left") + (player_info.pass_level_3_days || 0) + $.Localize("#bp_time_days")
+        $("#DonateBattlePassDays1").text = (player_info.pass_level_1_days || 0)
+        $("#DonateBattlePassDays2").text = (player_info.pass_level_2_days || 0)
+        $("#DonateBattlePassDays3").text = (player_info.pass_level_3_days || 0)
+
         $("#ArenaCoinLabel").text = player_info.game_coin || "0"
         $("#BalanceCoinChestLabel").text = player_info.game_coin || "0"
         $("#DonateCoinLabel").text = player_info.donate_coin || "0"
@@ -184,6 +187,8 @@ function ErrorCreated(data)
     } else {
         $("#donate_error_label").text = $.Localize("#bp_error")
     }
+
+    OpenBattlePassInfo('BuyBattlePassWindow_coinshop');
 
     $("#donate_error_window").style.visibility = "visible"
     $.Schedule(2 , ErrorClose);
@@ -287,7 +292,7 @@ function CreateReward(reward_table)
     if (Number(player_table.month_rewards_days) >= Number(reward_table[0]))
     {
         RewardReceiveLabel.text = $.Localize("#reward_button_received")
-        RewardReceive.style.saturation = "0.2"
+        RewardReceive.AddClass("recive_reward")
     }
 
     if (Number(reward_table[0]) == Number(player_table.month_rewards_days))
@@ -297,16 +302,17 @@ function CreateReward(reward_table)
             RewardReceiveLabel.text = $.Localize("#reward_button_receive")
             RewardReceive.SetPanelEvent("onactivate", function() { RecieveReward(reward_table[3], reward_table[0]) } );
             RewardReceive.style.saturation = "1"
+            RewardReceive.RemoveClass("recive_reward")
         } else {
             RewardReceiveLabel.text = $.Localize("#reward_button_received")
-            RewardReceive.style.saturation = "0.2"
+            RewardReceive.AddClass("recive_reward")
         }
     }
 
     if (Number(reward_table[0]) > Number(player_table.month_rewards_days))
     {
         RewardReceiveLabel.text = $.Localize("#reward_button_closed")
-        RewardReceive.style.saturation = "0"
+        RewardReceive.AddClass("closed_reward")
     }
 }
 
@@ -590,7 +596,7 @@ function wheel_gift_end(data)
 function CloseRewardPanel()
 {
     for (var i = 1; i <= 20; i++) {
-        $("#chest_" + i).GetChild(0).style.fontSize = "128px"
+        $("#chest_" + i).GetChild(0).style.fontSize = "90px"
         $("#chest_" + i).GetChild(0).text = "?"
         $("#chest_" + i).GetChild(0).style.color = "white"
     }

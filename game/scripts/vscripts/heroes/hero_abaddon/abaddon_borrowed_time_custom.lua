@@ -12,9 +12,6 @@ end
 function abaddon_borrowed_time_custom:OnSpellStart()
 	if not IsServer() then return end
 	local buff_duration = self:GetSpecialValueFor("duration")
-	if self:GetCaster():HasScepter() then
-		buff_duration = self:GetSpecialValueFor("duration_scepter")
-	end
 	self:GetCaster():Purge(false, true, false, true, false)
 	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_abaddon_borrowed_time_custom_buff", { duration = buff_duration })
 end

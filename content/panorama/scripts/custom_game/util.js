@@ -151,18 +151,9 @@ function AbilityInDeleteCoolDown(keys) {
     });
 }
 
-function GetEarlyLeaver(playerId) {
-
-  var early_leaver = CustomNetTables.GetTableValue("rank_data", "early_leaver");
-  if (early_leaver &&  early_leaver[playerId])
-  {
-    return $.Localize("#early_leaver");
-  }
-  else
-  {
-     return "";
-  }
-
+function GetEarlyLeaver(playerId) 
+{
+    return ""
 }
 
 
@@ -171,17 +162,6 @@ function GetEarlyLeaver(playerId) {
 function GetPlayerEconInfoData(steam_id) {
 
     var playerData = [];
-    var bucketData = CustomNetTables.GetTableValue("econ_data", "econ_total_bucket_"+steam_id) 
-    if (bucketData && bucketData.total_bucket)
-    {
-       var bucket_number = parseInt(bucketData.total_bucket)
-       for (var i = 1; i <= bucket_number; i++) {
-          var econ_info = CustomNetTables.GetTableValue("econ_data", "econ_info_"+steam_id+"_"+i)
-          for (var index in econ_info){
-               playerData.push(econ_info[index])
-          }
-       }
-    }
     return playerData;
 }
 
@@ -207,7 +187,7 @@ function IsValidAbility(abilityIndex) {
     var result = false;
     var abilityName = Abilities.GetAbilityName(abilityIndex);
     //有效技能
-    if (abilityName!=null && abilityName != "" && abilityName.substring(0, 14) != "special_bonus_" && abilityName!= "generic_hidden" && abilityName.substring(0, 6) != "empty_" )
+    if (abilityName!=null && abilityName != "" && abilityName.substring(0, 14) != "special_bonus_" && abilityName!= "generic_hidden" && abilityName!= "portal_base_custom" && abilityName.substring(0, 6) != "empty_" )
     {
         //不是隐藏技能 不是配赠技能
         if (!Abilities.IsHidden(abilityIndex)  && CustomNetTables.GetTableValue("subsidiary_list", abilityName)==undefined)
@@ -225,7 +205,7 @@ function IsValidAbilityDuel(abilityIndex) {
     var result = false;
     var abilityName = Abilities.GetAbilityName(abilityIndex);
     //有效技能
-    if (abilityName!=null && abilityName != "" && abilityName.substring(0, 14) != "special_bonus_" && abilityName!= "generic_hidden" && abilityName.substring(0, 6) != "empty_" )
+    if (abilityName!=null && abilityName != "" && abilityName.substring(0, 14) != "special_bonus_" && abilityName!= "generic_hidden" && abilityName!= "portal_base_custom" && abilityName.substring(0, 6) != "empty_" )
     {
         //不是隐藏技能 不是配赠技能
         if (!Abilities.IsHidden(abilityIndex))

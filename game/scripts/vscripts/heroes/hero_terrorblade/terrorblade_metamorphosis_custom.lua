@@ -124,7 +124,7 @@ function modifier_custom_terrorblade_metamorphosis:OnIntervalThink()
 			self:Destroy()
 			self:GetAbility():ToggleAbility()
 			self:GetAbility():EndCooldown()
-			self:GetAbility():UseResources(false, false, true)
+			self:GetAbility():UseResources(false, false, false, true)
 		end
 	end
 end

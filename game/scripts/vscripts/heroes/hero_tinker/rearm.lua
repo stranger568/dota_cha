@@ -45,16 +45,16 @@ function rearm_refresh_cooldown( keys )
     ability_exempt_table["slark_depth_shroud_custom"]=true
     ability_exempt_table["slark_shadow_dance_custom"]=true
     ability_exempt_table["chen_holy_persuasion_custom"]=true
-    ability_exempt_table["skeleton_king_vampiric_aura"]=true
     ability_exempt_table["razor_static_link"]=true
     ability_exempt_table["puck_phase_shift_custom"]=true
+    ability_exempt_table["muerta_pierce_the_veil"]=true
 
     local ability_discount_table = {}
     ability_discount_table["faceless_void_chronosphere"]= 0.4
     ability_discount_table["zuus_cloud"]= 0.5
     ability_discount_table["mirana_arrow"]= 0.5
-    ability_discount_table["night_stalker_hunter_in_the_night"]= 0.5
-    ability_discount_table["doom_bringer_devour"]= 0.5
+    ability_discount_table["night_stalker_hunter_in_the_night_custom"]= 0.5
+    ability_discount_table["doom_bringer_devour_custom"]= 0.5
 
 	for i = 0, caster:GetAbilityCount() - 1 do
 		local hAbility = caster:GetAbilityByIndex( i )

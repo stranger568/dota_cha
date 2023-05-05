@@ -14,24 +14,17 @@ function keeper_of_the_light_radiant_bind_custom:OnSpellStart()
 	local radius = self:GetSpecialValueFor("radius")
 	local duration = self:GetSpecialValueFor("duration")
 
-	if target ~= nil then
+	if target then
 		if not target:TriggerSpellAbsorb(self) then
 			self:effectstart(target)
 			target:AddNewModifier(self:GetCaster(), self, "modifier_keeper_of_the_light_radiant_bind_custom", {duration = duration})
-		end
-
-		local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			if enemy ~= target then
-				self:effectstart(enemy)
-				enemy:AddNewModifier(self:GetCaster(), self, "modifier_keeper_of_the_light_radiant_bind_custom", {duration = duration})
+			local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
+			for _, enemy in pairs(enemies) do
+				if enemy ~= target then
+					self:effectstart(enemy)
+					enemy:AddNewModifier(self:GetCaster(), self, "modifier_keeper_of_the_light_radiant_bind_custom", {duration = duration})
+				end
 			end
-		end
-	else
-		local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			self:effectstart(enemy)
-			enemy:AddNewModifier(self:GetCaster(), self, "modifier_keeper_of_the_light_radiant_bind_custom", {duration = duration})
 		end
 	end
 end

@@ -1,793 +1,817 @@
-.hBlock{
-     width: 100%;
+
+.vBlock {
+    height: 100%;
 }
 
- .vBlock{
-     height: 100%;
- }
-
-
- @keyframes 'links-and-more-button-focus'{
-
-     from{
-
-         background-color: gradient( linear, 0% 0%, 0% 100%, from( #a9c8daee ), to( #000000ee ) );
-     }
-
-     50%{
-
-         background-color: gradient( linear, 0% 0%, 0% 100%, from( #272d2eee ), to( #131617ee ) );
-     }
-
-     to{
-
-         background-color: gradient( linear, 0% 0%, 0% 100%, from( #272d2eee ), to( #131617ee ) );
-     }
- }
-
-
- #MainBlock.Hidden{
-     transform: translatex(-1000px);
-     opacity:0.0;
- }
-
-
- #MainBlock{
-     position: 0 0px 0;
-     width: 1620px;
-     height: 100%;
-     border-top: 0px solid #333;
-     border-bottom: 0px solid #333;
-     background-color: #181818;
-     overflow: clip;
-     z-index: 50;
-
-     animation-name: links-and-more-button-focus;
-     animation-duration: 0.6s;
-     animation-delay: 0.0s;
-     animation-timing-function: ease-in;
-     animation-iteration-count: 1;
-     animation-direction: normal;
-
-     transition-property: transform, opacity;
-     transition-duration: 0.3s;
-     transition-timing-function: ease-in-out;
- }
-
- .wrapper{
-     margin-top: 15px;
-     width: 100%;
-     height: 100%;
-     padding: 5px;
-     flow-children: right-wrap;
-     background-color: #181818;
- }
-
- .mainTitle{
-     height: 30px;
- }
-
- .mainTitle Label{
-     horizontal-align: center;
-     vertical-align: center;
-     font-size: 30;
-     font-family: "Times New Roman";
-     color: #fff;
-     text-shadow: 0px 0px 4px 2.0 #ffffff10;
-     text-transform: uppercase;
- }
-
- #spellShopLeft{
-     width: 50%;
-     flow-children: down;
- }
-
- #spellShopRight{
-     width: 50%;
-     flow-children: down;
- }
-
- .ParentCell{
-     margin: 5px;
- }
-
- .AspectRatio4x3 .cmParentCell, .AspectRatio5x4 .cmParentCell{
-     margin: 0px;
- }
-
- #heroesTableStrAgi{
-     flow-children: right-wrap;
-
-
-     width: 100%;
-     border: 0px solid #999;
-     horizontal-align: right;
-     vertical-align: top;
- }
-
- #heroesTableInt{
-     flow-children: right-wrap;
-
-
-     width: 100%;
-     border: 0px solid #999;
-     horizontal-align: right;
-     vertical-align: top;
- }
-
- #contentSelectionButtons{
-     horizontal-align: center;
-     vertical-align: top;
-     flow-children: right;
-     width: 98%;
-     height: 25%;
-     border: 0px solid #999;
-     margin-left: 5px;
- }
-
- .HeroesRow{
-     flow-children: down;
- }
-
- .isCover{
-     background-color: #00000099;
- }
-
- #buyButton{
-     horizontal-align: left;
-     vertical-align: center;
-     width: 190px;
-     height: 50px;
-     border: 1px solid #000;
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
-     box-shadow: inset #ffffff50 1px 1px 2px 2px;
- }
-
- #buyButton:active{
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
-     width: 182px;
-     height: 48px;
-     margin-left: 4px;
-     margin-right: 4px;
- }
-
- #buyButton Label{
-     horizontal-align: center;
-     vertical-align: center;
-     font-size: 20;
-     color: #fff;
-     text-transform: uppercase;
- }
-
- #sellButton{
-     horizontal-align: left;
-     vertical-align: center;
-     width: 190px;
-     height: 50px;
-     margin-left: 50px;
-     border: 1px solid #000;
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
-     box-shadow: inset #ffffff50 1px 1px 2px 2px;
- }
-
- #sellButton:active{
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
-     width: 182px;
-     height: 48px;
-     margin-left: 54px;
-     margin-right: 4px;
- }
-
- #sellButton Label{
-     horizontal-align: center;
-     vertical-align: center;
-     font-size: 20;
-     color: #fff;
-     text-transform: uppercase;
- }
-
- #attributesButton{
-     horizontal-align: left;
-     vertical-align: center;
-     width: 190px;
-     height: 50px;
-     margin-left: 50px;
-     border: 1px solid #000;
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
-     box-shadow: inset #ffffff50 1px 1px 2px 2px;
- }
-
- #attributesButton:active{
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
-     width: 182px;
-     height: 48px;
-     margin-left: 54px;
-     margin-right: 4px;
- }
-
- #attributesButton Label{
-     horizontal-align: center;
-     vertical-align: center;
-     font-size: 20;
-     color: #fff;
-     text-transform: uppercase;
- }
-
- #courierButton{
-     horizontal-align: left;
-     vertical-align: center;
-     width: 190px;
-     height: 50px;
-     margin-left: 50px;
-     border: 1px solid #000;
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
-     box-shadow: inset #ffffff50 1px 1px 2px 2px;
- }
-
- #courierButton:active{
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
-     width: 182px;
-     height: 48px;
-     margin-left: 54px;
-     margin-right: 4px;
- }
-
- #courierButton Label{
-     horizontal-align: center;
-     vertical-align: center;
-     font-size: 20;
-     color: #fff;
-     text-transform: uppercase;
- }
-
- #attrPanel{
-     flow-children: right;
- }
-
- #courierPanel{
-     flow-children: right;
- }
-
- .attributeButtonLabel{
-     vertical-align: bottom;
-     text-align: right;
-     horizontal-align: right;
-     font-size: 20;
-     width: 100%;
-     height: 25%;
-     color: #FFFF00;
-     font-family: Radiance;
- }
-
- #CaptainButton{
-     horizontal-align: center;
-     vertical-align: center;
-     width: 250px;
-     height: 50px;
-     border: 1px solid #000;
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
-     box-shadow: inset #ffffff50 1px 1px 2px 2px;
- }
-
- #CaptainButton:active{
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
- }
-
- #CaptainText, #CaptainButton Label{
-     horizontal-align: center;
-     vertical-align: center;
-     font-size: 20;
-     color: #fff;
-     text-transform: uppercase;
- }
-
- #cmSelectionTable{
-     flow-children: right;
- }
-
- .TriggerButtonPanelHud{
-     width: 100%;
-     height: 100%;
- }
-
- .triggerButtonPanel{
-     position: 1500px 1020px 0;
-     width: 160px;
-     height: 60px;
-     border-top: 0px solid #333;
-     border-bottom: 0px solid #333;
-     background-image: url("s2r://panorama/images/custom_game/extract/courier_gold_bg_262_png.vtex");
-     background-size: 100% 100%;
- }
-
- #triggerButton{
-     height: 36px;
-     width: 120px;
-     background-image: url("s2r://panorama/images/custom_game/extract/shop_launcher_button_inrange_png.vtex");
-     brightness: 1.0;
-     z-index: -1;
-     box-shadow: #000000aa 0px 0px 2px 2px;
-     margin-left: 25px;
-     transition-property: background-image;
-     transition-duration: .18s;
-     transition-timing-function: ease-in-out;
-     tooltip-position: top;
-     margin-bottom: 12px;
-     vertical-align: bottom;
- }
-
- #triggerButton Label{
-     horizontal-align: center;
-     vertical-align: center;
-     text-align: center;
-     color: white;
-     font-family: RadianceM, Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU;
-     font-size: 20;
-     font-weight: bold;
-     text-overflow: shrink;
- }
-
- #triggerButton:hover{
-     brightness: 3.0;
- }
-
- .Hidden{
-     visibility: collapse;
- }
-
- Button:enabled DOTAAbilityImage:hover{
-     box-shadow: inset #ffffff80 2px 2px 0px 4px;
-     color: #FFF;
-     background-color: #000000FF;
- }
-
- #attributeButton{
-     height: 75px;
-     width: 75px;
-     margin-left: 280px;
- }
-
- #pointToGoldButton{
-     height: 75px;
-     width: 75px;
-     margin-left: 170px;
- }
-
- #attributeButton:active{
-     padding: 5px;
- }
-
- #pointToGoldButton:active{
-     padding: 5px;
- }
-
- .notEnoughDark{
-     wash-color: #ffb3a7;
-     brightness: 0.2;
- }
-
- .courierAbilityButton{
-     height: 75px;
-     width: 75px;
-     margin-left: 50px;
- }
-
- .courierAbilityButton:active{
-     padding: 5px;
- }
-
- .courierAbilityButton:disabled DOTAAbilityImage{
-     saturation: 0;
- }
-
-
- #RowTable{
-     flow-children: right;
- }
-
- .HeroesGroup{
-     width: 50%;
- }
-
- .HeroesGroupContainer{
-     flow-children: right-wrap;
-     max-width: 410px;
-     horizontal-align: center;
- }
-
- .HeroPanel{
-     width: 70px;
-     margin: 2px;
-     height: 48px;
- }
-
- .HeroPanel DOTAHeroImage{
-    height: width-percentage(56.25%);
- }
-
-
- RadioButton:enabled DOTAHeroImage:hover, RadioButton:selected DOTAHeroImage{
-     box-shadow: inset #ffffff80 1px 1px 0px 2px;
- }
-
-
- RadioButton > .RadioBox{
-   visibility: collapse;
- }
-
- #RowNameContainer{
-     flow-children: right;
-     margin-left: 320px;
- }
-
- #RowIcon{
-     height: 40px;
-     width: 40px;
- }
-
- #RowName{
-     font-size: 40px;
-     margin-top: 0px;
- }
-
-
- #Abilities{
-     width: 450px;
-     height: 300px;
-     flow-children: right-wrap;
- }
-
- #Abilities RadioButton{
-     width: 65px;
-     height: 65px;
-     margin-left: 15px;
- }
-
- #Abilities RadioButton:selected{
-     box-shadow: inset #66ff6650 2px 2px 4px 4px;
- }
-
- #RecentBannedAbilities{
-     width: 450px;
-     height: 90px;
-     flow-children: right-wrap;
- }
-
- #RecentBannedAbilities RadioButton{
-     width: 65px;
-     height: 65px;
-     margin-left: 15px;
- }
-
- #RecentBannedAbilities RadioButton:selected{
-     box-shadow: inset #66ff6650 2px 2px 4px 4px;
- }
-
-
-
- #OperatePanel{
-     flow-children: right;
-     margin-top: 25px;
- }
-
- #BanButton{
-     height: 47px;
-     width: 200px;
-     background-color:gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) );
-     background-image:url("s2r://");
-     background-size:328px 50px;
- }
-
- #BanButton:disabled{
-     background-color:gradient( linear, 0% 0%, 0% 100%, from( #5A615Ecc ), to( #879695cc ) );
-     box-shadow:none;
- }
-
-
- #BanButtonLabel{
-     width: 100%;
-     font-size: 30px;
-     text-align: center;
-     vertical-align: center;
-     text-overflow: shrink;
-     color: white;
- }
-
- #HeroImage{
-
-    margin-top: 3px;
-    width: 120px;
+@keyframes 'links-and-more-button-focus' {
+    from {
+        background-color: gradient(linear, 0% 0%, 0% 100%, from(#a9c8daee), to(#000000ee));
+    }
+
+    50% {
+        background-color: gradient(linear, 0% 0%, 0% 100%, from(#272d2eee), to(#131617ee));
+    }
+
+    to {
+        background-color: gradient(linear, 0% 0%, 0% 100%, from(#272d2eee), to(#131617ee));
+    }
+
+}
+
+#MainBlock.Hidden 
+{
+    opacity: 0.0;
+}
+
+#MainBlock {
+    position: 0 0px 0;
+    width: 100%;
+    height: 100%;
+    border-top: 0px solid #333;
+    border-bottom: 0px solid #333;
+    background-color: #181818;
+    overflow: clip;
+    z-index: 150;
+    animation-name: links-and-more-button-focus;
+    animation-duration: 0.6s;
+    animation-delay: 0.0s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    transition-property: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    flow-children: down;
+}
+
+.wrapper {
+    margin-top: 15px;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    flow-children: right-wrap;
+    background-color: #181818;
+}
+
+.mainTitle {
+    height: 30px;
+}
+
+.mainTitle Label {
+    horizontal-align: center;
+    vertical-align: center;
+    font-size: 30;
+    font-family: "Times New Roman";
+    color: #fff;
+    text-shadow: 0px 0px 4px 2.0 #ffffff10;
+    text-transform: uppercase;
+}
+
+#spellShopLeft {
+    width: 50%;
+    flow-children: down;
+}
+
+#spellShopRight {
+    width: 50%;
+    flow-children: down;
+}
+
+.ParentCell {
+    margin: 5px;
+}
+
+.AspectRatio4x3 .cmParentCell, .AspectRatio5x4 .cmParentCell {
+    margin: 0px;
+}
+
+#heroesTableStrAgi {
+    flow-children: right-wrap;
+    width: 100%;
+    border: 0px solid #999;
+    horizontal-align: right;
+    vertical-align: top;
+}
+
+#heroesTableInt {
+    flow-children: right-wrap;
+    width: 100%;
+    border: 0px solid #999;
+    horizontal-align: right;
+    vertical-align: top;
+}
+
+#contentSelectionButtons {
+    horizontal-align: center;
+    vertical-align: top;
+    flow-children: right;
+    width: 98%;
+    height: 25%;
+    border: 0px solid #999;
+    margin-left: 5px;
+}
+
+.HeroesRow {
+    flow-children: down;
+}
+
+.isCover {
+    background-color: #00000099;
+}
+
+#buyButton {
+    horizontal-align: left;
+    vertical-align: center;
+    width: 190px;
+    height: 50px;
+    border: 1px solid #000;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
+    box-shadow: inset #ffffff50 1px 1px 2px 2px;
+}
+
+#buyButton:active {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
+    width: 182px;
+    height: 48px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#buyButton Label {
+    horizontal-align: center;
+    vertical-align: center;
+    font-size: 20;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#sellButton {
+    horizontal-align: left;
+    vertical-align: center;
+    width: 190px;
+    height: 50px;
+    margin-left: 50px;
+    border: 1px solid #000;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
+    box-shadow: inset #ffffff50 1px 1px 2px 2px;
+}
+
+#sellButton:active {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
+    width: 182px;
+    height: 48px;
+    margin-left: 54px;
+    margin-right: 4px;
+}
+
+#sellButton Label {
+    horizontal-align: center;
+    vertical-align: center;
+    font-size: 20;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#attributesButton {
+    horizontal-align: left;
+    vertical-align: center;
+    width: 190px;
+    height: 50px;
+    margin-left: 50px;
+    border: 1px solid #000;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
+    box-shadow: inset #ffffff50 1px 1px 2px 2px;
+}
+
+#attributesButton:active {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
+    width: 182px;
+    height: 48px;
+    margin-left: 54px;
+    margin-right: 4px;
+}
+
+#attributesButton Label {
+    horizontal-align: center;
+    vertical-align: center;
+    font-size: 20;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#courierButton {
+    horizontal-align: left;
+    vertical-align: center;
+    width: 190px;
+    height: 50px;
+    margin-left: 50px;
+    border: 1px solid #000;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
+    box-shadow: inset #ffffff50 1px 1px 2px 2px;
+}
+
+#courierButton:active {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
+    width: 182px;
+    height: 48px;
+    margin-left: 54px;
+    margin-right: 4px;
+}
+
+#courierButton Label {
+    horizontal-align: center;
+    vertical-align: center;
+    font-size: 20;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#attrPanel {
+    flow-children: right;
+}
+
+#courierPanel {
+    flow-children: right;
+}
+
+.attributeButtonLabel {
+    vertical-align: bottom;
+    text-align: right;
+    horizontal-align: right;
+    font-size: 20;
+    width: 100%;
+    height: 25%;
+    color: #FFFF00;
+    font-family: Radiance;
+}
+
+#CaptainButton {
+    horizontal-align: center;
+    vertical-align: center;
+    width: 250px;
+    height: 50px;
+    border: 1px solid #000;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
+    box-shadow: inset #ffffff50 1px 1px 2px 2px;
+}
+
+#CaptainButton:active {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#880303), to(#b80803));
+}
+
+#CaptainText, #CaptainButton Label {
+    horizontal-align: center;
+    vertical-align: center;
+    font-size: 20;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#cmSelectionTable {
+    flow-children: right;
+}
+
+.TriggerButtonPanelHud {
+    width: 100%;
+    height: 100%;
+}
+
+.triggerButtonPanel {
+    position: 1500px 1020px 0;
+    width: 160px;
     height: 60px;
- }
-
-
- #ButtonPanel{
-     flow-children: down;
- }
-
-
- #CloseButton{
-     height: 30px;
-     width: 200px;
-     margin-top: 10px;
-     background-color: gradient( linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
-     background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
-     background-size: 320px 120px;
- }
-
- #CloseButtonLabel{
-     width: 100%;
-     font-size: 25px;
-     text-align: center;
-     vertical-align: center;
-     color: white;
- }
-
- #CloseButton:active{
-
-     width: 192px;
-     height: 28px;
-     margin-top: 16px;
-     margin-left: 4px;
- }
-
- #OpenBanButton{
-
-   background-color:gradient( linear, 0% 0%, 0% 100%, from( #2d4881cc ), to( #486ca9cc ) );
-
-   border-top:1px solid #ffffff03;
-   width:280px;
-   height: 50px;
-   vertical-align: center;
- }
-
-
- #OpenBanButtonLabel{
-     width: 100%;
-     font-size: 25px;
-     text-align: center;
-     vertical-align: center;
-     color: white;
- }
-
- #OpenBanButton:hover{
-
-     background-color: gradient( linear, 0% 0%, 0% 100%, from( #2d4881cc ), to( #84acff ) );
- }
-
- #OpenBanButton:active{
-
-     sound: "ui_team_select_lock_and_start";
- }
-
-
- #WaitingContainer{
-     flow-children:right;
- }
-
-
- .Spinner{
-   width:30px;
-   height:30px;
-   vertical-align: middle;
-   background-image:url("s2r://panorama/images/custom_game/extract/loadingthrobber_round_png.vtex");
-   background-repeat:no-repeat;
-   background-position:50% 50%;
-   background-size:contain;
-
-   animation-name:SpinnerRotate;
-   animation-duration:1.0s;
-   animation-timing-function:linear;
-   animation-iteration-count:infinite;
- }
-
- #WaitingLabel{
-
-     color: white;
-     font-size: 25px;
- }
-
- #TimeLeftLabel{
-
-     margin-top: 3px;
-     width: 100%;
-     text-align: center;
- }
-
- .Green{
-     color: green;
- }
-
- .Red{
-     color: red;
- }
-
-
-
-
-
- .AbilityRadioButton:disabled{
-     saturation: 0;
- }
-
- .PassTaoBaoPanel{
-     height: 300px;
- }
-
- #RecentBannedAbilitiesLabel{
-     font-size: 28px;
-     margin-top: 15px;
- }
-
-
- #RecentBannedAbilitiesContainer{
-     flow-children:right;
- }
-
-
- #OmniscientMain .Hidden{
-     transform: translatex(-1000px);
-     opacity:0.0;
- }
-
-
- #OmniscientMain{
-     position: 0 0px 0;
-     width: 80%;
-     height: 60%;
-     border-top: 0px solid #333;
-     border-bottom: 0px solid #333;
-
-     background-image: url("s2r://panorama/images/custom_game/extract/ability_bg_png.vtex");
-     background-size:100% 100%;
-
-     overflow: clip;
-     margin-top:10%;
-     margin-left: 10%;
-
-     animation-name: links-and-more-button-focus;
-     animation-duration: 0.6s;
-     animation-delay: 0.0s;
-     animation-timing-function: ease-in;
-     animation-iteration-count: 1;
-     animation-direction: normal;
-
-     transition-property: transform, opacity;
-     transition-duration: 0.3s;
-     transition-timing-function: ease-in-out;
- }
-
-
- .OmniscientWrapper{
-     margin-top: 15px;
-     width: 100%;
-     height: 100%;
-     padding: 5px;
-     flow-children: right-wrap;
- }
-
- #SelectButton{
-     height: 50px;
-     width: 150px;
-     border-radius: 15px;
-     background-color:gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) );
-     background-image:url("s2r://");
-     background-size:328px 50px;
- }
-
- #SelectButton:disabled{
-     background-color:gradient( linear, 0% 0%, 0% 100%, from( #5A615Ecc ), to( #879695cc ) );
-     box-shadow:none;
- }
-
- #SelectButton:hover{
-
-     brightness: 2.0;
- }
-
- #SelectButton:active{
-
-     brightness: 0.5;
- }
-
- #SelectButton:disabled{
-
-     saturation: 0;
- }
-
-
-
-
- #SelectButtonLabel{
-     width: 100%;
-     font-size: 30px;
-     text-align: center;
-     vertical-align: center;
-     text-overflow: shrink;
-     color: white;
- }
-
-
- #HideButton{
-     margin-left: 250px;
-     height: 50px;
-     width: 150px;
-     border-radius: 15px;
-     box-shadow: fill transparent 0px 0px 0px 0px;
-     background-color: gradient( linear, 0% 0%, 0% 100%, from( #3784a6 ), to( #215373 )  );
-     background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
-     background-size: 320px 120px;
-     transition-property: transform, brightness;
-     transition-duration: 0.3s;
- }
-
- #HideButtonLabel{
-     color: #cccccc;
-     font-size: 30px;
-     horizontal-align: center;
-     vertical-align: center;
- }
-
- #OmniscientButtonPanel{
-     height:120px;
-     width:920px;
-     margin-top:300px;
-     horizontal-align: right;
-     vertical-align: center;
- }
-
- #OmniscientButtonPanel .Hidden{
-     opacity: 0;
- }
-
- #HideButton:hover{
-
-     brightness: 2.0;
- }
-
- #HideButton:active{
-
-     brightness: 0.5;
- }
-
- #HideButton:disabled{
-
-     saturation: 0;
- }
-
- #HeroImageRadioButton:selected{
-
-     box-shadow: inset #66ff6650 2px 2px 4px 4px;
- }
-
- #HeroImageRadioButton:disabled{
-
-     saturation: 0;
- }
-
- #RecentBannedHeroes{
-     width: 600px;
-     height: 100px;
-     flow-children: right-wrap;
- }
-
- #RecentBannedHeroes RadioButton{
-     width: 70px;
-     height: 38px;
-     margin-left: 15px;
- }
-
- #RecentBannedHeroes RadioButton:selected{
-     box-shadow: inset #66ff6650 2px 2px 4px 4px;
- }
-
- #RecentBannedHeroes RadioButton:disabled{
-
-     saturation: 0;
- }
-
-
- #RecentBannedContainer{
-     width: 700px;
-     flow-children:down;
+    border-top: 0px solid #333;
+    border-bottom: 0px solid #333;
+    background-image: url("s2r://panorama/images/custom_game/extract/courier_gold_bg_262_png.vtex");
+    background-size: 100% 100%;
+}
+
+#triggerButton {
+    height: 36px;
+    width: 120px;
+    background-image: url("s2r://panorama/images/custom_game/extract/shop_launcher_button_inrange_png.vtex");
+    brightness: 1.0;
+    z-index: -1;
+    box-shadow: #000000aa 0px 0px 2px 2px;
+    margin-left: 25px;
+    transition-property: background-image;
+    transition-duration: .18s;
+    transition-timing-function: ease-in-out;
+    tooltip-position: top;
+    margin-bottom: 12px;
+    vertical-align: bottom;
+}
+
+#triggerButton Label {
+    horizontal-align: center;
+    vertical-align: center;
+    text-align: center;
+    color: white;
+    font-family: RadianceM, Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU;
+    font-size: 20;
+    font-weight: bold;
+    text-overflow: shrink;
+}
+
+#triggerButton:hover {
+    brightness: 3.0;
+}
+
+.Hidden {
+    visibility: collapse;
+}
+
+Button:enabled DOTAAbilityImage:hover {
+    box-shadow: inset #ffffff80 2px 2px 0px 4px;
+    color: #FFF;
+    background-color: #000000FF;
+}
+
+#attributeButton {
+    height: 75px;
+    width: 75px;
+    margin-left: 280px;
+}
+
+#pointToGoldButton {
+    height: 75px;
+    width: 75px;
+    margin-left: 170px;
+}
+
+#attributeButton:active {
+    padding: 5px;
+}
+
+#pointToGoldButton:active {
+    padding: 5px;
+}
+
+.notEnoughDark {
+    wash-color: #ffb3a7;
+    brightness: 0.2;
+}
+
+.courierAbilityButton {
+    height: 75px;
+    width: 75px;
+    margin-left: 50px;
+}
+
+.courierAbilityButton:active {
+    padding: 5px;
+}
+
+.courierAbilityButton:disabled DOTAAbilityImage {
+    saturation: 0;
+}
+
+#RowTable {
+    flow-children: down;
+}
+
+
+
+
+
+
+
+#Abilities {
+    width: 450px;
+    flow-children: right-wrap;
+}
+
+#Abilities RadioButton {
+    width: 65px;
+    height: 65px;
+    margin-left: 15px;
+    margin-bottom: 2px;
+}
+
+#Abilities RadioButton:selected {
+    box-shadow: inset #66ff6650 2px 2px 4px 4px;
+}
+
+#RecentBannedAbilities {
+    height: 90px;
+    flow-children: right;
+}
+
+#RecentBannedAbilities RadioButton {
+    width: 65px;
+    height: 65px;
+    margin-left: 15px;
+}
+
+#RecentBannedAbilities RadioButton:selected {
+    box-shadow: inset #66ff6650 2px 2px 4px 4px;
+}
+
+#OperatePanel 
+{
+    flow-children: down;
+    margin-top: 25px;
+    horizontal-align: center;
+    width: 530px;
+}
+
+.OperatePanelRight
+{
+    flow-children: right;
+    horizontal-align: center;
+    width: 100%;
+}
+
+#BanButton {
+    height: 50px;
+    width: 250px;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#5Aa15E), to(#87d69533));
+    background-image: url("s2r://");
+    background-size: 328px 50px;
+    margin-top: 10px;
+}
+
+#BanButton:disabled {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#5A615Ecc), to(#879695cc));
+    box-shadow: none;
+}
+
+#BanButtonLabel {
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: center;
+    text-overflow: shrink;
+    color: white;
+}
+
+#HeroImage {
+    margin-top: 3px;
+    width: 110px;
+    height: 60px;
+}
+
+#ButtonPanel {
+    flow-children: down;
+    horizontal-align: center;
+}
+
+#CloseButton {
+    height: 30px;
+    width: 200px;
+    margin-top: 10px;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#a50a04), to(#670303));
+    background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+    background-size: 320px 120px;
+}
+
+#CloseButtonLabel {
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    vertical-align: center;
+    color: white;
+}
+
+#CloseButton:active {
+    width: 192px;
+    height: 28px;
+    margin-top: 16px;
+    margin-left: 4px;
+}
+
+#OpenBanButton {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#2d4881cc), to(#486ca9cc));
+    border-top: 1px solid #ffffff03;
+    width: 280px;
+    height: 50px;
+    vertical-align: center;
+}
+
+#OpenBanButtonLabel {
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    vertical-align: center;
+    color: white;
+}
+
+#OpenBanButton:hover {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#2d4881cc), to(#84acff));
+}
+
+#OpenBanButton:active {
+    sound: "ui_team_select_lock_and_start";
+}
+
+#WaitingContainer {
+    flow-children: right;
+}
+
+.Spinner {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    background-image: url("s2r://panorama/images/custom_game/extract/loadingthrobber_round_png.vtex");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: contain;
+    animation-name: SpinnerRotate;
+    animation-duration: 1.0s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+#WaitingLabel {
+    color: white;
+    font-size: 25px;
+}
+
+#TimeLeftLabel {
+    margin-top: 3px;
+    width: 100%;
+    text-align: center;
+}
+
+.Green {
+    color: green;
+}
+
+.Red {
+    color: red;
+}
+
+.AbilityRadioButton:disabled {
+    saturation: 0;
+}
+
+.PassTaoBaoPanel {
+    height: 300px;
+}
+
+#RecentBannedAbilitiesLabel 
+{
+    font-size: 28px;
+    horizontal-align: left;
+}
+
+#RecentBannedAbilitiesContainer 
+{
+    flow-children: down;
+    horizontal-align: left;
+    margin-left: 20px;
+}
+
+#OmniscientMain .Hidden {
+    transform: translatex(-1000px);
+    opacity: 0.0;
+}
+
+#OmniscientMain 
+{
+    position: 0 0px 0;
+    width: 100%;
+    height: 100%;
+    border-top: 0px solid #333;
+    border-bottom: 0px solid #333;
+    background-image: url("s2r://panorama/images/custom_game/extract/ability_bg_png.vtex");
+    background-size: 100% 100%;
+    overflow: clip;
+    animation-name: links-and-more-button-focus;
+    animation-duration: 0.6s;
+    animation-delay: 0.0s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    transition-property: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.OmniscientWrapper {
+    margin-top: 15px;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    flow-children: right-wrap;
+}
+
+#SelectButton {
+    height: 50px;
+    width: 150px;
+    border-radius: 15px;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#5Aa15E), to(#87d69533));
+    background-image: url("s2r://");
+    background-size: 328px 50px;
+}
+
+#SelectButton:disabled {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#5A615Ecc), to(#879695cc));
+    box-shadow: none;
+}
+
+#SelectButton:hover {
+    brightness: 2.0;
+}
+
+#SelectButton:active {
+    brightness: 0.5;
+}
+
+#SelectButton:disabled {
+    saturation: 0;
+}
+
+#SelectButtonLabel {
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: center;
+    text-overflow: shrink;
+    color: white;
+}
+
+#HideButton {
+    margin-left: 250px;
+    height: 50px;
+    width: 150px;
+    border-radius: 15px;
+    box-shadow: fill transparent 0px 0px 0px 0px;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#3784a6), to(#215373));
+    background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+    background-size: 320px 120px;
+    transition-property: transform, brightness;
+    transition-duration: 0.3s;
+}
+
+#HideButtonLabel {
+    color: #cccccc;
+    font-size: 30px;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+#OmniscientButtonPanel {
+    height: 120px;
+    width: 920px;
+    margin-top: 600px;
+    horizontal-align: right;
+    vertical-align: center;
+}
+
+#OmniscientButtonPanel .Hidden {
+    opacity: 0;
+}
+
+#HideButton:hover {
+    brightness: 2.0;
+}
+
+#HideButton:active {
+    brightness: 0.5;
+}
+
+#HideButton:disabled {
+    saturation: 0;
+}
+
+#HeroImageRadioButton:selected {
+    box-shadow: inset #66ff6650 2px 2px 4px 4px;
+}
+
+#HeroImageRadioButton:disabled {
+    saturation: 0;
+}
+
+#RecentBannedHeroes {
+    height: 100px;
+    flow-children: right;
+}
+
+#RecentBannedHeroes RadioButton {
+    width: 70px;
+    height: 38px;
+    margin-left: 15px;
+}
+
+#RecentBannedHeroes RadioButton:selected {
+    box-shadow: inset #66ff6650 2px 2px 4px 4px;
+}
+
+#RecentBannedHeroes RadioButton:disabled {
+    saturation: 0;
+}
+
+#RecentBannedContainer 
+{
+    flow-children: down;
+}
+
+.BanAbilityLabel
+{
+    horizontal-align: center;
+    font-size: 32px;
+    font-family: Reaver;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.BanAbilityLabelTimer
+{
+    horizontal-align: center;
+    font-size: 42px;
+    font-family: Reaver;
+    color: white;
+    font-weight: bold;
+}
+
+.HeroesList
+{
+    horizontal-align: center;
+    flow-children: right;
+    margin-top: 5px;
+}
+
+.hBlock 
+{
+    width: 430px;
+}
+
+#RowNameContainer 
+{
+    flow-children: right;
+    horizontal-align: center;
+}
+
+#RowIcon 
+{
+    height: 30px;
+    width: 30px;
+    vertical-align: center;
+}
+
+#RowName 
+{
+    vertical-align: center;
+    font-size: 24px;
+    color: white;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.HeroesGroup 
+{
+    margin-top: 10px;
+    horizontal-align: center;
+}
+
+.HeroesGroupContainer 
+{
+    flow-children: right-wrap;
+    max-width: 410px;
+    horizontal-align: center;
+}
+
+.HeroPanel {
+    width: 51px;
+    margin: 2px;
+    height: 80px;
+}
+
+RadioButton:enabled DOTAHeroImage:hover, RadioButton:selected DOTAHeroImage 
+{
+    box-shadow: #ffffff80 0px 0px 1px 1px;
+}
+
+RadioButton > .RadioBox 
+{
+    visibility: collapse;
+}
+
+.DonateImage
+{
+    horizontal-align: right;
+    background-image: url("file://{images}/custom_game/bp_ban.png");
+    background-size: 100%;
+    width: 520px;
+    height: 260px;
+}
+
+.Morebanwithbnp
+{
+    width: 200px;
+    vertical-align: center;
+    horizontal-align: right;
+    margin-right: 35px;
+    color: white;
+    text-shadow: 0px 0px 4px 2.0 #ffffff10;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.bp
+{
+    width: 100%;
+    margin-top: 10px;
 }

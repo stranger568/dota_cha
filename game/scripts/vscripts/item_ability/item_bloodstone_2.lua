@@ -22,7 +22,7 @@ function item_bloodstone_2:OnSpellStart()
 	self.restore_duration			= self:GetSpecialValueFor("restore_duration")
 
 	if not IsServer() then return end
-		
+	--self.caster:EmitSound("shamp_cast")	
 	self.caster:EmitSound("DOTA_Item.Bloodstone.Cast")
 	--self.caster:EmitSound("beer_cast")
 
@@ -147,11 +147,9 @@ function modifier_item_bloodstone_2:GetModifierSpellAmplify_PercentageUnique()
 	return self.spell_amp
 end
 
-
 function modifier_item_bloodstone_2:GetModifierBonusStats_Intellect()
 	return self.bonus_intellect
 end
-
 
 function modifier_item_bloodstone_2:GetModifierConstantManaRegen()
 	return self.regen_per_charge * self:GetStackCount()
@@ -162,7 +160,6 @@ function modifier_item_bloodstone_2:GetModifierSpellAmplify_Percentage()
 end
 
 function modifier_item_bloodstone_2:OnDeathEvent(keys)
-	print("сработало")
 	if keys.unit:IsRealHero() and keys.attacker:GetTeamNumber() == self.parent:GetTeamNumber() then
 		if self.parent:GetTeam() ~= keys.unit:GetTeam() and ((keys.unit:GetAbsOrigin() - self.parent:GetAbsOrigin()):Length2D() <= self.charge_range or self.parent == keys.attacker) and self.parent:IsAlive() then
 			if self == self.parent:FindAllModifiersByName(self:GetName())[1] then
@@ -170,7 +167,11 @@ function modifier_item_bloodstone_2:OnDeathEvent(keys)
 					local item = self.parent:GetItemInSlot(itemSlot)
 				
 					if item and item:GetName() == self.ability:GetName() then
-						item:SetCurrentCharges(item:GetCurrentCharges() + self.kill_charges)
+						local bonus = 0
+						if self.parent:HasModifier("modifier_skill_bloodmage") then
+							bonus = 1
+						end
+						item:SetCurrentCharges(item:GetCurrentCharges() + self.kill_charges + bonus)
 						break
 					end
 				end
@@ -192,17 +193,17 @@ function modifier_item_bloodstone_2:TakeDamageScriptModifier( keys )
 
 		local table_skills = 
 		{
-			["doom_bringer_devour"] = true,
+			["doom_bringer_devour_custom"] = true,
 			["mirana_arrow"] = true,
 			["life_stealer_infest"] = true,
 			["life_stealer_consume"] = true,
-			["night_stalker_hunter_in_the_night"] = true,
+			["night_stalker_hunter_in_the_night_custom"] = true,
 			["snapfire_mortimer_kisses"] = true,
 			["snapfire_gobble_up"] = true,
 			["snapfire_spit_creep"] = true,
 			["silencer_glaives_of_wisdom_custom"] = true,
 			["pudge_meat_hook"] = true,
-			["enigma_demonic_conversion"] = true,
+			["enigma_demonic_conversion_custom"] = true,
 			["item_hand_of_midas"] = true,
 		}
 
@@ -210,8 +211,8 @@ function modifier_item_bloodstone_2:TakeDamageScriptModifier( keys )
 			if keys.unit:IsIllusion() then
 				if keys.damage_type == DAMAGE_TYPE_PHYSICAL and keys.unit.GetPhysicalArmorValue and GetReductionFromArmor then
 					keys.damage = keys.original_damage * (1 - GetReductionFromArmor(keys.unit:GetPhysicalArmorValue(false)))
-				elseif keys.damage_type == DAMAGE_TYPE_MAGICAL and keys.unit.GetMagicalArmorValue then
-					keys.damage = keys.original_damage * (1 - GetReductionFromArmor(keys.unit:GetMagicalArmorValue()))
+				elseif keys.damage_type == DAMAGE_TYPE_MAGICAL and keys.unit.Script_GetMagicalArmorValue then
+					keys.damage = keys.original_damage * (1 - GetReductionFromArmor(keys.unit:Script_GetMagicalArmorValue(false, nil)))
 				elseif keys.damage_type == DAMAGE_TYPE_PURE then
 					keys.damage = keys.original_damage
 				end

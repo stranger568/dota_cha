@@ -1,4 +1,3 @@
--- Independent Stacks
 function CDOTA_Modifier_Lua:AddIndependentStack(duration, limit, bDontDestroy, tTimerTable)
 	local timerTable = tTimerTable or {}
 	self.stackTimers = self.stackTimers or {}

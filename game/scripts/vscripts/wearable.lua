@@ -254,7 +254,7 @@ function Wearable:TakeOffSlot(hUnit, sSlotName)
                 for sSubSlotName, hSubWear in pairs(hUnit.Slots) do
                     for p_name, sub_p in pairs(hSubWear["particles"]) do
                         if replace_p_name == p_name then
-                            Wearable:AddParticle(hUnit, hSubWear, replace_p_name, sSubSlotName)
+                            --Wearable:AddParticle(hUnit, hSubWear, replace_p_name, sSubSlotName)
                             break
                         end
                     end
@@ -651,9 +651,6 @@ function Wearable:_WearProp(hUnit, sItemDef, sSlotName, sStyle)
                             end
                         end
                     end
-                    if not bReplaced then
-                        Wearable:AddParticle(hUnit, hWear, particle_name, sSlotName, sStyle)
-                    end
                 end
             elseif type(am_table) == "table" and am_table.type == "particle_replace" then
                 
@@ -671,18 +668,6 @@ function Wearable:_WearProp(hUnit, sItemDef, sSlotName, sStyle)
                                 break
                             end
                         end
-                    end
-                    local p = Wearable:AddParticle(hUnit, hWear, particle_name, sSlotName, sStyle)
-                    hWear["replace_particle_names"] = hWear["replace_particle_names"] or {}
-                    hWear["replace_particle_names"][default_particle_name] = true
-                    if sHeroName == "npc_dota_hero_tiny" and nModelIndex > 0 then
-                        hUnit["Particles" .. nModelIndex][particle_name] = {
-                            pid = p,
-                            hWearParticles = hWear["particles"],
-                            recreate = function()
-                                return Wearable:AddParticle(hUnit, hWear, particle_name, sSlotName, sStyle)
-                            end
-                        }
                     end
                 end
             elseif type(am_table) == "table" and am_table.type == "particle_projectile" then
@@ -1181,7 +1166,7 @@ function Wearable:ShowWearables(hUnit)
             if hUnit["prismatic_particles"] and hUnit["prismatic_particles"][p_name] then
                 hUnit["prismatic_particles"][p_name].hidden = false
             end
-            local new_p = Wearable:AddParticle(hUnit, hWear, p_name, sSlotName, hWear["style"])
+            --local new_p = Wearable:AddParticle(hUnit, hWear, p_name, sSlotName, hWear["style"])
         end
         if hWear["additional_wearable"] then
             for _, prop in pairs(hWear["additional_wearable"]) do
@@ -1459,7 +1444,7 @@ end
 function Wearable:SpecialFixParticles(hUnit, sItemDef, hWear, sSlotName, sStyle)
     if sItemDef == "12588" then
         local particle_name = "particles/econ/items/lanaya/princess_loulan/princess_loulan_weapon.vpcf"
-        Wearable:AddParticle(hUnit, hWear, particle_name, sSlotName, sStyle)
+        --Wearable:AddParticle(hUnit, hWear, particle_name, sSlotName, sStyle)
     end
 end
 
@@ -1504,7 +1489,9 @@ function Wearable:SwitchWearable(keys)
 
 end
 
-if not Wearable.heroes then
-    Wearable:Init()
-    Wearable:PostInit()
+if not IsInToolsMode() then
+    if not Wearable.heroes then
+        Wearable:Init()
+        Wearable:PostInit()
+    end
 end

@@ -20,24 +20,17 @@ function shadow_shaman_shackles_custom:OnSpellStart()
 
 	self.targets = {}
 	
-	if target ~= nil then
+	if target then
 		if not target:TriggerSpellAbsorb(self) then
 			target:AddNewModifier(self:GetCaster(), self, "modifier_shadow_shaman_shackles_custom", {duration = duration})
 			table.insert(self.targets, target)
-		end
-
-		local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			if enemy ~= target then
-				table.insert(self.targets, enemy)
-				enemy:AddNewModifier(self:GetCaster(), self, "modifier_shadow_shaman_shackles_custom", {duration = duration})
+			local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
+			for _, enemy in pairs(enemies) do
+				if enemy ~= target then
+					table.insert(self.targets, enemy)
+					enemy:AddNewModifier(self:GetCaster(), self, "modifier_shadow_shaman_shackles_custom", {duration = duration})
+				end
 			end
-		end
-	else
-		local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			table.insert(self.targets, enemy)
-			enemy:AddNewModifier(self:GetCaster(), self, "modifier_shadow_shaman_shackles_custom", {duration = duration})
 		end
 	end
 
@@ -82,7 +75,7 @@ end
 modifier_shadow_shaman_shackles_custom = class({})
 
 function modifier_shadow_shaman_shackles_custom:IgnoreTenacity()		return true end
-function modifier_shadow_shaman_shackles_custom:IsPurgable()			return false end
+function modifier_shadow_shaman_shackles_custom:IsPurgable()			return true end
 function modifier_shadow_shaman_shackles_custom:IsPurgeException()	return true end
 function modifier_shadow_shaman_shackles_custom:GetAttributes() 		return MODIFIER_ATTRIBUTE_MULTIPLE end
 
@@ -100,7 +93,7 @@ function modifier_shadow_shaman_shackles_custom:OnCreated()
 	self.total_damage			= self:GetAbility():GetSpecialValueFor("total_damage") + self:GetCaster():FindTalentValue("special_bonus_unique_shadow_shaman_6")
 	self.channel_time			= self:GetAbility():GetSpecialValueFor("channel_time") + self:GetCaster():FindTalentValue("special_bonus_unique_shadow_shaman_2")
 	self.damage_per_tick	= self.total_damage / (self.channel_time / self.tick_interval)
-	self:StartIntervalThink(self.tick_interval * (1 - self:GetParent():GetStatusResistance()))
+	self:StartIntervalThink(self.tick_interval)
 
 
 	if self:GetCaster():HasShard() then
@@ -121,6 +114,11 @@ end
 
 function modifier_shadow_shaman_shackles_custom:OnIntervalThink()
 	if not IsServer() then return end
+
+	if self:GetCaster():IsStunned() or self:GetCaster():IsSilenced() then
+		self:Destroy()
+		return
+	end
 	
 	if not self:GetAbility():IsChanneling() then
 		self:Destroy()

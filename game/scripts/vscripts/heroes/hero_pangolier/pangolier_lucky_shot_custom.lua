@@ -6,7 +6,7 @@ local proc_abilities =
 {
     pangolier_swashbuckle = true,
     pangolier_shield_crash = true,
-    pangolier_heartpiercer = true,
+    pangolier_heartpiercer_custom = true,
     pangolier_gyroshell = true,
     pangolier_rollup = true,
 }

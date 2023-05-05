@@ -1,146 +1,142 @@
-.Hidden{
+.Hidden 
+{
     opacity: 0;
 }
 
+#PlayerLosePanel 
+{
+    width: 450px;
+    height: 400px;
+    background-color: #111;
+    box-shadow: fill #00000066 0px 0px 3px 1px;
+    vertical-align: center;
+    horizontal-align: center;
+    transition-property: position;
+    transition-duration: 2s;
+    margin-top: 250px;
+    margin-left: 750px;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    flow-children: down;
+}
 
+.PlayerLoseLabel {
+    color: #ff0000;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px
+    text-transform: uppercase;
+    font-weight: bold;
+    horizontal-align: center;
+}
 
- #PlayerLosePanel{
+.PlayerLoseRank 
+{
+    width: 100%;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.02);
+    flow-children: right;
+}
 
-  width:350px;
-  height:500px;
-  background-color:#111;
-  background-image: url("s2r://panorama/images/coaching/tiny_coach_dashboard_background_png.vtex");
-     background-size:100% 100%;
-     box-shadow: fill #00000066 -4px -4px 8px 8px;
-     vertical-align: center;
-     horizontal-align:center;
-     transition-property: position;
-     transition-duration: 2s;
-     margin-top: 250px;
-     margin-left: 750px;
+.PlayerLoseRankInner 
+{
+    horizontal-align: center;
+    flow-children: right;
+    height: 100%;
+}
 
-     transition-property: opacity;
-     transition-duration: 0.3s;
-     transition-timing-function: ease-in-out;
-     flow-children:down;
- }
+#RankInner1 
+{
+    color: white;
+    font-size: 30px;
+    margin-right: 30px;
+    vertical-align: center;
+}
 
- .PlayerLoseLabel{
-     color:#ff0000;
-     font-size:22px;
-     margin-top:60px;
-     font-weight: bold;
-     horizontal-align:center;
- }
+#RankInner2 
+{
+    font-size: 50px;
+    vertical-align: center;
+    font-weight: bold;
+    color: #ffff00;
+    margin: 5px;
+}
 
- .PlayerLoseRank{
+#RankInner3 
+{
+    color: white;
+    font-size: 30px;
+    vertical-align: center;
+}
 
-     width:100%;
-     height:100px;
-     background-color: rgba(255,255,255,0.02);
-     flow-children:right;
- }
+.SafeLeaveLabel 
+{
+    font-size: 14px;
+    horizontal-align: center;
+    color: white;
+    padding: 20px;
+}
 
+.ConfirmButton 
+{
+    width: 350px;
+    height: 50px;
+    horizontal-align: center;
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#722217), to(#DD4A29));
+    background-image: url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
+    background-size: 150px 30px;
+    padding: 3px;
+}
 
- .PlayerLoseRankInner{
+.ConfirmButtonLabel 
+{
+    align: center center;
+    font-weight: bold;
+    font-size: 24px;
+    color: white;
+    text-transform: uppercase;
+}
 
-     horizontal-align:center;
-     flow-children:right;
- }
+.ConfirmButton:hover 
+{
+    brightness: 1.2;
+}
 
+.DotaMindScore 
+{
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.02);
+    flow-children: down;
+    margin-top: 20px;
+}
 
- #RankInner1{
-     color: white;
-     font-size:30px;
-     vertical-align: center;
-     line-height: 80px;
- }
- #RankInner2{
-     font-size:80px;
-     vertical-align: center;
-     font-weight: bold;
-     line-height: 80px;
-     color:#ffff00;
- }
- #RankInner3{
-     color: white;
-     font-size:30px;
-     vertical-align: center;
-     line-height: 80px;
- }
+.DotaMindScoreInner {
+    horizontal-align: center;
+    flow-children: right;
+}
 
+#DotaMindLabel {
+    color: white;
+    font-size: 30px;
+    vertical-align: center;
+    horizontal-align: center;
+}
 
- .SafeLeaveLabel{
-     width:100%;
-     height:110px;
-     background-color: rgba(255,255,255,0.02);
-     flow-children:right;
-     font-size:20px;
-     color: white;
-     padding: 20px;
- }
+.DotaMindInner 
+{
+    font-size: 30px;
+    vertical-align: center;
+    color: white;
+    margin-left: 10px;
+}
 
+.Green
+{
+    color: green;
+}
 
- .ConfirmButton{
-
-   width: 150px;
-   height: 30px;
-   margin-left:100px;
-   margin-top: 30px;
-   background-color:gradient( linear, 0% 0%, 0% 100%, from( #722217 ), to( #DD4A29 ) );
-   background-image:url("s2r://panorama/images/custom_game/extract/background_play_button_2x_png.vtex");
-   background-size: 150px 30px;
-   padding: 3px;
- }
-
- .ConfirmButtonLabel{
-
-   width: 100%;
-   height: 100%;
-   text-align: center;
-   font-size: 20px;
-   color:white;
- }
- .ConfirmButtonLabel:hover{
-
-    color:red;
- }
-
-
-
- .DotaMindScore{
-
-     width:100%;
-     background-color: rgba(255,255,255,0.02);
-     flow-children:down;
-     margin-top: 20px;
- }
-
- .DotaMindScoreInner{
-     horizontal-align:center;
-     flow-children:right;
- }
-
-
- #DotaMindLabel{
-     color: white;
-     font-size:30px;
-     vertical-align: center;
-     horizontal-align: center;
-     line-height: 30px;
- }
-
- .DotaMindInner{
-     font-size:30px;
-     vertical-align: center;
-     line-height: 50px;
-     color:white;
- }
-
- .Green{
-     color:green;
- }
-
- .Red{
-     color:red;
+.Red 
+{
+    color: red;
 }

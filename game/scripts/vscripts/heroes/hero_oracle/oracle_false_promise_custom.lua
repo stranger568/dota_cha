@@ -56,20 +56,6 @@ function modifier_oracle_false_promise_custom:OnCreated()
 	end
 end
 
-function modifier_oracle_false_promise_custom:OnRefresh()
-	if not IsServer() then return end
-
-	self.heal_counter = self.heal_counter or 0
-
-	self.damage_instances	= self.damage_instances or {}
-	self.instance_counter	= self.instance_counter or 1
-	self.damage_counter		= self.damage_counter or 0
-
-	if self:GetCaster():HasShard() then
-		self:StartIntervalThink(self:GetAbility():GetSpecialValueFor("shard_fade_time"))
-	end
-end
-
 function modifier_oracle_false_promise_custom:OnIntervalThink()
 	self.invis_modifier = self:GetParent():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_invisible", {})
 
@@ -118,6 +104,9 @@ function modifier_oracle_false_promise_custom:OnDestroy()
 					instance.damage = self:GetParent():GetMaxHealth() * 1.5
 				end
 				ApplyDamage(instance)
+				if not self:GetParent():IsAlive() then
+					break
+				end
 			end
 		end
 
@@ -138,8 +127,6 @@ function modifier_oracle_false_promise_custom:DeclareFunctions()
 		MODIFIER_EVENT_ON_HEAL_RECEIVED,
 		MODIFIER_PROPERTY_DISABLE_HEALING,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
-		MODIFIER_EVENT_ON_ATTACK,
-		MODIFIER_EVENT_ON_ABILITY_FULLY_CAST,
 		MODIFIER_PROPERTY_MIN_HEALTH,
 	}
 end
@@ -157,7 +144,7 @@ function modifier_oracle_false_promise_custom:GetModifierIncomingDamage_Percenta
 			victim			= self:GetParent(),
 			damage			= keys.damage,
 			damage_type		= DAMAGE_TYPE_PURE,
-			damage_flags	= damage_flags,
+			damage_flags	= damage_flags + DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_HPLOSS,
 			attacker		= keys.attacker,
 			ability			= self:GetAbility()
 		}
@@ -197,14 +184,14 @@ function modifier_oracle_false_promise_custom:GetModifierPhysicalArmorBonus()
 	return self:GetAbility():GetSpecialValueFor("bonus_armor")
 end
 
-function modifier_oracle_false_promise_custom:OnAttack(keys)
+function modifier_oracle_false_promise_custom:AttackModifier(keys)
 	if self:GetCaster():HasShard() and keys.attacker == self:GetParent() and not keys.no_attack_cooldown and self.invis_modifier and not self.invis_modifier:IsNull() then
 		self.invis_modifier:Destroy()
 		self:StartIntervalThink(self:GetAbility():GetSpecialValueFor("shard_fade_time"))
 	end
 end
 
-function modifier_oracle_false_promise_custom:OnAbilityFullyCast(keys)
+function modifier_oracle_false_promise_custom:OnAbilityfullCastCustom(keys)
 	if self:GetCaster():HasShard() and keys.unit == self:GetParent() and self.invis_modifier and not self.invis_modifier:IsNull() then
 		self.invis_modifier:Destroy()
 		self:StartIntervalThink(self:GetAbility():GetSpecialValueFor("shard_fade_time"))

@@ -24,10 +24,12 @@
 		</snippet>
 		<snippet name="AbilityBannedAbility">
 			<Panel class="AbilityBannedRoot">
-				<Panel class="AbilityBannedBackGround" />
+				
 				<Panel class="AbilityBannedContainer">
 					<Panel>
-						<DOTAAbilityImage id="AbilityBannedImage" />
+						<DOTAAbilityImage id="AbilityBannedImage">
+							<Panel class="AbilityBannedBackGround" />
+						</DOTAAbilityImage>
 					</Panel>
 					<Label id="AbilityBannedName" text="" />
 				</Panel>
@@ -47,7 +49,7 @@
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel id="page_setting" class="AbilityOrderPanelRoot">
 				<Panel class="Close" onactivate="CloseAbilityOrder();"/>
-				<Panel class="MainSettingsContainer">
+				<Panel class="MainSettingsContainer"> 
 					<Panel class="SettingLeft">
 						<Panel id="BarrageSetting">
 							<Label id="BarrageSettingTitle" text="#UISettingTitle" />
@@ -80,25 +82,13 @@
 						</Panel>
 					</Panel>
 					<Panel class="SettingRight">
-						<Panel class="ButtonWithChatWheel" onactivate="GameUI.CustomUIConfig().OpenChatWheel();">
-							<Panel class="ChatWheelImage" />
-							<Label class="ChatWheelName" text="#change_chat_wheel_settings" />
-						</Panel>
-						<Panel class="ButtonWithKeyBind" onactivate="GameUI.CustomUIConfig().OpenKeybind();">
-							<Panel class="KeybindImage" />
-							<Label class="KeybindName" text="#change_keybind_settings" />
-						</Panel>
 						<Panel class="ButtonWithGuide" onactivate="GameUI.CustomUIConfig().OpenGuide();">
 							<Panel class="GuideImage" />
 							<Label class="GuideName" text="#guide_settings" />
 						</Panel>
-						<Panel class="ButtonWithCustomize" onactivate="GameUI.CustomUIConfig().OpenCustomize();">
-							<Panel class="CustomizeImage" />
-							<Label class="CustomizeName" text="#customize_profile_settings" />
-						</Panel>
-						<Panel class="ButtonWithCalibrate" onactivate="GameUI.CustomUIConfig().OpenCalibrate();">
-							<Panel class="CalibrateImage" />
-							<Label class="CalibrateName" text="#calibrate_settings" />
+						<Panel class="ButtonWithGuide" onactivate="GameUI.CustomUIConfig().OpenSkills();">
+							<Panel class="GuideImage" />
+							<Label class="GuideName" text="#skills_settings" />
 						</Panel>
 					</Panel>
 				</Panel>

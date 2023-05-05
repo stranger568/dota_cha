@@ -11,15 +11,15 @@
 
  .FlyoutScoreboardRoot{
 
-  horizontal-align: left;
-  vertical-align: top;
-      margin-top: 95px;
-      margin-left: 30px;
+      horizontal-align: left;
+      vertical-align: top;
+      margin-top: 70px;
+
      flow-children: down;
      padding: 0px;
      opacity: 0;
-  background-image: url("file://{images}/custom_game/fly_hud/bg.png");
-  background-size: 100%;
+     background-image: url("file://{images}/custom_game/fly_hud/bg.png");
+     background-size: 100%;
      background-color: #000000da;
      box-shadow: #000000f5 0px 0px 8px 2px;
      transform: translatex( -500px );
@@ -36,7 +36,7 @@
  #TeamsContainer{
 
      flow-children: down;
-     horizontal-align: center;
+    
  }
 
 .rainbow_nickname
@@ -581,6 +581,7 @@ background-image: url("s2r://panorama/images/custom_game/button_audio_on_psd.vte
     transition-property: opacity;
     transition-duration: 0.2s;
     background-color: black;
+    margin-right: 3px;
  }
 
  .items_toggled #PlayerItemsContainer{
@@ -624,9 +625,9 @@ background-image: url("s2r://panorama/images/custom_game/button_audio_on_psd.vte
   transition-property: opacity;
   transition-duration: 0.2s;
   background-color: black;
-  margin-left: 6px;
   height: 100%;
-  margin-right: 20px;
+  margin-right: 3px;
+  margin-left: 3px;
  }
 
  .abilities_toggled #AbilitiesContainer{
@@ -681,22 +682,24 @@ background-image: url("s2r://panorama/images/custom_game/button_audio_on_psd.vte
  }
 
  #HeaderItems{
-  width: 304px;
+  width: 265px;
   margin-left: 6px;
   visibility: collapse;
+  background-color: red;
  }
 
  .items_toggled  #HeaderItems{
-  visibility: visible;
- }
-
- #HeaderAbilities{
-  horizontal-align:center;
   visibility: collapse;
  }
 
+ #HeaderAbilities
+ {
+    horizontal-align:center;
+    visibility: collapse;
+ }
+
  .abilities_toggled #HeaderAbilities{
-  visibility: visible;
+  visibility: collapse;
  }
 
 

@@ -89,6 +89,9 @@ function modifier_slark_essence_shift_lua:GetModifierProcAttack_Feedback(keys)
 
 	if self.parent:IsIllusion() or self.parent:PassivesDisabled() then return end
 	if keys.target:GetTeam() == self.parent:GetTeam() then return end
+	if keys.target:GetUnitName() == "npc_dota_stranger" then return end
+	if keys.target:GetUnitName() == "npc_dota_teleport_base_custom_red" then return end
+	if keys.target:GetUnitName() == "npc_dota_teleport_base_custom_blue" then return end
 
 	local particle_cast = ParticleManager:GetParticleReplacement('particles/units/heroes/hero_slark/slark_essence_shift.vpcf', self.parent)
 	local effect_cast = ParticleManager:CreateParticle(particle_cast, PATTACH_ABSORIGIN_FOLLOW, keys.target)
@@ -115,6 +118,9 @@ function modifier_slark_essence_shift_lua:GetModifierProcAttack_Feedback(keys)
 	local modifier = self.parent:AddNewModifier(self.parent, nil, "modifier_slark_essence_shift_lua_agi", {duration = self.duration+talent_duration})
 	if modifier and not modifier:IsNull() then
 		modifier:AddIndependentStack(self.duration+talent_duration, nil, true, {stacks=stacks})
+		if modifier:GetStackCount() >= 400 then
+			Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 93, 3)
+		end
 	end
 
 	if keys.target:IsRealHero() then

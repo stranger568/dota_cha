@@ -24,9 +24,11 @@ function modifier_item_aegis_lua:OnCreated()
 			               local hModifierAegis = hCaster:FindModifierByName("modifier_aegis")
 			               local nCurrentStack = hModifierAegis:GetStackCount()
 			               hModifierAegis:SetStackCount(nCurrentStack+1)
+			               CustomNetTables:SetTableValue("aegis_count", tostring(hCaster:GetPlayerOwnerID()), {count = nCurrentStack+1})
 					    else
 			                local hModifierAegis = hCaster:AddNewModifier(hCaster, nil, "modifier_aegis", {})
 			                hModifierAegis:SetStackCount(1)
+			                CustomNetTables:SetTableValue("aegis_count", tostring(hCaster:GetPlayerOwnerID()), {count = 1})
 					    end
 					    self:GetAbility():SpendCharge()
 					    EmitSoundOn("DOTA_Item.Refresher.Activate", hCaster)

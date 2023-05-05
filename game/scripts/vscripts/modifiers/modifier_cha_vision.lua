@@ -25,7 +25,6 @@ function modifier_cha_vision:OnDestroy()
 	if self.icon and not self.icon:IsNull() then
 		self.icon:Destroy()
 	end
-	print("delete")
 end
 
 modifier_cha_vision_icon = class({})

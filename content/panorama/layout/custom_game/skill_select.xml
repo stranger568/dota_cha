@@ -1,0 +1,28 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.css" />
+		<include src="s2r://panorama/styles/custom_game/skill_select.vcss_c" />
+	</styles>
+
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/security.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/ability_note.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/skill_select.vjs_c" />
+	</scripts>
+
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel class="SkillSelectorPanelRoot" id="SkillSelectorPanelRoot">
+			<Panel class="SkillSelectorPanel" id="SkillSelectorPanel">
+				<Label id="SkillSelectorTitle" text="#SkillSelectorTitle" />
+				<Label id="SkillSelectorTitleTier" text="Tier 1" />
+				<Panel class="SkillSelectorSkillBody" id="SkillSelectorSkillBody" />
+			</Panel>
+			<Panel id="SkillSelectButtonPanel">
+				<Button id="SkillSelector_HideButton" onactivate="HideSkillSelect()">
+					<Label class="SkillSelection_Hide" text="#SkillSelection_Hide" />
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

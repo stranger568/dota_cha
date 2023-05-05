@@ -1,5 +1,5 @@
 ChaServerData = class({})
-ChaServerData.url = 'http://91.219.192.6'  -- сайт с бд
+ChaServerData.url = 'https://data.strangerdev.ru'  -- сайт с бд
 
 
 -- Кто это видит, тот лох !
@@ -17,7 +17,15 @@ function ChaServerData:RegisterPlayerSiteInfo(player_id)
     local set_data = function(data, id)
         local table_info = {
             steamid=PlayerResource:GetSteamAccountID(id),
-
+            arena_level = tonumber(data.arena_level) or 0,
+            max_tips = data.max_tips or 0,
+            max_tips_game = 0,
+            quest_swap1 = data.quest_swap1 or 0,
+            quest_swap2 = data.quest_swap2 or 0,
+            quest_swap3 = data.quest_swap3 or 0,
+            quest_complete1 = tonumber(data.quest_complete1) or 0,
+            quest_complete2 = tonumber(data.quest_complete2) or 0,
+            quest_complete3 = tonumber(data.quest_complete3) or 0,
             mmr = data.mmr[GetMapName()] or {},
             games = data.games[GetMapName()] or {},
             calibrating_games = data.calibrating_games[GetMapName()] or {},
@@ -44,6 +52,9 @@ function ChaServerData:RegisterPlayerSiteInfo(player_id)
             current_ban_abilities = {},
             spell_damage = {},
             spell_damage_income = {},
+            quest_1 = Quests_arena:CheckQuest(id, 1, data.quest_1, PlayerResource:GetSteamAccountID(id)),
+            quest_2 = Quests_arena:CheckQuest(id, 2, data.quest_2, PlayerResource:GetSteamAccountID(id)),
+            quest_3 = Quests_arena:CheckQuest(id, 3, data.quest_3, PlayerResource:GetSteamAccountID(id)),
         }
         ChaServerData.PLAYERS_GLOBAL_INFORMATION[id] = table_info
         CustomNetTables:SetTableValue('cha_server_data', tostring(id), table_info)
@@ -133,6 +144,7 @@ function ChaServerData.SetPlayerStatsGameEnd(player_id, place)
         game_coin = ChaServerData.GetGameCoin(player_id, place),
         game_blocked = ChaServerData.CheckUnbanGame(place),
         games = 1,
+        max_tips = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].max_tips,
         games_calibrating = -1,
         chatwheel_1 = ChaServerData.GetChatWheel(player_id, "1"),
         chatwheel_2 = ChaServerData.GetChatWheel(player_id, "2"),
@@ -309,6 +321,10 @@ function ChaServerData.PostData()
 
     if ((not GameRules:IsCheatMode() and ChaServerData.GetPlayersCount() > 5 and ((GameRules:GetGameTime() - GameRules.nGameStartTime) / 60) >= 10 ) or IsInToolsMode()) then
         SendData(ChaServerData.url .. '/cha_data/post_new_data_rating.php', post_data, nil)
+    end
+
+    for id, player_info in pairs(ChaServerData.PLAYERS_LOSE_MMR_STATS) do
+        ChaServerData.SendQuestProgreess(id)
     end
 end
 
@@ -493,7 +509,7 @@ function ChaServerData.GetMmrByTeamPlace(player_id, place)
         return 0
     end
 
-    local original_rating = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].mmr[3] or 2500
+    local original_rating = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].mmr[5] or 2500
 
     local new_rating = original_rating
 
@@ -502,7 +518,7 @@ function ChaServerData.GetMmrByTeamPlace(player_id, place)
     local bonus_rating_time_multiple = math.min((0.01 * (GameRules:GetGameTime() - GameRules.nGameStartTime)/60), 1)
 
     for id, player_info in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION) do
-        average_rating = average_rating + (player_info.mmr[3] or 2500)
+        average_rating = average_rating + (player_info.mmr[5] or 2500)
     end
 
     local players_count = math.max(ChaServerData.GetPlayersCount(), 1)
@@ -511,7 +527,7 @@ function ChaServerData.GetMmrByTeamPlace(player_id, place)
 
     local rating_difference = math.abs(average_rating - original_rating)
 
-    local calibrating_games = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].calibrating_games[3] or 10
+    local calibrating_games = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].calibrating_games[5] or 10
 
     if calibrating_games > 0 then
         local rating_bonus = calibrating_ratings_bonus[place]
@@ -867,7 +883,101 @@ function ChaServerData.GetMmrByTeamPlace(player_id, place)
     return 0
 end
 
+-- Quests
+
+function ChaServerData.ChangeQuestSend(player_id, tier, quest_id, swap)
+
+    local post_data = 
+    {
+        players = 
+        {
+            {
+                steamid = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].steamid,
+                tier = tier,
+                quest_id = quest_id,
+                swap = swap,
+            }
+        },
+    }
+    if not GameRules:IsCheatMode() or IsInToolsMode() then
+        SendData(ChaServerData.url .. '/cha_data/post_data_change_quest.php', post_data, nil)
+    end
+end
+
+function ChaServerData.GetNewExpLevel(player_id, new_exp, bonus_donate_coin, bonus_arena_coin)
+
+    local post_data = 
+    {
+        players = 
+        {
+            {
+                steamid = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].steamid,
+                new_exp = new_exp,
+                bonus_donate_coin = bonus_donate_coin,
+                bonus_arena_coin = bonus_arena_coin,
+            }
+        },
+    }
+    if not GameRules:IsCheatMode() or IsInToolsMode() then
+        SendData(ChaServerData.url .. '/cha_data/post_data_new_exp.php', post_data, nil)
+    end
+end
+
+function ChaServerData.CloseQuest(player_id, quest_id, tier)
+
+    local post_data = 
+    {
+        players = 
+        {
+            {
+                steamid = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].steamid,
+                quest_id = quest_id,
+                tier = tier,
+            }
+        },
+    }
+    if not GameRules:IsCheatMode() or IsInToolsMode() then
+        SendData(ChaServerData.url .. '/cha_data/post_data_close_quest.php', post_data, nil)
+    end
+end
 
 
+function ChaServerData.AddQuest(steamid, quest_id, tier)
 
+    local post_data = 
+    {
+        players = 
+        {
+            {
+                steamid = steamid,
+                quest_id = quest_id,
+                tier = tier,
+            }
+        },
+    }
+    if not GameRules:IsCheatMode() or IsInToolsMode() then
+        SendData(ChaServerData.url .. '/cha_data/post_data_add_quest.php', post_data, nil)
+    end
+end
 
+function ChaServerData.SendQuestProgreess(id)
+    local player_table = CustomNetTables:GetTableValue('cha_server_data', tostring(id))
+    if player_table then
+        local post_data = 
+        {
+            players = 
+            {
+                {
+                    steamid = ChaServerData.PLAYERS_GLOBAL_INFORMATION[id].steamid,
+                    quest1 = player_table.quest_1["current_point"],
+                    quest2 = player_table.quest_2["current_point"],
+                    quest3 = player_table.quest_3["current_point"],
+                }
+            },
+        }
+        DeepPrintTable(post_data)
+        if not GameRules:IsCheatMode() or IsInToolsMode() then
+            SendData(ChaServerData.url .. '/cha_data/post_data_progress_quest.php', post_data, nil)
+        end
+    end
+end

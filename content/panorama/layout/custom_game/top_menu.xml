@@ -1,4 +1,3 @@
-<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/custom_game/top_menu.vcss_c" />
@@ -10,7 +9,30 @@
 	</scripts>
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel id="TopMenuPanel" class="">
-			<Panel class="TopMenuIcon" id="TopMenuIcon_Order" onactivate="OpenOrder();" onmouseover="TipsOver(&apos;TopMenuIcon_Setting_message&apos;,&apos;TopMenuIcon_Order&apos;)" onmouseout="TipsOut()" />
+			<Panel class="ButtonMenu" onactivate="OpenSettings();">
+				<Panel class="TopMenuIcon" id="TopMenuIcon_Settings" />
+				<Label class="TopMenuLabel" text="#cha_Settings" />
+			</Panel>
+			<Panel class="ButtonMenu" onactivate="OpenLeaderboard();">
+				<Panel class="TopMenuIcon" id="TopMenuIcon_Leaderboard" />
+				<Label class="TopMenuLabel" text="#cha_Leaderboard_b" />
+			</Panel>
+			<Panel class="ButtonMenu" onactivate="OpenPass();">
+				<Panel class="TopMenuIcon" id="TopMenuIcon_Pass" />
+				<Label class="TopMenuLabel" text="#cha_Pass" />
+			</Panel>
+			<Panel class="ButtonMenu" onactivate="OpenWheel();">
+				<Panel class="TopMenuIcon" id="TopMenuIcon_Wheel" />
+				<Label class="TopMenuLabel" text="#cha_Wheel" />
+			</Panel>
+			<Panel class="ButtonMenu" onactivate="OpenRewards();">
+				<Panel class="TopMenuIcon" id="TopMenuIcon_Rewards" />
+				<Label class="TopMenuLabel" text="#cha_Rewards" />
+			</Panel>
+			<Panel class="ButtonMenu" onactivate="OpenProfile();">
+				<Panel class="TopMenuIcon" id="TopMenuIcon_Profile" />
+				<Label class="TopMenuLabel" text="#cha_PlayerInfo_profile" />
+			</Panel>
 		</Panel>
 	</Panel>
 </root>

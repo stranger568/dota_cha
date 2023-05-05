@@ -30,7 +30,7 @@ function mana_burn_function( keys )
 	
 
 	-- Apply effect of ability
-	target:ReduceMana( mana_to_burn )
+	target:Script_ReduceMana( mana_to_burn, nil )
 	local damageTable = {
 		victim = target,
 		attacker = caster,

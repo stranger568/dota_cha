@@ -155,7 +155,7 @@ function AddNewKeybind(key, name, func) {
     key = ConvertHumanFriendlyToActual(key);
     const successful = KeyEvents.RegisterKeybind(key, func);
     keybinds.set(name, [successful ? key : "", func]);
-    GameEvents.SendEventClientSide("on_keybind_changed", { name: name, key: successful ? key : "" });
+    //GameEvents.SendEventClientSide("on_keybind_changed", { name: name, key: successful ? key : "" });
 }
 
 class KeyLogger {
@@ -599,7 +599,7 @@ function CastAbility1() {
 
     if (abilities_list && abilities_list[0])
     {
-    	Abilities.ExecuteAbility(abilities_list[0], playerHeroIndex, false);
+    	Abilities.ExecuteAbility(abilities_list[0], playerHeroIndex, true);
     }
 }
 
@@ -619,7 +619,7 @@ function CastAbility2() {
 
     if (abilities_list && abilities_list[1])
     {
-    	Abilities.ExecuteAbility(abilities_list[1], playerHeroIndex, false);
+    	Abilities.ExecuteAbility(abilities_list[1], playerHeroIndex, true);
     }
 }
 
@@ -639,7 +639,7 @@ function CastAbility3() {
 
     if (abilities_list && abilities_list[2])
     {
-    	Abilities.ExecuteAbility(abilities_list[2], playerHeroIndex, false);
+    	Abilities.ExecuteAbility(abilities_list[2], playerHeroIndex, true);
     }
 }
 
@@ -659,7 +659,7 @@ function CastAbility4() {
 
     if (abilities_list && abilities_list[3])
     {
-    	Abilities.ExecuteAbility(abilities_list[3], playerHeroIndex, false);
+    	Abilities.ExecuteAbility(abilities_list[3], playerHeroIndex, true);
     }
 }
 
@@ -679,7 +679,7 @@ function CastAbility5() {
 
     if (abilities_list && abilities_list[4])
     {
-        Abilities.ExecuteAbility(abilities_list[4], playerHeroIndex, false);
+        Abilities.ExecuteAbility(abilities_list[4], playerHeroIndex, true);
     }
 }
 
@@ -699,7 +699,7 @@ function CastAbility6() {
 
     if (abilities_list && abilities_list[5])
     {
-        Abilities.ExecuteAbility(abilities_list[5], playerHeroIndex, false);
+        Abilities.ExecuteAbility(abilities_list[5], playerHeroIndex, true);
     }
 }
 
@@ -719,7 +719,7 @@ function CastAbility7() {
 
     if (abilities_list && abilities_list[6])
     {
-        Abilities.ExecuteAbility(abilities_list[6], playerHeroIndex, false);
+        Abilities.ExecuteAbility(abilities_list[6], playerHeroIndex, true);
     }
 }
 
@@ -739,7 +739,7 @@ function CastAbility8() {
 
     if (abilities_list && abilities_list[7])
     {
-        Abilities.ExecuteAbility(abilities_list[7], playerHeroIndex, false);
+        Abilities.ExecuteAbility(abilities_list[7], playerHeroIndex, true);
     }
 }
 
@@ -759,7 +759,7 @@ function CastAbility9() {
 
     if (abilities_list && abilities_list[8])
     {
-        Abilities.ExecuteAbility(abilities_list[8], playerHeroIndex, false);
+        Abilities.ExecuteAbility(abilities_list[8], playerHeroIndex, true);
     }
 }
 
@@ -779,6 +779,6 @@ function CastAbility10() {
 
     if (abilities_list && abilities_list[9])
     {
-        Abilities.ExecuteAbility(abilities_list[9], playerHeroIndex, false);
+        Abilities.ExecuteAbility(abilities_list[9], playerHeroIndex, true);
     }
 }

@@ -2,19 +2,57 @@ var previousHeroRadio = null;
 
 var groupKV=
 {
-  str_1:["earthshaker","sven","tiny","kunkka","beastmaster","dragon_knight","rattletrap","omniknight","huskar","alchemist","brewmaster","treant","wisp",
-        "centaur","shredder","bristleback","tusk","elder_titan","legion_commander","earth_spirit","phoenix","mars","snapfire","dawnbreaker","marci"],
-  str_2:["axe","pudge","sand_king","slardar","tidehunter","skeleton_king","life_stealer","night_stalker","doom_bringer","spirit_breaker","lycan","chaos_knight","undying",
-        "magnataur","abaddon","abyssal_underlord","primal_beast"],
-  agi_1:["antimage","drow_ranger","juggernaut","mirana","morphling","phantom_lancer","vengefulspirit","riki","sniper","templar_assassin","luna","bounty_hunter","ursa",
-        "gyrocopter","lone_druid","naga_siren","troll_warlord","ember_spirit","monkey_king","pangolier","hoodwink"], 
-  agi_2:["bloodseeker","nevermore","razor","venomancer","faceless_void","phantom_assassin","viper","clinkz","broodmother","weaver","spectre","meepo","nyx_assassin",
+  str_1:["earthshaker","sven","tiny","kunkka","dragon_knight","omniknight","huskar","alchemist","treant",
+        "centaur","bristleback","tusk","elder_titan","legion_commander","earth_spirit","mars","dawnbreaker"],
+  
+  str_2:["axe","pudge","sand_king","slardar","tidehunter","skeleton_king","life_stealer","night_stalker","doom_bringer","spirit_breaker","chaos_knight","undying","abyssal_underlord","primal_beast"],
+  
+  agi_1:["antimage","drow_ranger","juggernaut","morphling","phantom_lancer","riki","sniper","templar_assassin","luna","bounty_hunter","ursa",
+        "gyrocopter","naga_siren","troll_warlord","ember_spirit","monkey_king","hoodwink"], 
+  
+  agi_2:["bloodseeker","nevermore","razor","faceless_void","phantom_assassin","viper","clinkz","weaver","spectre","meepo",
         "slark","medusa","terrorblade","arc_warden"],
-  int_1:["crystal_maiden","puck","storm_spirit","windrunner","zuus","lina","shadow_shaman","tinker","furion","enchantress","jakiro","chen","silencer","ogre_magi",
-        "rubick","disruptor","keeper_of_the_light","skywrath_mage","oracle","techies","dark_willow","void_spirit"], 
-  int_2:["bane","lich","lion","witch_doctor","enigma","necrolyte","warlock","queenofpain","death_prophet","pugna","dazzle","leshrac","dark_seer","batrider",
-        "ancient_apparition","invoker","obsidian_destroyer","shadow_demon","visage","winter_wyvern","grimstroke"], 
+  
+  int_1:["crystal_maiden","puck","storm_spirit","zuus","lina","shadow_shaman","tinker","furion","enchantress","jakiro","silencer","ogre_magi",
+        "rubick","disruptor","keeper_of_the_light","skywrath_mage","oracle"], 
+  
+  int_2:["lich","lion","witch_doctor","necrolyte","warlock","queenofpain","death_prophet","pugna","leshrac","muerta",
+        "ancient_apparition","invoker","obsidian_destroyer","shadow_demon","grimstroke"], 
+
+  universal_1:["dark_seer","beastmaster","chen","vengefulspirit","dazzle","void_spirit","winter_wyvern","marci","enigma","dark_willow","rattletrap","brewmaster","wisp","windrunner","visage"], 
+  universal_2:["venomancer","lone_druid","techies","mirana","magnataur","pangolier","snapfire","nyx_assassin","shredder","phoenix","abaddon","lycan","bane","batrider","broodmother"],   
 }
+
+
+
+
+groupKV.str_1.sort()
+groupKV.str_2.sort()
+groupKV.agi_1.sort()
+groupKV.agi_2.sort()
+groupKV.int_1.sort()
+groupKV.int_2.sort()
+groupKV.universal_1.sort()
+groupKV.universal_2.sort()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Прогрузка пика и создание переменных
@@ -30,6 +68,19 @@ if (table_player)
 {
 	abilityTimeLeft = table_player.ban_count_ability
 	heroTimeLeft = table_player.ban_count_hero
+}
+
+CustomNetTables.SubscribeNetTableListener( "ban_count", Updateban_table );
+
+function Updateban_table(table, key, data ) {
+	if (table == "ban_count") 
+	{
+		if (key == Players.GetLocalPlayer()) 
+		{
+			abilityTimeLeft = (data.ban_count_ability || 0)
+			heroTimeLeft = (data.ban_count_hero || 0)
+		}
+	}
 }
 
 // Функции дополнительные
@@ -72,24 +123,29 @@ function CloseBanPanel(){
 	}
 }
 
-function OpenBanPanel(){
-   
-   $("#MainBlock").RemoveClass("Hidden")
-   var table_player = CustomNetTables.GetTableValue("ban_count", String(Players.GetLocalPlayer()))
-	if (table_player)
-	{
-		abilityTimeLeft = table_player.ban_count_ability
-		heroTimeLeft = table_player.ban_count_hero
+function OpenBanPanel()
+{
+	if ($("#MainBlock").BHasClass("Hidden"))
+	{	
+		Game.EmitSound("announcer_announcer_ban_yr")
+	    $("#MainBlock").RemoveClass("Hidden")
+	    var table_player = CustomNetTables.GetTableValue("ban_count", String(Players.GetLocalPlayer()))
+		if (table_player)
+		{
+			abilityTimeLeft = table_player.ban_count_ability
+			heroTimeLeft = table_player.ban_count_hero
+		}
 	}
 }
-
+ 
 // Создание героев
 
 function Update_Heroes_Table() 
 {
-	Update_Heroes_Row($("#heroesTableStrAgi"), "str");
-	Update_Heroes_Row($("#heroesTableStrAgi"), "agi");
-	Update_Heroes_Row($("#heroesTableInt"), "int");
+	Update_Heroes_Row($("#HeroesList"), "str");
+	Update_Heroes_Row($("#HeroesList"), "agi");
+	Update_Heroes_Row($("#HeroesList"), "int");
+	Update_Heroes_Row($("#HeroesList"), "universal");
 }
 
 function Update_Heroes_Row(container, type) {
@@ -106,6 +162,11 @@ function Update_Heroes_Row(container, type) {
 	var groupNamePanel = parentPanel.FindChildTraverse("RowName");
 	groupNamePanel.text = $.Localize("#"+type+"");
     parentPanel.FindChildTraverse("RowIcon").SetImage("file://{resources}/images/custom_game/" + type + ".png");
+    
+    if (type == "universal")
+    {
+    	parentPanel.FindChildTraverse("RowIcon").SetImage("file://{images}/primary_attribute_icons/primary_attribute_icon_all_psd.vtex");
+    }
 
 	var groupTable = parentPanel.FindChildTraverse("RowTable");
 
@@ -393,8 +454,6 @@ function UpdatePassData(keys)
 
     UpdateRecentBannedAbilityList(recent_banned_abilities_table)
     UpdateRecentBannedHeroList(recent_banned_heroes_table)
-	 
-	$("#WaitingContainer").AddClass("Hidden");
 }
 
 function UpdateRecentBannedAbilityList(abilities) {
@@ -665,11 +724,30 @@ function UpdatebanAbility(data)
 	UpdateBanAbilityAllClients(data.abilityName)
 }
 
+function UpdateTimerBanStage(data)
+{
+	OpenBanPanel()
+	$("#BanAbilityLabelTimer").text = data.time
+	if (GameUI.CustomUIConfig().CloseTeamList)
+	{
+		GameUI.CustomUIConfig().CloseTeamList()
+	}
+}
+
+function ClosePlayers(data)
+{
+	if (GameUI.CustomUIConfig().CloseTeamList)
+	{
+		GameUI.CustomUIConfig().CloseTeamList()
+	}
+}
+
 (function() 
 {
-    
     GameEvents.Subscribe( "UpdatePassData", UpdatePassData );
     GameEvents.Subscribe( "UpdatebanHero", UpdatebanHero );
     GameEvents.Subscribe( "UpdatebanAbility", UpdatebanAbility );
+    GameEvents.Subscribe( "UpdateTimerBanStage", UpdateTimerBanStage );
+    GameEvents.Subscribe( "ClosePlayers", ClosePlayers );
 	Update_Heroes_Table();
 })();

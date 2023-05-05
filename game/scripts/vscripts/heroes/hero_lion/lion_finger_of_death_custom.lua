@@ -118,6 +118,9 @@ function modifier_lion_finger_of_death_custom_buff:OnDeathEvent(params)
 	local modifier = self:GetCaster():FindModifierByName("modifier_lion_finger_of_death_custom_passive")
 	if modifier then
 		modifier:IncrementStackCount()
+		if modifier:GetStackCount() >= 40 then
+			Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 89, 3)
+		end
 	end
 end
 

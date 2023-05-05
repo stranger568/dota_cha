@@ -1,7 +1,7 @@
 .DamageBlockWithButton
 {
 	align: right top;
-	margin-top: 45px;
+	margin-top: 40px;
 	flow-children: right;
 	transition-property: transform, opacity, position;
   	transition-duration: 0.5s;
@@ -10,22 +10,57 @@
 
 .ButtonCloseDamage
 {
-	width: 50px;
-	height: 50px;
-	background-color: #000000d0;
+	height: 35px;
+    width: 235px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #373d45 ), to( #4d5860 ) );
 	border: 1px solid black;
+    flow-children: right;
+    transform: rotateZ(-90deg) translateX(101px);
+    margin-top: 93px;
 }
 
-.damage_close .ButtonCloseDamage
+.ImageArrow
 {
-    background-image: url("file://{images}/custom_game/damage/damage_close.png");
-    background-size: 100%;
+    width: 100%;
+    height: 100%;
 }
 
-.damage_open .ButtonCloseDamage
+.ImgRotate
 {
-    background-image: url("file://{images}/custom_game/damage/damage_open.png");
+    width: 15px;
+    height: 27px;
+    margin-right: 20px;
+    vertical-align: center;
+}
+
+.AlignCne
+{
+    flow-children: right;
+    align: center center;
+}
+
+.LabelButton
+{
+    font-size: 16px;
+    vertical-align: center;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.damage_close .ImageArrow
+{
+    background-image: url("s2r://panorama/images/control_icons/arrow_min_right_psd.vtex");
     background-size: 100%;
+    background-repeat: no-repeat;
+    transform: rotateZ(-90deg);
+}
+
+.damage_open .ImageArrow
+{
+    background-image: url("s2r://panorama/images/control_icons/arrow_min_left_psd.vtex");
+    background-size: 100%;
+    transform: rotateZ(-90deg);
 }
 
 .AspectRatio4x3 .damage_close
@@ -58,10 +93,8 @@
 .DamageRoundHistoryHead
 {
 	width: 100%;
-	height: 50px;
+    margin-top: 10px;
 	flow-children: down;
-  	background-color: #000000d0;
-  	border-bottom: 1px solid gold;
 }
 
 .DamageRoundHistoryHeadLabel
@@ -70,6 +103,9 @@
 	color: white;
     text-align: center;
 	font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1px;
 }
 
 #DamageAbilities
@@ -92,11 +128,20 @@
 #BattlePassTier2Only
 {
     width: 100%;
-    margin-top: 160px;
     text-align: center;
     color: white;
     font-size: 26px;
     font-weight: bold;
+}
+
+#BattlePassTier2Only_panel
+{
+    horizontal-align: center;
+    width: 200px;
+    height: 250px;
+    background-image: url("file://{images}/custom_game/bp_book2.png");
+    background-size: 100%;
+    margin-top: 50px;
 }
 
 .MenuButtons
@@ -119,15 +164,14 @@
     color: white;
     font-weight: bold;
     align: center center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 14px;
 }
 
 .button_select
 {
-    text-shadow: 0px 0px 10px 1.5 #3382ff;
-    animation-name: button_select_anim;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    border: 2px solid white;
 }
 
 @keyframes 'button_select_anim'
@@ -142,8 +186,6 @@
           text-shadow: 0px 0px 10px 1.5 #3382ff;
      }
 }
-
-
 
 
 

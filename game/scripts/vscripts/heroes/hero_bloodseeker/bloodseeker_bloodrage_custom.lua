@@ -85,7 +85,8 @@ function modiifer_bloodseeker_bloodrage_custom:TakeDamageScriptModifier( params 
 	if params.inflictor ~= nil and params.inflictor:GetAbilityName() == "item_blade_mail" then return end
 	if params.attacker:PassivesDisabled() then return end
 
-	local abilitieslist = {
+	local abilitieslist = 
+	{
 		["item_ranged_cleave"] = true,
 		["item_ranged_cleave_2"] = true,
 		["item_ranged_cleave_3"] = true,
@@ -100,10 +101,6 @@ function modiifer_bloodseeker_bloodrage_custom:TakeDamageScriptModifier( params 
 		["item_bfury_2"] = true,
 		["item_bfury_3"] = true,
 	}
-
-	if params.inflictor ~= nil then
-		print("bloodseeker", params.inflictor:GetAbilityName())
-	end
 
 	if params.inflictor == nil or abilitieslist[params.inflictor:GetAbilityName()] then
 		if params.original_damage <= 0 then return end

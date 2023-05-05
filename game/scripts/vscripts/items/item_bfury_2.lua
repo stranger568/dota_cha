@@ -1,8 +1,7 @@
 LinkLuaModifier("modifier_item_bfury_2", "items/item_bfury_2", LUA_MODIFIER_MOTION_NONE)
 
-item_bfury_2				= class({})
-
-modifier_item_bfury_2	= class({})
+item_bfury_2 = class({})
+modifier_item_bfury_2 = class({})
 
 function item_bfury_2:CastFilterResultTarget(hTarget)
 	if not IsServer() then return end
@@ -49,23 +48,22 @@ function item_bfury_2:OnSpellStart()
 	if self:GetCursorTarget().CutDown then
 		self:GetCursorTarget():CutDown(self:GetCaster():GetTeamNumber())
 	end
-
 	GridNav:DestroyTreesAroundPoint(target:GetAbsOrigin(), 10, true)
 end
 
 function modifier_item_bfury_2:AllowIllusionDuplicate()	return false end
-function modifier_item_bfury_2:IsPurgable()		return false end
-function modifier_item_bfury_2:RemoveOnDeath()	return false end
-function modifier_item_bfury_2:IsHidden()	return true end
-function modifier_item_bfury_2:GetAttributes()	return MODIFIER_ATTRIBUTE_MULTIPLE end
+function modifier_item_bfury_2:IsPurgable()	return false end
+function modifier_item_bfury_2:RemoveOnDeath() return false end
+function modifier_item_bfury_2:IsHidden() return true end
+function modifier_item_bfury_2:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
 
 function modifier_item_bfury_2:DeclareFunctions()
-	local funcs = {
+	local funcs = 
+	{
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 		MODIFIER_PROPERTY_PROCATTACK_FEEDBACK,
 		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
 		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
-		MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PHYSICAL,
 		MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
 	}
 	return funcs
@@ -107,30 +105,31 @@ function modifier_item_bfury_2:GetModifierProcAttack_BonusDamage_Physical( keys 
 	end
 end
 
-function modifier_item_bfury_2:GetModifierProcAttack_Feedback(keys)
+function modifier_item_bfury_2:AttackLandedModifier(keys)
+	if not IsServer() then return end
 	if keys.attacker:IsIllusion() then return end
 	if keys.attacker:IsRangedAttacker() then return end
 	if keys.attacker:GetTeam() == keys.target:GetTeam() then return end
 	if keys.target:IsBuilding() then return end
-	if self:GetParent().anchor_attack_talent then print("СОРРИ ПАССИВКА ТАЙДА") return end
-	if self:GetParent().bCanTriggerLock then print("СОРРИ ПАССИВКА ВОЙДА") return end
+	if self:GetParent().anchor_attack_talent then return end
+	if self:GetParent().bCanTriggerLock then return end
+	if keys.no_attack_cooldown then return end
+	if self:GetParent():HasModifier("modifier_muerta_pierce_the_veil_buff") then return end
+	if self:GetParent():IsTempestDouble() or self:GetParent():HasModifier("modifier_arc_warden_tempest_double_lua") then return end
 
 	local frostivus2018_clinkz_searing_arrows = self:GetParent():FindAbilityByName("frostivus2018_clinkz_searing_arrows")
 	if frostivus2018_clinkz_searing_arrows then
-		print("чекаем абилку", frostivus2018_clinkz_searing_arrows:GetAutoCastState())
 		if frostivus2018_clinkz_searing_arrows:GetAutoCastState() then
 			if keys.no_attack_cooldown then
-				print("СТОЯТЬ ДРУЖИЩЕ")
 				return
 			end
 		end
 	end
 
-	
 	local ability = self:GetAbility()
 	local target_loc = keys.target:GetAbsOrigin()
+
 	local fury_swipes_damage = 0
-	
 	if keys.attacker:HasAbility("ursa_fury_swipes") and keys.target:HasModifier("modifier_ursa_fury_swipes_damage_increase") then
 		local ursa_swipes = keys.attacker:FindAbilityByName("ursa_fury_swipes")
 		if ursa_swipes and not ursa_swipes:IsNull() then
@@ -139,25 +138,33 @@ function modifier_item_bfury_2:GetModifierProcAttack_Feedback(keys)
 		end
 	end
 
-	if not keys.no_attack_cooldown and self:GetParent():FindAllModifiersByName("modifier_item_bfury_2")[1] == self then
-		local blast_pfx = ParticleManager:CreateParticle("particles/bfury_2_effect.vpcf", PATTACH_CUSTOMORIGIN, nil)
-		ParticleManager:SetParticleControl(blast_pfx, 0, target_loc)
-		ParticleManager:ReleaseParticleIndex(blast_pfx)
-	end
-
 	local damage = keys.original_damage + fury_swipes_damage
 
+	local cleave_damage_percent = self:GetAbility():GetSpecialValueFor("cleave_damage_percent")
+	local cleave_damage_percent_creep = self:GetAbility():GetSpecialValueFor("cleave_damage_percent_creep")
+	if self:GetParent():HasModifier("modifier_skill_splash") then
+		cleave_damage_percent = cleave_damage_percent + 40
+		cleave_damage_percent_creep = cleave_damage_percent_creep + 40
+	end
+
 	if keys.target:IsHero() then
-		damage = damage * (self:GetAbility():GetSpecialValueFor("cleave_damage_percent") / 100)
+		damage = damage * (cleave_damage_percent / 100)
 	else
-		damage = damage * (self:GetAbility():GetSpecialValueFor("cleave_damage_percent_creep") / 100)
+		damage = damage * (cleave_damage_percent_creep / 100)
+	end
+
+	local modifier_dragon_knight_elder_dragon_form_custom = self:GetParent():FindModifierByName("modifier_dragon_knight_elder_dragon_form_custom")
+	if modifier_dragon_knight_elder_dragon_form_custom then
+		damage = damage + (keys.damage * modifier_dragon_knight_elder_dragon_form_custom.splash_pct)
 	end
 
 	local enemies = FindUnitsInRadius(keys.attacker:GetTeamNumber(), target_loc, nil, self:GetAbility():GetSpecialValueFor("cleave_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE, FIND_ANY_ORDER, false)
-	
 	for _, enemy in pairs(enemies) do
 		if enemy ~= keys.target then
 			ApplyDamage({ victim = enemy, attacker = keys.attacker, damage = damage, damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION, ability = ability })
+			if modifier_dragon_knight_elder_dragon_form_custom then
+				modifier_dragon_knight_elder_dragon_form_custom:Corrosive( enemy )
+			end
 		end
 	end
 end

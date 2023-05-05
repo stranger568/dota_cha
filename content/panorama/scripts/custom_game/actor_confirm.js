@@ -12,7 +12,7 @@ function ShowActorPanel(keys){
     var target_player_id =  keys.target_player_id
     var targetPlayerInfo = Game.GetPlayerInfo( target_player_id );
 
-    $("#ActorPanelTopLabel").SetDialogVariableInt("time",keys.time);
+    //$("#ActorPanelTopLabel").SetDialogVariableInt("time",keys.time);
 
     if (targetPlayerInfo!=undefined) 
     {

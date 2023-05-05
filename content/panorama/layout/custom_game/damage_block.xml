@@ -10,19 +10,24 @@
 	<Panel hittest="false" style="width:100%;height:100%;">
 		<Panel id="DamageBlockWithButton" class="DamageBlockWithButton damage_close">
 			<Panel class="ButtonCloseDamage" onactivate="DamageToggle();" >
-
+				<Panel class="AlignCne">
+					<Panel class="ImgRotate">
+						<Panel class="ImageArrow" />
+					</Panel>
+					<Label class="LabelButton" text="#DamageRoundHistoryHeadLabel"/>
+				</Panel>
 			</Panel>
 			<Panel id="DamageRoundHistory" class="DamageRoundHistory">
-				<Panel class="DamageRoundHistoryHead">
-					<Label id="DamageRoundHistoryHeadLabel" html="true" class="DamageRoundHistoryHeadLabel" text="#DamageRoundHistoryHeadLabel" />
-				</Panel>
 				<Panel id="MenuButtons" class="MenuButtons">
-					<Panel class="MenuButton" id="DamageAbilitiesButton" onactivate="DamageToggleButton('DamageAbilities', 'DamageAbilitiesButton');" >
-						<Label class="MenuButtonLabel button_select" text="#DamageAbilities" />
+					<Panel class="MenuButton button_select" id="DamageAbilitiesButton" onactivate="DamageToggleButton('DamageAbilities', 'DamageAbilitiesButton');" >
+						<Label class="MenuButtonLabel" text="#DamageAbilities" />
 					</Panel>
 					<Panel class="MenuButton" id="DamageAbilitiesIncomeButton" onactivate="DamageToggleButton('DamageAbilitiesIncome', 'DamageAbilitiesIncomeButton');">
 						<Label class="MenuButtonLabel" text="#DamageAbilitiesIncome" />
 					</Panel>
+				</Panel>
+				<Panel class="DamageRoundHistoryHead">
+					<Label id="DamageRoundHistoryHeadLabel" html="true" class="DamageRoundHistoryHeadLabel" text="" />
 				</Panel>
 				<Panel id="DamageAbilities" />
 				<Panel id="DamageAbilitiesIncome" />

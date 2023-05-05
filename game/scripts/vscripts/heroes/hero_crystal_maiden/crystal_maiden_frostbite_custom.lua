@@ -13,7 +13,7 @@ function crystal_maiden_frostbite_custom:OnSpellStart()
 	local point = self:GetCursorPosition()
 	local radius = self:GetSpecialValueFor("radius")
 
-	if target ~= nil then
+	if target then
 		if not target:TriggerSpellAbsorb(self) then
 			local duration = self:GetSpecialValueFor("duration")
 			if not target:IsHero() then
@@ -23,32 +23,20 @@ function crystal_maiden_frostbite_custom:OnSpellStart()
 			target:AddNewModifier(caster, self, "modifier_crystal_maiden_frostbite_custom", { duration = duration * ( 1 - target:GetStatusResistance() ) })
 			target:AddNewModifier(caster, self, "modifier_stunned", { duration = stun_duration })
 			self:PlayEffects( caster, target )
-		end
 
-		local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			if enemy ~= target then
-				local duration = self:GetSpecialValueFor("duration")
-				if not enemy:IsHero() then
-					duration = self:GetSpecialValueFor("creep_duration")
+			local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
+			for _, enemy in pairs(enemies) do
+				if enemy ~= target then
+					local duration = self:GetSpecialValueFor("duration")
+					if not enemy:IsHero() then
+						duration = self:GetSpecialValueFor("creep_duration")
+					end
+					local stun_duration = 0.1
+					enemy:AddNewModifier(caster, self, "modifier_crystal_maiden_frostbite_custom", { duration = duration * ( 1 - enemy:GetStatusResistance() ) })
+					enemy:AddNewModifier(caster, self, "modifier_stunned", { duration = stun_duration })
+					self:PlayEffects( caster, enemy )
 				end
-				local stun_duration = 0.1
-				enemy:AddNewModifier(caster, self, "modifier_crystal_maiden_frostbite_custom", { duration = duration * ( 1 - enemy:GetStatusResistance() ) })
-				enemy:AddNewModifier(caster, self, "modifier_stunned", { duration = stun_duration })
-				self:PlayEffects( caster, enemy )
 			end
-		end
-	else
-		local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			local duration = self:GetSpecialValueFor("duration")
-			if not enemy:IsHero() then
-				duration = self:GetSpecialValueFor("creep_duration")
-			end
-			local stun_duration = 0.1
-			enemy:AddNewModifier(caster, self, "modifier_crystal_maiden_frostbite_custom", { duration = duration * ( 1 - enemy:GetStatusResistance() ) })
-			enemy:AddNewModifier(caster, self, "modifier_stunned", { duration = stun_duration })
-			self:PlayEffects( caster, enemy )
 		end
 	end
 end

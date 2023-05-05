@@ -27,6 +27,7 @@ function modifier_creature_berserk:OnCreated( kv )
 	if IsServer() then
 		self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_tower_truesight_aura", {})
 		self:StartIntervalThink( 1 )
+        self:SetStackCount(1)
 		self:GetParent():EmitSound("Hero_OgreMagi.Bloodlust.Target")
     	self:GetParent():EmitSound("Hero_OgreMagi.Bloodlust.Target.FP")
 	end
@@ -69,10 +70,40 @@ function modifier_creature_berserk:DeclareFunctions()
 		MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE,
 		MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE_MIN,
 		MODIFIER_PROPERTY_MODEL_SCALE,
+        --MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+        MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS 
+
+
 	}
 	return funcs
 end
 
+--function modifier_creature_berserk:GetModifierPhysicalArmorBonus()
+--    if self:GetParent():GetUnitName() == "npc_dota_roshan" then return 0 end
+--    if self:GetParent():GetUnitName() == "npc_dota_nian" then return 0 end
+--    if self:GetParent():GetUnitName() == "npc_dota_granite_golem" then return 0 end
+--    if not self:GetParent():HasModifier("modifier_creep_cha_resistance") then return end
+--    return self:GetStackCount()
+--end
+
+function modifier_creature_berserk:GetModifierStatusResistanceStacking()
+    if not self:GetParent():HasModifier("modifier_creep_cha_resistance") then
+        if self:GetParent():GetUnitName() == "npc_dota_roshan" then return 0 end
+        if self:GetParent():GetUnitName() == "npc_dota_nian" then return 0 end
+        if self:GetParent():GetUnitName() == "npc_dota_granite_golem" then return 0 end
+    end
+    return 25
+end
+
+function modifier_creature_berserk:GetModifierMagicalResistanceBonus()
+    if not self:GetParent():HasModifier("modifier_creep_cha_resistance") then
+        if self:GetParent():GetUnitName() == "npc_dota_roshan" then return 0 end
+        if self:GetParent():GetUnitName() == "npc_dota_nian" then return 0 end
+        if self:GetParent():GetUnitName() == "npc_dota_granite_golem" then return 0 end
+    end
+    return 25
+end
 
 function modifier_creature_berserk:CheckState()
 	local state =
@@ -120,3 +151,10 @@ end
 function modifier_creature_berserk:GetModifierModelScale(params)
     return 55
 end
+
+
+
+modifier_creep_cha_resistance = class({})
+function modifier_creep_cha_resistance:IsHidden() return true end
+function modifier_creep_cha_resistance:IsPurgable() return false end
+function modifier_creep_cha_resistance:IsPurgeException() return false end

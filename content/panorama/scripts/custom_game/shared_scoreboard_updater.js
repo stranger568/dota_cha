@@ -1,6 +1,7 @@
 "use strict";
 
-function HighlightByParty(player_id, party_icon) {
+function HighlightByParty(player_id, party_icon) 
+{
     if (party_icon)
     {
 	    var party_map = CustomNetTables.GetTableValue("hero_info","party_map") 
@@ -205,7 +206,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
        
 		       if (rank_info && rank_info.mmr && rank_info.games)
 		       {     
-		            if (rank_info.calibrating_games[3] > 0)
+		            if (rank_info.calibrating_games[5] > 0)
 		            {
 		               PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + "rank0" + '.png")';
 		               PlayerRank.style.backgroundSize = "100%" 
@@ -214,11 +215,11 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		            {
 		            	if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0))
 		            	{
-			               if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[3] || 2500) >= 5420)
+			               if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[5] || 2500) >= 5420)
 					       {
 					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
 					       } else {
-					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[3] || 2500) + '.png")';
+					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[5] || 2500) + '.png")';
 					       }
 			               PlayerRank.style.backgroundSize = "100%" 
 			            } else {
@@ -301,31 +302,6 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 	var playerItemsContainer = playerPanel.FindChildInLayoutFile( "PlayerItemsContainer" );
 	if ( playerItemsContainer )
 	{
-
-		let talent_tree_name = "_dynamic_talent_tree_" + playerId
-		let talent_display = playerItemsContainer.FindChild(talent_tree_name)
-		if (talent_display === null) {
-
-			talent_display = $.CreatePanelWithProperties("DOTAHudTalentDisplay", playerItemsContainer, talent_tree_name, {
-		        heroname: playerInfo.player_selected_hero
-		    });        
-			talent_display.style.height = "36px"			
-			talent_display.style.width = "36px"
-
-			let container = talent_display.FindChildTraverse("StatPipContainer")
-			let tree_parts = talent_display.FindChildrenWithClassTraverse("StatBranchPip")
-			tree_parts.forEach(panel=>{
-				panel.style.width = "36px"
-				panel.style.height = "36px"
-			})
-			talent_display.AddClass("TalentTree")
-		}	
-		talent_display.SetPanelEvent("onmouseover", _ShowTalentsTooltip(talent_display, playerInfo.player_selected_hero_id))
-		talent_display.SetPanelEvent("onmouseout", _HideTalentsTooltip(talent_display))
-		talent_display.heroname = playerInfo.player_selected_hero
-
-
-
 		let shard_and_scepter_upgrade_name = "_shard_and_scepter_upgrade_" + playerId
 		let shard_and_scepter_upgrade_panel = playerItemsContainer.FindChild(shard_and_scepter_upgrade_name)
 
@@ -373,9 +349,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 			shard_upgrade_panel.style.backgroundImage = 'url("s2r://panorama/images/hud/reborn/aghsstatus_shard_on_psd.vtex")';
 			shard_upgrade_panel.style.backgroundSize = "100%"
 		}
-
-		talent_display.contextEntityIndex = playerInfo.player_selected_hero_id
-
+		
 		var playerItems = Game.GetPlayerItems( playerId );
 		if ( playerItems )
 		{
@@ -493,9 +467,9 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		 		change_rate = "+ " + change_rate
 		 	}
 		    RatingsContainer.FindChildTraverse("PlayerRating").text = player_data.original_rating + " " + String( change_rate )
-		    if (player_data_main.calibrating_games[3] > 0)
+		    if (player_data_main.calibrating_games[5] > 0)
 		    {
-		       RatingsContainer.FindChildTraverse("PlayerRating").text = $.Localize("#dota_mind_calibrating") + " (" + player_data_main.calibrating_games[3] + ")";
+		       RatingsContainer.FindChildTraverse("PlayerRating").text = $.Localize("#dota_mind_calibrating") + " (" + player_data_main.calibrating_games[5] + ")";
 		    }
 		}
     }
@@ -956,6 +930,35 @@ function ChangeBorderPlayer(panel, frame_id, player_id)
 }
 
 CustomNetTables.SubscribeNetTableListener( "cha_server_data", UpdatePlayerCustomize );
+CustomNetTables.SubscribeNetTableListener( "aegis_count", UpdateAegisCount );
+
+function UpdateAegisCount(table, key, data ) {
+
+	if (table == "aegis_count") 
+	{
+		var playerPanelName = "_dynamic_player_" + key;
+		if (playerPanelName) {
+			var playerPanel = $.GetContextPanel().FindChildTraverse(playerPanelName)
+			if (playerPanel) 
+			{
+				if (data.count)
+				{
+					let AegisCount = playerPanel.FindChildTraverse("AegisCount")
+					if (AegisCount)
+					{
+						AegisCount.text = data.count
+					}
+				} else {
+					let AegisCount = playerPanel.FindChildTraverse("AegisCount")
+					if (AegisCount)
+					{
+						AegisCount.text = "0"
+					}
+				}
+			}
+		}
+	}
+}
 
 function UpdatePlayerCustomize(table, key, data ) {
 	if (table == "cha_server_data") {

@@ -23,63 +23,92 @@
 		<snippet name="HeroesRadioButton">
 			<Panel>
 				<RadioButton id="RadioButton">
-					<DOTAHeroImage id="RadioImage" heroname="" />
+					<DOTAHeroImage id="RadioImage" heroname="" scaling="stretch-to-cover-preserve-aspect" heroimagestyle="portrait" />
 				</RadioButton>
 			</Panel>
 		</snippet>
 	</snippets>
 	<Panel class="OverthrowLoadingRoot">
-		<Image hittest="false" style="height:100%;width:100%;background-size: 100%;" src="file://{images}/custom_game/loadingscreen.png" />
-		
-		<Panel style="width:100%;height:100%;" id="video_bar" />
 
-		<Panel id="TipContainer" onactivate="NextTip()">
-			<Panel id="TipText">
-				<Label id="TipLabel" text="#LoadingTip_1" />
+		<Panel class="LoadingScreenCup" />
+
+		<Panel class="RightInfo">
+			<Label class="LoadingScreenTextGreen" id="loading_inf_2" text="Регистрация"/>
+			<Label class="LoadingScreenTextWhite" id="loading_inf_7" onactivate="ExternalBrowserGoToURL('https://t.me/custom_hero_arena_bot')" text="Перейдите в Telegram"/>
+			<Panel class="FlowChildrenRight">
+				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_8" text="Дата проведения турнира:"/>
+				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_22" text="03.06"/>
 			</Panel>
-			<Panel id="NextTip" class="TipButton" onactivate="NextTip()" />
+			<Panel class="FlowChildrenRight">
+				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_9" text="Регистрация открыта до:"/>
+				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_23" text="24.05"/>
+			</Panel>
+			<Panel class="FlowChildrenRight">
+				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_116" text="Лучшие"/>
+				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_117" text="топ 8"/>
+				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_118" text="рейтинга, сразу попадают в "/>
+				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_119" text="полуфинал"/>
+			</Panel>
 		</Panel>
 
-		<Panel class="DiscordPanel" onactivate="ExternalBrowserGoToURL('https://discord.gg/Fw7Qm2Z');" />
+		<Panel class="LeftInfo">
+			<Label class="LoadingScreenTextGreen" id="loading_inf_1" text="Условия участия" />
+			<Label class="LoadingScreenTextWhite" id="loading_inf_3" text="Подписаться на наши:"/>
+			<Panel class="Links">
+				<Panel class="SiteFlow" id="siteflow1" onactivate="ExternalBrowserGoToURL('https://t.me/custom_hero_arena_bot')">
+					<Label class="LoadingScreenTextWhite" id="loading_inf_4" text="Telegram"/>
+					<Panel class="LinkImage" />
+				</Panel>
+				<Panel class="SiteFlow" onactivate="ExternalBrowserGoToURL('https://www.twitch.tv/hunterofun1')">
+					<Label class="LoadingScreenTextWhite" id="loading_inf_5" text="Twitch"/>
+					<Panel class="LinkImage" />
+				</Panel>
+				<Panel class="SiteFlow" onactivate="ExternalBrowserGoToURL('https://www.youtube.com/channel/UCiwmypsLcssMwkjefiWLEfA')">
+					<Label class="LoadingScreenTextWhite" id="loading_inf_6" text="YouTube"/>
+					<Panel class="LinkImage" />
+				</Panel>
+			</Panel>
+		</Panel>
+
+		<Panel class="CenterFlow">
+			<Label class="TextGrayCenter" text="Все остальные ответы на вопросы можете узнать"/>
+			<Label class="TextGrayCenter" id="linktyt" text="тут" onactivate="ExternalBrowserGoToURL('https://t.me/custom_hero_arena_bot')"/>
+			<Panel class="LinkImage2" />
+		</Panel>
 
 		<Panel id="MainBlock" class="Hidden">
-			<Panel id="Wrapper" class="wrapper">
-				<Panel id="spellShopLeft" class="vBlock ParentCell">
-					<Panel id="heroesTableStrAgi" />
-					<Panel id="OperatePanel" class="hBlock" style="height:120px;">
-						<RadioButton id="HeroImageRadioButton">
-							<DOTAHeroImage id="HeroImage" heroname="" />
-						</RadioButton>
-						<Panel id="Abilities" />
-						<Panel id="ButtonPanel">
-							<Panel id="WaitingContainer">
-								<Panel id="WaitingSpinner" class="Spinner" />
-								<Label id="WaitingLabel" text="#waiting_for_pass" />
-							</Panel>
-							<Button id="BanButton" onactivate="ActiveBan()" class="Hidden">
-								<Label id="BanButtonLabel" />
-							</Button>
-							<Label id="TimeLeftLabel" class="Green Hidden" text="#time_left" />
-							<Button id="CloseButton" onactivate="CloseBanPanel()">
-								<Label id="CloseButtonLabel" text="#close" />
-							</Button>
-						</Panel>
-					</Panel>
-					<Panel id="RecentBannedAbilitiesContainer">
-						<Label id="RecentBannedAbilitiesLabel" text="#recent_ban_abilities" />
-						<Panel id="RecentBannedContainer">
-							<Panel id="RecentBannedAbilities" />
-							<Panel id="RecentBannedHeroes" />
-						</Panel>
+			<Label class="BanAbilityLabel" text="Стадия бана" />
+			<Label class="BanAbilityLabelTimer" id="BanAbilityLabelTimer" text="0" />
+			<Panel class="HeroesList" id="HeroesList" />
+
+			<Panel id="OperatePanel">
+				<Panel class="OperatePanelRight">
+					<RadioButton id="HeroImageRadioButton">
+						<DOTAHeroImage id="HeroImage" heroname="" />
+					</RadioButton>
+					<Panel id="Abilities" />
+				</Panel>
+				<Panel id="ButtonPanel">
+					<Button id="BanButton" onactivate="ActiveBan()" class="Hidden">
+						<Label id="BanButtonLabel" />
+					</Button>
+					<Label id="TimeLeftLabel" class="Green Hidden" text="#time_left" />
+				</Panel>
+			</Panel>
+
+			<Panel class="bp">
+				<Panel id="RecentBannedAbilitiesContainer">
+					<Label id="RecentBannedAbilitiesLabel" text="#recent_ban_abilities" />
+					<Panel id="RecentBannedContainer">
+						<Panel id="RecentBannedAbilities" />
+						<Panel id="RecentBannedHeroes" />
 					</Panel>
 				</Panel>
-				<Panel id="spellShopRight" class="vBlock ParentCell">
-					<Panel id="heroesTableInt" />
+
+				<Panel class="DonateImage">
+					<Label class="Morebanwithbnp" text="Баны героев и способностей доступны для обладателей Pass" />
 				</Panel>
 			</Panel>
 		</Panel>
-		<Button id="OpenBanButton" onactivate="OpenBanPanel()">
-			<Label id="OpenBanButtonLabel" text="#ban_abilities" />
-		</Button>
 	</Panel>
 </root>

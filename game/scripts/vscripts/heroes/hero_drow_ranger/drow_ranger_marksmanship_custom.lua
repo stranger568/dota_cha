@@ -84,8 +84,6 @@ end
 function modifier_drow_ranger_marksmanship_custom:DeclareFunctions()
 	local funcs = {
 		MODIFIER_EVENT_ON_ATTACK_START,
-		MODIFIER_EVENT_ON_ATTACK,
-		MODIFIER_EVENT_ON_ATTACK_LANDED,
 		MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY,
 		MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PHYSICAL,
 		MODIFIER_PROPERTY_PROCATTACK_FEEDBACK,
@@ -113,7 +111,7 @@ function modifier_drow_ranger_marksmanship_custom:CheckState(kv)
 	}
 end
 
-function modifier_drow_ranger_marksmanship_custom:OnAttack( params )
+function modifier_drow_ranger_marksmanship_custom:AttackModifier( params )
 	if not IsServer() then return end
 	if self:GetParent():PassivesDisabled() then return end
 	if params.attacker~=self:GetParent() then return end
@@ -247,37 +245,46 @@ modifier_drow_ranger_marksmanship_custom_effect = class({})
 function modifier_drow_ranger_marksmanship_custom_effect:OnCreated( kv )
 	self.agility = self:GetAbility():GetSpecialValueFor( "agility_multiplier" )
 	if not IsServer() then return end
+	self:SetHasCustomTransmitterData(true)
+	self.agilityb = 0
+	self:StartIntervalThink(0.1)
 end
 
 function modifier_drow_ranger_marksmanship_custom_effect:OnRefresh( kv )
 	self.agility = self:GetAbility():GetSpecialValueFor( "agility_multiplier" )
 end
 
+function modifier_drow_ranger_marksmanship_custom_effect:OnIntervalThink()
+	if not IsServer() then return end
+	self.agilityb = 0
+	local agi = self:GetCaster():GetAgility()
+	self.agilityb = self.agility*agi/100
+	self:GetParent():CalculateStatBonus(true)
+	self:SendBuffRefreshToClients()
+end
+
 function modifier_drow_ranger_marksmanship_custom_effect:DeclareFunctions()
-	local funcs = {
+	local funcs = 
+	{
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 	}
 	return funcs
 end
 
+function modifier_drow_ranger_marksmanship_custom_effect:AddCustomTransmitterData() 
+    return 
+    {
+        agilityb = self.agilityb,
+    } 
+end
+
+function modifier_drow_ranger_marksmanship_custom_effect:HandleCustomTransmitterData(data)
+    self.agilityb = data.agilityb
+end
+
 function modifier_drow_ranger_marksmanship_custom_effect:GetModifierBonusStats_Agility()
-	if not IsServer() then return end
-
 	if self:GetParent():PassivesDisabled() then return end
-
-	if self:GetCaster()==self:GetParent() then
-		if self.lock1 then return end
-		self.lock1 = true
-		local agi = self:GetCaster():GetAgility()
-		self.lock1 = false
-		local bonus = self.agility*agi/100
-		return bonus
-	else
-		local agi = self:GetCaster():GetAgility()
-		agi = 100/(100+self.agility)*agi
-		local bonus = self.agility*agi/100
-		return bonus
-	end
+	return self.agilityb
 end
 
 modifier_drow_ranger_marksmanship_custom_debuff = class({})

@@ -58,7 +58,7 @@ function modifier_frostivus2018_weaver_geminate_attack_custom:AttackModifier(par
 		end
 	end
 
-	self:GetAbility():UseResources(false, false, true)
+	self:GetAbility():UseResources(false, false, false, true)
 end
 
 

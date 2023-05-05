@@ -49,6 +49,9 @@ function axe_culling_blade_custom:OnSpellStart()
 		local modifier = self:GetCaster():FindModifierByName("modifier_axe_culling_blade_custom_armor")
 		if modifier then
 			modifier:IncrementStackCount()
+			if modifier:GetStackCount() >= 40 then
+				Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 91, 3)
+			end
 		end
 	end
 end

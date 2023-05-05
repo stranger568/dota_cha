@@ -245,14 +245,20 @@ function modifier_dragon_knight_elder_dragon_form_custom:GetModifierProcAttack_F
 		self:Corrosive( params.target )
 	elseif self.level==2 then
 		self:Corrosive( params.target )
-		self:Splash( params.target, params.damage )
+		if not params.no_attack_cooldown then
+			self:Splash( params.target, params.damage )
+		end
 	elseif self.level==3 then
 		self:Corrosive( params.target )
-		self:Splash( params.target, params.damage )
+		if not params.no_attack_cooldown then
+			self:Splash( params.target, params.damage )
+		end
 		self:Frost( params.target )
 	else
 		self:Corrosive( params.target )
-		self:Splash( params.target, params.damage )
+		if not params.no_attack_cooldown then
+			self:Splash( params.target, params.damage )
+		end
 		self:Frost( params.target )
 	end
 
@@ -276,6 +282,11 @@ end
 function modifier_dragon_knight_elder_dragon_form_custom:Splash( target, damage )
 	
 	if self:GetParent().split_attack then return end
+	if self:GetParent():HasModifier("modifier_item_bfury_2") then return end
+	if self:GetParent():HasModifier("modifier_item_bfury_3") then return end
+	if self:GetParent():HasModifier("modifier_item_ranged_cleave") then return end
+	if self:GetParent():HasModifier("modifier_item_ranged_cleave_2") then return end
+	if self:GetParent():HasModifier("modifier_item_ranged_cleave_3") then return end
 
 	local enemies = FindUnitsInRadius(
 		self.parent:GetTeamNumber(),	-- int, your team number

@@ -23,7 +23,7 @@ function frostbitten_icicle:OnSpellStart()
         local nFXIndex = ParticleManager:CreateParticle( "particles/test_particle/dungeon_generic_blast_ovr_pre.vpcf", PATTACH_CUSTOMORIGIN, nil )
 		ParticleManager:SetParticleControl( nFXIndex, 0, self:GetCursorPosition() )
 		ParticleManager:SetParticleControl( nFXIndex, 1, Vector( radius, delay, 1.0 ) )
-		ParticleManager:SetParticleControl( nFXIndex, 15, Vector( 100, 100, 255 ) )
+		ParticleManager:SetParticleControl( nFXIndex, 15, Vector( 255, 10, 100 ) )
 		ParticleManager:SetParticleControl( nFXIndex, 16, Vector( 1, 0, 0 ) )
 		ParticleManager:ReleaseParticleIndex( nFXIndex )
 

@@ -1,0 +1,8 @@
+<root> 
+  <scripts>
+    <include src="s2r://panorama/scripts/custom_game/overlord/barebones_worldpanels.vjs_c" /> 
+  </scripts>
+  <Panel hittest="false" style="width:100%;height:100%;visibility: visible;">
+
+  </Panel>
+</root>

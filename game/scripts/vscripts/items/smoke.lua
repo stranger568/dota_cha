@@ -15,11 +15,17 @@ function item_smoke_of_deceit_custom:OnSpellStart()
 
     local targets = FindUnitsInRadius( self:GetCaster():GetTeam(), self:GetCaster():GetAbsOrigin(), nil, self:GetSpecialValueFor("application_radius"), DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false )
 
+    local duration = self:GetSpecialValueFor("duration")
+
+    if self:GetCaster():HasModifier("modifier_skill_smoker") then
+        duration = duration + duration
+    end
+
     for k, v in pairs(targets) do
         print(v:IsHero(), v:IsTempestDouble(), v:HasModifier("modifier_arc_warden_tempest_double_lua"))
        -- if v:IsHero() or (v:IsTempestDouble() and v:HasModifier("modifier_arc_warden_tempest_double_lua")) or (v:GetUnitName() == "npc_dota_lone_druid_bear1" or v:GetUnitName() == "npc_dota_lone_druid_bear2" or v:GetUnitName() == "npc_dota_lone_druid_bear3" or v:GetUnitName() == "npc_dota_lone_druid_bear4") then
             ProjectileManager:ProjectileDodge(v)
-            v:AddNewModifier(self:GetCaster(), nil, "modifier_smoke_of_deceit_cha_custom", {duration = self:GetSpecialValueFor("duration")})
+            v:AddNewModifier(self:GetCaster(), nil, "modifier_smoke_of_deceit_cha_custom", {duration = duration})
        --- end
     end
 
@@ -82,6 +88,7 @@ function modifier_smoke_of_deceit_cha_custom:DeclareFunctions()
         MODIFIER_PROPERTY_ALWAYS_AUTOATTACK_WHILE_HOLD_POSITION,
         MODIFIER_PROPERTY_INVISIBILITY_ATTACK_BEHAVIOR_EXCEPTION,
         MODIFIER_PROPERTY_PERSISTENT_INVISIBILITY,
+        MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
     }
 end
 
@@ -103,4 +110,9 @@ end
 
 function modifier_smoke_of_deceit_cha_custom:GetModifierMoveSpeedBonus_Percentage()
     return 15
+end
+
+function modifier_smoke_of_deceit_cha_custom:GetModifierTotalDamageOutgoing_Percentage()
+    if not self:GetParent():HasModifier("modifier_skill_hookah_master") then return end
+    return 20
 end

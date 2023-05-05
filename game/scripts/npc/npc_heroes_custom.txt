@@ -1,7 +1,6 @@
 "DOTAHeroes"
 {
     "Version"		"1"
-    //修复近战英雄变龙无伤害的问题
     "npc_dota_hero_sven"
 	{
 		 "ProjectileSpeed"		"900"
@@ -42,7 +41,6 @@
 	{
 		 "Ability11"		"special_bonus_cast_range_200"
 	}
-
 	"npc_dota_hero_marci"
 	{
 		 "ProjectileSpeed"		"900"
@@ -68,6 +66,26 @@
 		"Ability4"		"generic_hidden"
 		"Ability5"		"dazzle_good_juju_lua"
 		"Ability6"		"dazzle_bad_juju"
+	}
+	"npc_dota_hero_ogre_magi"
+	{
+		"AttributePrimary"		"DOTA_ATTRIBUTE_INTELLECT"
+		"AttributeBaseStrength"		"23"
+		"AttributeStrengthGain"		"3.300000"
+		"AttributeBaseAgility"		"14"
+		"AttributeAgilityGain"		"1.5"
+		"AttributeBaseIntelligence"		"15"
+		"AttributeIntelligenceGain"		"2.500000"
+	}
+	"npc_dota_hero_medusa"
+	{
+		"AttributePrimary"		"DOTA_ATTRIBUTE_AGILITY"
+		"AttributeBaseStrength"		"17"
+		"AttributeStrengthGain"		"1.5"
+		"AttributeBaseIntelligence"		"23"
+		"AttributeIntelligenceGain"		"3.4000"
+		"AttributeBaseAgility"		"22"
+		"AttributeAgilityGain"		"3.400000"
 	}
 	"npc_dota_hero_tiny"
 	{

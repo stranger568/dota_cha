@@ -1,14 +1,10 @@
-
-item_ranged_cleave = class({})
-
 LinkLuaModifier("modifier_item_ranged_cleave", "item_ability/item_ranged_cleave", LUA_MODIFIER_MOTION_NONE)
 
+item_ranged_cleave = class({})
 
 function item_ranged_cleave:GetIntrinsicModifierName()
 	return "modifier_item_ranged_cleave"
 end
-
-
 
 modifier_item_ranged_cleave = class({})
 
@@ -29,11 +25,8 @@ function modifier_item_ranged_cleave:DeclareFunctions()
 end
 
 function modifier_item_ranged_cleave:OnCreated()
-
 	local ability = self:GetAbility()
-	self.cleave_dmg = ability:GetSpecialValueFor("cleave_dmg")
 	self.cleave_radius = ability:GetSpecialValueFor("cleave_radius")
-	
 end
 
 function modifier_item_ranged_cleave:GetModifierBonusStats_Strength()
@@ -56,21 +49,20 @@ function modifier_item_ranged_cleave:GetModifierAttackRangeBonusUnique()
 	end
 end
 
-if not IsServer() then return end
-
-function modifier_item_ranged_cleave:GetModifierProcAttack_Feedback(keys)
+function modifier_item_ranged_cleave:AttackLandedModifier(keys)
+	if not IsServer() then return end
 	if not keys.attacker:IsRealHero() or not keys.attacker:IsRangedAttacker() then return end
 	if keys.attacker:GetTeam() == keys.target:GetTeam() then return end
 	if keys.target:IsBuilding() then return end
 	if self:GetParent().anchor_attack_talent then return end
-	if self:GetParent().bCanTriggerLock then print("СОРРИ ПАССИВКА ВОЙДА") return end
-
+	if self:GetParent().bCanTriggerLock then return end
+	if keys.no_attack_cooldown then return end
+	if self:GetParent():HasModifier("modifier_muerta_pierce_the_veil_buff") then return end
+	if self:GetParent():IsTempestDouble() or self:GetParent():HasModifier("modifier_arc_warden_tempest_double_lua") then return end
 	local frostivus2018_clinkz_searing_arrows = self:GetParent():FindAbilityByName("frostivus2018_clinkz_searing_arrows")
 	if frostivus2018_clinkz_searing_arrows then
-		print("чекаем абилку", frostivus2018_clinkz_searing_arrows:GetAutoCastState())
 		if frostivus2018_clinkz_searing_arrows:GetAutoCastState() then
 			if keys.no_attack_cooldown then
-				print("СТОЯТЬ ДРУЖИЩЕ")
 				return
 			end
 		end
@@ -88,12 +80,17 @@ function modifier_item_ranged_cleave:GetModifierProcAttack_Feedback(keys)
 		end
 	end
 	
-	local damage = (keys.original_damage + fury_swipes_damage) * self.cleave_dmg * 0.01
-	
-	if not keys.no_attack_cooldown then
-		local blast_pfx = ParticleManager:CreateParticle("particles/custom/shrapnel.vpcf", PATTACH_CUSTOMORIGIN, nil)
-		ParticleManager:SetParticleControl(blast_pfx, 0, target_loc)
-		ParticleManager:ReleaseParticleIndex(blast_pfx)
+	local cleave_dmg = self:GetAbility():GetSpecialValueFor("cleave_dmg")
+
+	if self:GetParent():HasModifier("modifier_skill_splash") then
+		cleave_dmg = cleave_dmg + 40
+	end
+
+	local damage = (keys.original_damage + fury_swipes_damage) * cleave_dmg * 0.01
+
+	local modifier_dragon_knight_elder_dragon_form_custom = self:GetParent():FindModifierByName("modifier_dragon_knight_elder_dragon_form_custom")
+	if modifier_dragon_knight_elder_dragon_form_custom then
+		damage = damage + (keys.damage * modifier_dragon_knight_elder_dragon_form_custom.splash_pct)
 	end
 
 	local enemies = FindUnitsInRadius(keys.attacker:GetTeamNumber(), target_loc, nil, self.cleave_radius, ability:GetAbilityTargetTeam(), ability:GetAbilityTargetType(), ability:GetAbilityTargetFlags(), FIND_ANY_ORDER, false)

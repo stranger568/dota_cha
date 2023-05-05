@@ -92,7 +92,13 @@ function modifier_spectre_dispersion_lua:TakeDamageScriptModifier(event)
                 	reflect_damage=reflect_damage*(1+caster.pure_return*caster:GetStrength()/100)
                 end
 
-                ApplyDamage({ victim = unit, attacker = caster, ability=ability, damage = reflect_damage, damage_type = event.damage_type })
+                local dmg = ApplyDamage({ victim = unit, attacker = caster, ability=ability, damage = reflect_damage, damage_flags = DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_HPLOSS, damage_type = event.damage_type })
+                if unit:HasModifier("modifier_duel_damage_check") then
+                	local modifier_duel_damage_check = unit:FindModifierByName("modifier_duel_damage_check")
+                	if modifier_duel_damage_check then
+                		modifier_duel_damage_check:SetStackCount(modifier_duel_damage_check:GetStackCount() + dmg)
+                	end
+                end
 
 			end
 

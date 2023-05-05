@@ -20,6 +20,9 @@ end
 function silencer_glaives_of_wisdom_custom:OnOrbImpact( params )
 	local target = params.target
 	if target:IsMagicImmune() then return end
+	if target:GetUnitName() == "npc_dota_stranger" then return end
+	if target:GetUnitName() == "npc_dota_teleport_base_custom_red" then return end
+	if target:GetUnitName() == "npc_dota_teleport_base_custom_blue" then return end
 
 	local glaive_pure_damage = self:GetCaster():GetIntellect() * self:GetSpecialValueFor("intellect_damage_pct") / 100
 	SendOverheadEventMessage(nil, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE, target, glaive_pure_damage, nil)
@@ -44,6 +47,9 @@ function silencer_glaives_of_wisdom_custom:OnOrbImpact( params )
 	else
 		if modifier_buff and not modifier_buff:IsNull() then
 			modifier_buff:AddIndependentStack(self:GetSpecialValueFor("int_steal_duration"), nil, true, {stacks=self:GetSpecialValueFor("int_steal")})
+			if modifier_buff:GetStackCount() >= 500 then
+				Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 92, 3)
+			end
 		end
 	end
 				
@@ -172,7 +178,6 @@ end
 
 function modifier_silencer_glaives_of_wisdom_custom_orb:DeclareFunctions()
 	local funcs = {
-		MODIFIER_EVENT_ON_ATTACK,
 		MODIFIER_EVENT_ON_ATTACK_FAIL,
 		MODIFIER_PROPERTY_PROCATTACK_FEEDBACK,
 		MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY,
@@ -188,10 +193,10 @@ function modifier_silencer_glaives_of_wisdom_custom_orb:GetModifierBonusStats_In
 	return self:GetStackCount()
 end
 
-function modifier_silencer_glaives_of_wisdom_custom_orb:OnAttack( params )
+function modifier_silencer_glaives_of_wisdom_custom_orb:AttackModifier( params )
 	if params.attacker~=self:GetParent() then return end
 	if self:ShouldLaunch( params.target ) then
-		self.ability:UseResources( true, false, true )
+		self.ability:UseResources( true, false, false, true )
 		self.records[params.record] = true
 		if self.ability.OnOrbFire then self.ability:OnOrbFire( params ) end
 	end

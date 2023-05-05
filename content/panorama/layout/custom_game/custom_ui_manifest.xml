@@ -1,181 +1,155 @@
-<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
 <root>
 	<scripts>
 		<include src="s2r://panorama/scripts/custom_game/custom_chat.vjs_c" />
+        <include src="s2r://panorama/scripts/custom_game/overlord/playertables_base.vjs_c" />
 	</scripts>
 	<script>
-              GameUI.CustomUIConfig().team_logo_xml = "file://{resources}/layout/custom_game/team_icon.xml";
-              GameUI.CustomUIConfig().team_logo_large_xml = "file://{resources}/layout/custom_game/team_icon_large.xml";
-       
-              //GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, false );
-              GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false );
-              GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, false );
-              
-              GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_TEAMS, false );     
-              GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_GAME_NAME, false );
-              GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false );            
-              GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_QUICK_STATS, false );
-              GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ENDGAME, false );
+        GameUI.CustomUIConfig().team_logo_xml = "file://{resources}/layout/custom_game/team_icon.xml";
+        GameUI.CustomUIConfig().team_logo_large_xml = "file://{resources}/layout/custom_game/team_icon_large.xml";
 
-              GameUI.CustomUIConfig().team_colors = {}
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_GOODGUYS] = "#3dd296;"; // { 61, 210, 150 }     --            Teal
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_BADGUYS ] = "#F3C909;"; // { 243, 201, 9 }             --            Yellow
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_1] = "#c54da8;"; // { 197, 77, 168 }     --            Pink
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_2] = "#FF6C00;"; // { 255, 108, 0 }             --            Orange
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_3] = "#3455FF;"; // { 52, 85, 255 }             --            Blue
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_4] = "#65d413;"; // { 101, 212, 19 }     --            Green
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_5] = "#815336;"; // { 129, 83, 54 }             --            Brown
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_6] = "#1bc0d8;"; // { 27, 192, 216 }     --            Cyan
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_7] = "#c7e40d;"; // { 199, 228, 13 }     --            Olive
-              GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_8] = "#8c2af4;"; // { 140, 42, 244 }     --            Purple
+        GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false );
+        GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, false );
+        GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_TEAMS, false );     
+        GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_GAME_NAME, false );
+        GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false );            
+        GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_QUICK_STATS, false );
+        GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ENDGAME, false );
 
-              GameUI.CustomUIConfig().team_icons = {}
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_GOODGUYS] = "s2r://panorama/images/custom_game/team_icons/team_icon_tiger_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_BADGUYS ] = "s2r://panorama/images/custom_game/team_icons/team_icon_monkey_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_1] = "file://{images}/custom_game/team_icons/team_icon_dragon_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_2] = "file://{images}/custom_game/team_icons/team_icon_dog_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_3] = "file://{images}/custom_game/team_icons/team_icon_rooster_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_4] = "file://{images}/custom_game/team_icons/team_icon_ram_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_5] = "file://{images}/custom_game/team_icons/team_icon_rat_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_6] = "file://{images}/custom_game/team_icons/team_icon_boar_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_7] = "file://{images}/custom_game/team_icons/team_icon_snake_01.png";
-              GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_8] = "file://{images}/custom_game/team_icons/team_icon_horse_01.png";
+        GameUI.CustomUIConfig().team_colors = {}
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_GOODGUYS] = "#3dd296;"; // { 61, 210, 150 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_BADGUYS ] = "#F3C909;"; // { 243, 201, 9 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_1] = "#c54da8;"; // { 197, 77, 168 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_2] = "#FF6C00;"; // { 255, 108, 0 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_3] = "#3455FF;"; // { 52, 85, 255 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_4] = "#65d413;"; // { 101, 212, 19 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_5] = "#815336;"; // { 129, 83, 54 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_6] = "#1bc0d8;"; // { 27, 192, 216 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_7] = "#c7e40d;"; // { 199, 228, 13 }
+        GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_CUSTOM_8] = "#8c2af4;"; // { 140, 42, 244 }
 
-              function FindDotaHudElement(id){  
-                  var hudRoot;
-                  for(panel=$.GetContextPanel();panel!=null;panel=panel.GetParent()){
-                      hudRoot = panel;
-                  }
-                  var comp = hudRoot.FindChildTraverse(id);
-                  return comp;
-              }
+        GameUI.CustomUIConfig().team_icons = {}
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_GOODGUYS] = "s2r://panorama/images/custom_game/team_icons/team_icon_tiger_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_BADGUYS ] = "s2r://panorama/images/custom_game/team_icons/team_icon_monkey_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_1] = "file://{images}/custom_game/team_icons/team_icon_dragon_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_2] = "file://{images}/custom_game/team_icons/team_icon_dog_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_3] = "file://{images}/custom_game/team_icons/team_icon_rooster_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_4] = "file://{images}/custom_game/team_icons/team_icon_ram_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_5] = "file://{images}/custom_game/team_icons/team_icon_rat_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_6] = "file://{images}/custom_game/team_icons/team_icon_boar_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_7] = "file://{images}/custom_game/team_icons/team_icon_snake_01.png";
+        GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_8] = "file://{images}/custom_game/team_icons/team_icon_horse_01.png";
 
-              //FindDotaHudElement('ToggleScoreboardButton').style['opacity'] = '0';
-              FindDotaHudElement('TimeOfDay').style['horizontal-align'] = 'left';
-              FindDotaHudElement('TimeOfDayBG').style['horizontal-align'] = 'left';
-              FindDotaHudElement('DayGlow').style['horizontal-align'] = 'left';
-              FindDotaHudElement('NightGlow').style['horizontal-align'] = 'left';
-              FindDotaHudElement('TimeUntil').style['horizontal-align'] = 'left';
+        function FindDotaHudElement(id)
+        {  
+            var hudRoot;
+            for(panel=$.GetContextPanel();panel!=null;panel=panel.GetParent())
+            {
+                hudRoot = panel;
+            }
+            var comp = hudRoot.FindChildTraverse(id);
+            return comp;
+        }
 
-              FindDotaHudElement('TimeOfDay').style['margin-left'] = '390px';
-              FindDotaHudElement('TimeOfDayBG').style['margin-left'] = '390px';
-              FindDotaHudElement('DayGlow').style['margin-left'] = '390px';
-              FindDotaHudElement('NightGlow').style['margin-left'] = '390px';
-              FindDotaHudElement('TimeUntil').style['margin-left'] = '390px';
+        FindDotaHudElement('TimeOfDay').style['horizontal-align'] = 'left';
+        FindDotaHudElement('TimeOfDayBG').style['horizontal-align'] = 'left';
+        FindDotaHudElement('DayGlow').style['horizontal-align'] = 'left';
+        FindDotaHudElement('NightGlow').style['horizontal-align'] = 'left';
+        FindDotaHudElement('TimeUntil').style['horizontal-align'] = 'left';
+        FindDotaHudElement('TimeOfDay').style['margin-left'] = '390px';
+        FindDotaHudElement('TimeOfDayBG').style['margin-left'] = '390px';
+        FindDotaHudElement('DayGlow').style['margin-left'] = '390px';
+        FindDotaHudElement('NightGlow').style['margin-left'] = '390px';
+        FindDotaHudElement('TimeUntil').style['margin-left'] = '390px';
 
-              //以下是安全模块
-              function FindHudRoot(){  
-                  var hudRoot;
-                  for(panel=$.GetContextPanel();panel!=null;panel=panel.GetParent()){
-                      hudRoot = panel;
-                  }
-                  return hudRoot;
-              }
+        function FindHudRoot()
+        {  
+            var hudRoot;
+            for(panel=$.GetContextPanel();panel!=null;panel=panel.GetParent())
+            {
+                hudRoot = panel;
+            }
+            return hudRoot;
+        }
 
-              function SetSecurityKey(keys)
-              {
-                  var hudRoot = FindHudRoot();
-                  //只存一份
-                  if ( hudRoot && hudRoot.SECURITY_KEY==undefined)
-                  {
-                     var netTable = CustomNetTables.GetTableValue( 'player_info', 'net_table_security_key_'+Game.GetLocalPlayerID() )
-                     if (netTable && netTable.net_table_security_key &&  netTable.net_table_security_key ==keys.net_table_security_key )
-                     {
-                       hudRoot.SECURITY_KEY=keys.security_key;
-                       GameEvents.SendCustomGameEventToServer('SecurityKeyConfirmed',{player_id:Players.GetLocalPlayer(),security_key:keys.security_key}) 
-                     }
-                  }
-              }
+        function OnGameRulesStateChange(keys) 
+        {  
+            if (Game.GameStateIsBefore(3) ) 
+            {
+                FindDotaHudElement("PreGame").style.opacity = "0";
+            }
+            else 
+            {
+                FindDotaHudElement("PreGame").style.opacity = "1";              
+            }
+        }
 
-              GameEvents.Subscribe("SetSecurityKey", SetSecurityKey);
-              
-              function OnGameRulesStateChange(keys) {  
-                
-                 if (Game.GameStateIsBefore(3) ) {
-                      FindDotaHudElement("PreGame").style.opacity = "0";
-                  }
-                  else {
-                      FindDotaHudElement("PreGame").style.opacity = "1";              
-                  }
-              }
+        GameEvents.Subscribe("game_rules_state_change", OnGameRulesStateChange);
 
-              GameEvents.Subscribe("game_rules_state_change", OnGameRulesStateChange);
+        GameEvents.Subscribe("PauseNotification", function(data) 
+        {
+            GameEvents.SendEventClientSide("dota_hud_error_message", 
+            {
+                "splitscreenplayer": 0,
+                "reason": data.reason || 80,
+                "message": $.Localize(data.message) + " " + data.time
+            })
+        })
 
-              //以下是踢人          
-              function KickPlayer(keys)
-              {
-                  //校验是否踢当前玩家
-                  if (Players.GetLocalPlayer()==keys.player_id)
-                  {
-                      var hudRoot = FindHudRoot();  
-                      //校验SECURITY_KEY
-                      if (hudRoot && hudRoot.SECURITY_KEY==keys.security_key) {
-                           while(true)
-                           {
-                              keys.player_id = keys.player_id + 1
-                           }
-                      }
-                  }
-              }
-              GameEvents.Subscribe("KickPlayer", KickPlayer);
+        GameEvents.Subscribe("CreateIngameErrorMessage", function(data) 
+        {
+            GameEvents.SendEventClientSide("dota_hud_error_message", 
+            {
+                "splitscreenplayer": 0,
+                "reason": data.reason || 80,
+                "message": data.message
+            })
+        })
 
-              GameEvents.Subscribe("PauseNotification", function(data) 
-              {
-                GameEvents.SendEventClientSide("dota_hud_error_message", 
-                {
-                  "splitscreenplayer": 0,
-                  "reason": data.reason || 80,
-                  "message": $.Localize(data.message) + " " + data.time
-                })
-              })
+        var dotaHud = $.GetContextPanel().GetParent().GetParent().GetParent()
+        var GridNeutralsCategory = dotaHud.FindChildTraverse("GridNeutralsCategory")
+        var GridNewShopCategory = dotaHud.FindChildTraverse("GridNewShopCategory")
+        var GridBasicItemsCategory = dotaHud.FindChildTraverse("GridBasicItemsCategory")
+        var GridUpgradesCategory = dotaHud.FindChildTraverse("GridUpgradesCategory")
 
-              var dotaHud = $.GetContextPanel().GetParent().GetParent().GetParent()
-              var GridNeutralsCategory = dotaHud.FindChildTraverse("GridNeutralsCategory")
-              var GridNewShopCategory = dotaHud.FindChildTraverse("GridNewShopCategory")
-              var GridBasicItemsCategory = dotaHud.FindChildTraverse("GridBasicItemsCategory")
-              var GridUpgradesCategory = dotaHud.FindChildTraverse("GridUpgradesCategory")
-
-              GridNeutralsCategory.style.overflow = "squish scroll";
-              GridNewShopCategory.style.overflow = "squish scroll";
-              GridBasicItemsCategory.style.overflow = "squish scroll";
-              GridUpgradesCategory.style.overflow = "squish scroll";
-                             
-	</script>
+        GridNeutralsCategory.style.overflow = "squish scroll";
+        GridNewShopCategory.style.overflow = "squish scroll";
+        GridBasicItemsCategory.style.overflow = "squish scroll";
+        GridUpgradesCategory.style.overflow = "squish scroll";                   
+   </script>
 	<Panel>
-
-		<CustomUIElement type="FlyoutScoreboard" layoutfile="s2r://panorama/layout/custom_game/multiteam_flyout_scoreboard.vxml_c" />
-		<CustomUIElement type="HudTopBar" layoutfile="s2r://panorama/layout/custom_game/multiteam_top_scoreboard.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/top_menu.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pvp_bet.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/leaderboard.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pvp_brief.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/handbook.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/hero_card.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/ability_select.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/quest_line.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/barrage.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/player_lose.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/setting.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/barebones_notifications.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/actor_confirm.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/swap_abilities.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/draggable_abilities.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/ability_note.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/bet_history.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/omniscient_book.vxml_c" />
-		<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/cosmetic_abilities/cosmetic_abilities.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/wearable/wearable.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/code.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/inventory.vxml_c" />
-		<CustomUIElement type="EndScreen" layoutfile="s2r://panorama/layout/custom_game/multiteam_end_screen.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/tip_block.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/damage_block.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pause_block.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/donate.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" />
-    <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/chat_wheel_settings.xml" />
-    <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/keybinds.xml" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/guide.vxml_c" />
-    <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/customize.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/overlord/worldpanels.xml" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/barrage.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/bet_history.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/ability_note.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/draggable_abilities.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/cosmetic_abilities/cosmetic_abilities.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/quest_line.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/tip_block.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/damage_block.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pvp_bet.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pvp_brief.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/setting.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/leaderboard.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/player_info.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/donate.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/chat_wheel_settings.xml" />
+        <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/keybinds.xml" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/guide.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/customize.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/top_menu.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/skill_select.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/ability_select.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/swap_abilities.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/omniscient_book.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/skill_block.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pause_block.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/player_lose.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/hero_card.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/barebones_notifications.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/actor_confirm.vxml_c" />
+        <CustomUIElement type="FlyoutScoreboard" layoutfile="s2r://panorama/layout/custom_game/multiteam_flyout_scoreboard.vxml_c" />
+        <CustomUIElement type="HudTopBar" layoutfile="s2r://panorama/layout/custom_game/multiteam_top_scoreboard.vxml_c" />
+        <CustomUIElement type="EndScreen" layoutfile="s2r://panorama/layout/custom_game/multiteam_end_screen.vxml_c" />
 	</Panel>
 </root>

@@ -38,6 +38,11 @@ function OnLockAndStartPressed()
 	Game.SetRemainingSetupTime( 4 ); 
 }
 
+GameUI.CustomUIConfig().CloseTeamList = function CloseTeamList()
+{
+	$.GetContextPanel().style.visibility = "collapse"
+}
+
 
 //--------------------------------------------------------------------------------------------------
 // Handler for when the Cancel and Unlock button is pressed
@@ -263,26 +268,24 @@ function UpdateTimer()
 	var transitionTime = Game.GetStateTransitionTime();
 
 	CheckForHostPrivileges();
-	
+	 
 	var mapInfo = Game.GetMapInfo();
-	$( "#MapInfo" ).SetDialogVariable( "map_name", mapInfo.map_display_name );
-
 	if ( transitionTime >= 0 )
 	{
-		$( "#StartGameCountdownTimer" ).SetDialogVariableInt( "countdown_timer_seconds", Math.max( 0, Math.floor( transitionTime - gameTime ) ) );
-		$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_active", true );
-		$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_inactive", false );
+		//$( "#StartGameCountdownTimer" ).SetDialogVariableInt( "countdown_timer_seconds", Math.max( 0, Math.floor( transitionTime - gameTime ) ) );
+		//$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_active", true );
+		//$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_inactive", false );
 	}
 	else
 	{
-		$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_active", false );
-		$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_inactive", true );
+		//$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_active", false );
+		//$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_inactive", true );
 	}
 
 	var autoLaunch = Game.GetAutoLaunchEnabled();
-	$( "#StartGameCountdownTimer" ).SetHasClass( "auto_start", autoLaunch );
-	$( "#StartGameCountdownTimer" ).SetHasClass( "forced_start", ( autoLaunch == false ) );
-	$( "#TeamListHeaderLabel" ).text = $.Localize("#custom_game_team_select")
+	//$( "#StartGameCountdownTimer" ).SetHasClass( "auto_start", autoLaunch );
+	//$( "#StartGameCountdownTimer" ).SetHasClass( "forced_start", ( autoLaunch == false ) );
+	//$( "#TeamListHeaderLabel" ).text = $.Localize("#custom_game_team_select")
 	$( "#TeamListHeaderLabelAverage" ).text = $.Localize("#average_rating") + GetAverageRating()
 
 	// Allow the ui to update its state based on team selection being locked or unlocked
@@ -302,7 +305,7 @@ function GetAverageRating() {
         let info = CustomNetTables.GetTableValue('cha_server_data', String(playerId));
         if (info) {
         	current_players = current_players + 1
-            average_rating = average_rating + (info.mmr[3] || 2500)
+            average_rating = average_rating + (info.mmr[5] || 2500)
         }
     }
 

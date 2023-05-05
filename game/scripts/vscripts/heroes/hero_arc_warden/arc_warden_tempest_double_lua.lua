@@ -88,6 +88,10 @@ function arc_warden_tempest_double_lua:GetHerohClone()
          hClone:AddNewModifier(hCaster, nil, "modifier_tempest_double_talent", {})
          hClone:RemoveModifierByName("modifier_fountain_invulnerability")
 
+         hClone:RemoveModifierByName("modifier_duel_curse")
+         hClone:RemoveModifierByName("modifier_duel_curse_cooldown")
+      
+
 			hClone.IsRealHero = function() return true end
 			hClone.IsMainHero = function() return false end
 			hClone.IsTempestDouble = function() return true end
@@ -193,8 +197,80 @@ function arc_warden_tempest_double_lua:OnSpellStart()
 	hClone:SetAbilityPoints(0)
 	hClone:SetHasInventory(false)
 	hClone:SetCanSellItems(false)
-    
 
+	local skills_list = 
+	{
+		"modifier_skill_based",
+		"modifier_skill_damage_dealer",
+		"modifier_skill_ultimate_strength",
+		"modifier_skill_amplification",
+		"modifier_skill_armorless",
+		"modifier_skill_lifestealer",
+		"modifier_skill_spell_lifestealer",
+		"modifier_skill_ceremonius",
+		"modifier_skill_speedster",
+		"modifier_skill_dodger",
+		"modifier_skill_armored",
+		"modifier_skill_splash",
+		"modifier_skill_solo",
+		"modifier_skill_veteran",
+		"modifier_skill_smoker",
+		"modifier_skill_head_hunter",
+		"modifier_skill_goldstealer",
+		"modifier_skill_damage_investor",
+		"modifier_skill_armor_investor",
+		"modifier_skill_magic_investor",
+		"modifier_skill_teachers_gift",
+		"modifier_skill_magefense",
+		"modifier_skill_trickster",
+		"modifier_skill_disregarding",
+		"modifier_skill_velocity",
+		"modifier_skill_two_hearted",
+		"modifier_skill_requite",
+		"modifier_skill_ranger",
+		"modifier_skill_deceleration",
+		"modifier_skill_basher",
+		"modifier_skill_mage_slayer",
+		"modifier_skill_slackening",
+		"modifier_skill_craggy_man",
+		"modifier_skill_reducer",
+		"modifier_skill_mana_degrade",
+		"modifier_skill_hookah_master",
+		"modifier_skill_rebirth",
+		"modifier_skill_hellcrown",
+		"modifier_skill_bloodmage",
+		"modifier_skill_swiftness",
+		"modifier_skill_resister",
+		"modifier_skill_statist",
+		"modifier_skill_overbuffed",
+		"modifier_skill_eternalist",
+		"modifier_skill_linkens_sphere",
+		"modifier_skill_master_chifu",
+		"modifier_skill_forrest_gump",
+		"modifier_skill_timeless_souvenir",
+		"modifier_skill_overcharge",
+		"modifier_skill_double_trouble",
+		"modifier_skill_cashback",
+		"modifier_skill_second_life",
+		"modifier_skill_zoo_director",
+		"modifier_skill_multicast",
+		"modifier_skill_radioactive",
+		"modifier_skill_pierce",
+		"modifier_skill_enervation",
+		"modifier_skill_unbreakble",
+		"modifier_skill_slighting",
+		"modifier_skill_overclocking",
+		"modifier_skill_fearful",
+		"modifier_skill_last_chance",
+		"modifier_skill_berserker",
+	}
+
+	for _, skill in pairs (skills_list) do
+		if self:GetCaster():HasModifier(skill) then
+			hClone:AddNewModifier(self:GetCaster(), nil, skill, {})
+		end
+	end
+    
     --移除本体没有的技能
     for i=0, 34 do
       local hAbility = hClone:GetAbilityByIndex(i)
@@ -356,14 +432,15 @@ function arc_warden_tempest_double_lua:OnSpellStart()
 		end
     end)
 
-
 	self:TransferModifiers(hCaster, hClone)
     
-   hClone:RemoveModifierByName("modifier_life_stealer_infest")
+    hClone:RemoveModifierByName("modifier_life_stealer_infest")
    	hClone:RemoveModifierByName("modifier_life_stealer_infest_enemy_hero")
 	hClone:RemoveModifierByName("modifier_life_stealer_infest_effect")
 	hClone:RemoveModifierByName("modifier_life_stealer_infest_creep")
 	hClone:RemoveModifierByName("modifier_fountain_invulnerability")
+	hClone:RemoveModifierByName("modifier_duel_curse")
+    hClone:RemoveModifierByName("modifier_duel_curse_cooldown")
 
 	local duration = self:GetSpecialValueFor("duration") + hCaster:GetTalentValue("special_bonus_unique_arc_warden_6")
 

@@ -386,6 +386,21 @@
 	 "4" //Phase4
      {
         //Total Health 5*100 + 2*200 = 900 
+        "Round_Roshling"
+	   {
+			"1"
+			{
+				"UnitName"				"npc_dota_roshling_small"
+				"UnitNumber"			"5"
+				"SpawnInterval"			"0.3"
+			}
+			"2"
+			{
+				"UnitName"				"npc_dota_roshling_big"
+				"UnitNumber"			"2"
+				"SpawnInterval"			"0.5"
+			}
+	   }
 		"Round_Dragon"
 		{
 			"1"
@@ -517,6 +532,27 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_roshan"
+				"UnitNumber"			"1"
+				"SpawnInterval"			"0.4"
+			}
+		}
+     }
+     "6" //Phase5
+     {
+		"Round_RandomCreeps"
+		{
+			"1"
+			{
+				"UnitName"				"npc_dota_granite_golem"
+				"UnitNumber"			"10"
+				"SpawnInterval"			"0.4"
+			}
+		}
+		"Round_Nian"
+		{
+			"1"
+			{
+				"UnitName"				"npc_dota_nian"
 				"UnitNumber"			"1"
 				"SpawnInterval"			"0.4"
 			}

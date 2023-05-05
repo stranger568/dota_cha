@@ -37,6 +37,9 @@
 			"item_seeds_of_serenity"		  "1"
 			"item_lance_of_pursuit"			  "1"
 			"item_occult_bracelet"			  "1"
+			//7.33
+			"item_duelist_gloves"			  "1"
+			"item_spark_of_courage"				"1"
 
 		}
 	}
@@ -75,6 +78,8 @@
 			"item_dagger_of_ristul"			"1"
 			"item_specialists_array"			"1"
 			"item_eye_of_the_vizier"				  "1"
+			//7.33
+			"item_gossamer_cape"				  "1"
 		}
 	}
 	"3"
@@ -113,6 +118,10 @@
 			"item_black_powder_bag"			  "1"
 			//7.32
 			"item_ogre_seal_totem" "1"
+			//7.33
+			"item_defiant_shell"			  "1"
+			"item_vindicators_axe"			  "1"
+			"item_dandelion_amulet"			  "1"
 
 		}
 	}
@@ -136,7 +145,7 @@
 			"item_spell_prism"				  "1"
 			"item_princes_knife"			  "1"
 			"item_flicker"					  "1"
-			"item_ninja_gear"				  "1"
+			"item_ninja_gear_custom"				  "1"
 			"item_illusionsts_cape"			  "1"
 			"item_havoc_hammer"				  "1"
 			"item_panic_button"				  "1"
@@ -149,6 +158,8 @@
 			//7.30新增
 			"item_ascetic_cap"				  "1"
 			"item_heavy_blade"				  "1"
+			//7.33
+			"item_martyrs_plate"			  "1"
 		}
 	}
 	"5"
@@ -167,13 +178,13 @@
 		"items"
 		{
 			"item_force_boots_custom"				  "1"
-			"item_desolator_2"				  "1"
+			"item_desolator_2_custom"				  "1"
 			"item_seer_stone_custom"				  "1"
 			"item_mirror_shield"			  "1"
 			"item_apex_custom"					      "1"
 			"item_ballista"					  "1"
 			"item_woodland_striders"     	  "1"
-			"item_recipe_trident"		  	  "1"
+			"item_trident"		  	  			"1"
 			"item_demonicon"				  "1"
 			"item_fallen_sky"		  	      "1"
 			"item_pirate_hat"				  "1"

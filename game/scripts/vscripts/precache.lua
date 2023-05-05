@@ -1,4 +1,5 @@
-local particles = {
+local particles = 
+{
     "particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_necro_souls_hero.vpcf",    
     "particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf",
     "particles/items_fx/blink_dagger_start.vpcf",
@@ -23,7 +24,8 @@ local particles = {
     "particles/econ/items/necrolyte/necro_sullen_harvest/necro_ti7_immortal_scythe_start.vpcf"
 }
 
-local sounds = {
+local sounds = 
+{
     "soundevents/game_sounds.vsndevts",
     "soundevents/game_sounds_dungeon.vsndevts",
     "soundevents/game_sounds_dungeon_enemies.vsndevts",
@@ -39,7 +41,6 @@ local sounds = {
 local function PrecacheEverythingFromTable( context, kvtable)
     for key, value in pairs(kvtable) do
         if type(value) == "table" then
-            
             if not string.find(key, "npc_precache_") then
                PrecacheEverythingFromTable( context, value )
             end
@@ -58,7 +59,8 @@ local function PrecacheEverythingFromTable( context, kvtable)
 end
 
 function PrecacheEverythingFromKV( context )
-    local kv_files = {
+    local kv_files = 
+    {
         "scripts/npc/npc_abilities_custom.txt",
         "scripts/npc/npc_units_custom.txt",
         "scripts/npc/npc_items_custom.txt",
@@ -71,18 +73,13 @@ function PrecacheEverythingFromKV( context )
     end
 end
 
-
-
 return function(context)
-
     PrecacheEverythingFromKV(context)
-    
     for _, p in pairs(particles) do
         PrecacheResource("particle", p, context)
     end
     for _, p in pairs(sounds) do
         PrecacheResource("soundfile", p, context)
     end
-
 end
 

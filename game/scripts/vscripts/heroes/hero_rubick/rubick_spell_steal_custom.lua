@@ -111,21 +111,41 @@ function rubick_spell_steal_custom:OnProjectileHit( target, location )
 	if not target:IsAlive() then return end
 
 	if self:GetAutoCastState() then
-		if self:GetCaster():HasAbility(self.stolenSpell.lastSpell:GetAbilityName()) and self.currentSpell_2 == nil then
+		local useless = false
+		for i=0, 24 do
+			local ability = self:GetCaster():GetAbilityByIndex(i)
+			if ability and ability:GetAbilityName() == self.stolenSpell.lastSpell:GetAbilityName() then
+				if ability ~= self.currentSpell_2 and ability ~= self.currentSpell then
+					useless = true
+				end
+			end
+		end
+		if self.currentSpell_2 ~= nil and self.stolenSpell.lastSpell:GetAbilityName() == self.currentSpell_2:GetAbilityName() then
+			useless = false
+		end
+		if self.currentSpell ~= nil and self.stolenSpell.lastSpell:GetAbilityName() == self.currentSpell:GetAbilityName() then
+			useless = false
+		end
+		if useless then
 			return
 		end
 	else
-		if self:GetCaster():HasAbility(self.stolenSpell.lastSpell:GetAbilityName()) and self.currentSpell == nil then
-			return
+		local useless = false
+		for i=0, 24 do
+			local ability = self:GetCaster():GetAbilityByIndex(i)
+			if ability and ability:GetAbilityName() == self.stolenSpell.lastSpell:GetAbilityName() then
+				if ability ~= self.currentSpell and ability ~= self.currentSpell_2 then
+					useless = true
+				end
+			end
 		end
-	end
-
-	if self:GetAutoCastState() then
-		if self:GetCaster():HasAbility(self.stolenSpell.lastSpell:GetAbilityName()) and self.currentSpell_2 == nil then
-			return
+		if self.currentSpell_2 ~= nil and self.stolenSpell.lastSpell:GetAbilityName() == self.currentSpell_2:GetAbilityName() then
+			useless = false
 		end
-	else
-		if self:GetCaster():HasAbility(self.stolenSpell.lastSpell:GetAbilityName()) and self.currentSpell == nil then
+		if self.currentSpell ~= nil and self.stolenSpell.lastSpell:GetAbilityName() == self.currentSpell:GetAbilityName() then
+			useless = false
+		end
+		if useless then
 			return
 		end
 	end
@@ -515,6 +535,127 @@ function modifier_rubick_spell_steal_custom:OnAbilityFullyCast( params )
 		end
 
 		if params.ability:IsStolen() then
+			return
+		end
+
+		local useless_abilities = 
+		{
+			"tiny_tree_grab",
+			"tiny_tree_grab_lua",
+			"kunkka_x_marks_the_spot",
+			"morphling_morph_agi",
+			"morphling_morph_str",
+			"alchemist_unstable_concoction",
+			"alchemist_unstable_concoction_throw",
+			"wisp_tether_break",
+			"wisp_spirits_in_lua",
+			"shredder_chakram_lua_return",
+			"shredder_chakram_lua",
+			"tusk_snowball",
+			"tusk_launch_snowball",
+			"elder_titan_return_spirit",
+			"phoenix_icarus_dive_stop",
+			"phoenix_sun_ray_toggle_move",
+			"phoenix_sun_ray_stop",
+			"phoenix_fire_spirits",
+			"phoenix_launch_fire_spirit",
+			"naga_siren_song_of_the_siren_cancel",
+			"naga_siren_song_of_the_siren_cancel_custom",
+			"ember_spirit_activate_fire_remnant",
+			"keeper_of_the_light_illuminate_end",
+			"life_stealer_consume",
+			"faceless_void_time_walk_reverse",
+			"bane_nightmare_end",
+			"ancient_apparition_ice_blast_release",
+			"ancient_apparition_ice_blast",
+			"shadow_demon_shadow_poison",
+			"shadow_demon_shadow_poison_release",
+			"snapfire_spit_creep",
+			"hoodwink_sharpshooter_release",
+			"dawnbreaker_converge",
+			"primal_beast_onslaught_release",
+			"antimage_mana_overload",
+			"kunkka_torrent_storm_custom",
+			"rattletrap_overclocking",
+			"enchantress_bunny_hop",
+			"treant_eyes_in_the_forest",
+			"ogre_magi_unrefined_fireblast",
+			"earth_spirit_petrify",
+			"juggernaut_swift_slash_custom",
+			"snapfire_gobble_up",
+			"snapfire_spit_creep",
+			"nyx_assassin_burrow",
+			"nyx_assassin_unburrow",
+			"shredder_chakram_2_lua",
+			"shredder_chakram_lua_2_return",
+			"tusk_walrus_kick",
+			"grimstroke_dark_portrait",
+			"zuus_cloud",
+			"spectre_haunt_single",
+			"spectre_reality",
+			"tiny_tree_channel_custom",
+			"clinkz_burning_army",
+			"keeper_of_the_light_will_o_wisp",
+			"leshrac_greater_lightning_storm",
+			"terrorblade_terror_wave",
+			"templar_assassin_trap_teleport",
+			"visage_silent_as_the_grave",
+			"lycan_wolf_bite",
+			"hoodwink_decoy",
+			"broodmother_sticky_snare",
+			"dark_seer_normal_punch",
+			"beastmaster_drums_of_slom",
+			"viper_nose_dive",
+			"bloodseeker_blood_mist_custom",
+			"oracle_rain_of_destiny",
+			"centaur_mount",
+			"lina_flame_cloak",
+			"brewmaster_primal_companion",
+			"alchemist_berserk_potion",
+			"furion_curse_of_the_forest",
+			"bristleback_hairball",
+			"venomancer_latent_poison",
+			"enchantress_little_friends",
+			"rattletrap_jetpack",
+			"tidehunter_arm_of_the_deep_custom",
+			"jakiro_liquid_ice_lua",
+			"kunkka_tidal_wave",
+			"lich_ice_spire",
+			"life_stealer_open_wounds",
+			"magnataur_horn_toss",
+			"meepo_petrify",
+			"necrolyte_death_seeker",
+			"ogre_magi_smash",
+			"omniknight_degen_aura_custom",
+			"pangolier_rollup",
+			"custom_phantom_assassin_fan_of_knives",
+			"riki_poison_dart",
+			"slark_depth_shroud_custom",
+			"sniper_concussive_grenade",
+			"storm_spirit_electric_rave",
+			"shredder_flamethrower",
+			"tinker_warp_grenade",
+			"terrorblade_demon_zeal",
+			"tiny_craggy_exterior",
+			"witch_doctor_voodoo_switcheroo",
+			"troll_warlord_rampage",
+			"hoodwink_decoy",
+			"windrunner_gale_force",
+			"primal_beast_rock_throw",
+			"hoodwink_hunters_boomerang",
+			"skywrath_mage_shield_of_the_scion",
+			"zuus_static_field",
+			"spirit_breaker_planar_pocket",
+		}
+
+		local stop_please = false
+		for _, useless in pairs(useless_abilities) do
+			if params.ability:GetAbilityName() == useless then
+				stop_please = true
+				break
+			end
+		end
+		if stop_please then
 			return
 		end
 

@@ -32,6 +32,11 @@ function modifier_faceless_void_time_lock_custom:AttackLandedModifier(params)
 	if params.target == self:GetParent() then return end
 	if self:GetParent():PassivesDisabled() then return end
 	if self:GetParent():IsIllusion() then return end
+
+	if self:GetParent().bCanTriggerLock == false then
+		if params.no_attack_cooldown then return end
+	end
+
 	local target = params.target
 
 	if not target:IsNull() and target:IsAlive() then
@@ -111,7 +116,9 @@ function modifier_faceless_void_time_lock_custom_scepter:OnDestroy()
 		ParticleManager:ReleaseParticleIndex(particle)
 		Timers:CreateTimer(delay, function()
 			parent.bCanTriggerLock=true
+			parent.void_scepter = true
 			parent:PerformAttack(target, true, true, true, false, false, false, false)
+			parent.void_scepter = false
 			parent.bCanTriggerLock=false
 			target:EmitSound("Hero_FacelessVoid.TimeLockImpact")
 			local damage_table = {}

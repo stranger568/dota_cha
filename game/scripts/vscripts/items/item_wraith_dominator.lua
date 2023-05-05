@@ -3,6 +3,8 @@ item_wraith_dominator = class({})
 LinkLuaModifier("modifier_item_wraith_dominator", "items/item_wraith_dominator", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_item_wraith_dominator_aura_buff", "items/item_wraith_dominator", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_item_wraith_dominator_active", "items/item_wraith_dominator", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_item_wraith_dominator_active_damage", "items/item_wraith_dominator", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_item_wraith_dominator_active_buff", "items/item_wraith_dominator", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_item_wraith_dominator_active_debuff", "items/item_wraith_dominator", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_item_summoner_crown_buff_agi", "item_ability/item_summoner_crown", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_item_summoner_crown_buff_int", "item_ability/item_summoner_crown", LUA_MODIFIER_MOTION_NONE)
@@ -17,6 +19,7 @@ function item_wraith_dominator:OnSpellStart()
 	self:GetCaster():EmitSound("Item.WraithTotem.Cast")
 	local duration = self:GetSpecialValueFor("duration")
 	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_item_wraith_dominator_active", {duration = duration})
+	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_item_wraith_dominator_active_damage", {duration = duration})
 end
 
 modifier_item_wraith_dominator = class({})
@@ -120,8 +123,6 @@ function modifier_item_wraith_dominator_aura_buff:DeclareFunctions()
 		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
 		MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS, 
-		--MODIFIER_EVENT_ON_ATTACK_LANDED, 
-		MODIFIER_PROPERTY_PROCATTACK_FEEDBACK,
 	}
 end
 
@@ -175,44 +176,6 @@ function modifier_item_wraith_dominator_aura_buff:AttackLandedModifier(params)
 			local lifesteal = self:GetAbility():GetSpecialValueFor("lifesteal_aura") / 100
 			self:GetParent():Heal(params.damage * lifesteal, nil)
 		end
-	end
-end
-
-function modifier_item_wraith_dominator_aura_buff:GetModifierProcAttack_Feedback(keys)
-	if not IsServer() then return end
-	if self:GetParent():IsHero() then return end
-	if keys.attacker:GetTeam() == keys.target:GetTeam() then return end
-	if keys.target:IsBuilding() then return end
-	if self:GetParent().anchor_attack_talent then return end
-	if self:GetParent().bCanTriggerLock then print("СОРРИ ПАССИВКА ВОЙДА") return end
-
-	if self.current_attack < self.attack_count then
-		self.current_attack = self.current_attack + 1
-		return
-	end
-
-	if self:GetParent():GetUnitName() == "npc_dota_creature_tombstone_zombie" then return end
-	if self:GetParent():GetUnitName() == "npc_dota_creature_tombstone_zombie_torso" then return end
-	if self:GetParent():GetUnitName() == "npc_dota_unit_undying_zombie" then return end
-	if self:GetParent():GetUnitName() == "npc_dota_unit_undying_zombie_torso" then return end
-
-	if self:GetParent():GetUnitName() == "npc_dota_shadow_shaman_ward_1" then return end
-	if self:GetParent():GetUnitName() == "npc_dota_shadow_shaman_ward_2" then return end
-	if self:GetParent():GetUnitName() == "npc_dota_shadow_shaman_ward_3" then return end
-
-	self.current_attack = 0
-
-	if self.ranged then
-		local damage = keys.original_damage * self:GetAbility():GetSpecialValueFor("ranged_splash") * 0.01
-		local enemies = FindUnitsInRadius(keys.attacker:GetTeamNumber(), keys.target:GetAbsOrigin(), nil, self:GetAbility():GetSpecialValueFor("ranged_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false)
-		for _, enemy in pairs(enemies) do
-			if enemy ~= keys.target then
-				ApplyDamage({ victim = enemy, attacker = keys.attacker, damage = damage, damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION, ability = self:GetAbility() })
-			end
-		end
-	else
-		local damage = keys.original_damage * self:GetAbility():GetSpecialValueFor("melee_splash") * 0.01
-		DoCleaveAttack( keys.attacker, keys.target, self:GetAbility(), damage, self:GetAbility():GetSpecialValueFor("melee_radius"), self:GetAbility():GetSpecialValueFor("melee_radius"), self:GetAbility():GetSpecialValueFor("melee_radius"), "" )
 	end
 end
 
@@ -294,4 +257,55 @@ end
 
 function modifier_item_wraith_dominator_active_debuff:GetModifierTotalDamageOutgoing_Percentage()
 	return self.damage_reduce
+end
+
+modifier_item_wraith_dominator_active_damage = class({})
+
+function modifier_item_wraith_dominator_active_damage:IsPurgable() return false end
+
+function modifier_item_wraith_dominator_active_damage:OnCreated()
+	self.radius = self:GetAbility():GetSpecialValueFor("pact_aura_radius")
+	self.damage = self:GetAbility():GetSpecialValueFor("bonus_damage_aura_active")
+	if not IsServer() then return end
+end
+
+function modifier_item_wraith_dominator_active_damage:IsAura()
+	return true
+end
+
+function modifier_item_wraith_dominator_active_damage:GetModifierAura()
+	return "modifier_item_wraith_dominator_active_buff"
+end
+
+function modifier_item_wraith_dominator_active_damage:GetAuraSearchTeam()
+	return DOTA_UNIT_TARGET_TEAM_FRIENDLY
+end
+
+function modifier_item_wraith_dominator_active_damage:GetAuraSearchType()
+	return DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC
+end
+
+function modifier_item_wraith_dominator_active_damage:GetAuraRadius()
+	return self.radius
+end
+
+function modifier_item_wraith_dominator_active_damage:GetAuraDuration()
+	return 0.5
+end
+
+modifier_item_wraith_dominator_active_buff = class({})
+
+function modifier_item_wraith_dominator_active_buff:OnCreated()
+	self.bonus_damage_aura_active = self:GetAbility():GetSpecialValueFor("bonus_damage_aura_active")
+end
+
+function modifier_item_wraith_dominator_active_buff:DeclareFunctions()
+	return 
+	{
+		MODIFIER_PROPERTY_BONUSDAMAGEOUTGOING_PERCENTAGE
+	}
+end
+
+function modifier_item_wraith_dominator_active_buff:GetModifierBonusDamageOutgoing_Percentage()
+	return self.bonus_damage_aura_active
 end

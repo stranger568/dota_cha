@@ -1,4 +1,5 @@
-innateExceptions = {
+innateExceptions = 
+{
 	modifier_faceless_void_time_walk_tracker = true,
 	modifier_weaver_timelapse = true,
 	modifier_ember_spirit_fire_remnant_charge_counter = true,
@@ -6,8 +7,8 @@ innateExceptions = {
 	modifier_ember_spirit_fire_remnant_timer = true,
 }
 
---这些技能适当延长删除时间,尽量等技能释放结束再移除，否则容易炸房
-delayForDanger = {
+delayForDanger = 
+{
 	morphling_waveform = 5.0,
 	huskar_life_break = 3.0,
 	tusk_snowball = 5.0,
@@ -18,9 +19,6 @@ delayForDanger = {
 	batrider_sticky_napalm = 12.0,
 }
 
---删除所有技能关联modifier
---用途： 新增技能的时候清理modifier,使0级的时候不会产生BUG (蚂蚁连击，鱼人碎击)
---删除技能的时候进行清理，避免游戏闪退（残阴）
 function CDOTABaseAbility:ClearInnateModifiers()
 	for _,hModifier in ipairs(self:GetCaster():FindAllModifiers()) do
 		if hModifier and not hModifier:IsNull() and hModifier:GetAbility() == self then
@@ -41,9 +39,9 @@ function CDOTABaseAbility:Disable()
 	if self:GetAutoCastState() then
 		self:ToggleAutoCast()
 	end
-	self:ClearInnateModifiers() -- remove ability modifiers before set level to prevent crash Dark Pact
+	self:ClearInnateModifiers()
 	self:SetLevel(0)
-	self:ClearInnateModifiers() -- remove intrinsic ability modifiers that applies after set level
+	self:ClearInnateModifiers()
 	self:SetHidden(true)
 	self:OnChannelFinish(true)
 end
@@ -58,15 +56,12 @@ function CDOTABaseAbility:SetRemovalTimer()
     end
 
 	self.sRemovalTimer=Timers:CreateTimer(flDelay, function()
-		print("Я пытаюсь удалить абилку")
 		if self and not self:IsNull() then
 			if self:NumModifiersUsingAbility() <= 0 and not self:IsChanneling() then
 				self.sRemovalTimer = nil
-				print("Абилка удалилась")
 				self:ClearInnateModifiers()
 				self:RemoveSelf()
 			else
-				print("Абилка используется")
 				self:Disable()
 				return FrameTime()
 			end

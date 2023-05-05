@@ -24,15 +24,14 @@ function modifier_meepo_ransack_custom:TakeDamageScriptModifier( params )
 	if params.attacker:PassivesDisabled() then return end
 	if params.attacker:IsIllusion() then return end
 
-	local abilitieslist = {
+	local abilitieslist = 
+	{
 		["item_ranged_cleave"] = true,
 		["item_ranged_cleave_2"] = true,
 		["item_ranged_cleave_3"] = true,
 		["item_bfury"] = true,
 		["sven_great_cleave"] = true,
 		["tiny_tree_grab_lua"] = true,
-		["luna_moon_glaive"] = true,
-		["luna_moon_glaive"] = true,
 		["luna_moon_glaive"] = true,
 		["magnataur_empower_custom"] = true,
 		["templar_assassin_psi_blades"] = true,
@@ -70,7 +69,6 @@ function modifier_meepo_ransack_custom:TakeDamageScriptModifier( params )
 	    damage_table.damage_type = DAMAGE_TYPE_PHYSICAL
 	    damage_table.ability = self:GetAbility()
 	    damage_table.damage = bonus_damage
-	    damage_table.damage_flags = DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS
 
 	    local heal = ApplyDamage(damage_table)
 

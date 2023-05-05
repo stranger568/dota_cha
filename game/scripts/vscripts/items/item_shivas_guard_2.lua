@@ -41,11 +41,13 @@ function item_shivas_guard_2:OnSpellStart()
 			end
 
 			if not enemy_has_been_hit then
+				Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 30, 1)
+				Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 72, 2)
 				local hit_pfx = ParticleManager:CreateParticle("particles/items2_fx/shivas_guard_impact.vpcf", PATTACH_ABSORIGIN_FOLLOW, enemy)
 				ParticleManager:SetParticleControl(hit_pfx, 0, enemy:GetAbsOrigin())
 				ParticleManager:SetParticleControl(hit_pfx, 1, enemy:GetAbsOrigin())
 				ParticleManager:ReleaseParticleIndex(hit_pfx)
-				enemy:AddNewModifier(self:GetCaster(), self, "modifier_item_shivas_guard_2_discord_debuff", {duration = self:GetSpecialValueFor("discord_duration")})
+				--enemy:AddNewModifier(self:GetCaster(), self, "modifier_item_shivas_guard_2_discord_debuff", {duration = self:GetSpecialValueFor("discord_duration")})
 				enemy:AddNewModifier(self:GetCaster(), self, "modifier_item_shivas_guard_2_debuff", {duration = self:GetSpecialValueFor("blast_debuff_duration")})
 				local damage = self:GetSpecialValueFor("blast_damage")
 				ApplyDamage({attacker = self:GetCaster(), victim = enemy, ability = self, damage = damage, damage_type = DAMAGE_TYPE_MAGICAL})

@@ -63,7 +63,6 @@ function modifier_lina_fiery_soul_lua:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-		MODIFIER_EVENT_ON_ABILITY_EXECUTED
 	}
 
 	return funcs
@@ -77,7 +76,7 @@ function modifier_lina_fiery_soul_lua:GetModifierAttackSpeedBonus_Constant( para
 	return self:GetStackCount() * self.as_bonus
 end
 
-function modifier_lina_fiery_soul_lua:OnAbilityExecuted( params )
+function modifier_lina_fiery_soul_lua:OnAbilityExecutedCustom( params )
 	if not IsServer() then return end
 	-- filter
 	if params.unit~=self:GetParent() then return end

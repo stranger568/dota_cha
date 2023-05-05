@@ -34,6 +34,34 @@
 		</snippet>
 	</snippets>
 	<Panel hittest="false" style="width: 100%; height: 100%;">
+		<Panel class="PvpCenterInformation" id="PvpCenterInformation">
+			<Panel class="Player">
+				<Panel class="Portrait" id="PortraitTopDuelHero_1" />
+				<Label class="DamageTopInfo" id="DamageTopInfo_1" text="0" />
+			</Panel>
+
+			<Panel class="InformationPVPTop">
+				<Label class="PvpLabelTop" text="PvP" />
+				<Panel class="LineTopPvPInfo">
+					<Panel class="LineTopPvPInfoBG" />
+					<Panel class="LineTopPvPInfoTeamChildren">
+						<Panel id="LineTopPvPInfoTeam2" class="LineTopPvPInfoTeam2">
+							<DOTAParticleScenePanel id="ProgressBurner2" hittest="false" particleName="particles/ui/hud/healthbar_burner.vpcf" particleonly="true" cameraOrigin="-350 0 0" lookAt="0 -350 0" fov="70" squarePixels="true" />
+						</Panel>
+						<Panel id="LineTopPvPInfoTeam1" class="LineTopPvPInfoTeam1">
+							<DOTAParticleScenePanel id="ProgressBurner" hittest="false" particleName="particles/ui/hud/healthbar_burner.vpcf" particleonly="true" cameraOrigin="350 0 0" lookAt="0 -350 0" fov="70" squarePixels="true" />
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+
+			<Panel class="Player">
+				<Panel class="Portrait" id="PortraitTopDuelHero_2" />
+				<Label class="DamageTopInfo" id="DamageTopInfo_2" text="0" />
+			</Panel>
+		</Panel>
+
+
 		<Panel hittest="false" id="PvPMainHeaderShowPanel" class="Hidden">
 			<Button hittest="true" id="PvPMainHeaderShowButton" onactivate="TogglePvPMain()" />
 		</Panel>

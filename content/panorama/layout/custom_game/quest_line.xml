@@ -1,4 +1,3 @@
-<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/custom_game/quest_line.vcss_c" />
@@ -10,22 +9,29 @@
 		<include src="s2r://panorama/scripts/custom_game/shared_scoreboard_updater.vjs_c" />
 		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
 	</scripts>
-	<snippets>
-		<snippet name="QuestLine">
-			<Panel hittest="false" class="QuestLine">
-				<Panel hittest="false" direction="horizontal" class="Progress">
-					<Panel hittest="false" class="Progress_Left" style="margin-bottom: 0;" />
-					<Panel hittest="false" class="Progress_Right" style="margin-bottom: 0;" />
-				</Panel>
-				<Panel hittest="false" class="SliderLable">
-					<Label hittest="false" class="SliderInfo" html="true" text="" />
-				</Panel>
-			</Panel>
-		</snippet>
-	</snippets>
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel hittest="false" id="QuestMain">
-			<Panel hittest="false" id="QuestPanel" />
+			<Panel hittest="false" id="QuestPanel">
+				<Panel class="RoundPanel" id="RoundPanel">
+					
+				</Panel>
+				<Panel class="RoundInfo">
+					<Panel class="RoundInfoNameAndAbilities">
+						<Label class="RoundLabel" id="RoundLabel" text="-" />
+						<Label class="RoundName" id="RoundName" text="" />
+						<Panel class="AbilitiesRound" id="AbilitiesRound">
+						</Panel>
+					</Panel>
+					<Panel class="LinePanel">
+						<Panel class="LinePanelBG" />
+						<Panel class="LinePanelActive" id="LinePanelActive" />
+						<Label class="RoundTime" id="RoundTime" text="0:00" />
+					</Panel>
+				</Panel>
+			</Panel>
+
+
+
 			<Panel class="ReadyButtonRoot" hittest="false">
 				<Label id="ReadyButton" class="ReadyText" text="#Ready" onactivate="PlayerReady()" />
 			</Panel>

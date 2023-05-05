@@ -13,6 +13,37 @@
 		
 		<!--<Panel id="GuideCHAButton" onactivate="ToggleGuide();" />-->
 
+		<Panel class="PanelPlayerInfoSkills" id="PanelPlayerInfoSkills">
+			<Panel class="Guidelogo2">
+				<Label text="#cha_PlayerInfo_skills" class = "GuideNameLabel"/>	
+				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenSkills();"/>
+			</Panel>
+
+			<Panel class="ButtonsMenuSkills">
+				<Panel class="ButtonMenuSkills Border_Tier1 ButtonMenuActive_skill" id="skills_tier_button_1" onactivate="SwitchTabSkills('skills_tier_1', 'skills_tier_button_1');">
+					<Label class="ButtonLabel Label_Tier1" text="Tier 1" />
+				</Panel>
+				<Panel class="ButtonMenuSkills Border_Tier2" id="skills_tier_button_2" onactivate="SwitchTabSkills('skills_tier_2', 'skills_tier_button_2');">
+					<Label class="ButtonLabel Label_Tier2" text="Tier 2" />
+				</Panel>
+				<Panel class="ButtonMenuSkills Border_Tier3" id="skills_tier_button_3" onactivate="SwitchTabSkills('skills_tier_3', 'skills_tier_button_3');">
+					<Label class="ButtonLabel Label_Tier3" text="Tier 3" />
+				</Panel>
+				<Panel class="ButtonMenuSkills Border_Tier4" id="skills_tier_button_4" onactivate="SwitchTabSkills('skills_tier_4', 'skills_tier_button_4');">
+					<Label class="ButtonLabel Label_Tier4" text="Tier 4" />
+				</Panel>
+				<Panel class="ButtonMenuSkills Border_Tier5" id="skills_tier_button_5" onactivate="SwitchTabSkills('skills_tier_5', 'skills_tier_button_5');">
+					<Label class="ButtonLabel Label_Tier5" text="Tier 5" />
+				</Panel>
+			</Panel>
+
+			<Panel id="skills_tier_1" class="skills_tier" />
+			<Panel id="skills_tier_2" class="skills_tier" />
+			<Panel id="skills_tier_3" class="skills_tier" />
+			<Panel id="skills_tier_4" class="skills_tier" />
+			<Panel id="skills_tier_5" class="skills_tier" />
+		</Panel>
+
 		<Panel class="GuideWindow sethidden" id="GuideWindow" hittest="false">
 			<Panel class="Guidelogo">
 				<Label text="#cha_guide" class = "GuideNameLabel"/>	
