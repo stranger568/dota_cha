@@ -19,14 +19,12 @@ end
 function modifier_skill_second_life:ReincarnateTime()
 	if self:GetParent():HasModifier("modifier_duel_curse_cooldown") then return end
 	if self:GetParent():HasModifier("modifier_skill_second_life_cooldown") then return nil end
-	if true~=self:GetParent().bJoiningPvp then
-		local parent = self:GetParent()
-		Timers:CreateTimer(0, function()
-			if parent and not parent:IsAlive() then return 0.1 end
-			parent:AddNewModifier(parent, nil, "modifier_skill_second_life_cooldown", {duration = 300})
-		end)
-		return 5
-	end
+	local parent = self:GetParent()
+	Timers:CreateTimer(0, function()
+		if parent and not parent:IsAlive() then return 0.1 end
+		parent:AddNewModifier(parent, nil, "modifier_skill_second_life_cooldown", {duration = 300})
+	end)
+	return 5
 end
 
 modifier_skill_second_life_cooldown = class({})

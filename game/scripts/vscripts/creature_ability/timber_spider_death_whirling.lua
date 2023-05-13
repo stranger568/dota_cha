@@ -25,7 +25,7 @@ function timber_spider_death_whirling:OnSpellStart()
             --如果有树，伤害并且眩晕
             if nTreeNumber>0 then
                flDamage = self:GetSpecialValueFor("damage_with_tree")
-               hEnemy:AddNewModifier( self:GetCaster(), self, "modifier_stunned", { duration = self:GetSpecialValueFor("stun_with_tree") } )
+               hEnemy:AddNewModifier( self:GetCaster(), self, "modifier_stunned", { duration = self:GetSpecialValueFor("stun_with_tree") * (1-hEnemy:GetStatusResistance()) } )
             end
 
 			ApplyDamage({

@@ -8,7 +8,7 @@ function modifier_skill_soul_cleanse:AllowIllusionDuplicate() return true end
 
 function modifier_skill_soul_cleanse:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(3)
+	self:StartIntervalThink(5)
 end
 
 function modifier_skill_soul_cleanse:OnIntervalThink()

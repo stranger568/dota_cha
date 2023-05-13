@@ -232,6 +232,16 @@ function ToggleLeftAbilitySelect(isLabel) {
 }
 
 
+function TogglEffectAbilitySelect(isLabel) 
+{
+    if (isLabel) 
+    {
+        $("#CheckEffectAbilitySelect").SetSelected( !$("#CheckEffectAbilitySelect").IsSelected() );
+    }
+    UpdateSetting();
+}
+
+
 
 //显示玩家匹配秘钥
 function UpdatePlayerMatchKey(keys){
@@ -256,73 +266,53 @@ function InitSetting(){
    var banAbilities = CustomNetTables.GetTableValue("hero_info", "ban_abilities")
    if (banAbilities)
    {
-     for(var index in banAbilities) {
-        var panelID = "ban_ability_"+index;
-        var abilityName = banAbilities[index];
-        var panel = $('#BanAbilityContainer').FindChildTraverse(panelID);
-        if (panel == undefined && panel == null) {
-            panel = $.CreatePanel("Panel", $('#BanAbilityContainer'), panelID);
-            panel.BLoadLayoutSnippet("AbilityBannedAbility");     
-        }
-        panel.FindChildTraverse("AbilityBannedImage").abilityname = abilityName;
-        panel.FindChildTraverse('AbilityBannedName').text = $.Localize("#DOTA_Tooltip_ability_" + abilityName);
-     };  
-   }
+        for(var index in banAbilities) 
+        {
+            var panelID = "ban_ability_"+index;
+            var abilityName = banAbilities[index];
+            var panel = $('#BanAbilityContainer').FindChildTraverse(panelID);
+            if (panel == undefined && panel == null) {
+                panel = $.CreatePanel("Panel", $('#BanAbilityContainer'), panelID);
+                panel.BLoadLayoutSnippet("AbilityBannedAbility");     
+            }
+            panel.FindChildTraverse("AbilityBannedImage").abilityname = abilityName;
+            panel.FindChildTraverse('AbilityBannedName').text = $.Localize("#DOTA_Tooltip_ability_" + abilityName);
+        };  
+    }
 
     var banHeroes = CustomNetTables.GetTableValue("hero_info", "hero_abilities")
-   if (banHeroes)
-   {
-     for(var index in banHeroes) {
-        var panelID = "ban_hero_"+index;
-        var abilityName = banHeroes[index];
-        var panel = $('#BanHeroContainer').FindChildTraverse(panelID);
-        if (panel == undefined && panel == null) {
-            panel = $.CreatePanel("Panel", $('#BanHeroContainer'), panelID);
-            panel.BLoadLayoutSnippet("HeroBannedHero");     
-        }
-        panel.FindChildTraverse("HeroBannedImage").heroname = abilityName;
-     };  
-   }
+    if (banHeroes)
+    {
+        for(var index in banHeroes) {
+            var panelID = "ban_hero_"+index;
+            var abilityName = banHeroes[index];
+            var panel = $('#BanHeroContainer').FindChildTraverse(panelID);
+            if (panel == undefined && panel == null) {
+                panel = $.CreatePanel("Panel", $('#BanHeroContainer'), panelID);
+                panel.BLoadLayoutSnippet("HeroBannedHero");     
+            }
+            panel.FindChildTraverse("HeroBannedImage").heroname = abilityName;
+        };  
+    }
 
-   //设定初始化
    var settingData = CustomNetTables.GetTableValue("player_info", "setting_data_"+Players.GetLocalPlayer())
-   if (settingData && !settingInited &&  FindDotaHudElement("BarrgeMainPanel") && FindDotaHudElement("AbilitySelectorPanelRoot"))
+   if (settingData && !settingInited && FindDotaHudElement("BarrgeMainPanel") && FindDotaHudElement("AbilitySelectorPanelRoot"))
    {
-       //是否设置已经初始化的标记位
        settingInited = true
-       $("#BarrageOpacitySlider").value = settingData.barrage_opacity/100;
-       $("#SliderValue").text =settingData.barrage_opacity+"%";
-
-       FindDotaHudElement("BarrgeMainPanel").style.opacity = $("#BarrageOpacitySlider").value
-
-       $("#CheckAutoDuel").SetSelected(settingData.auto_view_duel=="1");
-       GameEvents.SendCustomGameEventToServer("ToggleAutoDuel", {selected:$("#CheckAutoDuel").IsSelected()});
-       
-       $("#CheckAutoCreep").SetSelected(settingData.auto_view_creep=="1");
-       GameEvents.SendCustomGameEventToServer("ToggleAutoCreep", {selected:$("#CheckAutoCreep").IsSelected()});
-
-       $("#CheckLeftAbilitySelect").SetSelected(settingData.right_ability_selection=="1");
+       $("#CheckLeftAbilitySelect").SetSelected(String(settingData.settings_right_select)=="1");
+       $("#CheckEffectAbilitySelect").SetSelected(String(settingData.settings_effect_select)=="0");
        FindDotaHudElement("AbilitySelectorPanelRoot").dockRight  =$("#CheckLeftAbilitySelect").IsSelected();   
-
     }
 }
 
-function UpdateSetting(){
-   
-  var settingData ={}
-  settingData.barrage_opacity = ($("#BarrageOpacitySlider").value*100).toFixed(0)
-  settingData.auto_view_duel = $("#CheckAutoDuel").IsSelected()?"1":"0";
-  settingData.auto_view_creep = $("#CheckAutoCreep").IsSelected()?"1":"0";
-  settingData.right_ability_selection = $("#CheckLeftAbilitySelect").IsSelected()?"1":"0";
-  
-  GameEvents.SendCustomGameEventToServer("UpdateSetting", settingData);
-  $("#SliderValue").text = ($("#BarrageOpacitySlider").value*100).toFixed(0) + "%";
-
+function UpdateSetting()
+{
+    var settingData ={}
+    settingData.right_ability_selection = $("#CheckLeftAbilitySelect").IsSelected()?1:0;
+    settingData.effect_ability_selection = $("#CheckEffectAbilitySelect").IsSelected()?0:1;
+    GameEvents.SendCustomGameEventToServer("PlayerSettings", settingData);
+    $("#SliderValue").text = ($("#BarrageOpacitySlider").value*100).toFixed(0) + "%";
 }
-
-
-
-
 
 (function() {
     GameEvents.Subscribe("RefreshAbilityOrder", RefreshAbilityOrder);
@@ -334,5 +324,6 @@ function UpdateSetting(){
     InitSetting();
     $("#BarrageOpacitySlider").value=100;
     $('#CheckAutoDuel').checked = true;
+    $('#CheckEffectAbilitySelect').checked = true;
     $('#CheckAutoCreep').checked = false;
 })();

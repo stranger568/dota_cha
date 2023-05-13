@@ -6,6 +6,11 @@ function tiny_tree_channel_custom:GetAOERadius()
 	return self:GetSpecialValueFor( "splash_radius" )
 end
 
+function tiny_tree_channel_custom:Spawn()
+	if not IsServer() then return end
+	self:SetLevel(1)
+end
+
 function tiny_tree_channel_custom:OnAbilityPhaseStart()
 	if IsServer() then 
 		self.radius = self:GetSpecialValueFor( "radius" )

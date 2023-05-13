@@ -35,7 +35,7 @@ function frostbitten_icicle:OnSpellStart()
 			ParticleManager:SetParticleControl( nFXIndex, 0, vOrigin + Vector( 0, 0, 40 ) )
 			ParticleManager:ReleaseParticleIndex( nFXIndex )
 
-			local enemies = FindUnitsInRadius( hCaster:GetTeamNumber(), vOrigin, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
+			local enemies = FindUnitsInRadius( hCaster:GetTeamNumber(), vOrigin, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false )
 			for _,enemy in pairs( enemies ) do
 				if enemy ~= nil and enemy:IsMagicImmune() == false and enemy:IsInvulnerable() == false then
 					local damageInfo =
@@ -48,7 +48,7 @@ function frostbitten_icicle:OnSpellStart()
 					}
 
 					ApplyDamage( damageInfo )
-					enemy:AddNewModifier( hCaster, hAbility, "modifier_frostbitten_icicle", { duration = freeze_duration } )
+					enemy:AddNewModifier( hCaster, hAbility, "modifier_frostbitten_icicle", { duration = freeze_duration * (1-enemy:GetStatusResistance()) } )
 				end
 			end
 	    end)

@@ -54,7 +54,6 @@ scepterAbilities["npc_dota_hero_tusk"]={"tusk_walrus_kick"}
 scepterAbilities["npc_dota_hero_grimstroke"]={"grimstroke_dark_portrait"}
 scepterAbilities["npc_dota_hero_zuus"]={"zuus_cloud"}
 scepterAbilities["npc_dota_hero_spectre"]={"spectre_haunt_single","spectre_reality"}
-scepterAbilities["npc_dota_hero_tiny"]={"tiny_tree_channel_custom"}
 scepterAbilities["npc_dota_hero_clinkz"]={"clinkz_burning_army"}
 scepterAbilities["npc_dota_hero_keeper_of_the_light"]={"keeper_of_the_light_will_o_wisp"}
 scepterAbilities["npc_dota_hero_leshrac"]={"leshrac_greater_lightning_storm"}
@@ -72,7 +71,6 @@ scepterAbilities["npc_dota_hero_oracle"]={"oracle_rain_of_destiny"}
 scepterAbilities["npc_dota_hero_centaur"]={"centaur_mount"}
 scepterAbilities["npc_dota_hero_lina"]={"lina_flame_cloak"}
 scepterAbilities["npc_dota_hero_brewmaster"]={"brewmaster_primal_companion"}
-scepterAbilities["npc_dota_hero_muerta"]={"muerta_parting_shot"}
 
 -- Способности с аганима которые привязаны к способности
 scepterLinkAbilities = {}
@@ -101,6 +99,7 @@ shardLinkAbilities["jakiro_liquid_fire_lua"]={"jakiro_liquid_ice_lua"}
 shardLinkAbilities["lich_chain_frost_custom"]={"lich_ice_spire"}
 shardLinkAbilities["shredder_whirling_death"]={"shredder_flamethrower"}
 shardLinkAbilities["tidehunter_ravage"]={"tidehunter_arm_of_the_deep_custom"}
+shardLinkAbilities["zuus_arc_lightning_custom"]={"zuus_lightning_hands_custom"}
 
 -- Способности с шарда которые привязаны к герою
 scepterShardAbilities = {}
@@ -138,8 +137,8 @@ scepterShardAbilities["npc_dota_hero_windrunner"]={"windrunner_gale_force"}
 scepterShardAbilities["npc_dota_hero_primal_beast"]={"primal_beast_rock_throw"}
 scepterShardAbilities["npc_dota_hero_hoodwink"]={"hoodwink_hunters_boomerang"}
 scepterShardAbilities["npc_dota_hero_skywrath_mage"]={"skywrath_mage_shield_of_the_scion"}
-scepterShardAbilities["npc_dota_hero_zuus"]={"zuus_static_field"}
 scepterShardAbilities["npc_dota_hero_spirit_breaker"]={"spirit_breaker_planar_pocket"}
+scepterShardAbilities["npc_dota_hero_clinkz"]={"clinkz_burning_barrage"}
 
 -- Способности суммона
 HeroBuilder.summonAbilities = 
@@ -619,6 +618,12 @@ function HeroBuilder:InitPlayerHero( hHero )
         end
     end
 
+    if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hHero:GetPlayerID()] ~= nil then
+        if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hHero:GetPlayerID()].stranger_surprice ~= 0 and ChaServerData.PLAYERS_GLOBAL_INFORMATION[hHero:GetPlayerID()].stranger_surprice >= 0 then
+            local modifier = hHero:AddNewModifier(hHero, nil, "modifier_cha_stranger", {})
+        end
+    end
+
     CustomGameEventManager:Send_ServerToAllClients( 'UpdatePassInfo', {})
 
     for i = 0, 23 do
@@ -850,12 +855,6 @@ function HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
                 table.remove_item(ownList, rubick_skill.currentSpell:GetAbilityName())
                 table.remove_item(AbilitiesRandomChanceList_1List, rubick_skill.currentSpell:GetAbilityName())
                 table.remove_item(AbilitiesRandomChanceList_2List, rubick_skill.currentSpell:GetAbilityName())
-            end
-            if rubick_skill.currentSpell_2 ~= nil then
-                table.remove_item(tempList, rubick_skill.currentSpell_2:GetAbilityName())
-                table.remove_item(ownList, rubick_skill.currentSpell_2:GetAbilityName())
-                table.remove_item(AbilitiesRandomChanceList_1List, rubick_skill.currentSpell_2:GetAbilityName())
-                table.remove_item(AbilitiesRandomChanceList_2List, rubick_skill.currentSpell_2:GetAbilityName())
             end
         end
 
@@ -1233,18 +1232,18 @@ function HeroBuilder:RelearnBookAbilitySelected(keys, retry)
         return 
     end
 
-    if sAbilityName == "rubick_spell_steal_custom" then
-        local ability_rubick = hHero:FindAbilityByName("rubick_spell_steal_custom")
-        if ability_rubick and ability_rubick.activate_ability ~= nil then
-            local hItem = CreateItem("item_relearn_book_lua", hHero, hHero)
-            hHero:AddItem(hItem)
-            hItem:SetPurchaseTime(0)
-            hHero.bRemovingAbility = false
-            hHero.bOmniscientBookRemoving = false
-            print("Relearn Book - 6")
-            return
-        end
-    end
+    --if sAbilityName == "rubick_spell_steal_custom" then
+    --    local ability_rubick = hHero:FindAbilityByName("rubick_spell_steal_custom")
+    --    if ability_rubick and ability_rubick.activate_ability ~= nil then
+    --        local hItem = CreateItem("item_relearn_book_lua", hHero, hHero)
+    --        hHero:AddItem(hItem)
+    --        hItem:SetPurchaseTime(0)
+    --        hHero.bRemovingAbility = false
+    --        hHero.bOmniscientBookRemoving = false
+    --        print("Relearn Book - 6")
+    --        return
+    --    end
+    --end
     
     Timers:CreateTimer(0.1, function()
         local bFoundSomeWhere = false
@@ -1573,9 +1572,6 @@ function HeroBuilder:ChooseRandomOneAbility(nPlayerID)
     if rubick_skill then
         if rubick_skill.currentSpell ~= nil then
             table.remove_item(tempList,rubick_skill.currentSpell:GetAbilityName())
-        end
-        if rubick_skill.currentSpell_2 ~= nil then
-            table.remove_item(tempList,rubick_skill.currentSpell_2:GetAbilityName())
         end
     end
 
@@ -1938,10 +1934,11 @@ end
 
 function HeroBuilder:MakeRandomHeroSelection(nPlayerID)
     local hPlayer = PlayerResource:GetPlayer(nPlayerID)
-    local sHeroName = table.random(HeroBuilder.allHeroeNames)
-   
-    table.remove_item(HeroBuilder.allHeroeNames,sHeroName)
-    hPlayer:SetSelectedHero(sHeroName)
+    if hPlayer then
+        local sHeroName = table.random(HeroBuilder.allHeroeNames)
+        table.remove_item(HeroBuilder.allHeroeNames,sHeroName)
+        hPlayer:SetSelectedHero(sHeroName)
+    end
 end
 
 function HeroBuilder:ReconnectRefundBook(hHero)

@@ -59,7 +59,7 @@ chen_holy_persuasion_custom.unit_information = {
 		["duration"] = 60,
 		["type"] = "basic",
 		["count"] = 2,
-		["units"] = {"npc_dota_furion_treant_1", "npc_dota_furion_treant_2", "npc_dota_furion_treant_3", "npc_dota_furion_treant_4"}
+		["units"] = {"npc_dota_furion_treant", "npc_dota_furion_treant", "npc_dota_furion_treant", "npc_dota_furion_treant"}
 	},
 	["npc_dota_warlock_golem"] = {
 		["duration"] = 60,
@@ -151,30 +151,32 @@ function chen_holy_persuasion_custom:OnSpellStart()
 		if random_unit ~= nil and count ~= nil and duration ~= nil then
 			for i = 1, count do
 				local unit = CreateUnitByName(random_unit, self:GetCaster():GetAbsOrigin()+self:GetCaster():GetForwardVector()*RandomInt(200, 500), true, self:GetCaster(), self:GetCaster(), self:GetCaster():GetTeamNumber())
-				table.insert(self.created_units, unit)
-				FindClearSpaceForUnit(unit, unit:GetAbsOrigin(), true)
-				unit:AddNewModifier(self:GetCaster(), self, "modifier_phased", {duration = 0.2})
-				local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_chen/chen_holy_persuasion.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
-				ParticleManager:SetParticleControl(particle, 0, unit:GetAbsOrigin())
-				ParticleManager:SetParticleControl(particle, 1, unit:GetAbsOrigin())
-				ParticleManager:ReleaseParticleIndex(particle)
+				if unit then
+					table.insert(self.created_units, unit)
+					FindClearSpaceForUnit(unit, unit:GetAbsOrigin(), true)
+					unit:AddNewModifier(self:GetCaster(), self, "modifier_phased", {duration = 0.2})
+					local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_chen/chen_holy_persuasion.vpcf", PATTACH_ABSORIGIN_FOLLOW, unit)
+					ParticleManager:SetParticleControl(particle, 0, unit:GetAbsOrigin())
+					ParticleManager:SetParticleControl(particle, 1, unit:GetAbsOrigin())
+					ParticleManager:ReleaseParticleIndex(particle)
 
-				unit:SetControllableByPlayer(self:GetCaster():GetPlayerID(), true)
-				unit:SetBaseMaxHealth(math.max(unit:GetBaseMaxHealth(), health_min))
-				unit:SetHealth(unit:GetBaseMaxHealth())
-				unit:SetHealth(unit:GetMaxHealth())
-				unit:SetBaseMoveSpeed(unit:GetBaseMoveSpeed() + movement_speed_bonus)
-				unit:SetBaseDamageMin(unit:GetBaseDamageMin() + damage_bonus)
-				unit:SetBaseDamageMax(unit:GetBaseDamageMax() + damage_bonus)
-				unit:AddNewModifier(self:GetCaster(), self, "modifier_kill", {duration = duration})
+					unit:SetControllableByPlayer(self:GetCaster():GetPlayerID(), true)
+					unit:SetBaseMaxHealth(math.max(unit:GetBaseMaxHealth(), health_min))
+					unit:SetHealth(unit:GetBaseMaxHealth())
+					unit:SetHealth(unit:GetMaxHealth())
+					unit:SetBaseMoveSpeed(unit:GetBaseMoveSpeed() + movement_speed_bonus)
+					unit:SetBaseDamageMin(unit:GetBaseDamageMin() + damage_bonus)
+					unit:SetBaseDamageMax(unit:GetBaseDamageMax() + damage_bonus)
+					unit:AddNewModifier(self:GetCaster(), self, "modifier_kill", {duration = duration})
 
-				for i=0, 5 do
-					local ability = unit:GetAbilityByIndex(i)
-					if ability then
-						if i==0 then
-							ability:SetHidden(false)
+					for i=0, 5 do
+						local ability = unit:GetAbilityByIndex(i)
+						if ability then
+							if i==0 then
+								ability:SetHidden(false)
+							end
+							ability:SetLevel(math.min(self:GetLevel(),3))
 						end
-						ability:SetLevel(math.min(self:GetLevel(),3))
 					end
 				end
 			end

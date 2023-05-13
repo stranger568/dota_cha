@@ -23,12 +23,20 @@ function modifier_item_apex_custom:OnCreated()
     if not IsServer() then return end
     self.percent = self:GetAbility():GetSpecialValueFor("primary_stat")
     self.attribute_bonus = 0
+    self.attribute_bonus_all_str = 0
+    self.attribute_bonus_all_agi = 0
+    self.attribute_bonus_all_int = 0
     if self:GetParent():GetPrimaryAttribute() == 0 then
         self.attribute_bonus = self:GetParent():GetStrength() / 100 * self.percent
     elseif self:GetParent():GetPrimaryAttribute() == 1 then
         self.attribute_bonus = self:GetParent():GetAgility() / 100 * self.percent
     elseif self:GetParent():GetPrimaryAttribute() == 2 then
         self.attribute_bonus = self:GetParent():GetIntellect() / 100 * self.percent
+    end
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        self.attribute_bonus_all_str = self:GetParent():GetStrength() / 100 * 20
+        self.attribute_bonus_all_agi = self:GetParent():GetAgility() / 100 * 20
+        self.attribute_bonus_all_int = self:GetParent():GetIntellect() / 100 * 20
     end
     self:StartIntervalThink(0.1)
 end
@@ -44,10 +52,18 @@ function modifier_item_apex_custom:OnIntervalThink()
     elseif self:GetParent():GetPrimaryAttribute() == 2 then
         self.attribute_bonus = self:GetParent():GetIntellect() / 100 * self.percent
     end
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        self.attribute_bonus_all_str = self:GetParent():GetStrength() / 100 * 20
+        self.attribute_bonus_all_agi = self:GetParent():GetAgility() / 100 * 20
+        self.attribute_bonus_all_int = self:GetParent():GetIntellect() / 100 * 20
+    end
 	self:GetParent():CalculateStatBonus(true)
 end
 
 function modifier_item_apex_custom:GetModifierBonusStats_Strength()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return self.attribute_bonus_all_str
+    end
     if self:GetParent():GetPrimaryAttribute() == 0 then
         return self.attribute_bonus
     end
@@ -55,6 +71,9 @@ function modifier_item_apex_custom:GetModifierBonusStats_Strength()
 end
 
 function modifier_item_apex_custom:GetModifierBonusStats_Agility()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return self.attribute_bonus_all_agi
+    end
     if self:GetParent():GetPrimaryAttribute() == 1 then
         return self.attribute_bonus
     end
@@ -62,6 +81,9 @@ function modifier_item_apex_custom:GetModifierBonusStats_Agility()
 end
 
 function modifier_item_apex_custom:GetModifierBonusStats_Intellect()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return self.attribute_bonus_all_int
+    end
     if self:GetParent():GetPrimaryAttribute() == 2 then
         return self.attribute_bonus
     end

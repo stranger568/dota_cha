@@ -16,6 +16,9 @@
 				<Panel class="AbilityImagePanel">
 					<Panel id="CooldownOverlay" class="Hidden" hittest="false" />
 					<DOTAAbilityImage id="AbilityImage" />
+					<Panel id="EffectReact" class="EffectReact">
+						<DOTAParticleScenePanel class="EffectReactParticle" particleName="particles/ability_effect_choosesquare.vpcf" particleonly="true" startActive="true" cameraOrigin="0 0 165" lookAt="0 0 0"  fov="29" squarePixels="true"/>
+					</Panel>
 					<Panel class="LinkedAbility">
 						<Panel id="LinkedAbilityPlusIcon" class="LinkedAbilityPlusIcon LinkedAbilityCollapse" />
 						<DOTAAbilityImage id="LinkedAbilityImage_1" class="LinkedAbilityCollapse" />

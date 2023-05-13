@@ -51,7 +51,7 @@ function modifier_aegis:ReincarnateTime()
         return nil
     end
 
-    if (self:GetParent():HasModifier("modifier_skill_second_life") and not self:GetParent():HasModifier("modifier_skill_second_life_cooldown")) and true~=self:GetParent().bJoiningPvp then
+    if (self:GetParent():HasModifier("modifier_skill_second_life") and not self:GetParent():HasModifier("modifier_skill_second_life_cooldown")) and not self:GetParent():HasModifier("modifier_duel_curse_cooldown") then
 		local parent = self:GetParent()
 	    Timers:CreateTimer(0, function()
 			if parent and not parent:IsAlive() then return 0.1 end

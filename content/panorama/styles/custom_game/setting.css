@@ -275,6 +275,10 @@ Label, TextEntry {
   margin-top: 10px;
   flow-children: right;
 }
+#DuelCameraContainer, #CreepsCameraContainer, #UIContainer2 {
+  margin-top: 10px;
+  flow-children: right;
+}
 
 #CreepsCameraContainer {
   margin-top: 10px;

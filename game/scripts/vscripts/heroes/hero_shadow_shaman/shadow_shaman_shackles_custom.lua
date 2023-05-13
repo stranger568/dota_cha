@@ -22,13 +22,13 @@ function shadow_shaman_shackles_custom:OnSpellStart()
 	
 	if target then
 		if not target:TriggerSpellAbsorb(self) then
-			target:AddNewModifier(self:GetCaster(), self, "modifier_shadow_shaman_shackles_custom", {duration = duration})
+			target:AddNewModifier(self:GetCaster(), self, "modifier_shadow_shaman_shackles_custom", {duration = duration * (1-target:GetStatusResistance())})
 			table.insert(self.targets, target)
 			local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
 			for _, enemy in pairs(enemies) do
 				if enemy ~= target then
 					table.insert(self.targets, enemy)
-					enemy:AddNewModifier(self:GetCaster(), self, "modifier_shadow_shaman_shackles_custom", {duration = duration})
+					enemy:AddNewModifier(self:GetCaster(), self, "modifier_shadow_shaman_shackles_custom", {duration = duration * (1-enemy:GetStatusResistance())})
 				end
 			end
 		end

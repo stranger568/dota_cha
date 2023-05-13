@@ -21,14 +21,15 @@ function modifier_broodmother_insatiable_hunger_custom:RemoveOnDeath() return fa
 function modifier_broodmother_insatiable_hunger_custom:DeclareFunctions()
 	local funcs = 
 	{
-		MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PHYSICAL,
+		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE
 	}
 	return funcs
 end
 
-function modifier_broodmother_insatiable_hunger_custom:GetModifierProcAttack_BonusDamage_Physical( params )
+function modifier_broodmother_insatiable_hunger_custom:GetModifierPreAttack_BonusDamage(params)
 	if not IsServer() then return end
 	if not self:GetCaster():HasModifier("modifier_broodmother_insatiable_hunger") then return end
+	if params.target == nil then return end
 	local leech = params.target:GetMaxHealth() / 100 * self:GetAbility():GetSpecialValueFor("damage_pct")
 	return leech
 end

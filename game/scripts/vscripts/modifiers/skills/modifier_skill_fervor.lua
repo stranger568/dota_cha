@@ -26,7 +26,7 @@ function modifier_skill_fervor:AttackLandedModifier( params )
 	if self:GetParent():PassivesDisabled() then return end
 
     if self.current_target ~= nil and self.current_target ~= params.target then
-        self:SetStackCount(1)
+        self:SetStackCount(self:GetStackCount() / 2)
     end
 
     if self.current_target == params.target then
@@ -38,7 +38,7 @@ function modifier_skill_fervor:AttackLandedModifier( params )
     self.current_target = params.target
 end
 
-function modifier_skill_fervor:GetModifierAttackSpeedBonus_Constant()
+function modifier_skill_fervor:GetModifierDamageOutgoing_Percentage()
 	if self:GetParent():PassivesDisabled() then return end
-	return self:GetStackCount() * 2
+	return self:GetStackCount() * 2.5
 end

@@ -599,6 +599,7 @@ function Pass:InitPassData(playerid)
               Pass.banAbilityTime[playerid] = 2
               Pass.banHeroTime[playerid] = 1
               Pass.PauseCount[playerid] = 1
+              Pass.RerollHeroCount[playerid] = 1
               Pass.PlayerPauseCooldown[playerid] = 0
               Pass.PlayerLeavePauseCooldown[playerid] = 0
               CustomNetTables:SetTableValue("tip_cooldown", tostring(playerid), {cooldown = 0})
@@ -606,14 +607,17 @@ function Pass:InitPassData(playerid)
               Pass.banAbilityTime[playerid] = 2
               Pass.banHeroTime[playerid] = 1
               Pass.PauseCount[playerid] = 0
+              Pass.RerollHeroCount[playerid] = 1
               Pass.PlayerPauseCooldown[playerid] = 0
               Pass.PlayerLeavePauseCooldown[playerid] = 0
             end
             CustomNetTables:SetTableValue("ban_count", tostring(playerid), {ban_count_hero = Pass.banHeroTime[playerid], ban_count_ability = Pass.banAbilityTime[playerid]})
             CustomNetTables:SetTableValue("player_info", "pass_data_"..playerid, ChaServerData.PLAYERS_GLOBAL_INFORMATION[playerid])
         else
-            Pass.PlayerLeavePauseCooldown[playerid] = 0       
+            Pass.PlayerLeavePauseCooldown[playerid] = 0 
+            Pass.RerollHeroCount[playerid] = 1      
             Pass.passInfo[playerid] = false
+            CustomNetTables:SetTableValue("ban_count", tostring(playerid), {ban_count_hero = 0, ban_count_ability = 0})
         end
     end
     local nRetryTime=1

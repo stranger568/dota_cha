@@ -291,6 +291,14 @@ function modifier_abilities_optimization_thinker:OnAttackLanded(params)
 		end
 	end
 
+	-- modifier_zuus_lightning_hands_custom_tracker
+	if attacker:HasModifier("modifier_zuus_lightning_hands_custom_tracker") then 
+		local modifier = attacker:FindModifierByName("modifier_zuus_lightning_hands_custom_tracker")
+		if modifier then
+			modifier:AttackLandedModifier( params )
+		end
+	end
+
 	-- modifier_skill_fervor
 	if attacker:HasModifier("modifier_skill_fervor") then 
 		local modifier = attacker:FindModifierByName("modifier_skill_fervor")
@@ -687,6 +695,13 @@ function modifier_abilities_optimization_thinker:OnDeath(params)
 
 	if target:HasModifier("modifier_cha_boss_drop_roshan") then
 		local modifier = target:FindModifierByName("modifier_cha_boss_drop_roshan")
+		if modifier then
+			modifier:OnDeathEvent(params)
+		end
+	end
+
+	if target:HasModifier("modifier_drow_ranger_frost_arrows_custom_debuff") then
+		local modifier = target:FindModifierByName("modifier_drow_ranger_frost_arrows_custom_debuff")
 		if modifier then
 			modifier:OnDeathEvent(params)
 		end

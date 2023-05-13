@@ -1977,7 +1977,7 @@
             "03"
             {
                 "var_type"          "FIELD_INTEGER"
-                "armor_reduction"   "-15"
+                "armor_reduction"   "-4 -8 -12 -15"
                 "LinkedSpecialBonus"    "special_bonus_unique_vengeful_spirit_4"
             }
             "04"

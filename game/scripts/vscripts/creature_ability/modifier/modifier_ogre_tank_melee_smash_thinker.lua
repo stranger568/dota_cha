@@ -61,7 +61,7 @@ function modifier_ogre_tank_melee_smash_thinker:OnDestroy()
 
 						enemy:EmitSound("Dungeon.BloodSplatterImpact")
 					else
-						enemy:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_stunned", { duration = self.stun_duration } )
+						enemy:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_stunned", { duration = self.stun_duration * (1-enemy:GetStatusResistance()) } )
 					end
 				end
 			end

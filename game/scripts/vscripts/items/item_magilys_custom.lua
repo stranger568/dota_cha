@@ -46,7 +46,7 @@ modifier_item_magilys_custom.percentage_abilities =
     ["shadow_demon_disseminate"] = true,
     ["dragon_knight_elder_dragon_form_custom"] = true,
     ["muerta_pierce_the_veil"] = true,
-    ["zuus_arc_lightning"] = true,
+    ["zuus_arc_lightning_custom"] = true,
     ["venomancer_noxious_plague"] = true,
 }
 

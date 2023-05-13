@@ -106,7 +106,7 @@ function Update_Heroes_Group(groupPanel, groupName) {
         if (!heroPanel) {
             heroPanel = $.CreatePanel("Panel", groupContainer, heroPanelId);
             heroPanel.BLoadLayoutSnippet("HeroesRadioButton");
-            heroPanel.SetHasClass("HeroPanel", true);
+            heroPanel.SetHasClass("HeroPanel2", true);
         }
 
         Update_Heroes(heroPanel, groupName, name);

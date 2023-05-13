@@ -127,8 +127,8 @@ function UpdateInformation()
     if (player_info) 
     {
         $("#DonateBattlePassDays1").text = (player_info.pass_level_1_days || 0)
-        $("#DonateBattlePassDays2").text = (player_info.pass_level_2_days || 0)
-        $("#DonateBattlePassDays3").text = (player_info.pass_level_3_days || 0)
+        $("#DonateBattlePassDays2").text = (player_info.pass_level_3_days || 0)
+        //$("#DonateBattlePassDays3").text = (player_info.pass_level_3_days || 0)
 
         $("#ArenaCoinLabel").text = player_info.game_coin || "0"
         $("#BalanceCoinChestLabel").text = player_info.game_coin || "0"

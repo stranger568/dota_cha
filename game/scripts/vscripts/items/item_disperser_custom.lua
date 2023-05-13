@@ -61,15 +61,13 @@ end
 
 function modifier_item_disperser_custom:OnAttackLanded(params)
     if params.attacker == self:GetParent() then
+    	if params.no_attack_cooldown then return end
+    	if self:GetParent():PassivesDisabled() then return end
     	local target_n = params.target
     	if self:GetParent():FindAllModifiersByName("modifier_item_disperser_custom")[1] ~= self then return end
 		local enemies = FindUnitsInRadius(params.attacker:GetTeamNumber(), target_n:GetAbsOrigin(), nil, self:GetAbility():GetSpecialValueFor("burn_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE, FIND_ANY_ORDER, false)
 
 		for _, target in pairs(enemies) do
-			local manaburn_pfx = ParticleManager:CreateParticle("particles/generic_gameplay/generic_manaburn.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
-			ParticleManager:SetParticleControl(manaburn_pfx, 0, target:GetAbsOrigin() )
-			ParticleManager:ReleaseParticleIndex(manaburn_pfx)
-
 			local manaBurn = self:GetAbility():GetSpecialValueFor("feedback_mana_burn")
 			local manaDamage = self:GetAbility():GetSpecialValueFor("damage_per_burn")
 			local feedback_mana_burn_illusion = self:GetAbility():GetSpecialValueFor("feedback_mana_burn_illusion_melee")

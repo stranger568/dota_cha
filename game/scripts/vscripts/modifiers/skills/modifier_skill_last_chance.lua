@@ -7,7 +7,6 @@ function modifier_skill_last_chance:IsHidden() return true end
 function modifier_skill_last_chance:IsPurgable() return false end
 function modifier_skill_last_chance:IsPurgeException() return false end
 function modifier_skill_last_chance:RemoveOnDeath() return false end
-function modifier_skill_last_chance:AllowIllusionDuplicate() return true end
 
 function modifier_skill_last_chance:DeclareFunctions()
 	return 
@@ -20,7 +19,6 @@ function modifier_skill_last_chance:GetMinHealth()
 	if self:GetParent():IsIllusion() then return end
 	if self:GetParent():HasModifier("modifier_duel_curse_cooldown") then return end
 	if self:GetParent():HasModifier("modifier_skill_last_chance_cooldown") then return end
-	if true==self:GetParent().bJoiningPvp then return end
 	return 1
 end
 
@@ -35,7 +33,7 @@ function modifier_skill_last_chance:TakeDamageScriptModifier(params)
 	if self:GetParent():IsInvulnerable() then return end
 	if self:GetParent():HasModifier("modifier_dazzle_shallow_grave") then return end
 	if self:GetParent():HasModifier("modifier_duel_curse_cooldown") then return end
-	if true==self:GetParent().bJoiningPvp then return end
+	
 	self:GetParent():EmitSound("Item.Brooch.Cast")
 	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_skill_last_chance_buff", {duration = 5})
 	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_skill_last_chance_cooldown", {duration = 180})

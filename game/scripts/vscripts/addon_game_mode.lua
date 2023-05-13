@@ -100,6 +100,7 @@ function GameMode:InitGameMode()
 
     GameRules.teamAbandonMap = {}
     GameMode.reportActorTime = {}
+    GameMode.HeroesPlayersList = {}
     GameMode.feedbackTime = {}
     GameMode.partyListMap= {}
     GameMode.nPartyNumber= 0
@@ -111,9 +112,10 @@ function GameMode:InitGameMode()
     GameRules:SetStrategyTime(7)
     GameRules:SetShowcaseTime(0)
     GameRules:SetSafeToLeave(true)
-    GameRules:SetCustomGameSetupRemainingTime(-1)
-    GameRules:SetCustomGameSetupTimeout(-1)
-    GameRules:SetCustomGameSetupAutoLaunchDelay(-1)
+
+    GameRules:SetCustomGameSetupRemainingTime(10)
+    GameRules:SetCustomGameSetupTimeout(10)
+    GameRules:SetCustomGameSetupAutoLaunchDelay(10)
 
     if IsInToolsMode() then
        GameRules:SetPreGameTime(12)
@@ -172,6 +174,7 @@ function GameMode:InitGameMode()
     CustomGameEventManager:RegisterListener("ChooseSkill", Dynamic_Wrap(Skills,'ChooseSkill'))
     CustomGameEventManager:RegisterListener("ChooseSkillReal", Dynamic_Wrap(Skills,'ChooseSkillReal'))
     CustomGameEventManager:RegisterListener("ChangeQuest", Dynamic_Wrap(Quests_arena,'ChangeQuest'))
+    CustomGameEventManager:RegisterListener("PlayerSettings", Dynamic_Wrap(ChaServerData,'PlayerSettings'))
 
     GameRules:GetGameModeEntity():SetDamageFilter(Dynamic_Wrap(GameMode, "DamageFilter"), self)
     GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(GameMode, "OrderFilter"), self)
@@ -544,18 +547,6 @@ function GameMode:OnGameRulesStateChange()
             GameRules.sValidePlayerSteamIds=string.sub(GameRules.sValidePlayerSteamIds,0,string.len(GameRules.sValidePlayerSteamIds)-1)
         end
         ----------------------------------------------------------------------------------------------------------------------------------
-
-        local pre_ban_time = 4
-        
-        Timers:CreateTimer(1, function()
-            CustomGameEventManager:Send_ServerToAllClients("ClosePlayers", {} )
-            pre_ban_time = pre_ban_time - 1
-            if pre_ban_time <= 0 then
-                GameMode:BanSystem()
-                return nil
-            end
-            return 1
-        end)
     end
   
     -- Выбор героев
@@ -577,7 +568,7 @@ function GameMode:OnGameRulesStateChange()
                                 if GameRules:IsGamePaused() then
                                     return 0.03 
                                 end
-                                local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerNumber)
+                                local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerNumber) or GameMode.HeroesPlayersList[nPlayerNumber]
                                 if not hHero then
                                     return 0.03
                                 end
@@ -602,6 +593,11 @@ function GameMode:OnGameRulesStateChange()
                                     CustomNetTables:SetTableValue("team_rank", tostring(hHero:GetTeamNumber()), {rank=0,defeat_round=0})
                                 end
                                 CustomNetTables:SetTableValue("pvp_record", tostring(nPlayerNumber), {win=0,lose=0,total_bet_reward=0})
+                                Timers:CreateTimer(RandomFloat(0, 0.2), function()
+                                    if not hHero.bInited then
+                                        HeroBuilder:InitPlayerHero(hHero)
+                                    end                               
+                                end)
                                 if PlayerResource:GetPartyID(nPlayerNumber) and tostring(PlayerResource:GetPartyID(nPlayerNumber))~="0" then
                                     local sPartyID = tostring(PlayerResource:GetPartyID(nPlayerNumber))
                                     if GameMode.partyListMap[sPartyID]==nil then
@@ -611,11 +607,6 @@ function GameMode:OnGameRulesStateChange()
                                     GameMode.partyNumberMap[nPlayerNumber] = GameMode.partyListMap[sPartyID]
                                 end
                                 CustomNetTables:SetTableValue("hero_info", "party_map", GameMode.partyNumberMap)
-                                Timers:CreateTimer(RandomFloat(0, 0.2), function()
-                                    if not hHero.bInited then
-                                        HeroBuilder:InitPlayerHero(hHero)
-                                    end                               
-                                end)
                             end)
                             return nil
                         end
@@ -1172,6 +1163,10 @@ function GameMode:OnNPCSpawned(keys)
             if hSpawnedUnit and (hSpawnedUnit:GetName() == "npc_dota_brewmaster_storm" or hSpawnedUnit:GetName() == "npc_dota_brewmaster_fire"  or hSpawnedUnit:GetName() == "npc_dota_brewmaster_earth")  then
                 hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_hero_refreshing", {})
             end
+        end
+        if hSpawnedUnit and hSpawnedUnit:IsRealHero() and hSpawnedUnit.inmassive == nil then
+            GameMode.HeroesPlayersList[hSpawnedUnit:GetPlayerID()] = hSpawnedUnit
+            hSpawnedUnit.inmassive = true
         end
         if IsInToolsMode() then
             if hSpawnedUnit:IsRealHero() then

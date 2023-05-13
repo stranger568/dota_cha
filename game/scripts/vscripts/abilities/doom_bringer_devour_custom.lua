@@ -2,7 +2,7 @@ LinkLuaModifier("modifier_doom_bringer_devour_custom", "abilities/doom_bringer_d
 
 doom_bringer_devour_custom = class({})
 
-doom_bringer_devour_custom.bRoundDueled = false
+doom_bringer_devour_custom.cast_round = 0
 
 function doom_bringer_devour_custom:CastFilterResultTarget( target )
 
@@ -17,7 +17,7 @@ function doom_bringer_devour_custom:CastFilterResultTarget( target )
 	local nResult = UnitFilter(
 		target,
 		DOTA_UNIT_TARGET_TEAM_ENEMY,
-		DOTA_UNIT_TARGET_CREEP,
+		DOTA_UNIT_TARGET_BASIC,
 		DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS + DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO,
 		self:GetCaster():GetTeamNumber()
 	)
@@ -29,21 +29,23 @@ function doom_bringer_devour_custom:CastFilterResultTarget( target )
 	return UF_SUCCESS
 end
 
-function doom_bringer_devour_custom:OnSpellStart()
+function doom_bringer_devour_custom:OnSpellStart(multicast)
 	if not IsServer() then return end
 	local target = self:GetCursorTarget()
 
-	if not target:IsAlive() then
-		self:EndCooldown()
-        self:RefundManaCost()
-		return
+	if multicast == nil then
+		if not target:IsAlive() then
+			self:EndCooldown()
+	        self:RefundManaCost()
+			return
+		end
 	end
 	
 	local duration = self:GetSpecialValueFor( "duration" )
 
-	if self.bRoundDueled == false then
+	if self.cast_round < 3 then
 		self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_doom_bringer_devour_custom", { duration = self:GetCooldown(self:GetLevel()) } )
-		self.bRoundDueled = true
+		self.cast_round = cast_round + 1
 	end
 
 	self:PlayEffects( target )

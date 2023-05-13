@@ -283,3 +283,34 @@
     background-size: 100%;
     background-image: url("file://{images}/custom_game/cup/link.png");
 }
+
+
+.PanelBanHeroes
+{
+    width: 300px;
+    height: 62px;
+    vertical-align: center;
+    margin-left: 25px;
+    background-size: 100%;
+    z-index: 155;
+    opacity: 0;
+    background-image: url("file://{images}/custom_game/ban_button.png");
+}
+.PanelBanHeroesPassOnly
+{
+    width: 100px;
+    height: 32px;
+    vertical-align: center;
+    margin-top: 145px;
+    margin-left: 25px;
+    background-size: 100%;
+    z-index: 155;
+    opacity: 1;
+    background-image: url("file://{images}/custom_game/ban_button.png");
+}
+.BanHeroesLabel
+{
+    align: center center;
+    text-shadow: 0px 0px 3px 3 black;
+    color: white;
+}

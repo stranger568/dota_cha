@@ -149,7 +149,7 @@ function modifier_hero_refreshing:OnIntervalThink()
                hAbility.bRoundDueled=false
             end
             if hAbility and hAbility.GetAbilityName and hAbility:GetAbilityName()=="doom_bringer_devour_custom" then
-               hAbility.bRoundDueled=false
+               hAbility.cast_round=0
             end
         end
 

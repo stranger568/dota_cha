@@ -68,7 +68,7 @@
 	{
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_desolator_2_custom"	
-		"AbilityTextureName"			"item_desolator_2"
+		"AbilityTextureName"			"item_desolator_2_custom"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 			
 		// Item Info
@@ -101,6 +101,7 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"45.0"
+		"ItemSellable"					"0"
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -336,10 +337,11 @@
 	"item_seer_stone_custom"
 	{
 		"BaseClass"						"item_lua"
-		"AbilityTextureName" 		    "item_seer_stone"
+		"AbilityTextureName" 		    "item_seer_stone_custom"
 		"ScriptFile"					"items/item_seer_stone_custom"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"FightRecapLevel"				"1"
+		"ItemSellable"					"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -634,6 +636,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
+		"ItemSellable"					"0"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 

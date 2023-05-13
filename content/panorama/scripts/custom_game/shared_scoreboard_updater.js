@@ -213,8 +213,8 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		            } 
 		            else 
 		            {
-		            	if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0))
-		            	{
+		            	//if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0))
+		            	//{
 			               if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[5] || 2500) >= 5420)
 					       {
 					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
@@ -222,24 +222,24 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[5] || 2500) + '.png")';
 					       }
 			               PlayerRank.style.backgroundSize = "100%" 
-			            } else {
-			            	PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + "rank0" + '.png")';
-		               		PlayerRank.style.backgroundSize = "100%" 
-			            }
+			            //} else {
+			            //	PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + "rank0" + '.png")';
+		               	//	PlayerRank.style.backgroundSize = "100%" 
+			            //}
 		            }
 		       }
 		       var rank_number = playerPanel.FindChildInLayoutFile( "rank_number" );
 		       if (rank_number)
 		       {
-		       		if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0))
-		            {
+		       		//if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0))
+		            //{
 			       		if (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0")
 			       	  	{
 			       	  	    rank_number.text = rank_info.rating_number_in_top
 			       	  	}
-			       	} else {
-			       		rank_number.text = ""
-			       	}
+			       	//} else {
+			       	//	rank_number.text = ""
+			       	//}
 		       }
 		    } else {
 		        PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + "rank0" + '.png")';

@@ -64,6 +64,10 @@
 									<ToggleButton class="Checkbox" id="CheckLeftAbilitySelect" onactivate="ToggleLeftAbilitySelect(false)" />
 									<Label class="CameraLabel" id="TextLeftAbilitySelect" text="#right_ability_select" onmouseover="DOTAShowTextTooltip(#right_ability_select_hint)" onmouseout="DOTAHideTextTooltip()" onactivate="ToggleLeftAbilitySelect(true)" />
 								</Panel>
+								<Panel id="UIContainer2">
+									<ToggleButton class="Checkbox" id="CheckEffectAbilitySelect" onactivate="TogglEffectAbilitySelect(false)" />
+									<Label class="CameraLabel" id="TextEffectAbilitySelect" text="#effect_ability_select" onmouseover="DOTAShowTextTooltip(#effect_ability_select_hint)" onmouseout="DOTAHideTextTooltip()" onactivate="TogglEffectAbilitySelect(true)" />
+								</Panel>
 							</Panel>
 						</Panel>
 						<Panel id="CameraSetting">

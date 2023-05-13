@@ -126,11 +126,11 @@
   "5"    "windrunner_focusfire"
   }
   "zuus" {
-  "1"    "zuus_arc_lightning"
+  "1"    "zuus_arc_lightning_custom"
   "2"    "zuus_lightning_bolt"
-  "3"    "zeus_static_field_lua"
-  "4"    "zuus_heavenly_jump"
-  "5"    "zuus_thundergods_wrath"
+  //"3"    "zeus_static_field_lua"
+  "3"    "zuus_heavenly_jump"
+  "4"    "zuus_thundergods_wrath"
   }
   "lina" {
   "1"    "lina_dragon_slave"
@@ -366,7 +366,7 @@
   }
   "rubick" {
   "rubick_telekinesis" {"rubick_telekinesis_land" "0"}
-  "rubick_spell_steal_custom" {"rubick_empty1" "0" "rubick_empty2" "0"}
+  "rubick_spell_steal_custom" {"rubick_empty1" "0"}
   "1"    "rubick_telekinesis"
   "2"    "rubick_fade_bolt"
   //"3"    "rubick_null_field"

@@ -18,7 +18,7 @@ function modifier_skill_overclocking:OnIntervalThink()
 	if not IsServer() then return end
 	self.distance = self.distance + ((self:GetParent():GetAbsOrigin() - self.origin):Length2D())
 	if self.distance >= 100 then
-		self:SetStackCount( math.min(self:GetStackCount()+3, 30) )
+		self:SetStackCount( math.min(self:GetStackCount()+1, 30) )
 		self.distance = 0
 	end
 	self.origin = self:GetParent():GetAbsOrigin()

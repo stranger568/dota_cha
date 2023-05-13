@@ -53,7 +53,7 @@ if IsServer() then
         end
 
         local multicast
-		if RollPercentage(chance) then
+		if RollPseudoRandomPercentage(chance, 210, self:GetParent()) then
 			multicast = 2
 		end
 
@@ -68,22 +68,23 @@ if IsServer() then
 	local MULTICAST_TYPE_INSTANT = 3 -- Bloodlust
 	local MULTICAST_ABILITIES = {
 		ogre_magi_bloodlust = MULTICAST_TYPE_NONE,
-		ogre_magi_ignite_custom = MULTICAST_TYPE_NONE,
+		ogre_magi_fireblast = MULTICAST_TYPE_NONE,
 		ogre_magi_unrefined_fireblast = MULTICAST_TYPE_NONE,
 		ogre_magi_multicast_lua = MULTICAST_TYPE_NONE,
 		item_manta_arena = MULTICAST_TYPE_NONE,
 		item_diffusal_style = MULTICAST_TYPE_NONE,
 		rubick_spell_steal_custom = MULTICAST_TYPE_NONE,
 		item_refresher_arena = MULTICAST_TYPE_NONE,
-		abyssal_underlord_firestorm_custom = MULTICAST_TYPE_NONE,
 		item_refresher_core = MULTICAST_TYPE_NONE,
-		item_refresher_custom = MULTICAST_TYPE_NONE,
+		abyssal_underlord_firestorm_custom = MULTICAST_TYPE_NONE,
 		beastmaster_wild_axes = MULTICAST_TYPE_INSTANT,
+		doom_bringer_devour_custom = MULTICAST_TYPE_DIFFERENT,
 		custom_phantom_assassin_fan_of_knives = MULTICAST_TYPE_SAME,
+		item_refresher_custom = MULTICAST_TYPE_NONE,
+		invoker_deafening_blast_lua = MULTICAST_TYPE_DIFFERENT,
 		sandking_burrowstrike = MULTICAST_TYPE_NONE,
 		obsidian_destroyer_astral_imprisonment = MULTICAST_TYPE_NONE,
 		item_book_of_shadows = MULTICAST_TYPE_NONE,
-		invoker_deafening_blast_lua = MULTICAST_TYPE_DIFFERENT,
 		invoker_quas = MULTICAST_TYPE_NONE,
 		invoker_wex = MULTICAST_TYPE_NONE,
 		invoker_exort = MULTICAST_TYPE_NONE,
@@ -398,7 +399,11 @@ function CastAdditionalAbility(caster, ability, target, delay, channelData)
 		end
 	end
 
-	skill:OnSpellStart()
+	if skill:GetAbilityName() == "nevermore_shadowraze1_custom" or skill:GetAbilityName() == "nevermore_shadowraze2_custom" or skill:GetAbilityName() == "nevermore_shadowraze3_custom" or skill:GetAbilityName() == "doom_bringer_devour_custom" then
+		skill:OnSpellStart(true)
+	else
+		skill:OnSpellStart()
+	end
 
 	if currentCursorPosition then
 	   unit:SetCursorPosition(currentCursorPosition)

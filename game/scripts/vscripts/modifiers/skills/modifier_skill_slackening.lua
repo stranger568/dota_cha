@@ -32,11 +32,11 @@ function modifier_skill_slackening:DeclareFunctions()
 end
 
 function modifier_skill_slackening:GetModifierExtraManaPercentage()
-	return 15
+	return 20
 end
 
 function modifier_skill_slackening:GetModifierExtraHealthPercentage()
-	return 15
+	return 20
 end
 
 modifier_skill_slackening_debuff = class({})

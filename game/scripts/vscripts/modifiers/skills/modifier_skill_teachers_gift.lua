@@ -23,6 +23,9 @@ function modifier_skill_teachers_gift:DeclareFunctions()
 end
 
 function modifier_skill_teachers_gift:GetModifierBonusStats_Strength()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return 50
+    end
     if self:GetParent():GetPrimaryAttribute() ~= 0 then
         return 75
     end
@@ -30,6 +33,9 @@ function modifier_skill_teachers_gift:GetModifierBonusStats_Strength()
 end
 
 function modifier_skill_teachers_gift:GetModifierBonusStats_Agility()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return 50
+    end
     if self:GetParent():GetPrimaryAttribute() ~= 1 then
         return 75
     end
@@ -37,6 +43,9 @@ function modifier_skill_teachers_gift:GetModifierBonusStats_Agility()
 end
 
 function modifier_skill_teachers_gift:GetModifierBonusStats_Intellect()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return 50
+    end
     if self:GetParent():GetPrimaryAttribute() ~= 2 then
         return 75
     end

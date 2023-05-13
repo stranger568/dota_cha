@@ -15,7 +15,8 @@ function ChaServerData:RegisterPlayerSiteInfo(player_id)
     if PlayerResource:GetSteamAccountID( player_id ) == "0" then return end
 
     local set_data = function(data, id)
-        local table_info = {
+        local table_info = 
+        {
             steamid=PlayerResource:GetSteamAccountID(id),
             arena_level = tonumber(data.arena_level) or 0,
             max_tips = data.max_tips or 0,
@@ -56,12 +57,51 @@ function ChaServerData:RegisterPlayerSiteInfo(player_id)
             quest_2 = Quests_arena:CheckQuest(id, 2, data.quest_2, PlayerResource:GetSteamAccountID(id)),
             quest_3 = Quests_arena:CheckQuest(id, 3, data.quest_3, PlayerResource:GetSteamAccountID(id)),
         }
+
+        local settings_table = 
+        {
+            settings_right_select = data.settings_right_select or 0,
+            settings_effect_select = data.settings_effect_select or 0,
+            keybinds = data.keybinds or {},
+        }
+
         ChaServerData.PLAYERS_GLOBAL_INFORMATION[id] = table_info
         CustomNetTables:SetTableValue('cha_server_data', tostring(id), table_info)
+        CustomNetTables:SetTableValue('player_info', "setting_data_"..tostring(id), settings_table)
         Pass:InitPassData(id)
-    end 
+    end
 
     RequestData(ChaServerData.url .. '/cha_data/get_player_data_new.php?steamid=' .. PlayerResource:GetSteamAccountID(player_id), function(data) set_data(data, player_id) end)
+end
+
+function ChaServerData:PlayerSettings(data)
+    if data.PlayerID == nil then return end
+
+    local settings = CustomNetTables:GetTableValue("player_info", "setting_data_"..tostring(data.PlayerID))
+
+    if data.effect_ability_selection ~= nil then
+        settings.settings_effect_select = data.effect_ability_selection
+    end
+
+    if data.right_ability_selection ~= nil then
+        settings.settings_right_select = data.right_ability_selection
+    end
+
+    CustomNetTables:SetTableValue("player_info", "setting_data_"..tostring(data.PlayerID), settings)
+end
+
+function ChaServerData:GetSettingsAbilitiesSelect(id, effect, right)
+    local settings = CustomNetTables:GetTableValue("player_info", "setting_data_"..tostring(id))
+
+    if effect and settings.settings_effect_select ~= nil then
+        return settings.settings_effect_select
+    end
+
+    if right and settings.settings_right_select ~= nil then
+        return settings.settings_right_select
+    end
+
+    return 0
 end
 
 function ChaServerData.GetEffectID(input_id, bp1, bp2, bp3)
@@ -157,6 +197,8 @@ function ChaServerData.SetPlayerStatsGameEnd(player_id, place)
         effect = ChaServerData.GetCurrentEffect(player_id),
         nickname = ChaServerData.GetCurrentNickName(player_id),
         frame = ChaServerData.GetCurrentFrame(player_id),
+        effect_settings = ChaServerData:GetSettingsAbilitiesSelect(player_id, true, false),
+        right_settings = ChaServerData:GetSettingsAbilitiesSelect(player_id, false, true),
     }
     ChaServerData.PLAYERS_LOSE_MMR_STATS[player_id] =  player_table
 end
@@ -199,6 +241,7 @@ function ChaServerData.UpdateLastBanneds()
     for id, info in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION) do
         local hero_ban = ""
         local ability_ban = ""
+
         for count, hero_name in pairs(info.current_ban_heroes) do
             if info.current_ban_heroes[count+1] == nil then
                 hero_ban = hero_ban .. hero_name
@@ -206,6 +249,7 @@ function ChaServerData.UpdateLastBanneds()
                 hero_ban = hero_ban .. hero_name .. ","
             end
         end
+
         for count, ability_name in pairs(info.current_ban_abilities) do
             if info.current_ban_abilities[count+1] == nil then
                 ability_ban = ability_ban .. ability_name
@@ -213,17 +257,17 @@ function ChaServerData.UpdateLastBanneds()
                 ability_ban = ability_ban .. ability_name .. ","
             end
         end
+
         local player_table_banned = 
         {
             steamid = info.steamid,
             hero_ban = hero_ban,
             ability_ban = ability_ban,
         }
-        print("отправить", player_table_banned.hero_ban, player_table_banned.ability_ban)
         table.insert(post_data.players, player_table_banned)
     end
+
     if not GameRules:IsCheatMode() or IsInToolsMode() then
-        print("я отправил")
         SendData(ChaServerData.url .. '/cha_data/post_banned_data.php', post_data, nil)
     end
 end
@@ -319,7 +363,7 @@ function ChaServerData.PostData()
         table.insert(post_data.players, player_info)
     end
 
-    if ((not GameRules:IsCheatMode() and ChaServerData.GetPlayersCount() > 5 and ((GameRules:GetGameTime() - GameRules.nGameStartTime) / 60) >= 10 ) or IsInToolsMode()) then
+    if ((not GameRules:IsCheatMode() and ChaServerData.GetPlayersCount() > 5 and ((GameRules:GetGameTime() - GameRules.nGameStartTime) / 60) >= 25 ) or IsInToolsMode()) then
         SendData(ChaServerData.url .. '/cha_data/post_new_data_rating.php', post_data, nil)
     end
 
@@ -352,6 +396,8 @@ function ChaServerData.PostDataPVE()
             effect = ChaServerData.GetCurrentEffect(id),
             nickname = ChaServerData.GetCurrentNickName(id),
             frame = ChaServerData.GetCurrentFrame(id),
+            effect_settings = ChaServerData:GetSettingsAbilitiesSelect(player_id, true, false),
+            right_settings = ChaServerData:GetSettingsAbilitiesSelect(player_id, false, true),
         }
         table.insert(post_data.players, solo_player)
     end
@@ -975,7 +1021,6 @@ function ChaServerData.SendQuestProgreess(id)
                 }
             },
         }
-        DeepPrintTable(post_data)
         if not GameRules:IsCheatMode() or IsInToolsMode() then
             SendData(ChaServerData.url .. '/cha_data/post_data_progress_quest.php', post_data, nil)
         end

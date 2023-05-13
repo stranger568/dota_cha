@@ -20,6 +20,9 @@ arc_warden_tempest_double_lua.transferable_modifiers = {
 	["modifier_book_of_agility"] 				= TRANSFER_FULL,
 	["modifier_loser_curse"] 				    = TRANSFER_FULL,
 	["modifier_cha_ban"] 				    = TRANSFER_FULL,
+	["modifier_item_gem_shard"] 				= TRANSFER_FULL,
+	["modifier_item_essence_of_speed"] 				    = TRANSFER_FULL,
+	["modifier_duel_damage"] 				    = TRANSFER_FULL,
 }
 
 modifier_tempest_double_talent = class({})

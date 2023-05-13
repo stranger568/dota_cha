@@ -1,4 +1,5 @@
-ogre_magi_multicast_lua = {
+ogre_magi_multicast_lua = 
+{
 	GetIntrinsicModifierName = function() return "modifier_multicast_lua" end,
 }
 
@@ -6,19 +7,13 @@ function IsUltimateAbility(ability)
 	return bit:_and(ability:GetAbilityType(), 1) == 1
 end
 
-
 function IsGlobalAbility(hAbility)
-
-	if hAbility and ("invoker_sun_strike_lua"==hAbility:GetAbilityName() or "zuus_thundergods_wrath"==hAbility:GetAbilityName() 
-	or "furion_wrath_of_nature"==hAbility:GetAbilityName() or "zuus_cloud"==hAbility:GetAbilityName() or "ancient_apparition_ice_blast"==hAbility:GetAbilityName()
-    or "spectre_haunt"==hAbility:GetAbilityName()) then
-      return true
+	if hAbility and ("invoker_sun_strike_lua"==hAbility:GetAbilityName() or "zuus_thundergods_wrath"==hAbility:GetAbilityName() or "furion_wrath_of_nature"==hAbility:GetAbilityName() or "zuus_cloud"==hAbility:GetAbilityName() or "ancient_apparition_ice_blast"==hAbility:GetAbilityName()or "spectre_haunt"==hAbility:GetAbilityName()) then
+      	return true
     else
-      return false
+      	return false
     end
-
 end
-
 
 function HasBehavior(behavior,ability)
 	local abilityBehavior = tonumber(tostring(ability:GetBehavior()))
@@ -29,9 +24,6 @@ if IsServer() then
 	function ogre_magi_multicast_lua:OnSpellStart()
 		local caster = self:GetCaster()
 		if not caster:HasScepter() then return end
-
-		print("multicast custom_phantom_assassin_fan_of_knives 20")
-
 		local target = self:GetCursorTarget()
 		local duration = self:GetSpecialValueFor("duration_ally_scepter")
 		target:EmitSound("Hero_OgreMagi.Fireblast.x3")
@@ -56,10 +48,8 @@ function ogre_magi_multicast_lua:CastFilterResultTarget(target)
 	if caster == target or target:FindAbilityByName("ogre_magi_multicast_lua") then
 		return UF_FAIL_CUSTOM
 	end
-
 	return UnitFilter(target, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, caster:GetTeamNumber())
 end
-
 
 function ogre_magi_multicast_lua:GetCustomCastErrorTarget(target)
 	if self:GetCaster() == target then
@@ -71,10 +61,10 @@ function ogre_magi_multicast_lua:GetCustomCastErrorTarget(target)
 	return ""
 end
 
-
 LinkLuaModifier("modifier_multicast_lua", "heroes/hero_ogre_magi/ogre_magi_multicast_lua.lua", LUA_MODIFIER_MOTION_NONE)
 
-modifier_multicast_lua = {
+modifier_multicast_lua = 
+{
 	IsPurgable = function() return false end,
 	GetEffectName = function() return "particles/arena/units/heroes/hero_ogre_magi/multicast_aghanims_buff.vpcf" end,
 	GetEffectAttachType = function() return PATTACH_ABSORIGIN_FOLLOW end,
@@ -90,12 +80,14 @@ if IsServer() then
 		local target = keys.target or caster:GetCursorPosition()
 		local ability = self:GetAbility()
 
-		local ogreAbilities = {
+		local ogreAbilities = 
+		{
 			ogre_magi_bloodlust = true,
 			ogre_magi_fireblast = true,
 			ogre_magi_ignite = true,
 			ogre_magi_unrefined_fireblast = true
 		}
+
 		if ogreAbilities[castedAbility:GetAbilityName()] then
 			local mc = caster:AddAbility("ogre_magi_multicast")
 			mc:SetHidden(true)
@@ -105,7 +97,7 @@ if IsServer() then
 		end
 
 		local multiplier = IsUltimateAbility(castedAbility) and 0.5 or 1
-        
+
         if IsGlobalAbility(castedAbility) then
            multiplier = multiplier * 0.5
         end
@@ -114,20 +106,14 @@ if IsServer() then
            multiplier = multiplier * 0.5
         end
 
-        --print(multiplier)
-
 		local multicast
-
-		if RollPercentage(math.floor(ability:GetSpecialValueFor("multicast_4_times") * multiplier)) then
+		if RollPseudoRandomPercentage(math.floor(ability:GetSpecialValueFor("multicast_4_times") * multiplier), 210, self:GetParent()) then
 			multicast = 4
-		elseif RollPercentage(math.floor(ability:GetSpecialValueFor("multicast_3_times") * multiplier))then
+		elseif RollPseudoRandomPercentage(math.floor(ability:GetSpecialValueFor("multicast_3_times") * multiplier), 210, self:GetParent())then
 			multicast = 3
-		elseif RollPercentage(math.floor(ability:GetSpecialValueFor("multicast_2_times") * multiplier))then
+		elseif RollPseudoRandomPercentage(math.floor(ability:GetSpecialValueFor("multicast_2_times") * multiplier), 210, self:GetParent())then
 			multicast = 2
 		end
-
-		print("multicast custom_phantom_assassin_fan_of_knives", multicast, castedAbility:GetAbilityName(), ability:GetSpecialValueFor("multicast_delay"), target)
-
 		if multicast then
 			PreformMulticast(caster, castedAbility, multicast, ability:GetSpecialValueFor("multicast_delay"), target)
 		end
@@ -137,10 +123,10 @@ if IsServer() then
 	local MULTICAST_TYPE_SAME = 1 -- Fireblast
 	local MULTICAST_TYPE_DIFFERENT = 2 -- Ignite
 	local MULTICAST_TYPE_INSTANT = 3 -- Bloodlust
-	local MULTICAST_ABILITIES = {
+	local MULTICAST_ABILITIES = 
+	{
 		ogre_magi_bloodlust = MULTICAST_TYPE_NONE,
 		ogre_magi_fireblast = MULTICAST_TYPE_NONE,
-		ogre_magi_ignite_custom = MULTICAST_TYPE_NONE,
 		ogre_magi_unrefined_fireblast = MULTICAST_TYPE_NONE,
 		ogre_magi_multicast_lua = MULTICAST_TYPE_NONE,
 		item_manta_arena = MULTICAST_TYPE_NONE,
@@ -150,6 +136,7 @@ if IsServer() then
 		item_refresher_core = MULTICAST_TYPE_NONE,
 		abyssal_underlord_firestorm_custom = MULTICAST_TYPE_NONE,
 		beastmaster_wild_axes = MULTICAST_TYPE_INSTANT,
+		doom_bringer_devour_custom = MULTICAST_TYPE_DIFFERENT,
 		custom_phantom_assassin_fan_of_knives = MULTICAST_TYPE_SAME,
 		item_refresher_custom = MULTICAST_TYPE_NONE,
 		invoker_deafening_blast_lua = MULTICAST_TYPE_DIFFERENT,
@@ -193,8 +180,8 @@ if IsServer() then
 		item_book_of_agility = MULTICAST_TYPE_NONE,
 		item_book_of_intelligence = MULTICAST_TYPE_NONE,     
         item_chaos_scroll_lua = MULTICAST_TYPE_NONE,
-		shredder_chakram_lua = MULTICAST_TYPE_NONE,
-		shredder_chakram_2_lua = MULTICAST_TYPE_NONE,
+		shredder_chakram_lua = MULTICAST_TYPE_SAME,
+		shredder_chakram_2_lua = MULTICAST_TYPE_SAME,
 		item_aegis_lua = MULTICAST_TYPE_NONE,
 		tusk_walrus_punch = MULTICAST_TYPE_DIFFERENT,
 		tusk_walrus_kick = MULTICAST_TYPE_NONE,
@@ -232,7 +219,9 @@ if IsServer() then
 		dawnbreaker_converge = MULTICAST_TYPE_NONE,
 		dawnbreaker_solar_guardian = MULTICAST_TYPE_NONE,
 		dawnbreaker_celestial_hammer = MULTICAST_TYPE_NONE,
-		crystal_maiden_freezing_field = MULTICAST_TYPE_NONE,
+		crystal_maiden_freezing_field = MULTICAST_TYPE_SAME,
+
+		
 		faceless_void_chronosphere = MULTICAST_TYPE_NONE,
 		timbersaw_chakram_lua = MULTICAST_TYPE_NONE,
 		timbersaw_chakram_2_lua = MULTICAST_TYPE_NONE,
@@ -285,14 +274,12 @@ if IsServer() then
 		local name = ability:GetAbilityName()
 		if MULTICAST_ABILITIES[name] then return MULTICAST_ABILITIES[name] end
 		if ability:IsToggle() then return MULTICAST_TYPE_NONE end
-
 		if HasBehavior(DOTA_ABILITY_BEHAVIOR_PASSIVE,ability) then return MULTICAST_TYPE_NONE end
 		return HasBehavior(DOTA_ABILITY_BEHAVIOR_UNIT_TARGET,ability) and MULTICAST_TYPE_DIFFERENT or MULTICAST_TYPE_SAME
 	end
 
 	function PreformMulticast(caster, ability_cast, multicast, multicast_delay, target)
 		local multicast_type = GetAbilityMulticastType(ability_cast)
-		print(multicast_type)
 		if multicast_type ~= MULTICAST_TYPE_NONE then
 			local prt = ParticleManager:CreateParticle('particles/units/heroes/hero_ogre_magi/ogre_magi_multicast.vpcf', PATTACH_OVERHEAD_FOLLOW, caster)
 			local multicast_flag_data = GetMulticastFlags(caster, ability_cast, multicast_type)
@@ -307,12 +294,10 @@ if IsServer() then
 					ParticleManager:ReleaseParticleIndex(prt)
 					local multicast_casted_data = {}
 					for i=2,multicast do
-						print("multicast custom_phantom_assassin_fan_of_knives 3")
 						CastMulticastedSpellInstantly(caster, ability_cast, target, multicast_flag_data, multicast_casted_data, 0, channelData)
 					end
 				end)
 			else
-				print("multicast custom_phantom_assassin_fan_of_knives 2")
 				CastMulticastedSpell(caster, ability_cast, target, multicast-1, multicast_type, multicast_flag_data, {}, multicast_delay, channelData, prt, 2)
 			end
 		end
@@ -338,11 +323,9 @@ if IsServer() then
 	end
 
 	function CastMulticastedSpellInstantly(caster, ability, target, multicast_flag_data, multicast_casted_data, delay, channelData)
-		
 		if (not caster) or (caster:IsNull()) then
 			return
 		end
-		print("multicast custom_phantom_assassin_fan_of_knives 4")
 		local candidates = FindUnitsInRadius(multicast_flag_data.team, caster:GetOrigin(), nil, multicast_flag_data.cast_range, multicast_flag_data.abilityTarget, multicast_flag_data.abilityTargetType, multicast_flag_data.targetFlags, FIND_ANY_ORDER, false)
 		local Tier1 = {} --heroes
 		local Tier2 = {} --creeps and self
@@ -363,7 +346,6 @@ if IsServer() then
 		end
 		local castTarget = Tier1[math.random(#Tier1)] or Tier2[math.random(#Tier2)] or Tier3[math.random(#Tier3)] or Tier4[math.random(#Tier4)] or target
 		multicast_casted_data[castTarget] = true
-		print("multicast custom_phantom_assassin_fan_of_knives 5")
 		CastAdditionalAbility(caster, ability, castTarget, delay, channelData)
 		return multicast_casted_data
 	end
@@ -376,14 +358,12 @@ if IsServer() then
 				prt = ParticleManager:CreateParticle('particles/units/heroes/hero_ogre_magi/ogre_magi_multicast.vpcf', PATTACH_OVERHEAD_FOLLOW, caster)
 				ParticleManager:SetParticleControl(prt, 1, Vector(prtNumber, 0, 0))
 				if multicast_type == MULTICAST_TYPE_SAME then
-					print("multicast custom_phantom_assassin_fan_of_knives 7")
 					CastAdditionalAbility(caster, ability, target, delay * (prtNumber - 1), channelData)
 				else
 					multicast_casted_data = CastMulticastedSpellInstantly(caster, ability, target, multicast_flag_data, multicast_casted_data, delay * (prtNumber - 1), channelData)
 				end
 				caster:EmitSound('Hero_OgreMagi.Fireblast.x'.. multicasts)
 				if multicasts >= 2 then
-					print("multicast custom_phantom_assassin_fan_of_knives 6")
 					CastMulticastedSpell(caster, ability, target, multicasts - 1, multicast_type, multicast_flag_data, multicast_casted_data, delay, channelData, prt, prtNumber + 1)
 				end
 			end)
@@ -405,8 +385,6 @@ function CastAdditionalAbility(caster, ability, target, delay, channelData)
 	if not ability or ability:IsNull() then
 		 return
 	end
-
-	print("multicast custom_phantom_assassin_fan_of_knives 8")
 
 	local channelTime = ability:GetChannelTime() or 0
 	if channelTime > 0 then
@@ -462,15 +440,17 @@ function CastAdditionalAbility(caster, ability, target, delay, channelData)
 		skill.GetCaster = function() return ability:GetCaster() end
 		unit = dummy
 	end
+
 	if HasBehavior(DOTA_ABILITY_BEHAVIOR_UNIT_TARGET,skill) then
 		if target and type(target) == "table" then
 			unit:SetCursorCastTarget(target)
 		end
 	end
+
 	local currentCursorPosition
+
 	if HasBehavior(DOTA_ABILITY_BEHAVIOR_POINT,skill) then
 		if target then
-			print("multicast custom_phantom_assassin_fan_of_knives 9")
 			currentCursorPosition=unit:GetCursorPosition()
 			if target.x and target.y and target.z then
 				unit:SetCursorPosition(target)
@@ -480,10 +460,12 @@ function CastAdditionalAbility(caster, ability, target, delay, channelData)
 		end
 	end
 
-	print("multicast custom_phantom_assassin_fan_of_knives 10")
-
-	skill:OnSpellStart()
-
+	if skill:GetAbilityName() == "nevermore_shadowraze1_custom" or skill:GetAbilityName() == "nevermore_shadowraze2_custom" or skill:GetAbilityName() == "nevermore_shadowraze3_custom" or skill:GetAbilityName() == "doom_bringer_devour_custom" then
+		skill:OnSpellStart(true)
+	else
+		skill:OnSpellStart()
+	end
+	
 	if currentCursorPosition then
 	   unit:SetCursorPosition(currentCursorPosition)
 	end

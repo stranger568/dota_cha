@@ -28,6 +28,10 @@ function Debugger:OnPlayerSay(keys)
         if szText=="suicide" then
             hHero:ForceKill(false)
         end
+        --if szText=="force_game_end" then
+        --    ChaServerData.SetPlayerStatsGameEnd(0, 1)
+        --    ChaServerData.PostData()
+        --end
         if string.find(szText,"item_") == 1 then
             local hNewItem =  hHero:AddItemByName(szText)
             hNewItem:SetSellable(true)
@@ -46,6 +50,22 @@ function Debugger:OnPlayerSay(keys)
         if szText=="book" then
              hHero:AddItemByName("item_omniscient_book")
         end
+        if string.find(szText,"other_") == 1 then
+          local sAbilityName = string.sub(szText,7,string.len(szText))
+          print(sAbilityName)
+          if HeroBuilder.abilityHeroMap[sAbilityName] then
+             for i=0,10 do
+                if (i~=nPlayerId) then
+                  local hOtherHero = PlayerResource:GetSelectedHeroEntity(i)
+                  if hOtherHero then
+                    HeroBuilder:AddAbility(i, sAbilityName)
+                    hOtherHero.nAbilityNumber = hOtherHero.nAbilityNumber+1
+                    table.insert(hOtherHero.abilitiesList, sAbilityName)
+                  end
+                end
+             end
+          end
+       end
         if string.find(szText,"npc_dota_hero_") == 1 then
              hHero = PlayerResource:ReplaceHeroWith(nPlayerId,szText,hHero:GetGold(),0)
              HeroBuilder:InitPlayerHero(hHero)

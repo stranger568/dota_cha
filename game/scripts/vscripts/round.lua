@@ -8,6 +8,7 @@ LinkLuaModifier( "modifier_duel_damage_check", "modifiers/modifier_duel_damage_c
 LinkLuaModifier( "modifier_aegis_buff_rebirth", "modifiers/modifier_aegis_buff_rebirth", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_duel_curse", "modifiers/modifier_duel_curse", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_duel_curse_cooldown", "modifiers/modifier_duel_curse", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier("modifier_ninja_gear_custom", "items/item_ninja_gear_custom", LUA_MODIFIER_MOTION_NONE)
 
 if Round == nil then Round = class({}) end
 
@@ -194,7 +195,7 @@ SkillRoundNumber[21]=true
 SkillRoundNumber[31]=true
 SkillRoundNumber[41]=true
 SkillRoundNumber[51]=true
-SkillRoundNumber[91]=true
+SkillRoundNumber[81]=true
 
 if IsInToolsMode() then
     --abilitySelectionRoundNumber = {}
@@ -284,7 +285,7 @@ function Round:Prepare(nRoundNumber)
                         tier = 4
                     elseif nRoundNumber == 51 then
                         tier = 5
-                    elseif nRoundNumber == 91 then
+                    elseif nRoundNumber == 81 then
                         tier = 5
                     end
                     Skills:CreateRandomSkillsForPlayer(nPlayerID, tier)
@@ -642,6 +643,13 @@ function Round:Begin()
                     local modifier_skill_overclocking = hHero:FindModifierByName("modifier_skill_overclocking")
                     if modifier_skill_overclocking then
                         modifier_skill_overclocking:SetStackCount(0)
+                    end
+                end
+
+                if hHero:HasModifier("modifier_skill_smoker") then
+                    hHero:AddNewModifier(hHero, nil, "modifier_ninja_gear_custom", {duration = 8})
+                    if hHero.tempest_double_hClone and not hHero.tempest_double_hClone:IsNull() and hHero.tempest_double_hClone:IsAlive() then
+                        hHero.tempest_double_hClone:AddNewModifier(hHero, nil, "modifier_ninja_gear_custom", {duration = 8})
                     end
                 end
 

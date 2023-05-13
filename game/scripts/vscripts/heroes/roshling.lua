@@ -56,9 +56,10 @@ function modifier_gold_roshan_bash:IsPurgeException() return false end
 function modifier_gold_roshan_bash:AttackLandedModifier(params)
 	if not IsServer() then return end
 	if params.attacker ~= self:GetParent() then return end
-	if RollPercentage(self:GetAbility():GetSpecialValueFor("chance")) then
+	if RollPercentage(self:GetAbility():GetSpecialValueFor("chance")) and self:GetAbility():IsFullyCastable() then
 		self:GetParent():EmitSound("Roshan.Bash")
-		params.target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_bashed", {duration = self:GetAbility():GetSpecialValueFor("duration")})
+		self:GetAbility():UseResources(false, false, false, true)
+		params.target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_bashed", {duration = self:GetAbility():GetSpecialValueFor("duration") * (1-params.target:GetStatusResistance()) })
 	end
 end
 

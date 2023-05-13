@@ -76,24 +76,6 @@ end
 
 function modifier_ghost_shroud_custom_active:OnCreated()
 	self.healing_amp_pct	= self:GetAbility():GetSpecialValueFor("heal_bonus")
-	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
-end
-
-function modifier_ghost_shroud_custom_active:OnIntervalThink()
-	if not IsServer() then return end
-	if self:GetParent():HasModifier("modifier_black_king_bar_immune") then
-        self:Destroy()
-    end
-    if self:GetParent():HasModifier("modifier_life_stealer_rage") then
-        self:Destroy()
-    end
-    if self:GetParent():HasModifier("modifier_juggernaut_blade_fury") then
-        self:Destroy()
-    end
-    if self:GetParent():HasModifier("modifier_huskar_life_break_charge") then
-        self:Destroy()
-    end
 end
 
 modifier_ghost_shroud_custom_aura = class({})

@@ -42,7 +42,7 @@ function night_stalker_hunter_in_the_night_custom:OnSpellStart()
     self:GetCaster():GiveMana(mana_restore)
     self:GetCaster():Heal(heal_restore, self)
 
-    target:ForceKill(false)
+    target:Kill(self, self:GetCaster())
 end
 
 modifier_night_stalker_hunter_in_the_night_custom = class({})

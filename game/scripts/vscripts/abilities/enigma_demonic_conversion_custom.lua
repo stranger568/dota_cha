@@ -1,3 +1,5 @@
+LinkLuaModifier("modifier_enigma_demonic_conversion_custom_creep", "abilities/enigma_demonic_conversion_custom", LUA_MODIFIER_MOTION_NONE)
+
 enigma_demonic_conversion_custom = class({})
 
 function enigma_demonic_conversion_custom:CastFilterResultTarget( target )
@@ -6,7 +8,7 @@ function enigma_demonic_conversion_custom:CastFilterResultTarget( target )
 		return UF_FAIL_ANCIENT
 	end
 
-	if target:GetLevel() > self:GetSpecialValueFor("creep_max_level") then
+	if target:GetLevel() > self:GetSpecialValueFor("creep_max_level") and not target:IsHero() then
 		return UF_FAIL_ANCIENT
 	end
 
@@ -62,5 +64,21 @@ function enigma_demonic_conversion_custom:CreateEidolon(hParent, vLocation)
 	eidolon:SetOwner(self:GetCaster())
 	eidolon:SetControllableByPlayer(self:GetCaster():GetPlayerID(), true)
 	FindClearSpaceForUnit(eidolon, vLocation, true)
-	eidolon:AddNewModifier(self:GetCaster(), self, "modifier_demonic_conversion", {})
+	eidolon:AddNewModifier(self:GetCaster(), self, "modifier_demonic_conversion", {duration = 40, allowsplit = 6})
+	eidolon:AddNewModifier(self:GetCaster(), self, "modifier_enigma_demonic_conversion_custom_creep", {})
+end
+
+modifier_enigma_demonic_conversion_custom_creep = class({})
+
+function modifier_enigma_demonic_conversion_custom_creep:IsHidden() return true end
+function modifier_enigma_demonic_conversion_custom_creep:IsPurgable() return false end
+function modifier_enigma_demonic_conversion_custom_creep:IsPurgeException() return false end
+
+function modifier_enigma_demonic_conversion_custom_creep:OnCreated()
+	if not IsServer() then return end
+	self:GetParent():SetBaseDamageMin(self:GetAbility():GetSpecialValueFor("eidolon_dmg_tooltip"))
+	self:GetParent():SetBaseDamageMax(self:GetAbility():GetSpecialValueFor("eidolon_dmg_tooltip"))
+	self:GetParent():SetBaseMaxHealth(self:GetAbility():GetSpecialValueFor("eidolon_hp_tooltip"))
+	self:GetParent():SetMaxHealth(self:GetAbility():GetSpecialValueFor("eidolon_hp_tooltip"))
+	self:GetParent():SetHealth(self:GetAbility():GetSpecialValueFor("eidolon_hp_tooltip"))
 end

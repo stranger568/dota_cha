@@ -220,8 +220,8 @@ function ShowPvpBet(data)
 
         var pass_info = CustomNetTables.GetTableValue("player_info", "pass_data_" + localPlayerId);
 
-        if (pass_info && (pass_info.pass_level_3_days > 0 || pass_info.pass_level_2_days > 0 || pass_info.pass_level_1_days > 0)) 
-        {
+        //if (pass_info && (pass_info.pass_level_3_days > 0 || pass_info.pass_level_2_days > 0 || pass_info.pass_level_1_days > 0)) 
+        //{
             var rank_info_duel = CustomNetTables.GetTableValue("cha_server_data", String(playerId));
             if (rank_info_duel) {
                 HeroInfoRatingLabel.text = $.Localize("#score") + ":" + (rank_info_duel.mmr[5] || 0) + "     " + $.Localize("#games_duel") + ":" + (rank_info_duel.games[5] || 0);
@@ -240,10 +240,10 @@ function ShowPvpBet(data)
                 HeroInfoRatingLabel.style.opacity = "1"
                 HeroRank.style.opacity = "1"
             }
-        } else {
-            HeroInfoRatingLabel.style.opacity = "0"
-            HeroRank.style.opacity = "0"
-        }
+        //} else {
+        //    HeroInfoRatingLabel.style.opacity = "0"
+        //    HeroRank.style.opacity = "0"
+        //}
 
         var HealthAndManaPanel = $.CreatePanel("Image", playerPanelShow, "HealthAndManaPanel" + index);
         HealthAndManaPanel.AddClass("HealthAndManaPanel");
@@ -474,8 +474,8 @@ function UpdatePVPPanel(heroNumber)
                             ability_box.SetHasClass("Unlearned", Abilities.GetLevel(ability) == 0)
 
                             var pass_info_local = CustomNetTables.GetTableValue("player_info", "pass_data_" + Players.GetLocalPlayer());
-                            if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0)) 
-                            {
+                            //if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0)) 
+                            //{
                                 let ability_levelbox = $.CreatePanel("Panel", ability_box, "ability_levelbox");
                                 ability_levelbox.AddClass("ability_levelbox")
 
@@ -489,7 +489,7 @@ function UpdatePVPPanel(heroNumber)
                                         ability_level_quad.AddClass("ability_level_quad_not_learn")
                                     }
                                 }
-                            }
+                            //}
                         }
                     }
 

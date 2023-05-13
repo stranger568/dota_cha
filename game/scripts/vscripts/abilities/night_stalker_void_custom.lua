@@ -17,9 +17,9 @@ function night_stalker_void_custom:OnSpellStart()
 		local damageTable = 
 		{
 			victim = target,
-			attacker = caster,
+			attacker = self:GetCaster(),
 			damage = damage,
-			damage_type = self:GetAbilityDamageType(),
+			damage_type = DAMAGE_TYPE_MAGICAL,
 			ability = self,
 		}
 		ApplyDamage( damageTable )

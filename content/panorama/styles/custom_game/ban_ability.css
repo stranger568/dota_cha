@@ -730,7 +730,7 @@ Button:enabled DOTAAbilityImage:hover {
 {
     horizontal-align: center;
     flow-children: right;
-    margin-top: 5px;
+    margin-top: 20px;
 }
 
 .hBlock 
@@ -779,6 +779,12 @@ Button:enabled DOTAAbilityImage:hover {
     height: 80px;
 }
 
+.HeroPanel2 {
+    width: 70px;
+    margin: 2px;
+    height: 40px;
+}
+
 RadioButton:enabled DOTAHeroImage:hover, RadioButton:selected DOTAHeroImage 
 {
     box-shadow: #ffffff80 0px 0px 1px 1px;
@@ -796,6 +802,9 @@ RadioButton > .RadioBox
     background-size: 100%;
     width: 520px;
     height: 260px;
+    z-index: 155;
+    vertical-align: bottom;
+    opacity: 0;
 }
 
 .Morebanwithbnp

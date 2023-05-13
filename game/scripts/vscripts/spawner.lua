@@ -139,15 +139,18 @@ function Spawner:GetTeamPlaceBonusGold(teamcheck)
         table.sort(dataList, function(a, b) return a.nGold < b.nGold end)
         if dataList[1] and dataList[1].team == teamcheck then
             if dataList[1].modifier_skill_outsiders then
-                return 30 + 80
+                return 30 + 100
             end
             return 30
         elseif dataList[2] and dataList[2].team == teamcheck then
             if dataList[2].modifier_skill_outsiders then
-                return 15 + 80
+                return 15 + 100
             end
             return 15
         elseif dataList[3] and dataList[3].team == teamcheck then
+            if dataList[3].modifier_skill_outsiders then
+                return 10 + 100
+            end
             return 10
         end
     end

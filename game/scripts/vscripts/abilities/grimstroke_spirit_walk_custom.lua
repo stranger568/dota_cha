@@ -28,7 +28,7 @@ function modifier_grimstroke_spirit_walk_custom:IsDebuff()
 end
 
 function modifier_grimstroke_spirit_walk_custom:IsPurgable()
-	return true
+	return false
 end
 
 function modifier_grimstroke_spirit_walk_custom:OnCreated( kv )

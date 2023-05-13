@@ -37,15 +37,7 @@ function ogre_magi_ignite_custom:OnProjectileHit_ExtraData( target, location, da
 	if target:IsMagicImmune() then return end
 
 	local duration = self:GetSpecialValueFor( "duration" )
-
-	if target:HasModifier("modifier_ogre_magi_ignite_custom") then
-		local mod = target:FindModifierByName("modifier_ogre_magi_ignite_custom")
-		if mod then
-			mod:SetDuration(mod:GetRemainingTime() + duration, true)
-		end
-	else
-		target:AddNewModifier( self:GetCaster(), self, "modifier_ogre_magi_ignite_custom", { duration = duration } )
-	end
+	target:AddNewModifier( self:GetCaster(), self, "modifier_ogre_magi_ignite_custom", { duration = duration } )
 	self:GetCaster():EmitSound("Hero_OgreMagi.Ignite.Target")
 end
 
@@ -53,6 +45,7 @@ modifier_ogre_magi_ignite_custom = class({})
 
 function modifier_ogre_magi_ignite_custom:IsPurgable() return true end
 
+function modifier_ogre_magi_ignite_custom:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
 
 function modifier_ogre_magi_ignite_custom:OnCreated( kv )
 	if not self:GetAbility() then self:Destroy() return end

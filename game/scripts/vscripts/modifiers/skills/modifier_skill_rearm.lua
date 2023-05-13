@@ -16,10 +16,10 @@ function modifier_skill_rearm:OnAbilityfullCastCustom(params)
         return 0
     end
 
-    local chance = 30
+    local chance = 25
 
     if IsUltimateAbility(hAbility) then
-    	chance = 20
+    	chance = 15
     end
 
     if hAbility:GetAbilityName() == "phoenix_supernova" then return end

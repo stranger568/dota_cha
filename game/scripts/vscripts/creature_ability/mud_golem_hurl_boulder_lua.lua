@@ -38,7 +38,7 @@ function mud_golem_hurl_boulder_lua:OnProjectileHit( hTarget, vLocation )
 		}
 		ApplyDamage( vDamage )
 		if  self and hTarget and not hTarget:IsNull() then
-		  hTarget:AddNewModifier( self:GetCaster(), self, "modifier_stunned", { duration = duration } )
+		  hTarget:AddNewModifier( self:GetCaster(), self, "modifier_stunned", { duration = duration * (1-hTarget:GetStatusResistance()) } )
 		end
 	end 
 

@@ -19,6 +19,15 @@ function OnLeaveTeamPressed()
 }
 
 
+GameUI.CustomUIConfig().CloseTeamList = function CloseTeamList()
+{
+	$.GetContextPanel().style.visibility = "collapse"
+}
+GameUI.CustomUIConfig().OpenTeamList = function OpenTeamList()
+{
+	$.GetContextPanel().style.visibility = "visible"
+}
+
 //--------------------------------------------------------------------------------------------------
 // Handler for when the Lock and Start button is pressed
 //--------------------------------------------------------------------------------------------------
@@ -36,11 +45,6 @@ function OnLockAndStartPressed()
 
 	// Set the remaining time before the game starts
 	Game.SetRemainingSetupTime( 4 ); 
-}
-
-GameUI.CustomUIConfig().CloseTeamList = function CloseTeamList()
-{
-	$.GetContextPanel().style.visibility = "collapse"
 }
 
 
@@ -268,24 +272,23 @@ function UpdateTimer()
 	var transitionTime = Game.GetStateTransitionTime();
 
 	CheckForHostPrivileges();
-	 
-	var mapInfo = Game.GetMapInfo();
+	
 	if ( transitionTime >= 0 )
 	{
-		//$( "#StartGameCountdownTimer" ).SetDialogVariableInt( "countdown_timer_seconds", Math.max( 0, Math.floor( transitionTime - gameTime ) ) );
-		//$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_active", true );
-		//$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_inactive", false );
+		$( "#StartGameCountdownTimer" ).SetDialogVariableInt( "countdown_timer_seconds", Math.max( 0, Math.floor( transitionTime - gameTime ) ) );
+		$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_active", true );
+		$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_inactive", false );
 	}
 	else
 	{
-		//$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_active", false );
-		//$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_inactive", true );
+		$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_active", false );
+		$( "#StartGameCountdownTimer" ).SetHasClass( "countdown_inactive", true );
 	}
 
 	var autoLaunch = Game.GetAutoLaunchEnabled();
-	//$( "#StartGameCountdownTimer" ).SetHasClass( "auto_start", autoLaunch );
-	//$( "#StartGameCountdownTimer" ).SetHasClass( "forced_start", ( autoLaunch == false ) );
-	//$( "#TeamListHeaderLabel" ).text = $.Localize("#custom_game_team_select")
+	$( "#StartGameCountdownTimer" ).SetHasClass( "auto_start", autoLaunch );
+	$( "#StartGameCountdownTimer" ).SetHasClass( "forced_start", ( autoLaunch == false ) );
+
 	$( "#TeamListHeaderLabelAverage" ).text = $.Localize("#average_rating") + GetAverageRating()
 
 	// Allow the ui to update its state based on team selection being locked or unlocked
@@ -295,10 +298,10 @@ function UpdateTimer()
 	$.Schedule( 0.1, UpdateTimer );
 }
 
-function GetAverageRating() {
+function GetAverageRating() 
+{
     let average_rating = 0
     let current_players = 0
-
 
     for (var playerId = 0; playerId <= 12; playerId++)
     {
@@ -309,7 +312,8 @@ function GetAverageRating() {
         }
     }
 
-    if (average_rating > 0) {
+    if (average_rating > 0) 
+    {
         average_rating = average_rating / current_players
     }
 
@@ -371,12 +375,7 @@ function GetAverageRating() {
 	// Do an initial update of the player team assignment
 	OnTeamPlayerListChanged();
 
-	if (Game.GetMapInfo().map_display_name == "1x8") {
-		Game.ShufflePlayerTeamAssignments();
-		Game.ShufflePlayerTeamAssignments();
-		Game.ShufflePlayerTeamAssignments();
-	}
-
+	// Start updating the timer, this function will schedule itself to be called periodically
 	UpdateTimer();
 
 	// Register a listener for the event which is brodcast when the team assignment of a player is actually assigned
@@ -386,3 +385,4 @@ function GetAverageRating() {
 	$.RegisterForUnhandledEvent( "DOTAGame_PlayerSelectedCustomTeam", OnPlayerSelectedTeam );
 
 })();
+

@@ -33,7 +33,7 @@ function modifier_zeus_static_field_lua:SetStats()
 	}
 
 	self.zeus_abilities = {
-		["zuus_arc_lightning"] = true,
+		["zuus_arc_lightning_custom"] = true,
 		["zuus_lightning_bolt"] = true,
 		["zuus_thundergods_wrath"] = true,
 		["zuus_thundergods_vengeance"] = true,

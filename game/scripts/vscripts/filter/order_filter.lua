@@ -98,6 +98,19 @@ function GameMode:OrderFilter(orderTable)
                 return false 
             end
 
+            if orderTable.order_type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+                local item = EntIndexToHScript(orderTable["entindex_target"])
+                if item then
+                    local pickedItem = item:GetContainedItem()
+                    if not pickedItem then return true end
+                    if hero and (hero:IsTempestDouble() or hero:HasModifier("modifier_tempest_double_illusion")) then
+                        if pickedItem:IsNeutralDrop() then
+                            return false 
+                        end
+                    end
+                end
+            end
+
             if orderTable.order_type == DOTA_UNIT_ORDER_ATTACK_TARGET or orderTable.order_type == DOTA_UNIT_ORDER_MOVE_TO_TARGET then
                 if target and not target:IsNull() and target:IsBaseNPC() and (target:GetUnitName() == "npc_dota_teleport_base_custom_red" or target:GetUnitName() == "npc_dota_teleport_base_custom_blue") and unit:IsRealHero() then
                     if 550 >= ( hero:GetOrigin() - target:GetOrigin() ):Length2D() then 

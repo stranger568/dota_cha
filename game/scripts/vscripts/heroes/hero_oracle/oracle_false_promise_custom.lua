@@ -41,6 +41,9 @@ function modifier_oracle_false_promise_custom:GetEffectName()
 end
 
 function modifier_oracle_false_promise_custom:OnCreated()
+
+	self.amplify = self:GetAbility():GetSpecialValueFor("shard_spell_amp_bonus")
+	
 	if not IsServer() then return end
 	
 	self.overhead_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_indicator.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent())
@@ -50,8 +53,9 @@ function modifier_oracle_false_promise_custom:OnCreated()
 	self.damage_instances	= {}
 	self.instance_counter	= 1
 	self.damage_counter		= 0
+	self.flBaseAttackTime = self:GetParent():GetBaseAttackTime() - self:GetAbility():GetSpecialValueFor("shard_bat_bonus")
 
-	if self:GetCaster():HasShard() then
+	if self:GetCaster():HasScepter() then
 		self:StartIntervalThink(self:GetAbility():GetSpecialValueFor("shard_fade_time"))
 	end
 end
@@ -128,6 +132,7 @@ function modifier_oracle_false_promise_custom:DeclareFunctions()
 		MODIFIER_PROPERTY_DISABLE_HEALING,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_MIN_HEALTH,
+		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
 	}
 end
 
@@ -184,15 +189,19 @@ function modifier_oracle_false_promise_custom:GetModifierPhysicalArmorBonus()
 	return self:GetAbility():GetSpecialValueFor("bonus_armor")
 end
 
+function modifier_oracle_false_promise_custom:GetModifierSpellAmplify_Percentage()
+	return self.amplify
+end
+
 function modifier_oracle_false_promise_custom:AttackModifier(keys)
-	if self:GetCaster():HasShard() and keys.attacker == self:GetParent() and not keys.no_attack_cooldown and self.invis_modifier and not self.invis_modifier:IsNull() then
+	if self:GetCaster():HasScepter() and keys.attacker == self:GetParent() and not keys.no_attack_cooldown and self.invis_modifier and not self.invis_modifier:IsNull() then
 		self.invis_modifier:Destroy()
 		self:StartIntervalThink(self:GetAbility():GetSpecialValueFor("shard_fade_time"))
 	end
 end
 
 function modifier_oracle_false_promise_custom:OnAbilityfullCastCustom(keys)
-	if self:GetCaster():HasShard() and keys.unit == self:GetParent() and self.invis_modifier and not self.invis_modifier:IsNull() then
+	if self:GetCaster():HasScepter() and keys.unit == self:GetParent() and self.invis_modifier and not self.invis_modifier:IsNull() then
 		self.invis_modifier:Destroy()
 		self:StartIntervalThink(self:GetAbility():GetSpecialValueFor("shard_fade_time"))
 	end

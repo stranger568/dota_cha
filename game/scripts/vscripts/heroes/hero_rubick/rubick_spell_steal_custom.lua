@@ -38,7 +38,7 @@ end
 
 function rubick_spell_steal_custom:GetBehavior()
 	if self:GetCaster():HasScepter() then
-		return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET + DOTA_ABILITY_BEHAVIOR_AUTOCAST
+		return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
 	end
 	return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
 end
@@ -107,66 +107,27 @@ end
 
 function rubick_spell_steal_custom:OnProjectileHit( target, location )
 	if target == nil then return end
-
 	if not target:IsAlive() then return end
 
-	if self:GetAutoCastState() then
-		local useless = false
-		for i=0, 24 do
-			local ability = self:GetCaster():GetAbilityByIndex(i)
-			if ability and ability:GetAbilityName() == self.stolenSpell.lastSpell:GetAbilityName() then
-				if ability ~= self.currentSpell_2 and ability ~= self.currentSpell then
-					useless = true
-				end
+	local useless = false
+	
+	for i=0, 24 do
+		local ability = self:GetCaster():GetAbilityByIndex(i)
+		if ability and ability:GetAbilityName() == self.stolenSpell.lastSpell:GetAbilityName() then
+			if ability ~= self.currentSpell then
+				useless = true
 			end
-		end
-		if self.currentSpell_2 ~= nil and self.stolenSpell.lastSpell:GetAbilityName() == self.currentSpell_2:GetAbilityName() then
-			useless = false
-		end
-		if self.currentSpell ~= nil and self.stolenSpell.lastSpell:GetAbilityName() == self.currentSpell:GetAbilityName() then
-			useless = false
-		end
-		if useless then
-			return
-		end
-	else
-		local useless = false
-		for i=0, 24 do
-			local ability = self:GetCaster():GetAbilityByIndex(i)
-			if ability and ability:GetAbilityName() == self.stolenSpell.lastSpell:GetAbilityName() then
-				if ability ~= self.currentSpell and ability ~= self.currentSpell_2 then
-					useless = true
-				end
-			end
-		end
-		if self.currentSpell_2 ~= nil and self.stolenSpell.lastSpell:GetAbilityName() == self.currentSpell_2:GetAbilityName() then
-			useless = false
-		end
-		if self.currentSpell ~= nil and self.stolenSpell.lastSpell:GetAbilityName() == self.currentSpell:GetAbilityName() then
-			useless = false
-		end
-		if useless then
-			return
 		end
 	end
 
-	if self:GetCaster():HasScepter() then
-		if self:GetAutoCastState() then
-			self:SetStolenSpellScepter( self.stolenSpell )
-			self.stolenSpell = nil
-		else
-			self:SetStolenSpell( self.stolenSpell )
-			self.stolenSpell = nil
-			local steal_duration = self:GetSpecialValueFor("duration")
-			target:AddNewModifier( self:GetCaster(), self, "modifier_rubick_spell_steal_custom_buff", { duration = steal_duration } )
-		end
-	else
-		self:SetStolenSpell( self.stolenSpell )
-		self.stolenSpell = nil
-		local steal_duration = self:GetSpecialValueFor("duration")
-		target:AddNewModifier( self:GetCaster(), self, "modifier_rubick_spell_steal_custom_buff", { duration = steal_duration } )
+	if useless then
+		return
 	end
 
+	self:SetStolenSpell( self.stolenSpell )
+	self.stolenSpell = nil
+	local steal_duration = self:GetSpecialValueFor("duration")
+	target:AddNewModifier( self:GetCaster(), self, "modifier_rubick_spell_steal_custom_buff", { duration = steal_duration } )
 	target:EmitSound("Hero_Rubick.SpellSteal.Complete")
 end
 
@@ -214,11 +175,6 @@ function rubick_spell_steal_custom:SetStolenSpell( spellData )
 
 	-- Удаление старой способности
 
-	if self.currentSpell_2 ~= nil and self.currentSpell_2:GetAbilityName() == spell:GetAbilityName() then
-		self:ForgetSpellScepter()
-		print("delte 1")
-	end
-
 	if self.currentSpell ~= nil then
 		self:ForgetSpell()
 		print("delte 2")
@@ -253,51 +209,6 @@ function rubick_spell_steal_custom:SetStolenSpell( spellData )
 	self:GetCaster():SwapAbilities( self.slot1, self.currentSpell:GetAbilityName(), false, true )
 end
 
--- Функция кражи способности AGHANIM
-function rubick_spell_steal_custom:SetStolenSpellScepter( spellData )
-	local spell = spellData.lastSpell
-
-	-- Удаление старой способности
-
-	if self.currentSpell ~= nil and self.currentSpell:GetAbilityName() == spell:GetAbilityName() then
-		self:ForgetSpell()
-		print("delte 1")
-	end
-
-	if self.currentSpell_2 ~= nil then
-		self:ForgetSpellScepter()
-		print("delte 2")
-	end
-
-	-------------------------------------------------------------------------------------------------------
-
-    local old_spell = false
-    for _,hSpell in pairs(self:GetCaster().spell_steal_history) do
-        if hSpell ~= nil and hSpell:GetAbilityName() == spell:GetAbilityName() then
-            old_spell = true
-            break
-        end
-    end
-
-    if old_spell then
-	    for id,hSpell in pairs(self:GetCaster().spell_steal_history) do
-	        if hSpell ~= nil and hSpell:GetAbilityName() == spell:GetAbilityName() then
-	            table.remove(self:GetCaster().spell_steal_history, id)
-	        end
-	    end
-        self.currentSpell_2 = self:GetCaster():FindAbilityByName(spell:GetAbilityName())
-    else
-        self.currentSpell_2 = self:GetCaster():AddAbility( spell:GetAbilityName() )
-        self.currentSpell_2.rubick_spell = true
-        self.currentSpell_2:SetStolen(true)
-        self.currentSpell_2:SetRefCountsModifiers(true)
-    end
-
-    self.currentSpell_2:SetHidden(false)
-	self.currentSpell_2:SetLevel( spell:GetLevel() )
-	self:GetCaster():SwapAbilities( self.slot2, self.currentSpell_2:GetAbilityName(), false, true )
-end
-
 -- Функция удаления способности
 function rubick_spell_steal_custom:ForgetSpell()
 	if self.currentSpell~=nil then
@@ -306,17 +217,6 @@ function rubick_spell_steal_custom:ForgetSpell()
 		self.currentSpell:SetHidden(true)
 		self:GetCaster():SwapAbilities( self.currentSpell:GetAbilityName(), self.slot1, false, true )
 		self.currentSpell = nil
-	end
-end
-
--- Функция удаления способности Scepter
-function rubick_spell_steal_custom:ForgetSpellScepter()
-	if self.currentSpell_2~=nil then
-		self.currentSpell_2:SetRefCountsModifiers(true)
-		table.insert(self:GetCaster().spell_steal_history, self.currentSpell_2)
-		self.currentSpell_2:SetHidden(true)
-		self:GetCaster():SwapAbilities( self.currentSpell_2:GetAbilityName(), self.slot2, false, true )
-		self.currentSpell_2 = nil
 	end
 end
 
@@ -432,7 +332,7 @@ end
 modifier_rubick_spell_steal_custom_buff = class({})
 
 function modifier_rubick_spell_steal_custom_buff:IsHidden()
-	return false
+	return self:GetCaster():HasScepter()
 end
 
 function modifier_rubick_spell_steal_custom_buff:IsDebuff()
@@ -448,6 +348,8 @@ function modifier_rubick_spell_steal_custom_buff:RemoveOnDeath()
 end
 
 function modifier_rubick_spell_steal_custom_buff:OnDestroy( kv )
+	if not IsServer() then return end
+	if self:GetCaster():HasScepter() then return end
 	self:GetAbility():ForgetSpell()
 end
 
@@ -509,7 +411,7 @@ function modifier_rubick_spell_steal_custom:OnAbilityFullyCast( params )
 		if params.unit == self:GetParent() then
 			if self:GetParent():HasTalent("special_bonus_unique_rubick_6") then
 				if params.ability then
-					if params.ability == self:GetAbility().currentSpell or params.ability == self:GetAbility().currentSpell_2 then
+					if params.ability == self:GetAbility().currentSpell then
 						if params.ability:GetCooldownTimeRemaining() > 0 then
 							if params.ability:GetCooldownTimeRemaining() - (params.ability:GetCooldown(params.ability:GetLevel() - 1) / 100 * 25) > 0 then
 								local new_cooldown = params.ability:GetCooldownTimeRemaining() - (params.ability:GetCooldown(params.ability:GetLevel() - 1) / 100 * 25)
@@ -666,7 +568,7 @@ end
 function modifier_rubick_spell_steal_custom:GetModifierTotalDamageOutgoing_Percentage(params)
 	if params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then 
 		if params.inflictor ~= nil then
-			if params.inflictor == self:GetAbility().currentSpell or params.inflictor == self:GetAbility().currentSpell_2 then
+			if params.inflictor == self:GetAbility().currentSpell then
 				if self:GetParent():HasTalent("special_bonus_unique_rubick_5") then
 					print(params.inflictor:GetAbilityName())
 					return 40
@@ -687,7 +589,7 @@ function modifier_rubick_spell_steal_custom:OnModifierAdded(params)
 	if params.added_buff:GetName() == "modifier_eul_cyclone_thinker" then return end
 	if params.added_buff:GetName() == "modifier_eul_wind_waker_thinker" then return end
 	if params.added_buff:GetName() == "modifier_wind_waker" then return end
-	if params.added_buff:GetAbility() ~= self:GetAbility().currentSpell and params.added_buff:GetAbility() ~= self:GetAbility().currentSpell_2 then return end
+	if params.added_buff:GetAbility() ~= self:GetAbility().currentSpell then return end
 	local new_duration = params.added_buff:GetDuration() + (params.added_buff:GetDuration() / 100 * self:GetAbility():GetSpecialValueFor("stolen_debuff_amp"))
 	params.added_buff:SetDuration(new_duration, true)
 end

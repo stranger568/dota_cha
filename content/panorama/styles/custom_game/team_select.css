@@ -60,7 +60,7 @@
 
  #TeamsList{
 
-     width: 700px;
+     width: 600px;
 
   flow-children: down;
      padding-left: 16px;
@@ -188,8 +188,8 @@
  #GameAndPlayersRoot{
 
      width: 350px;
-     opacity: 0;
-     visibility: collapse;
+     opacity: 1;
+     visibility: visible;
      flow-children: down;
    background-color: gradient( linear, 100% 0%, 100% 100%, from( #111111cc ), color-stop( 0.01, #202327cc ), color-stop( 0.2, #141619cc ), to( #000000cc ) );
  }

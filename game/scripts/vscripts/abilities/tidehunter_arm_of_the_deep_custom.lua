@@ -18,8 +18,8 @@ function tidehunter_arm_of_the_deep_custom:StartMiniRavage(direction)
 	if not IsServer() then return end
 	local speed = self:GetSpecialValueFor("speed_scepter")
 	local radius = self:GetSpecialValueFor("aoe_scepter")
-	local tidehunter_ravage_custom = self:GetCaster():FindAbilityByName("tidehunter_ravage_custom")
-	if tidehunter_ravage_custom and tidehunter_ravage_custom:GetLevel() > 0 then
+	local tidehunter_ravage = self:GetCaster():FindAbilityByName("tidehunter_ravage")
+	if tidehunter_ravage and tidehunter_ravage:GetLevel() > 0 then
 		local info = {
 			Source = self:GetCaster(),
 			Ability = self,
@@ -29,7 +29,7 @@ function tidehunter_arm_of_the_deep_custom:StartMiniRavage(direction)
 			iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
 			iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
 			EffectName = "particles/units/heroes/hero_tidehunter/tidehunter_arm_of_the_deep_projectile.vpcf",
-			fDistance = tidehunter_ravage_custom:GetSpecialValueFor("radius") / 100 * self:GetSpecialValueFor("range_pct"),
+			fDistance = tidehunter_ravage:GetSpecialValueFor("radius") / 100 * self:GetSpecialValueFor("range_pct"),
 			fStartRadius = 150,
 			fEndRadius = 150,
 			vVelocity = direction * 725,
@@ -68,11 +68,11 @@ end
 function tidehunter_arm_of_the_deep_custom:OnProjectileHit_ExtraData( target, location, data )
 	if not target then return end
 
-	local tidehunter_ravage_custom = self:GetCaster():FindAbilityByName("tidehunter_ravage_custom")
-	if tidehunter_ravage_custom then
+	local tidehunter_ravage = self:GetCaster():FindAbilityByName("tidehunter_ravage")
+	if tidehunter_ravage then
 		local knockback = target:AddNewModifier( self:GetCaster(), self, "modifier_generic_arc_lua", { duration = 0.5, height = 350 } )
 
-		local damage = tidehunter_ravage_custom:GetAbilityDamage() / 100 * self:GetSpecialValueFor("damage_pct")
+		local damage = tidehunter_ravage:GetAbilityDamage() / 100 * self:GetSpecialValueFor("damage_pct")
 
 		knockback:SetEndCallback( function()
 			ApplyDamage({ victim = target, attacker = self:GetCaster(), ability = self, damage = damage, damage_type = DAMAGE_TYPE_MAGICAL })
@@ -81,7 +81,7 @@ function tidehunter_arm_of_the_deep_custom:OnProjectileHit_ExtraData( target, lo
 
 		target:EmitSound("Hero_Tidehunter.ArmsOfTheDeep.Stun")
 
-		target:AddNewModifier( self:GetC aster(), self, "modifier_stunned", { duration = tidehunter_ravage_custom:GetSpecialValueFor("duration") / 100 * self:GetSpecialValueFor("duration_pct") } )
+		target:AddNewModifier( self:GetCaster(), self, "modifier_stunned", { duration = tidehunter_ravage:GetSpecialValueFor("duration") / 100 * self:GetSpecialValueFor("duration_pct") } )
 	else
 		local knockback = target:AddNewModifier( self:GetCaster(), self, "modifier_generic_arc_lua", { duration = 0.5, height = 350 } )
 

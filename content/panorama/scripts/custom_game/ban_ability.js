@@ -36,25 +36,6 @@ groupKV.universal_1.sort()
 groupKV.universal_2.sort()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Прогрузка пика и создание переменных
 
 var recentBannedAbilities = null;
@@ -68,6 +49,7 @@ if (table_player)
 {
 	abilityTimeLeft = table_player.ban_count_ability
 	heroTimeLeft = table_player.ban_count_hero
+	$("#PanelBanHeroes").style.opacity = "1" 
 }
 
 CustomNetTables.SubscribeNetTableListener( "ban_count", Updateban_table );
@@ -79,6 +61,7 @@ function Updateban_table(table, key, data ) {
 		{
 			abilityTimeLeft = (data.ban_count_ability || 0)
 			heroTimeLeft = (data.ban_count_hero || 0)
+			$("#PanelBanHeroes").style.opacity = "1"
 		}
 	}
 }
@@ -127,13 +110,30 @@ function OpenBanPanel()
 {
 	if ($("#MainBlock").BHasClass("Hidden"))
 	{	
-		Game.EmitSound("announcer_announcer_ban_yr")
+		$("#DonateImage").style.opacity = "1"
 	    $("#MainBlock").RemoveClass("Hidden")
 	    var table_player = CustomNetTables.GetTableValue("ban_count", String(Players.GetLocalPlayer()))
 		if (table_player)
 		{
 			abilityTimeLeft = table_player.ban_count_ability
 			heroTimeLeft = table_player.ban_count_hero
+		}
+		if (GameUI.CustomUIConfig().CloseTeamList)
+		{
+			GameUI.CustomUIConfig().CloseTeamList()
+		}
+	} else {
+		$("#DonateImage").style.opacity = "0"
+		$("#MainBlock").AddClass("Hidden")
+	    var table_player = CustomNetTables.GetTableValue("ban_count", String(Players.GetLocalPlayer()))
+		if (table_player)
+		{
+			abilityTimeLeft = table_player.ban_count_ability
+			heroTimeLeft = table_player.ban_count_hero
+		}
+		if (GameUI.CustomUIConfig().OpenTeamList)
+		{
+			GameUI.CustomUIConfig().OpenTeamList()
 		}
 	}
 }
@@ -724,16 +724,6 @@ function UpdatebanAbility(data)
 	UpdateBanAbilityAllClients(data.abilityName)
 }
 
-function UpdateTimerBanStage(data)
-{
-	OpenBanPanel()
-	$("#BanAbilityLabelTimer").text = data.time
-	if (GameUI.CustomUIConfig().CloseTeamList)
-	{
-		GameUI.CustomUIConfig().CloseTeamList()
-	}
-}
-
 function ClosePlayers(data)
 {
 	if (GameUI.CustomUIConfig().CloseTeamList)
@@ -747,7 +737,6 @@ function ClosePlayers(data)
     GameEvents.Subscribe( "UpdatePassData", UpdatePassData );
     GameEvents.Subscribe( "UpdatebanHero", UpdatebanHero );
     GameEvents.Subscribe( "UpdatebanAbility", UpdatebanAbility );
-    GameEvents.Subscribe( "UpdateTimerBanStage", UpdateTimerBanStage );
     GameEvents.Subscribe( "ClosePlayers", ClosePlayers );
 	Update_Heroes_Table();
 })();

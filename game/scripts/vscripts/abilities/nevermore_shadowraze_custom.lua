@@ -4,46 +4,47 @@ nevermore_shadowraze1_custom =  class({})
 nevermore_shadowraze2_custom = class({})
 nevermore_shadowraze3_custom = class({})
 
-function nevermore_shadowraze1_custom:OnSpellStart()
+function nevermore_shadowraze1_custom:OnSpellStart(multicast)
 	if not IsServer() then return end
 	local raze_radius = self:GetSpecialValueFor("shadowraze_radius")
 	local raze_distance = self:GetSpecialValueFor("shadowraze_range")
 	local raze_point = self:GetCaster():GetAbsOrigin() + self:GetCaster():GetForwardVector() * raze_distance
-	CastShadowRazeOnPoint(self:GetCaster(), self, raze_point, raze_radius)
+	CastShadowRazeOnPoint(self:GetCaster(), self, raze_point, raze_radius, multicast)
 	self:GetCaster():EmitSound("Hero_Nevermore.Shadowraze")
 end
 
-function nevermore_shadowraze2_custom:OnSpellStart()
+function nevermore_shadowraze2_custom:OnSpellStart(multicast)
 	if not IsServer() then return end
 	local raze_radius = self:GetSpecialValueFor("shadowraze_radius")
 	local raze_distance = self:GetSpecialValueFor("shadowraze_range")
 	local raze_point = self:GetCaster():GetAbsOrigin() + self:GetCaster():GetForwardVector() * raze_distance
-	CastShadowRazeOnPoint(self:GetCaster(), self, raze_point, raze_radius)
+	CastShadowRazeOnPoint(self:GetCaster(), self, raze_point, raze_radius, multicast)
 	self:GetCaster():EmitSound("Hero_Nevermore.Shadowraze")
 end
 
-function nevermore_shadowraze3_custom:OnSpellStart()
+function nevermore_shadowraze3_custom:OnSpellStart(multicast)
 	if not IsServer() then return end
 	local raze_radius = self:GetSpecialValueFor("shadowraze_radius")
 	local raze_distance = self:GetSpecialValueFor("shadowraze_range")
 	local raze_point = self:GetCaster():GetAbsOrigin() + self:GetCaster():GetForwardVector() * raze_distance
-	CastShadowRazeOnPoint(self:GetCaster(), self, raze_point, raze_radius)
+	CastShadowRazeOnPoint(self:GetCaster(), self, raze_point, raze_radius, multicast)
 	self:GetCaster():EmitSound("Hero_Nevermore.Shadowraze")
 end
 
-function CastShadowRazeOnPoint(caster, ability, point, radius)
-
-	local nevermore_shadowraze1_custom = caster:FindAbilityByName("nevermore_shadowraze1_custom")
-	if nevermore_shadowraze1_custom and ability ~= nevermore_shadowraze1_custom and nevermore_shadowraze1_custom:GetCurrentAbilityCharges() > 0 then
-		nevermore_shadowraze1_custom:SetCurrentAbilityCharges(nevermore_shadowraze1_custom:GetCurrentAbilityCharges() - 1)
-	end
-	local nevermore_shadowraze2_custom = caster:FindAbilityByName("nevermore_shadowraze2_custom")
-	if nevermore_shadowraze2_custom and ability ~= nevermore_shadowraze2_custom and nevermore_shadowraze2_custom:GetCurrentAbilityCharges() > 0 then
-		nevermore_shadowraze2_custom:SetCurrentAbilityCharges(nevermore_shadowraze2_custom:GetCurrentAbilityCharges() - 1)
-	end
-	local nevermore_shadowraze3_custom = caster:FindAbilityByName("nevermore_shadowraze3_custom")
-	if nevermore_shadowraze3_custom and ability ~= nevermore_shadowraze3_custom and nevermore_shadowraze3_custom:GetCurrentAbilityCharges() > 0 then
-		nevermore_shadowraze3_custom:SetCurrentAbilityCharges(nevermore_shadowraze3_custom:GetCurrentAbilityCharges() - 1)
+function CastShadowRazeOnPoint(caster, ability, point, radius, multicast)
+	if multicast == nil then
+		local nevermore_shadowraze1_custom = caster:FindAbilityByName("nevermore_shadowraze1_custom")
+		if nevermore_shadowraze1_custom and ability ~= nevermore_shadowraze1_custom and nevermore_shadowraze1_custom:GetCurrentAbilityCharges() > 0 then
+			nevermore_shadowraze1_custom:SetCurrentAbilityCharges(nevermore_shadowraze1_custom:GetCurrentAbilityCharges() - 1)
+		end
+		local nevermore_shadowraze2_custom = caster:FindAbilityByName("nevermore_shadowraze2_custom")
+		if nevermore_shadowraze2_custom and ability ~= nevermore_shadowraze2_custom and nevermore_shadowraze2_custom:GetCurrentAbilityCharges() > 0 then
+			nevermore_shadowraze2_custom:SetCurrentAbilityCharges(nevermore_shadowraze2_custom:GetCurrentAbilityCharges() - 1)
+		end
+		local nevermore_shadowraze3_custom = caster:FindAbilityByName("nevermore_shadowraze3_custom")
+		if nevermore_shadowraze3_custom and ability ~= nevermore_shadowraze3_custom and nevermore_shadowraze3_custom:GetCurrentAbilityCharges() > 0 then
+			nevermore_shadowraze3_custom:SetCurrentAbilityCharges(nevermore_shadowraze3_custom:GetCurrentAbilityCharges() - 1)
+		end
 	end
 
 	local particle_raze_fx = ParticleManager:CreateParticle("particles/units/heroes/hero_nevermore/nevermore_shadowraze.vpcf", PATTACH_WORLDORIGIN, nil)

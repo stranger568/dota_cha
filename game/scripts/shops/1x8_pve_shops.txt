@@ -113,6 +113,7 @@
 		"item"		"item_ranged_cleave_1"
 		"item"		"item_ranged_cleave_2"
 		"item"		"item_ranged_cleave_3"	
+		"item"		"item_disperser_custom"
 	}
 	
 	// Level 1 - Green Recipes
@@ -320,6 +321,8 @@
  		"item"		"item_torture_pipe_1_datadriven"			
 		"item"		"item_torture_pipe_2_datadriven"
 		"item"      "item_recipe_demonicon"
+		"item"		"item_magilys_custom"
+		"item"		"item_gleipnir_magic_custom"
 
 
 

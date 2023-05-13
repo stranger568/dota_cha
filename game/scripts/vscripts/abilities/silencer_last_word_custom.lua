@@ -11,7 +11,7 @@ function silencer_last_word_custom:OnSpellStart()
 	if cursor_target:TriggerSpellAbsorb(self) then return end
 	local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), point, nil, self:GetSpecialValueFor("scepter_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
 	for _, target in pairs(enemies) do
-		target:AddNewModifier(self:GetCaster(), self, "modifier_silencer_last_word", {duration = self:GetSpecialValueFor("duration")})
+		target:AddNewModifier(self:GetCaster(), self, "modifier_silencer_last_word", {duration = self:GetSpecialValueFor("debuff_duration")})
 		self:PlayEffects( target )
 	end
 end

@@ -10,12 +10,6 @@
 	</scripts>
 
 	<Panel style="width:100%;height:100%;" hittest="false">
-
-
-
-
-
-
 		<Panel id="SmilesButton" onactivate="ToggleSmiles();" />
 
 		<Panel class="SmilesWindow sethidden" id="SmilesWindow" hittest="false">
@@ -29,8 +23,6 @@
 			</Panel> 
 
 			<Panel class="BattlePassMain">
-
-
 				<Panel class="CurrencyBar">
 					<Panel class="DonateCoinPanel">
 						<Panel class="DonateBPIcon1" />
@@ -43,13 +35,6 @@
 						<Panel class="DonateBPIcon2" />
 						<Panel class="PanelBack">
 							<Label class="DonateBattlePassDays" id="DonateBattlePassDays2" text="0" />
-						</Panel>
-					</Panel>
-
-					<Panel class="DonateCoinPanel">
-						<Panel class="DonateBPIcon3" />
-						<Panel class="PanelBack">
-							<Label class="DonateBattlePassDays" id="DonateBattlePassDays3" text="0" />
 						</Panel>
 					</Panel>
 
@@ -68,20 +53,12 @@
 						</Panel>
 					</Panel>
 				</Panel>
-
-
-
-
-
 				<Panel class="BattlePassBuyMain">
 					<Panel class="BattlePassBuyPanel bp_level_1" onactivate="OpenBattlePassInfo('BuyBattlePassWindow_level_1');">
 						<Label class="BuyBattlePassLabel" text="#bp_level_1" />
 					</Panel>
 					<Panel class="BattlePassBuyPanel bp_level_2" onactivate="OpenBattlePassInfo('BuyBattlePassWindow_level_2');">
 						<Label class="BuyBattlePassLabel" text="#bp_level_2" />
-					</Panel>
-					<Panel class="BattlePassBuyPanel bp_level_3" onactivate="OpenBattlePassInfo('BuyBattlePassWindow_level_3');">
-						<Label class="BuyBattlePassLabel" text="#bp_level_3" />
 					</Panel>
 				</Panel>
 			</Panel>
@@ -129,10 +106,10 @@
 					<Panel style="flow-children:right;vertical-align:center;">
 						<Label class="DonateLineText" text="#bp_month_count_1" />
 						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_2_price_2" />
+						<Label class="DonateLineSum" text="#bp_level_3_price_2" />
 						<Panel class="DonateLineIconDonate" />
 					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 2, 1);">
+					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 3, 1);">
 						<Label class="DonateLineButtonText" text="#bp_button_buy" />
 					</Panel>
 				</Panel>
@@ -140,10 +117,10 @@
 					<Panel style="flow-children:right;vertical-align:center;">
 						<Label class="DonateLineText" text="#bp_month_count_3" />
 						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_2_price_3" />
+						<Label class="DonateLineSum" text="#bp_level_3_price_3" />
 						<Panel class="DonateLineIconDonate" />
 					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 2, 3);">
+					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 3, 3);">
 						<Label class="DonateLineButtonText" text="#bp_button_buy" />
 					</Panel>
 				</Panel>
@@ -151,10 +128,10 @@
 					<Panel style="flow-children:right;vertical-align:center;">
 						<Label class="DonateLineText" text="#bp_month_count_6" />
 						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_2_price_4" />
+						<Label class="DonateLineSum" text="#bp_level_3_price_4" />
 						<Panel class="DonateLineIconDonate" />
 					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 2, 6);">
+					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 3, 6);">
 						<Label class="DonateLineButtonText" text="#bp_button_buy" />
 					</Panel>
 				</Panel>
@@ -162,15 +139,15 @@
 					<Panel style="flow-children:right;vertical-align:center;">
 						<Label class="DonateLineText" text="#bp_month_count_12" />
 						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_2_price_5" />
+						<Label class="DonateLineSum" text="#bp_level_3_price_5" />
 						<Panel class="DonateLineIconDonate" />
 					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 2, 12);">
+					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 3, 12);">
 						<Label class="DonateLineButtonText" text="#bp_button_buy" />
 					</Panel>
 				</Panel>
 				<Panel class="DonateBonus" />
-				<Label class="DonateBonusLabel" html="true" text="#bp_level_2_bonus_list" />
+				<Label class="DonateBonusLabel" html="true" text="#bp_level_3_bonus_list" />
 			</Panel>
 		</Button>
 		<Button class="BuyBattlePassWindow" id="BuyBattlePassWindow_level_3" hittest="true">

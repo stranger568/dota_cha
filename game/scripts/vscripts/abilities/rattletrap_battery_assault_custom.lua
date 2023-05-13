@@ -10,6 +10,9 @@ end
 
 modifier_rattletrap_battery_assault_custom = class({})
 
+function modifier_rattletrap_battery_assault_custom:IsPurgable() return false end
+function modifier_rattletrap_battery_assault_custom:IsPurgeException() return false end
+
 function modifier_rattletrap_battery_assault_custom:OnCreated()
 	self.radius	= self:GetAbility():GetSpecialValueFor("radius")
 	self.interval = self:GetAbility():GetSpecialValueFor("interval")

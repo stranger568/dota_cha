@@ -92,8 +92,8 @@ function ShowRandomHeroSelection(keys)
         MouseOver($("#CardSelection_RerollButton"), "#rerol_aviable_in_bp")
 
         var player_information_battlepass = CustomNetTables.GetTableValue("cha_server_data", String(Players.GetLocalPlayer()));
-        if (player_information_battlepass) {
-            if (player_information_battlepass.pass_level_3_days && player_information_battlepass.pass_level_3_days > 0) {
+        //if (player_information_battlepass) {
+            //if (player_information_battlepass.pass_level_3_days && player_information_battlepass.pass_level_3_days > 0) {
                 $("#CardSelection_RerollButton").SetHasClass("no_battle_pass", false);
                 MouseOver($("#CardSelection_RerollButton"), "#rerol_description")
                 $("#CardSelection_RerollButton").SetPanelEvent("onactivate", function() {
@@ -107,8 +107,8 @@ function ShowRandomHeroSelection(keys)
                     $("#CardSelection_RerollButton").SetPanelEvent("onactivate", function() {});
                     $("#CardSelection_RerollButton").SetHasClass("no_battle_pass", false);
                 });
-            }
-        }
+            //}
+        //}
     } else {
         $("#CardSelection_RerollButton").SetHasClass("no_battle_pass", true);
         $("#CardSelection_RerollButton").SetPanelEvent("onactivate", function() {});

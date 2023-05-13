@@ -37,11 +37,11 @@
 			<Label class="LoadingScreenTextWhite" id="loading_inf_7" onactivate="ExternalBrowserGoToURL('https://t.me/custom_hero_arena_bot')" text="Перейдите в Telegram"/>
 			<Panel class="FlowChildrenRight">
 				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_8" text="Дата проведения турнира:"/>
-				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_22" text="03.06"/>
+				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_22" text="02.06"/>
 			</Panel>
 			<Panel class="FlowChildrenRight">
 				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_9" text="Регистрация открыта до:"/>
-				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_23" text="24.05"/>
+				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_23" text="28.05"/>
 			</Panel>
 			<Panel class="FlowChildrenRight">
 				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_116" text="Лучшие"/>
@@ -77,8 +77,6 @@
 		</Panel>
 
 		<Panel id="MainBlock" class="Hidden">
-			<Label class="BanAbilityLabel" text="Стадия бана" />
-			<Label class="BanAbilityLabelTimer" id="BanAbilityLabelTimer" text="0" />
 			<Panel class="HeroesList" id="HeroesList" />
 
 			<Panel id="OperatePanel">
@@ -104,11 +102,14 @@
 						<Panel id="RecentBannedHeroes" />
 					</Panel>
 				</Panel>
-
-				<Panel class="DonateImage">
-					<Label class="Morebanwithbnp" text="Баны героев и способностей доступны для обладателей Pass" />
-				</Panel>
 			</Panel>
+		</Panel>
+
+		<Panel id="PanelBanHeroes" class="PanelBanHeroes">
+			<Label class="BanHeroesLabel" text="Забанить героев / способности" onactivate="OpenBanPanel();" />
+		</Panel>
+		<Panel id="DonateImage" class="DonateImage">
+			<Label class="Morebanwithbnp" text="Баны героев и способностей доступны для обладателей Pass" />
 		</Panel>
 	</Panel>
 </root>

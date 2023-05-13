@@ -16,16 +16,25 @@ function modifier_skill_masters_gift:DeclareFunctions()
 end
 
 function modifier_skill_masters_gift:GetModifierBonusStats_Strength()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return 15
+    end
     if self:GetParent():GetPrimaryAttribute() == 0 then return end
     return 25
 end
 
 function modifier_skill_masters_gift:GetModifierBonusStats_Agility()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return 15
+    end
     if self:GetParent():GetPrimaryAttribute() == 1 then return end
     return 25
 end
 
 function modifier_skill_masters_gift:GetModifierBonusStats_Intellect()
+    if self:GetParent():GetPrimaryAttribute() == 3 then 
+        return 15
+    end
     if self:GetParent():GetPrimaryAttribute() == 2 then return end
     return 25
 end

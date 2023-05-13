@@ -60,24 +60,6 @@ function modifier_item_ghost_active:OnCreated()
     self.caster                     = self:GetCaster()
     self.parent                     = self:GetParent()
     self.extra_spell_damage_percent      = self.ability:GetSpecialValueFor("extra_spell_damage_percent")
-    if not IsServer() then return end
-    self:StartIntervalThink(FrameTime())
-end
-
-function modifier_item_ghost_active:OnIntervalThink()
-    if not IsServer() then return end
-    if self:GetParent():HasModifier("modifier_black_king_bar_immune") then
-        self:Destroy()
-    end
-    if self:GetParent():HasModifier("modifier_life_stealer_rage") then
-        self:Destroy()
-    end
-    if self:GetParent():HasModifier("modifier_juggernaut_blade_fury") then
-        self:Destroy()
-    end
-    if self:GetParent():HasModifier("modifier_huskar_life_break_charge") then
-        self:Destroy()
-    end
 end
 
 function modifier_item_ghost_active:OnRefresh()

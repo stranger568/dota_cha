@@ -206,8 +206,20 @@ function Util:RemoveAbilityClean(hHero,sAbilityName)
     if sAbilityName=="furion_sprout" then
         Util:CleanFurion(hHero)
     end
+    if sAbilityName=="rubick_spell_steal_custom" then
+        Util:CleanRubick(hHero)
+    end
     if sAbilityName=="pudge_meat_hook" or sAbilityName=="marci_grapple" or sAbilityName=="rattletrap_hookshot" or sAbilityName=="bane_nightmare" then
         Util:CleanBugAbilities(hHero)
+    end
+end
+
+function Util:CleanRubick(hHero)
+    local rubick_skill = hHero:FindAbilityByName("rubick_spell_steal_custom")
+    if rubick_skill then
+        if rubick_skill.currentSpell ~= nil then
+            HeroBuilder:RemoveAbility(hHero:GetPlayerOwnerID(), rubick_skill.currentSpell:GetAbilityName())
+        end
     end
 end
 
@@ -350,9 +362,9 @@ function Util:IsReincarnationWork(hHero)
         end
     end
     local bmodifier_skill_second_life = false
-    --if hHero:HasModifier("modifier_skill_second_life") and not hHero:HasModifier("modifier_skill_second_life_cooldown") then
-    --    bmodifier_skill_second_life = true
-    --end
+    if hHero:HasModifier("modifier_skill_second_life") and not hHero:HasModifier("modifier_skill_second_life_cooldown") and not hHero:HasModifier("modifier_duel_curse_cooldown") then
+        bmodifier_skill_second_life = true
+    end
     return bSkeletonKingReincarnationWork or bUndyingReincarnationWork or bmodifier_skill_second_life
 end
 

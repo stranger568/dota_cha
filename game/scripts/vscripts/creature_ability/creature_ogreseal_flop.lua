@@ -79,7 +79,7 @@ function creature_ogreseal_flop:TryToDamage()
 
 						enemy:EmitSound("Dungeon.BloodSplatterImpact")
 					else
-						enemy:AddNewModifier( self:GetCaster(), self, "modifier_stunned", { duration = self.stun_duration } )
+						enemy:AddNewModifier( self:GetCaster(), self, "modifier_stunned", { duration = self.stun_duration * (1-enemy:GetStatusResistance()) } )
 					end
 				end
 			end

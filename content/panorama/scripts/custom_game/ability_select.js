@@ -26,6 +26,29 @@ var unremovableAbilitiesBonus = {
     "rubick_empty2" : true,
 };
 
+var AbilitiesFullReact = 
+{
+    "lycan_shapeshift_custom" : true,
+    "sven_gods_strength_custom" : true,
+    "wisp_overcharge_custom" : true,
+    "tiny_grow" : true,
+    "undying_flesh_golem_custom" : true,
+    "bloodseeker_bloodrage_custom" : true,
+    "venomancer_poison_nova_custom" : true,
+    "venomancer_noxious_plague" : true,
+    "broodmother_insatiable_hunger_custom" : true,
+    "meepo_ransack_custom" : true,
+    "custom_terrorblade_metamorphosis" : true,
+    "lina_laguna_blade_custom" : true,
+    "rubick_spell_steal_custom" : true,
+    "lich_chain_frost_custom" : true,
+    "lion_finger_of_death_custom" : true,
+    "enigma_midnight_pulse_custom" : true,
+    "obsidian_destroyer_arcane_orb" : true,
+    "drow_ranger_frost_arrows_custom" : true,
+    "pugna_life_drain_custom" :true,
+};
+
 //调整技能选择页面位置
 function AdjustPosition()
 {
@@ -126,6 +149,18 @@ function ShowRandomAbilitySelection(keys) {
         panel.FindChildTraverse('AbilityName').text = $.Localize("#DOTA_Tooltip_ability_" + abilityName);
         SetAbilityPanelEvent(panel,abilityName);
 
+        var settingData = CustomNetTables.GetTableValue("player_info", "setting_data_"+Players.GetLocalPlayer())
+        if (settingData && String(settingData.settings_effect_select) == "0")
+        {
+            if (AbilitiesFullReact[abilityName])
+            {
+                panel.FindChildTraverse("EffectReact").visible = true
+            } else {
+                panel.FindChildTraverse("EffectReact").visible = false
+            }
+        } else {
+            panel.FindChildTraverse("EffectReact").visible = false
+        }
         panel.FindChildTraverse("LinkedAbilityPlusIcon").SetHasClass("LinkedAbilityCollapse", true);
         panel.FindChildTraverse("LinkedAbilityImage_1").SetHasClass("LinkedAbilityCollapse", true);
         panel.FindChildTraverse("LinkedAbilityImage_2").SetHasClass("LinkedAbilityCollapse", true);
@@ -190,7 +225,7 @@ function SetAbilityPanelEvent(panel,abilityName) {
 
 
 
-
+ 
 function ShowSpellBookAbilitySelection(keys) {
 
         if (!IsSecurityKeyValid(keys.security_key))
@@ -223,6 +258,10 @@ function ShowSpellBookAbilitySelection(keys) {
                 }
                 panel.FindChildTraverse("AbilityImage").abilityname = abilityName;
                 panel.FindChildTraverse('AbilityName').text = $.Localize("#DOTA_Tooltip_ability_" + abilityName);
+                if (AbilitiesFullReact[abilityName])
+                {
+                    panel.FindChildTraverse("EffectReact").visible = true
+                }
                 SetSpellBookAbilityPanelEvent(panel,abilityName);
             }
         }

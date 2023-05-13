@@ -122,13 +122,15 @@ function modifier_dazzle_good_juju_lua:OnSpentMana(params)
 		return
 	end
 
-	if params.cost == nil or params.cost == 0 then
-		return 
-	end
-
 	local hAbility = params.ability
 
 	if not hAbility then return end
+
+	if hAbility:GetAbilityName() ~= "dazzle_bad_juju" then
+		if params.cost == nil or params.cost == 0 then
+			return 
+		end
+	end
 
 	if hAbility == self:GetAbility() then return end
 	if hAbility:IsItem() then return end
@@ -138,13 +140,14 @@ function modifier_dazzle_good_juju_lua:OnSpentMana(params)
 
 	if modifier_dazzle_good_juju_lua.restricted_abilities[hAbility:GetAbilityName()] then return end
 
-	--如果法力消耗过低(锯齿飞轮施法中)，不触发
-    if params.cost< hAbility:GetManaCost(hAbility:GetLevel()-1)*0.2 then
-       return
-    end
+	if hAbility:GetAbilityName() ~= "dazzle_bad_juju" then
+	    if params.cost< hAbility:GetManaCost(hAbility:GetLevel()-1)*0.2 then
+	       	return
+	    end
+	end
     
     --遍历技能 减少CD
-	for i = 0, 60 do
+	for i = 0, 34 do
 		local hLoopAbility = self:GetParent():GetAbilityByIndex(i)
 		if hLoopAbility and self:CanReduceCooldown(hLoopAbility) then
 			local flCurrentCooldown = hLoopAbility:GetCooldownTimeRemaining()

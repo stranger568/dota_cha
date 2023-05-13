@@ -72,6 +72,7 @@ function modifier_enigma_malefice_custom:OnIntervalThink()
 		local eidolon = CreateUnitByName("npc_dota_dire_eidolon", self:GetParent():GetAbsOrigin() + RandomVector(150), true, self:GetCaster(), self:GetCaster(), self:GetCaster():GetTeamNumber())
 		if eidolon then
 			eidolon:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_kill", {duration = 40})
+			eidolon:AddNewModifier(self:GetCaster(), self, "modifier_demonic_conversion", {duration = 40})
 			eidolon:SetOwner(self:GetCaster())
 			eidolon:SetControllableByPlayer(self:GetCaster():GetPlayerID(), true)
 			FindClearSpaceForUnit(eidolon, eidolon:GetAbsOrigin(), true)

@@ -67,6 +67,9 @@
       "cha_guide"                                                                   "Guides"
       "cha_PlayerInfo_skills"                                                       "Skills"
 
+      "effect_ability_select"                                                       "Highlight special abilities"
+      "effect_ability_select_hint"                                                  "Certain unique abilities will have an additional glow"
+
       //=================================================================================================================
       // Лидеры
       //=================================================================================================================
@@ -761,7 +764,7 @@
       "skill_investment_desc"                                                       "Every 5 rounds you get 3% gold of your networth (Maximum limit 200k networth)"
 
       "skill_smoker"                                                                "Smoker"
-      "skill_smoker_desc"                                                           "+100% duration Smoke of Deceit"
+      "skill_smoker_desc"                                                           "+100% duration Smoke of Deceit. At the start of each round, you gain the Ninja Gear buff for 8 seconds."
 
       "skill_damage_investor"                                                       "Damage Investor"
       "skill_damage_investor_desc"                                                   "+1 damage for every 25 gold in your stash (limit no more than 20k gold in the cache)"
@@ -791,7 +794,7 @@
       "skill_two_hearted_desc"                                                      "+4% Max Health Regeneration per second"
 
       "skill_requite"                                                               "Requite"
-      "skill_requite_desc"                                                          "Each attack against you returns 15% of your damage (white + green) + 50% strength"
+      "skill_requite_desc"                                                          "Each attack against you returns 15% of your damage (white + green) + 50% strength. Does not pass through the immunity to magic"
 
       "skill_ranger"                                                                "Ranger"
       "skill_ranger_desc"                                                           "+300 range attack"
@@ -806,10 +809,10 @@
       "skill_mage_slayer_desc"                                                      "Enemies you attack deal 40% less spell damage for 5 sec. Your magical resistance increase by 25%"
 
       "skill_slackening"                                                            "Slackening"
-      "skill_slackening_desc"                                                       "Increase your maximum mana and health by 15%. Reduces health regeneration/lifesteal/healing by 40% when attacking an enemy for 3 seconds."
+      "skill_slackening_desc"                                                       "Increase your maximum mana and health by 20%. Reduces health regeneration/lifesteal/healing by 40% when attacking an enemy for 3 seconds."
 
       "skill_craggy_man"                                                            "Craggy Man"
-      "skill_craggy_man_desc"                                                       "Enemies that attack you have a chance to be stunned for 1 second. with a 20% chance. Does not pierce spell immunity"
+      "skill_craggy_man_desc"                                                       "Enemies that attack you have a chance to be stunned for 1 second. with a 15% chance. Does not pierce spell immunity"
 
       "skill_reducer"                                                               "Reducer"
       "skill_reducer_desc"                                                          "Enemies within 800 radius lose 60% damage"
@@ -1189,7 +1192,7 @@
 
       "DOTA_Tooltip_Ability_item_bfury_2"       "Battle Fury 2"
       "DOTA_Tooltip_Ability_item_recipe_bfury_2"          "Battle Fury 2 Recipe"
-      "DOTA_Tooltip_ability_item_bfury_2_Description"             "<h1>Active: Chop Tree</h1> Destroy a target tree.<br><br>Cast Range: %abilitycastrange%\n<h1>Passive: Quell</h1> Increases attack damage against non-hero units by %quelling_bonus% for melee heroes, and %quelling_bonus_ranged% for ranged. \n<h1>Passive: Cleave</h1> Deals %cleave_damage_percent%%% of attack damage as physical damage in a cone up to %cleave_distance% around the target. Deals %cleave_damage_percent_creep%%% against creeps. (Melee Only)"
+      "DOTA_Tooltip_ability_item_bfury_2_Description"             "<h1>Active: Chop Tree</h1> Destroy a target tree.<br><br>Cast Range: %abilitycastrange%\n<h1>Passive: Quell</h1> Increases attack damage against non-hero units by %quelling_bonus% for melee heroes, and %quelling_bonus_ranged% for ranged. \n<h1>Passive: Cleave</h1> Deals %cleave_damage_percent%%% of attack damage as physical damage in a cone up to %cleave_radius% around the target. Deals %cleave_damage_percent_creep%%% against creeps. (Melee Only)"
       "DOTA_Tooltip_ability_item_bfury_2_Lore"                  "The bearer of this mighty axe gains the ability to cut down swaths of enemies at once."
       "DOTA_Tooltip_ability_item_bfury_2_Note0"                 "Cleave damage goes through spell immunity."
       "DOTA_Tooltip_ability_item_bfury_2_Note1"                 "If multiple sources of Cleave are present, each Cleave's damage is applied separately."
@@ -1200,8 +1203,7 @@
 
       "DOTA_Tooltip_Ability_item_bfury_3"       "Eternal Battle Fury"
       "DOTA_Tooltip_Ability_item_recipe_bfury_3"          "Eternal Battle Fury Recipe"
-      "DOTA_Tooltip_ability_item_bfury_3_Description"             "<h1>Active: Chop Tree</h1> Destroy a target tree.<br><br>Cast Range: %abilitycastrange%\n<h1>Passive: Quell</h1> Increases attack damage against non-hero units by %quelling_bonus% for melee heroes, and %quelling_bonus_ranged% for ranged. \n<h1>Passive: Cleave</h1> Deals %cleave_damage_percent%%% of attack damage + %damage_percent%%% of max. health target as physical damage in a cone up to %cleave_distance% around the target. Deals %cleave_damage_percent_creep%%% + (%bonus_damage_creeps_no_late%%% or %bonus_damage_creeps_late%%% after 60 waves). (Melee Only)"
-      "DOTA_Tooltip_ability_item_bfury_3_Lore"                  "The bearer of this mighty axe gains the ability to cut down swaths of enemies at once."
+      "DOTA_Tooltip_ability_item_bfury_3_Description"             "<h1>Active: Chop Tree</h1> Destroy a target tree.<br><br>Cast Range: %abilitycastrange%\n<h1>Passive: Quell</h1> Increases attack damage against non-hero units by %quelling_bonus% for melee heroes, and %quelling_bonus_ranged% for ranged. \n<h1>Passive: Cleave</h1> Increases your damage against creeps by %bonus_damage_creeps_no_late%%%(by %bonus_damage_creeps_late%%% after 60 waves) and attacks deal %cleave_damage_percent%%%  damage in radius %cleave_radius% around main target(melee only)<br><br><font color='#f00'>Disabled by Break</font>"
       "DOTA_Tooltip_ability_item_bfury_3_Note0"                 "Cleave damage goes through spell immunity."
       "DOTA_Tooltip_ability_item_bfury_3_Note1"                 "If multiple sources of Cleave are present, each Cleave's damage is applied separately."
       "DOTA_Tooltip_ability_item_bfury_3_bonus_damage"              "+$damage"
@@ -1314,7 +1316,7 @@
       "DOTA_Tooltip_ability_item_ranged_cleave_2_lore"                           "Many wonder how a 4-feet tall grandma can survive the ferocious beasts of the Outlands. The answer is simple - Beatrix's triple-barreled monstrosity, more siege weapon than shotgun, which she calls her 'boomstick'."
 
       "DOTA_Tooltip_ability_item_ranged_cleave_3"                                 "Eternal Beadie's Boomstick"
-      "DOTA_Tooltip_ability_item_ranged_cleave_3_Description"                     "<h1>Passive: Eternal Beadie's Boomstick</h1>RANGED ONLY: grants %cleave_dmg%%% splash damage + (%bonus_damage_creeps_no_late%%% or %bonus_damage_creeps_late%%% after 60 waves) in %cleave_radius% radius"
+      "DOTA_Tooltip_ability_item_ranged_cleave_3_Description"                     "<h1>Passive: Eternal Beadie's Boomstick</h1>RANGED ONLY: Increases your damage against creeps by %bonus_damage_creeps_no_late%%%(by %bonus_damage_creeps_late%%% after 60 waves) and attacks deal %cleave_dmg%%% damage per radius %cleave_radius% around main target<br><br><font color='#f00'>Disabled by Break</font>"
       "DOTA_Tooltip_ability_item_ranged_cleave_3_bonus_str"                       "+$str"
       "DOTA_Tooltip_ability_item_ranged_cleave_3_bonus_agi"                       "+$agi"
       "DOTA_Tooltip_ability_item_ranged_cleave_3_bonus_dmg"                       "+$damage"
@@ -1386,7 +1388,7 @@
       "DOTA_Tooltip_modifier_item_guardian_greaves_custom_buff_Description"    "Provides %fMODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT% health regeneration and %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS% armor."
 
       "DOTA_Tooltip_Ability_item_disperser_custom"                       "Disperser"
-      "DOTA_Tooltip_ability_item_disperser_custom_Description"                       "<h1>Active: Suppress</h1> If targetting an enemy, slows it for %enemy_effect_duration% seconds. Both movement speed reduction and increase start at 100%% and gradually decrease to 0 over the course of the buff duration. <br><br>If targeting an ally, applies a basic dispel, and increases their movement speed by %phase_movement_speed%%%, and makes them unslowable for %ally_effect_duration% seconds. The movement speed buff is decreased to 0 over the course of the buff duration. <br><br>Range: %abilitycastrange%\n\n<h1>Passive: Manabreak</h1>Each attack burns %feedback_mana_burn% mana from the target in %burn_radius% radius, and deals %damage_per_burn% physical damage per burned mana. <br><br>Burns %feedback_mana_burn_illusion_melee% mana per attack from melee illusions and %feedback_mana_burn_illusion_ranged% mana per attack from ranged illusions. <br><br>Dispel Type: <span class=\"GameplayValues GameplayVariable\">Basic Dispel</span>"
+      "DOTA_Tooltip_ability_item_disperser_custom_Description"                       "<h1>Active: Suppress</h1> If targetting an enemy, slows it for %enemy_effect_duration% seconds. Both movement speed reduction and increase start at 100%% and gradually decrease to 0 over the course of the buff duration. <br><br>If targeting an ally, applies a basic dispel, and increases their movement speed by %phase_movement_speed%%%, and makes them unslowable for %ally_effect_duration% seconds. The movement speed buff is decreased to 0 over the course of the buff duration. <br><br>Range: %abilitycastrange%\n\n<h1>Passive: Manabreak</h1>Each attack burns %feedback_mana_burn% mana from the target in %burn_radius% radius, and deals %damage_per_burn% physical damage per burned mana. <br><br>Burns %feedback_mana_burn_illusion_melee% mana per attack from melee illusions and %feedback_mana_burn_illusion_ranged% mana per attack from ranged illusions.<br><br><font color='#f00'>Turns off by Passive Disables</font> <br><br>Dispel Type: <span class=\"GameplayValues GameplayVariable\">Basic Dispel</span>"
       "DOTA_Tooltip_ability_item_disperser_custom_bonus_agility"                     "+$agi"
       "DOTA_Tooltip_ability_item_disperser_custom_bonus_intellect"             "+$int"
       "DOTA_Tooltip_ability_item_disperser_custom_bonus_damage"                      "+$damage"
@@ -1423,7 +1425,7 @@
       "DOTA_Tooltip_ability_abaddon_borrowed_time_custom_duration_scepter"       "DURATION:"
       "DOTA_Tooltip_ability_abaddon_borrowed_time_custom_redirect_range_scepter"     "RANGE:"
       "DOTA_Tooltip_ability_abaddon_borrowed_time_custom_ally_threshold_scepter"     "DAMAGE THRESHOLD:"
-      "DOTA_Tooltip_ability_abaddon_borrowed_time_custom_scepter_description"    "Increases duration 0.5s"
+      "DOTA_Tooltip_ability_abaddon_borrowed_time_custom_scepter_description"    "Increases duration 1.5s"
       "DOTA_Tooltip_ability_abaddon_borrowed_time_custom_Note0"      "Borrowed Time can be manually activated while Abaddon is disabled, but not while silenced.  The passive activation can still occur while silenced."
       "DOTA_Tooltip_ability_abaddon_borrowed_time_custom_Note1"      "Aphotic Shield does not block any damage to Abaddon when Borrowed Time is active, allowing him to heal."
 
@@ -3260,7 +3262,7 @@
 
       "DOTA_Tooltip_ability_oracle_false_promise_custom"                                         "False Promise"
       "DOTA_Tooltip_ability_oracle_false_promise_custom_Description"                       "Temporarily alters an ally's destiny, delaying any healing or damage taken until False Promise ends. Any healing that is delayed by False Promise is amplified. Removes most negative status effects and disables on initial cast.\n\nDISPEL TYPE: Strong Dispel"
-      "DOTA_Tooltip_ability_oracle_false_promise_custom_shard_description"           "Causes False Promise to have a %shard_fade_time% second fade delay invisibility."
+      "DOTA_Tooltip_ability_oracle_false_promise_custom_shard_description"           ""
       "DOTA_Tooltip_ability_oracle_false_promise_custom_Lore"                              "Foes and false prophets oft make lies of men's fates."
       "DOTA_Tooltip_ability_oracle_false_promise_custom_duration"                    "DURATION:"
       "DOTA_Tooltip_ability_oracle_false_promise_custom_Note0"                             "Delayed damage and healing will take armor and magic resistance reductions into account when received."
@@ -3270,6 +3272,8 @@
 
       "DOTA_Tooltip_modifier_oracle_false_promise_custom"                                  "False Promise"
       "DOTA_Tooltip_modifier_oracle_false_promise_custom_Description"          "Any healing or damage taken is delayed until False Promise ends. Delayed healing will be doubled."
+
+      "DOTA_Tooltip_ability_oracle_false_promise_custom_scepter_description"         "Causes False Promise to have a %shard_fade_time% second fade delay invisibility and grants the ally %shard_spell_amp_bonus%%% bonus Spell Damage."
 
       //=================================================================================================================
       // Outworld Destroyer
@@ -3364,7 +3368,7 @@
 
       "DOTA_Tooltip_ability_rubick_spell_steal_custom"                                           "Spell Steal (Heroic)"
       "DOTA_Tooltip_ability_rubick_spell_steal_custom_Description"                               "Rubick studies the trace magical essence of one enemy hero, learning the secrets of the last spell the hero cast. Rubick can use this spell as his own for several minutes or until he dies, and stolen spells last longer on enemies."
-      "DOTA_Tooltip_ability_rubick_spell_steal_custom_scepter_description"                       "Increases the cast range to 1400. The ability becomes toggled. If the ability is on, it permanently steals the ability in 2 slots. If the ability is off, it steals the ability in 1 slot for a while."
+      "DOTA_Tooltip_ability_rubick_spell_steal_custom_scepter_description"                       "Increases the cast range to 1400. Indefinite duration of the stolen ability"
       "DOTA_Tooltip_ability_rubick_spell_steal_custom_Lore"                                      "...but even their lesser magics can be a source of much utility."
       "DOTA_Tooltip_ability_rubick_spell_steal_custom_Note0"                                     "Cannot steal item abilities."
       "DOTA_Tooltip_ability_rubick_spell_steal_custom_Note1"                                     "Rubick will steal the Aghanim's Shard version of the ability, if he himself has an Aghanim's Shard."
@@ -3373,7 +3377,7 @@
       "DOTA_Tooltip_ability_rubick_spell_steal_custom_cast_range_scepter"                        "CAST RANGE:"
       "DOTA_Tooltip_ability_rubick_spell_steal_custom_stolen_debuff_amp"                         "%STOLEN DEBUFF AMP:"
 
-      "DOTA_Tooltip_ability_rubick_spell_steal_custom_ability_note"                              "<font color='red'>ABILITY CANNOT BE REROLL IF YOU HAVE USED IT AT LEAST.</font>"
+      "DOTA_Tooltip_ability_rubick_spell_steal_custom_ability_note"                              ""
 
       "DOTA_Tooltip_ability_rubick_empty1"                                                       "Stolen Spell"
       "DOTA_Tooltip_ability_rubick_empty1_Description"                                           "Spells acquired with Spell Steal will replace this slot."
@@ -3582,8 +3586,8 @@
       "DOTA_Tooltip_modifier_cha_ban"       "Game Block"
       "DOTA_Tooltip_modifier_cha_ban_Description"     "You broke rules of game. Now your incoming damage is increased by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% and outgoing damage reduced by %dMODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE%%%. To remove block you have to play %dMODIFIER_PROPERTY_TOOLTIP% games and take at least 4th place"
 
-      "DOTA_Tooltip_modifier_cha_stranger"               "Подарочная подкрутка Stranger"
-      "DOTA_Tooltip_modifier_cha_stranger_Description"   "Вам повезло в подкрутке странгера"
+      "DOTA_Tooltip_modifier_cha_stranger"      "Мочевой Сомелье"
+      "DOTA_Tooltip_modifier_cha_stranger_Description"    "я - хуесос, который 332шит, а потом получил за это курсу, потом начал оскорблять своего хозяина DEMNA, и он обоссал мне лицо, теперь я тут с вами, обоссыте меня еще раз, пожалуйста!"
 
       "DOTA_Tooltip_modifier_item_ghost_active"                     "Ghost Form"
       "DOTA_Tooltip_modifier_item_ghost_active_Description"         "Ethereal Form. Taking %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_DECREPIFY_UNIQUE%%% increased magic damage and cannot attack or be attacked."
@@ -3795,7 +3799,7 @@
       "DOTA_Tooltip_modifier_skill_magic_investor_Description"                            "Spell amplify increased by %dMODIFIER_PROPERTY_TOOLTIP%%%"
 
       "DOTA_Tooltip_Ability_item_ninja_gear_custom"          "Ninja Gear"
-      "DOTA_Tooltip_Ability_item_ninja_gear_custom_Description"          "<h1>Active: Solitary Disguise</h1> Casts Smoke of Deceit on yourself only."
+      "DOTA_Tooltip_Ability_item_ninja_gear_custom_Description"          "<h1>Active: Solitary Disguise</h1> Casts Smoke of Deceit on yourself only. Duration %duration% seconds"
       "DOTA_Tooltip_Ability_item_ninja_gear_custom_Lore"           "Valuable equipment recovered by a young explorer sifting through the flotsam and detritus drifting in the void."
       "DOTA_Tooltip_Ability_item_ninja_gear_custom_bonus_agility"        "+$agi"
       "DOTA_Tooltip_Ability_item_ninja_gear_custom_passive_movement_bonus"           "+$move_speed"
@@ -3897,11 +3901,11 @@
       "DOTA_Tooltip_ability_nian_apocalypse_damage_prirost"                      "ПРИРОСТ УРОНА ЗА МИНУТУ ИГРЫ:"
       "DOTA_Tooltip_ability_nian_apocalypse_duration"                         "ДЛИТЕЛЬНОСТЬ СПОСОБНОСТИ:"
 
-      "cha_PlayerInfo"              "Информация"
-      "cha_PlayerInfo_profile"              "Профиль"
+      "cha_PlayerInfo"              "Info"
+      "cha_PlayerInfo_profile"              "Profile"
 
-      "SkillSelectorTitle"          "Выберите навык"
-      "SkillSelection_Hide"         "Скрыть"
+      "SkillSelectorTitle"          "Choose Skill"
+      "SkillSelection_Hide"         "Close"
       "for_battlepass_skill"        "Доступен игрокам с Battlepass уровень 3"
 
       "DOTA_Tooltip_modifier_skill_armorless_debuff"                                      "Armorless"
@@ -4166,6 +4170,23 @@
     "DOTA_Tooltip_ability_lycan_shapeshift_custom_crit_multiplier"                          "%КРИТИЧЕСКИЙ УРОН:"
     "DOTA_Tooltip_ability_lycan_shapeshift_custom_transformation_time"                      "ВРЕМЯ ПРЕВРАЩЕНИЯ:"
     "DOTA_Tooltip_ability_lycan_shapeshift_custom_scepter_description"                      "Делает способность переключаемой. Герой может проходить сквозь препятствия. Длительность способности бесконечная"
+    "DOTA_Tooltip_ability_lycan_shapeshift_custom_ability_note"                             "Не меняет тип и дальность атаки владельца"
+
+    "DOTA_Tooltip_modifier_lycan_shapeshift_custom"                                         "Shapeshift"
+    "DOTA_Tooltip_modifier_lycan_shapeshift_custom_Description"                             ""
+
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom"                                                     "Arc Lightning"
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom_Description"                                     "Выпускает молнию, которая перескакивает с одного врага на другого, нанося им базовый урон и отнимая часть от максимального здоровья."
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom_Lore"                                                  "Любимый приём бога грома против жалких смертных."
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom_jump_count"                                      "СКАЧКОВ:"
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom_arc_damage"                                      "БАЗОВЫЙ УРОН:"
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom_damage_health_pct"                               "%УРОН ОТ ТЕКУЩЕГО ЗДОРОВЬЯ:"
+
+    "DOTA_Tooltip_ability_zuus_lightning_hands_custom"                               "Lightning Hands"
+    "DOTA_Tooltip_ability_zuus_lightning_hands_custom_Description"                 "Увеличивает дальность атак героя. Они создают молнии от Arc Lightning, наносящие долю урона способности."
+    "DOTA_Tooltip_ability_zuus_lightning_hands_custom_attack_range_bonus"                      "ДОП. ДАЛЬНОСТЬ АТАКИ:"
+    "DOTA_Tooltip_ability_zuus_lightning_hands_custom_arc_lightning_damage_pct"          "%УРОН ARC LIGHTNING:"
+    "DOTA_Tooltip_ability_zuus_lightning_hands_custom_arc_lightning_damage_illusion_pct"       "%УРОН ARC LIGHTNING У ИЛЛЮЗИЙ:"
 
     "DOTA_Tooltip_ability_undying_flesh_golem_custom"                                       "Flesh Golem (Heroic)"   
     "DOTA_Tooltip_ability_undying_flesh_golem_custom_Description"                           "Герой превращается в ужасающего голема из плоти. Голем имеет увеличенную силу, а его атаки замедляют жертв и увеличивают получаемый ими урон."
@@ -4227,6 +4248,7 @@
 
     "DOTA_Tooltip_ability_doom_bringer_devour_custom"                                       "Devour"
     "DOTA_Tooltip_ability_doom_bringer_devour_custom_Description"                           "Пожирает вражеского или нейтрального крипа, перенимая его способности и получая дополнительную броню на время, пока он переваривается. Если автоматическое применение выключено, способности не перенимаются. Длительность действия равна времени перезарядки способности."
+    "DOTA_Tooltip_ability_doom_bringer_devour_ability_note"                                 "Золото от способности можно получить 3 раза за раунд"
     "DOTA_Tooltip_ability_doom_bringer_devour_custom_shard_description"                     ""
     "DOTA_Tooltip_ability_doom_bringer_devour_custom_abilitydraft_note"                     "В этом режиме герой получает только пассивные способности сожранных нейтральных крипов. Способность Rearm <b>не</b> действует на перезарядку Devour."
     "DOTA_Tooltip_ability_doom_bringer_devour_custom_Lore"                                  "Обжорство и жадность Люцифера неистощимы."
@@ -4337,10 +4359,10 @@
     "skill_magic_resist_desc"                                                               "+15% магического сопротивления"
 
     "skill_retraining"                                                                      "Retraining"
-    "skill_retraining_desc"                                                                 "Каждые 5 раундов дает вам книгу переобучения"
+    "skill_retraining_desc"                                                                 "Каждые 5 раундов дает вам книгу переобучения. Если вы не входите в топ 3 лучших"
 
     "skill_outsiders"                                                                       "Outsiders"
-    "skill_outsiders_desc"                                                                  "Последние 2 места по нетворсу получают дополнительно +80 золота за убийство крипа"
+    "skill_outsiders_desc"                                                                  "Последние 3 места по нетворсу получают дополнительно +100 золота за убийство крипа"
 
     "skill_true_strike"                                                                     "True Strike"
     "skill_true_strike_desc"                                                                "80% игнорировать уклонение цели"
@@ -4349,10 +4371,10 @@
     "skill_kraken_shell_desc"                                                               "При получении урона в 1000 единиц, развеиваются все негативные эффекты и дается +15% сопротивление магии и эффектам на 5 сек (Перезарядка 15 секунд) (Отключается истощением)"
 
     "skill_soul_cleanse"                                                                    "Soul Cleanse"
-    "skill_soul_cleanse_desc"                                                               "каждые 3 секунды с вас очищает все отрицательные эффекты"
+    "skill_soul_cleanse_desc"                                                               "каждые 5 секунд с вас очищает все отрицательные эффекты"
 
     "skill_rearm"                                                                           "Rearm"
-    "skill_rearm_desc"                                                                      "30% шанс что использованная способность сбросит перезарядку, ультимативная способность - 20% шанс"
+    "skill_rearm_desc"                                                                      "25% шанс что использованная способность сбросит перезарядку, ультимативная способность - 15% шанс"
 
     "skill_fervor"                                                                          "Fervor"
     "skill_fervor_desc"                                                                     "Каждая атака увеличивает ваш исходящий урон на 2% (максимум 12 стаков). При смене цели атаки, все стаки сбрасываются"
@@ -4373,22 +4395,25 @@
     "DOTA_Tooltip_ability_stranger_think"                                                   "Избивай меня"
     "DOTA_Tooltip_ability_stranger_think_Description"                                       "Если что-то сломалось или слишком сильные лаги, то выбей из меня мозги за плохую работу !"
 
-    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom"                                                "Frost Arrows"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom"                                                "Frost Arrows"
       "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Description"                                    "Добавляет к атакам героя замораживающий эффект, замедляющий передвижение цели на %duration% сек. и наносящий дополнительный урон."
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_scepter_description"                       "Способность накладывает на врага переохлаждение. Каждый такой эффект уменьшает восстановление здоровья и увеличивает урон от этой способности. Если цель умрёт под действием переохлаждения, из неё во всех врагов вокруг разлетятся осколки, которые наносят магический урон за каждый эффект и замедляют жертв."
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_regen_reduction_pct_per_stack" "%УМЕНЬШЕНИЕ ВОССТ. ЗДОРОВЬЯ ЗА ЭФФЕКТ:"
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_bonus_damage_per_stack"        "БОНУС К ДОП. УРОНУ ЗА ЭФФЕКТ:"
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_stack_duration"                                  "ДЛИТЕЛЬНОСТЬ ЭФФЕКТА:"
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_radius"                        "РАДИУС РАЗЛЁТА ОСКОЛКОВ:"
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_damage_per_stack"  "УРОН ОСКОЛКОВ ЗА ЭФФЕКТ:"
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_move_slow_pct"           "%ЗАМЕДЛЕНИЕ ПЕРЕДВИЖЕНИЯ ОТ ОСКОЛКОВ:"
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_slow_duration"           "ДЛИТЕЛЬНОСТЬ ЗАМЕДЛЕНИЯ ОТ ОСКОЛКОВ:"
-      //"DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_max_stacks"                    "МАКСИМУМ ЭФФЕКТОВ:"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_scepter_description"                       "Способность накладывает на врага переохлаждение. Каждый такой эффект уменьшает восстановление здоровья и увеличивает урон от этой способности. Если цель умрёт под действием переохлаждения, из неё во всех врагов вокруг разлетятся осколки, которые наносят магический урон за каждый эффект и замедляют жертв."
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_regen_reduction_pct_per_stack" "%УМЕНЬШЕНИЕ ВОССТ. ЗДОРОВЬЯ ЗА ЭФФЕКТ:"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_bonus_damage_per_stack"        "БОНУС К ДОП. УРОНУ ЗА ЭФФЕКТ:"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_stack_duration"                                  "ДЛИТЕЛЬНОСТЬ ЭФФЕКТА:"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_radius"                        "РАДИУС РАЗЛЁТА ОСКОЛКОВ:"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_damage_per_stack"  "УРОН ОСКОЛКОВ ЗА ЭФФЕКТ:"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_move_slow_pct"           "%ЗАМЕДЛЕНИЕ ПЕРЕДВИЖЕНИЯ ОТ ОСКОЛКОВ:"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_slow_duration"           "ДЛИТЕЛЬНОСТЬ ЗАМЕДЛЕНИЯ ОТ ОСКОЛКОВ:"
+      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_max_stacks"                    "МАКСИМУМ ЭФФЕКТОВ:"
       "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Lore"                                      "Покрытые льдом стрелы беззвучно пронзают воздух, насквозь промораживая врагов."
       "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Note0"                                     "Каждое попадание обновляет отсчёт до окончания замедления."
       "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_frost_arrows_movement_speed"         "%ЗАМЕДЛЕНИЕ:"
       "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_damage"            "ДОП. УРОН:"
       "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_percent_damage"            "%УРОН ОТ ТЕКУЩЕГО ЗДОРОВЬЯ:"
       "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_frost_arrows_abilityduration"  "ДЛИТЕЛЬНОСТЬ:"
+
+      "DOTA_Tooltip_modifier_drow_ranger_frost_arrows_custom_debuff"            "Hypothermia"
+      "DOTA_Tooltip_modifier_drow_ranger_frost_arrows_custom_debuff_Description"            "Healing, lifesteal, spell lifesteal, and health regeneration reduced by %dMODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE%%%."
 } 
 }

@@ -138,6 +138,8 @@ function modifier_item_ranged_cleave_3:AttackLandedModifier(params)
 		splash_damage = splash_damage + (params.damage * modifier_dragon_knight_elder_dragon_form_custom.splash_pct)
 	end
 
+	print(params.damage, params.original_damage)
+
 	local enemies = FindUnitsInRadius(params.attacker:GetTeamNumber(), target_loc, nil, self.cleave_radius, ability:GetAbilityTargetTeam(), ability:GetAbilityTargetType(), ability:GetAbilityTargetFlags(), FIND_ANY_ORDER, false)
 	for _, enemy in pairs(enemies) do
 		if enemy ~= params.target then
