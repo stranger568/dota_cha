@@ -45,7 +45,7 @@ function doom_bringer_devour_custom:OnSpellStart(multicast)
 
 	if self.cast_round < 3 then
 		self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_doom_bringer_devour_custom", { duration = self:GetCooldown(self:GetLevel()) } )
-		self.cast_round = cast_round + 1
+		self.cast_round = self.cast_round + 1
 	end
 
 	self:PlayEffects( target )

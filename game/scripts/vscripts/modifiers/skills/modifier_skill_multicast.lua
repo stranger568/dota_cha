@@ -142,6 +142,10 @@ if IsServer() then
         brewmaster_primal_split = MULTICAST_TYPE_NONE,
         item_ex_machina_custom = MULTICAST_TYPE_NONE,
         item_manta = MULTICAST_TYPE_NONE,
+
+        zuus_lightning_bolt = MULTICAST_TYPE_SAME,
+		zuus_cloud = MULTICAST_TYPE_SAME,
+        
         item_extra_creature_satyr_trickster = MULTICAST_TYPE_NONE,
         item_extra_creature_big_thunder_lizard = MULTICAST_TYPE_NONE,
         item_extra_creature_spider_range = MULTICAST_TYPE_NONE,

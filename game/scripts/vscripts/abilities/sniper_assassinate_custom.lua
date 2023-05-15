@@ -81,6 +81,8 @@ function sniper_assassinate_custom:OnProjectileHit_ExtraData( target, location, 
         damage = damage + (self:GetCaster():GetAverageTrueAttackDamage(nil) / 100 * self:GetSpecialValueFor("scepter_crit"))
         SendOverheadEventMessage(nil, OVERHEAD_ALERT_CRITICAL, target, damage, nil)
     end
+    target:AddNewModifier(self:GetCaster(), self, "modifier_stunned", {duration = self:GetSpecialValueFor('scepter_stun_duration') * (1-target:GetStatusResistance())})
+    PerformAttack(target, true, true, true, false, false, true, true)
     ApplyDamage({victim = target, attacker = self:GetCaster(), damage = damage, damage_type = DAMAGE_TYPE_MAGICAL, ability = self})
 end
 

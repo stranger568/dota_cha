@@ -41,5 +41,9 @@ end
 
 function modifier_sniper_take_aim_custom:GetModifierAttackRangeBonus()
 	if self:GetParent():PassivesDisabled() then return end
-	return self.bonus_attack_range + self:GetCaster():FindTalentValue("special_bonus_unique_sniper_6")
+	local bonus = 0
+	if self:GetCaster():HasModifier("modifier_sniper_take_aim_bonus") then
+		bonus = self:GetAbility():GetSpecialValueFor("bonus_attack_range_active")
+	end
+	return self.bonus_attack_range + bonus + self:GetCaster():FindTalentValue("special_bonus_unique_sniper_6")
 end

@@ -221,6 +221,8 @@ if IsServer() then
 		dawnbreaker_celestial_hammer = MULTICAST_TYPE_NONE,
 		crystal_maiden_freezing_field = MULTICAST_TYPE_SAME,
 
+		zuus_lightning_bolt = MULTICAST_TYPE_SAME,
+		zuus_cloud = MULTICAST_TYPE_SAME,
 		
 		faceless_void_chronosphere = MULTICAST_TYPE_NONE,
 		timbersaw_chakram_lua = MULTICAST_TYPE_NONE,

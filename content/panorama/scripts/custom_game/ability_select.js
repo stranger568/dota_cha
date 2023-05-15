@@ -43,10 +43,25 @@ var AbilitiesFullReact =
     "rubick_spell_steal_custom" : true,
     "lich_chain_frost_custom" : true,
     "lion_finger_of_death_custom" : true,
-    "enigma_midnight_pulse_custom" : true,
     "obsidian_destroyer_arcane_orb" : true,
+    "life_stealer_feast"    : true,
+};
+
+var AbilitiesFullReactPurple = 
+{
     "drow_ranger_frost_arrows_custom" : true,
+    "enigma_midnight_pulse_custom" : true,
     "pugna_life_drain_custom" :true,
+    "sandking_caustic_finale_lua":true,
+    "winter_wyvern_arctic_burn":true,
+    "phoenix_sun_ray":true,
+    "zuus_arc_lightning_custom":true,
+    "witch_doctor_maledict":true,
+    "necrolyte_heartstopper_aura_lua":true,
+    "jakiro_liquid_fire_lua":true,
+    "terrorblade_reflection_lua":true,
+    "abyssal_underlord_firestorm_custom":true,
+    "elder_titan_earth_splitter":true,
 };
 
 //调整技能选择页面位置
@@ -158,6 +173,12 @@ function ShowRandomAbilitySelection(keys) {
             } else {
                 panel.FindChildTraverse("EffectReact").visible = false
             }
+            if (AbilitiesFullReactPurple[abilityName])
+            {
+                panel.FindChildTraverse("EffectReactPurple").visible = true
+            } else {
+                panel.FindChildTraverse("EffectReactPurple").visible = false
+            }
         } else {
             panel.FindChildTraverse("EffectReact").visible = false
         }
@@ -261,6 +282,14 @@ function ShowSpellBookAbilitySelection(keys) {
                 if (AbilitiesFullReact[abilityName])
                 {
                     panel.FindChildTraverse("EffectReact").visible = true
+                } else {
+                    panel.FindChildTraverse("EffectReact").visible = false
+                }
+                if (AbilitiesFullReactPurple[abilityName])
+                {
+                    panel.FindChildTraverse("EffectReactPurple").visible = true
+                } else {
+                    panel.FindChildTraverse("EffectReactPurple").visible = false
                 }
                 SetSpellBookAbilityPanelEvent(panel,abilityName);
             }

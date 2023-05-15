@@ -1083,7 +1083,7 @@
 				"bonus_strength"		"25"
 				"bonus_damage"			"38"
 				"lifesteal_percent"		"30"
-				"creep_lifesteal_reduction_pct"	"100"
+				"creep_lifesteal_reduction_pct"	"0"
 				"unholy_lifesteal_percent"	"145"
 				"unholy_lifesteal_total_tooltip"	"175"
 				"unholy_duration"		"6.0"
@@ -1110,7 +1110,7 @@
 		"AbilityValues"
 		{
 			"lifesteal_percent"		"18"
-			"creep_lifesteal_reduction_pct"	"100"
+			"creep_lifesteal_reduction_pct"	"0"
 		}
 	}
 	"item_vladmir"
@@ -1137,7 +1137,7 @@
 				"armor_aura"		"3.0"
 				"mana_regen_aura"		"1.75"
 				"lifesteal_aura"			"20"
-				"creep_lifesteal_reduction_pct"	"100"
+				"creep_lifesteal_reduction_pct"	"0"
 				"damage_aura"			"18"
 				"aura_radius"	"1200"
 		}
@@ -1210,7 +1210,7 @@
 				"armor_aura"		"3.0"
 				"mana_regen_aura"		"2.0"
 				"lifesteal_aura"			"24"
-				"creep_lifesteal_reduction_pct"	"100"
+				"creep_lifesteal_reduction_pct"	"0"
 				"damage_aura"			"18"
 				"aura_radius"	"1200" 
 				"pact_aura_radius"	"900" 
@@ -1263,7 +1263,7 @@
 				"armor_aura"		"3.0"
 				"mana_regen_aura"		"2"
 				"lifesteal_aura"			"20"
-				"creep_lifesteal_reduction_pct"	"100"
+				"creep_lifesteal_reduction_pct"	"0"
 				"damage_aura"			"18"
 				"aura_radius"	"1200"
 		}
@@ -1299,7 +1299,7 @@
 				"bonus_damage"	"10"
 				"bonus_attack_speed"	"10"
 				"lifesteal_percent"		"24"
-				"creep_lifesteal_reduction_pct"	"100"
+				"creep_lifesteal_reduction_pct"	"0"
 				"berserk_bonus_attack_speed"	"110"
 				"berserk_bonus_movement_speed"	"30"
 				"berserk_armor_reduction"	"8"
@@ -1329,7 +1329,7 @@
 			"bonus_lifesteal"			"16"
 			"bonus_spell_lifesteal"			"8"
 			"bonus_amp"			"14"
-			"creep_lifesteal_reduction_pct"	"100"
+			"creep_lifesteal_reduction_pct"	"0"
 		}
 	}
 

@@ -18,7 +18,11 @@ function skywrath_mage_arcane_bolt_custom:OnSpellStart(new_target)
 	local cursor_target = self:GetCursorTarget()
 	if cursor_target:TriggerSpellAbsorb(self) then return end
 
-	local enemies = FindUnitsInRadius( caster:GetTeamNumber(), point, nil, self:GetSpecialValueFor("radius_skill"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false )
+	if new_target then
+		cursor_target = new_target
+	end
+
+	local enemies = FindUnitsInRadius( caster:GetTeamNumber(), cursor_target:GetAbsOrigin(), nil, self:GetSpecialValueFor("radius_skill"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false )
 	for _, target in pairs(enemies) do
 		local info = 
 		{
@@ -40,15 +44,16 @@ function skywrath_mage_arcane_bolt_custom:OnSpellStart(new_target)
 
 		ProjectileManager:CreateTrackingProjectile(info)
 	end
-	if self:GetCaster():HasScepter() then
+
+	if self:GetCaster():HasScepter() and new_target == nil then
 		local scepter_radius = self:GetSpecialValueFor( "scepter_radius" )
 			
-		local enemies = FindUnitsInRadius( caster:GetTeamNumber(), target:GetOrigin(), nil, scepter_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
+		local enemies = FindUnitsInRadius( caster:GetTeamNumber(), cursor_target:GetOrigin(), nil, scepter_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
 			
 		local target_2 = nil
 
 		for _,enemy in pairs(enemies) do
-			if enemy~=target and enemy:IsHero() then
+			if enemy~=cursor_target and enemy:IsHero() then
 				target_2 = enemy
 				break
 			end
@@ -56,30 +61,39 @@ function skywrath_mage_arcane_bolt_custom:OnSpellStart(new_target)
 
 		if not target_2 then
 			target_2 = enemies[1]
-			if target_2==target then
+			if target_2==cursor_target then
 				target_2 = enemies[2]
 			end
 		end
 
 		if target_2 and target_2:IsAlive() then
-			local info = 
-			{
-				Target = target_2,
-				Source = caster,
-				Ability = self,	
-				EffectName = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_arcane_bolt.vpcf",
-				iMoveSpeed = projectile_speed,
-				bDodgeable = false,
-				bVisibleToEnemies = true,
-				bProvidesVision = true,
-				iVisionRadius = projectile_vision,
-				iVisionTeamNumber = caster:GetTeamNumber(),
-				ExtraData = 
-				{
-					damage = damage,
-				}
-			}
-			ProjectileManager:CreateTrackingProjectile(info)
+			self:OnSpellStart(target_2)
+		end
+	end
+
+	if self:GetCaster():HasTalent("special_bonus_unique_skywrath_2") and new_target == nil then
+		local scepter_radius = self:GetSpecialValueFor( "scepter_radius" )
+			
+		local enemies = FindUnitsInRadius( caster:GetTeamNumber(), cursor_target:GetOrigin(), nil, scepter_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
+			
+		local target_2 = nil
+
+		for _,enemy in pairs(enemies) do
+			if enemy~=cursor_target and enemy:IsHero() then
+				target_2 = enemy
+				break
+			end
+		end
+
+		if not target_2 then
+			target_2 = enemies[1]
+			if target_2==cursor_target then
+				target_2 = enemies[2]
+			end
+		end
+
+		if target_2 and target_2:IsAlive() then
+			self:OnSpellStart(target_2)
 		end
 	end
 

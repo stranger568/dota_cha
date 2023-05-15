@@ -18,8 +18,8 @@ end
 
 function zuus_arc_lightning_custom:StartArc(target, bounces, not_cast, shard_cast)
 	if not IsServer() then return end
-	self:GetCaster():EmitSound("Hero_Zuus.ArcLightning.Cast")
 	if not not_cast then
+		self:GetCaster():EmitSound("Hero_Zuus.ArcLightning.Cast")
 		local head_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_zuus/zuus_arc_lightning_head.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
 		ParticleManager:SetParticleControlEnt(head_particle, 0, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_attack1", self:GetCaster():GetAbsOrigin(), true)
 		ParticleManager:SetParticleControlEnt(head_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
@@ -77,7 +77,9 @@ function modifier_zuus_arc_lightning_custom:DoDamage(target, not_cast, damage_k)
 	damage = damage + (target:GetHealth() / 100 * self:GetAbility():GetSpecialValueFor("damage_health_pct") )
 	damage = damage * damage_k
 	ApplyDamage({ victim = target, damage = damage, damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NONE, attacker = self:GetCaster(), ability = self:GetAbility() })
-	target:EmitSound("Hero_Zuus.ArcLightning.Target")
+	if not_cast == 0 then
+		target:EmitSound("Hero_Zuus.ArcLightning.Target")
+	end
 end
 
 function modifier_zuus_arc_lightning_custom:OnIntervalThink()
@@ -141,7 +143,8 @@ function modifier_zuus_lightning_hands_custom_tracker:DeclareFunctions()
 	return
 	{
 	    MODIFIER_PROPERTY_TOOLTIP,
-	    MODIFIER_PROPERTY_TOOLTIP2
+	    MODIFIER_PROPERTY_TOOLTIP2,
+	    MODIFIER_PROPERTY_ATTACK_RANGE_BONUS
 	}
 end
 

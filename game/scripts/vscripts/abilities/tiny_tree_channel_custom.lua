@@ -8,7 +8,9 @@ end
 
 function tiny_tree_channel_custom:Spawn()
 	if not IsServer() then return end
-	self:SetLevel(1)
+	if not self:IsTrained() then
+		self:SetLevel(1)
+	end
 end
 
 function tiny_tree_channel_custom:OnAbilityPhaseStart()
@@ -23,7 +25,9 @@ end
 
 function tiny_tree_channel_custom:OnAbilityPhaseInterrupted()
 	if IsServer() then 
-		ParticleManager:DestroyParticle( self.nWarnFXIndex1, true )
+		if self.nWarnFXIndex1 then
+			ParticleManager:DestroyParticle( self.nWarnFXIndex1, true )
+		end
 	end
 end
 

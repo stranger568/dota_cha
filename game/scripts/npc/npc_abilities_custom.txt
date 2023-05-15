@@ -439,6 +439,7 @@
                 "value"                             "3"
                 "LinkedSpecialBonus"                "special_bonus_unique_sniper_4"
             }
+            "bonus_attack_range_active"             "200"
             "slow"                                  "45 40 35 30"
             "headshot_chance"                       "100"
         }
@@ -913,7 +914,7 @@
 
         "AbilityValues"
         {
-            "chance_pct"            "15"
+            "chance_pct"            "17"
             "duration"              "2.5 3 3.5 4"
             "armor"         
             {
@@ -1391,7 +1392,7 @@
         "AbilityUnitDamageType"         "DAMAGE_TYPE_MAGICAL"   
         "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
         "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_1"
-
+        "HasShardUpgrade"               "1"
         "AbilityCastRange"              "850"
         "AbilityCastPoint"              "0.2"
         "AbilityCooldown"               "1.6"
@@ -8545,7 +8546,7 @@
 
         // Time     
         //-------------------------------------------------------------------------------------------------------------
-        "AbilityCooldown"               "50 45 40 35"
+        "AbilityCooldown"               "40 35 30 25"
 
         // Cost
         //-------------------------------------------------------------------------------------------------------------
@@ -9112,11 +9113,7 @@
         {
             "damage"                    "320 510 700"
             "projectile_speed"          "2500 2500 2500"
-            "scepter_stun_duration"         
-            {
-                "value" "0.8 1.0 1.2"
-                "RequiresScepter"       "1"
-            }
+            "scepter_stun_duration"     "0.8 1.0 1.2"
             "scepter_crit"          
             {
                 "value" "200"

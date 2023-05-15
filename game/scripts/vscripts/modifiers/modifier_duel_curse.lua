@@ -21,6 +21,10 @@ function modifier_duel_curse:OnIntervalThink()
     else
         self:GetParent():SetHealth(new_hp)
     end
+
+    if self:GetCaster():HasModifier("modifier_duel_curse") then
+        self:Destroy()
+    end
 end
 
 function modifier_duel_curse:DeclareFunctions()
@@ -33,6 +37,11 @@ end
 
 function modifier_duel_curse:GetDisableHealing()
     return 1
+end
+
+function modifier_duel_curse:OnDestroy()
+    if not IsServer() then return end
+    self:GetParent():RemoveModifierByName("modifier_duel_curse_cooldown")
 end
 
 modifier_duel_curse_cooldown = class({})
@@ -65,6 +74,10 @@ function modifier_duel_curse_cooldown:OnCreated()
     if dazzle_shallow_grave then
         dazzle_shallow_grave:SetActivated(false)
     end
+    local troll_warlord_battle_trance = self:GetParent():FindAbilityByName("troll_warlord_battle_trance")
+    if troll_warlord_battle_trance then
+        troll_warlord_battle_trance:SetActivated(false)
+    end
 end
 
 function modifier_duel_curse_cooldown:OnDestroy()
@@ -88,6 +101,10 @@ function modifier_duel_curse_cooldown:OnDestroy()
     local dazzle_shallow_grave = self:GetParent():FindAbilityByName("dazzle_shallow_grave")
     if dazzle_shallow_grave then
         dazzle_shallow_grave:SetActivated(true)
+    end
+    local troll_warlord_battle_trance = self:GetParent():FindAbilityByName("troll_warlord_battle_trance")
+    if troll_warlord_battle_trance then
+        troll_warlord_battle_trance:SetActivated(true)
     end
 end
 

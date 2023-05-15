@@ -266,6 +266,14 @@ function arc_warden_tempest_double_lua:OnSpellStart()
 		"modifier_skill_fearful",
 		"modifier_skill_last_chance",
 		"modifier_skill_berserker",
+		"modifier_skill_masters_gift",
+		"modifier_skill_magic_resist",
+		"modifier_skill_true_strike",
+		"modifier_skill_kraken_shell",
+		"modifier_skill_soul_cleanse",
+		"modifier_skill_rearm",
+		"modifier_skill_fervor",
+		"modifier_skill_block_shield",
 	}
 
 	for _, skill in pairs (skills_list) do

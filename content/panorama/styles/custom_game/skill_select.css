@@ -211,3 +211,16 @@
     width: 100%;
     text-align: center;
 }
+
+.Hidden 
+{
+    opacity: 0;
+}
+
+#CooldownOverlay 
+{
+    background-color: #000000dc;
+    height: 90px;
+    width: 90px;
+    z-index: 1;
+}

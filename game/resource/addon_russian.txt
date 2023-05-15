@@ -2577,6 +2577,7 @@
       "DOTA_Tooltip_ability_sniper_take_aim_custom_Description"         "Увеличивает дальность атак героя. Применение на 4 секунды увеличивает шанс срабатывания способности Headshot до %headshot_chance%%%, но замедляет передвижение владельца на %slow%%%."
       "DOTA_Tooltip_ability_sniper_take_aim_custom_Lore"                "Кардел всегда старается держаться от опасности как можно дальше, при этом не забывая о своей задаче: стрелять точно в цель."
       "DOTA_Tooltip_ability_sniper_take_aim_custom_bonus_attack_range"  "ДОП. ДАЛЬНОСТЬ АТАКИ:"
+      "DOTA_Tooltip_ability_sniper_take_aim_custom_bonus_attack_range_active"  "ДОП. ДАЛЬНОСТЬ АТАКИ ПРИ АКТИВАЦИИ:"
 
       //=================================================================================================================
       // Spectre
@@ -3636,7 +3637,7 @@
 		"DOTA_Tooltip_ability_creature_tear_armor_armor_reduce"                 "Снижение брони за каждый заряд"
 
 		"DOTA_Tooltip_modifier_loser_curse"                                     "Проклятье Проигравшего"
-		"DOTA_Tooltip_modifier_loser_curse_Description"                         "Проигравший в дуэли получает наказание. Каждый заряд увеличивает входящий урон на 15%% и уменьшает исходящий урон на 15%% и атрибуты на 10%%.<br>Эффект от наказания на работает во время дуэли"
+		"DOTA_Tooltip_modifier_loser_curse_Description"                         "Проигравший в дуэли получает наказание. Каждый заряд увеличивает входящий урон на 20%% и уменьшает исходящий урон на 20%% и атрибуты на 10%%.<br>Эффект от наказания на работает во время дуэли"
 
 		"DOTA_Tooltip_modifier_charge_counter"								"Заряды Умения"
 		"DOTA_Tooltip_modifier_charge_counter_Description"					"Это умение имеет несколько зарядов"
@@ -4152,12 +4153,13 @@
     "DOTA_Tooltip_modifier_lycan_shapeshift_custom"                                         "Shapeshift"
     "DOTA_Tooltip_modifier_lycan_shapeshift_custom_Description"                             ""
 
-    "DOTA_Tooltip_ability_zuus_arc_lightning_custom"                                                     "Arc Lightning"
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom"                                                 "Arc Lightning"
     "DOTA_Tooltip_ability_zuus_arc_lightning_custom_Description"                                     "Выпускает молнию, которая перескакивает с одного врага на другого, нанося им базовый урон и отнимая часть от максимального здоровья."
-    "DOTA_Tooltip_ability_zuus_arc_lightning_custom_Lore"                                                  "Любимый приём бога грома против жалких смертных."
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom_Lore"                                            "Любимый приём бога грома против жалких смертных."
     "DOTA_Tooltip_ability_zuus_arc_lightning_custom_jump_count"                                      "СКАЧКОВ:"
     "DOTA_Tooltip_ability_zuus_arc_lightning_custom_arc_damage"                                      "БАЗОВЫЙ УРОН:"
     "DOTA_Tooltip_ability_zuus_arc_lightning_custom_damage_health_pct"                               "%УРОН ОТ ТЕКУЩЕГО ЗДОРОВЬЯ:"
+    "DOTA_Tooltip_ability_zuus_arc_lightning_custom_shard_description"                               "Дарует новую способность - Lightning Hands"
 
     "DOTA_Tooltip_ability_zuus_lightning_hands_custom"                               "Lightning Hands"
     "DOTA_Tooltip_ability_zuus_lightning_hands_custom_Description"                 "Увеличивает дальность атак героя. Они создают молнии от Arc Lightning, наносящие долю урона способности."
@@ -4213,8 +4215,8 @@
     "DOTA_Tooltip_ability_skywrath_mage_arcane_bolt_custom_lifesteal_duration"                     "ДЛИТЕЛЬНОСТЬ ВАМПИРИЗМА:"
     "DOTA_Tooltip_ability_skywrath_mage_arcane_bolt_custom_lifesteal_amt"                          "%ВАМПИРИЗМ ЗАКЛИНАНИЯМИ:"
 
-    "DOTA_Tooltip_ability_sniper_assassinate_custom"                                               "Assassinate"
-    "DOTA_Tooltip_ability_sniper_assassinate_custom_Description"                                   "Герой с огромного расстояния целится во вражеское существо и после небольшой задержки совершает сокрушительный выстрел, ненадолго оглушающий цель."
+    "DOTA_Tooltip_ability_sniper_assassinate_custom"                                               "Assassinate (Heroic)"
+    "DOTA_Tooltip_ability_sniper_assassinate_custom_Description"                                   "Герой с огромного расстояния целится во вражеское существо и после небольшой задержки совершает сокрушительный выстрел, который оглушает цель на %scepter_stun_duration% сек."
     "DOTA_Tooltip_ability_sniper_assassinate_custom_scepter_description"                           "Способность наносит 200%% урона от атаки"
     "DOTA_Tooltip_ability_sniper_assassinate_custom_Lore"                                          "Чтобы осуществить пророчество и вернуться в родной город, Кардел должен быть уверен, что следующий выстрел будет столь же метким, как и тот, что он совершил в далёкий день своего испытания."
     "DOTA_Tooltip_ability_sniper_assassinate_custom_shard_description"                             ""
