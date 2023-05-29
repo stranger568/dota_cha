@@ -373,6 +373,7 @@ function Pass:RewardAccept(keys)
         table.insert(player_items_table, Pass.rewards_data[day][3])
         player_table_info.player_items = player_items_table
     end
+    DeepPrintTable(player_table_info)
     CustomNetTables:SetTableValue("cha_server_data", tostring(playerid), player_table_info)
     ChaServerData.GiveReward(playerid, Pass.rewards_data[day][1], Pass.rewards_data[day][2], Pass.rewards_data[day][3], Pass.rewards_data[day][4], Pass.rewards_data[day][5])
     local player = PlayerResource:GetPlayer(playerid)

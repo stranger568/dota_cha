@@ -14,5 +14,5 @@ function modifier_skill_veteran:DeclareFunctions()
 end
 
 function modifier_skill_veteran:GetModifierPercentageExpRateBoost()
-	return 70
+	return 100
 end

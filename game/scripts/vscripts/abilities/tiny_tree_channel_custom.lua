@@ -6,13 +6,6 @@ function tiny_tree_channel_custom:GetAOERadius()
 	return self:GetSpecialValueFor( "splash_radius" )
 end
 
-function tiny_tree_channel_custom:Spawn()
-	if not IsServer() then return end
-	if not self:IsTrained() then
-		self:SetLevel(1)
-	end
-end
-
 function tiny_tree_channel_custom:OnAbilityPhaseStart()
 	if IsServer() then 
 		self.radius = self:GetSpecialValueFor( "radius" )
@@ -47,6 +40,7 @@ end
 
 function tiny_tree_channel_custom:OnProjectileHit( hTarget, vLocation )
 	if not IsServer() then return end
+	if self == nil then return end
 	self.radius = self:GetSpecialValueFor( "splash_radius" )
 	EmitSoundOnLocationWithCaster( vLocation, "OgreTank.GroundSmash", self:GetCaster() )
 	local enemies = FindUnitsInRadius( self:GetCaster():GetTeamNumber(), vLocation, nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_CLOSEST, false )

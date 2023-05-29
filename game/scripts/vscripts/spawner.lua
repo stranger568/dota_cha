@@ -45,7 +45,7 @@ function Spawner:Init(nTeamNumber,round)
             nCurrentNumber = nCurrentNumber+1
             local vRandomPos=GameMode.vTeamLocationMap[nTeamNumber]+RandomVector(nRandomRange)
             local hUnit = GameMode:CreateUnitCustom(sUnitName, vRandomPos, true, nil, nil, DOTA_TEAM_NEUTRALS, function(hUnit) 
-            local bonus = self:GetTeamPlaceBonusGold(nTeamNumber)
+            local bonus = self:GetTeamPlaceBonusGold(nTeamNumber, round.nRoundNumber)
              
                 if sUnitName == "npc_dota_roshan" then
                     hUnit:AddNewModifier(hUnit, nil, "modifier_cha_boss_drop_roshan", {})
@@ -87,7 +87,7 @@ function Spawner:Init(nTeamNumber,round)
             for _,sExtraCreatureName in ipairs(list) do
                 local vRandomPos=GameMode.vTeamLocationMap[nTeamNumber]+RandomVector(nRandomRange)
                 local hUnit = GameMode:CreateUnitCustom(sExtraCreatureName, vRandomPos, true, nil, nil, DOTA_TEAM_NEUTRALS, function(hUnit) 
-                    local bonus = self:GetTeamPlaceBonusGold(nTeamNumber)
+                    local bonus = self:GetTeamPlaceBonusGold(nTeamNumber, round.nRoundNumber)
                     self:CreaturePowerUp(hUnit,round.nRoundNumber-1,bonus)
                     hUnit.nSpawnerTeamNumber = nTeamNumber
                     self.nExtraCreatureNumber = self.nExtraCreatureNumber + 1
@@ -111,7 +111,7 @@ function Spawner:Init(nTeamNumber,round)
     CustomGameEventManager:Send_ServerToTeam(nTeamNumber,"RefreshQuest", { unique = 1, name = "RoundProgress", text = "#round_progress", svalue = 0, text_value=round.nRoundNumber, text_value_2="#"..round.sRoundName, evalue = (self.round.nCreatureNumber+self.nExtraCreatureNumber) })
 end
 
-function Spawner:GetTeamPlaceBonusGold(teamcheck) 
+function Spawner:GetTeamPlaceBonusGold(teamcheck, round_number) 
     local dataList= {}
 
     for nTeamNumber,bAlive in pairs(GameMode.vAliveTeam) do
@@ -138,20 +138,32 @@ function Spawner:GetTeamPlaceBonusGold(teamcheck)
     if #dataList > 2 then
         table.sort(dataList, function(a, b) return a.nGold < b.nGold end)
         if dataList[1] and dataList[1].team == teamcheck then
+            local bonus = 0
+            if round_number > 50 then
+                bonus = 20
+            end
             if dataList[1].modifier_skill_outsiders then
-                return 30 + 100
+                return 40 + 100 + bonus
             end
-            return 30
+            return 40 + bonus
         elseif dataList[2] and dataList[2].team == teamcheck then
+            local bonus = 0
+            if round_number > 50 then
+                bonus = 20
+            end
             if dataList[2].modifier_skill_outsiders then
-                return 15 + 100
+                return 25 + 100 + bonus
             end
-            return 15
+            return 25 + bonus
         elseif dataList[3] and dataList[3].team == teamcheck then
-            if dataList[3].modifier_skill_outsiders then
-                return 10 + 100
+            local bonus = 0
+            if round_number > 50 then
+                bonus = 10
             end
-            return 10
+            if dataList[3].modifier_skill_outsiders then
+                return 15 + 100 + bonus
+            end
+            return 15 + bonus
         end
     end
 

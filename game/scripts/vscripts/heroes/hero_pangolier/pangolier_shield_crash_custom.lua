@@ -122,10 +122,7 @@ function modifier_pangolier_shield_crash_custom:OnRefresh( kv )
 	local creep_stacks = self:GetAbility():GetSpecialValueFor( "creep_stacks" )
 	if not IsServer() then return end
 	local reduction = (kv.stack * stack_pct) + math.min(kv.stack_creep * creep_stacks, 90) 
-	if self.reduction<reduction then
-		self.reduction = reduction
-		self:PlayEffects()
-	end
+	self.reduction = math.min(self.reduction + ((kv.stack * stack_pct) + math.min(kv.stack_creep * creep_stacks, 90)), 90)
 	self:SetStackCount( self.reduction )
 end
 

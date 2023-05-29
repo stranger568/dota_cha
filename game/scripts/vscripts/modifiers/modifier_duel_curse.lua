@@ -22,7 +22,7 @@ function modifier_duel_curse:OnIntervalThink()
         self:GetParent():SetHealth(new_hp)
     end
 
-    if self:GetCaster():HasModifier("modifier_duel_curse") then
+    if not self:GetCaster():HasModifier("modifier_duel_curse") then
         self:Destroy()
     end
 end
@@ -78,6 +78,10 @@ function modifier_duel_curse_cooldown:OnCreated()
     if troll_warlord_battle_trance then
         troll_warlord_battle_trance:SetActivated(false)
     end
+    local brewmaster_primal_split = self:GetParent():FindAbilityByName("brewmaster_primal_split")
+    if brewmaster_primal_split then
+        brewmaster_primal_split:SetActivated(false)
+    end
 end
 
 function modifier_duel_curse_cooldown:OnDestroy()
@@ -105,6 +109,10 @@ function modifier_duel_curse_cooldown:OnDestroy()
     local troll_warlord_battle_trance = self:GetParent():FindAbilityByName("troll_warlord_battle_trance")
     if troll_warlord_battle_trance then
         troll_warlord_battle_trance:SetActivated(true)
+    end
+    local brewmaster_primal_split = self:GetParent():FindAbilityByName("brewmaster_primal_split")
+    if brewmaster_primal_split then
+        brewmaster_primal_split:SetActivated(true)
     end
 end
 

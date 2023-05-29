@@ -28,7 +28,7 @@ function modifier_bloodseeker_blood_mist_custom:IsPurgeException() return false 
 
 function modifier_bloodseeker_blood_mist_custom:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(0.7)
+	self:StartIntervalThink(1)
 	local radius = self:GetAbility():GetSpecialValueFor("radius")
 	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_bloodseeker/bloodseeker_scepter_blood_mist_aoe.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 	ParticleManager:SetParticleControl(particle, 0, self:GetParent():GetAbsOrigin())
@@ -49,7 +49,6 @@ function modifier_bloodseeker_blood_mist_custom:SelfDamage()
 	if self:GetParent():IsMagicImmune() then return end
 	local hp_cost_per_second = self:GetAbility():GetSpecialValueFor("hp_cost_per_second")
 	local self_damage = self:GetParent():GetMaxHealth() / 100 * hp_cost_per_second
-	self_damage = self_damage * 0.7
 
 	local damage_table = {}
     damage_table.attacker = self:GetParent()
@@ -68,7 +67,6 @@ function modifier_bloodseeker_blood_mist_custom:EnemyDamage()
 	for _, target in pairs(targets) do
 		local hp_cost_per_second = self:GetAbility():GetSpecialValueFor("hp_cost_per_second")
 		local damage = target:GetMaxHealth() / 100 * hp_cost_per_second
-		damage = damage * 0.7
 
 		local damage_table = {}
 	    damage_table.attacker = self:GetCaster()
@@ -93,7 +91,7 @@ function modifier_bloodseeker_blood_mist_custom:GetAuraSearchType()
 end
 
 function modifier_bloodseeker_blood_mist_custom:GetAuraDuration()
-	return 0.71
+	return 1.01
 end
 
 function modifier_bloodseeker_blood_mist_custom:GetModifierAura()

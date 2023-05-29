@@ -52,7 +52,7 @@ function modifier_skill_enervation_debuff:DeclareFunctions()
 end
 
 function modifier_skill_enervation_debuff:OnCreated()
-	self.reduce = self:GetParent():Script_GetAttackRange() * 0.5
+	self.reduce = self:GetParent():Script_GetAttackRange() * 0.4
 end
 
 function modifier_skill_enervation_debuff:GetModifierAttackRangeBonus()

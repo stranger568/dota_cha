@@ -29,8 +29,9 @@ function item_reroll_neutral_book:OnSpellStart()
 			if neutral_item_name then
 				self:GetCaster():EmitSound("Item.TomeOfKnowledge")
 				UTIL_Remove(neutral_item)
-				self:GetCaster():AddItemByName(neutral_item_name)
+				local caster = self:GetCaster()
 				item:SpendCharge()
+				caster:AddItemByName(neutral_item_name)
 			end
 		else
 			local player = PlayerResource:GetPlayer(self:GetCaster():GetPlayerID())

@@ -80,7 +80,6 @@ function Precache( context )
 end
 
 function Activate()
-    ListenToGameEvent("player_reconnected", Dynamic_Wrap(GameMode, "OnPlayerReconnected"), self)
     Chadisconnect:RegListeners()
     GameMode:InitGameMode()
     SendToServerConsole("tv_delay 0")
@@ -451,45 +450,6 @@ function GameMode:OnHeroLevelUp(keys)
     end
 end
 
-function GameMode:OnPlayerReconnected(keys)
-   local retryTimes = 0
-   local nPlayerID = keys.PlayerID
-
-   if GameMode.reconnectedConfirm == nil then
-      GameMode.reconnectedConfirm ={}
-   end
-
-   GameMode.reconnectedConfirm[nPlayerID] = false
-
-   local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-   if hHero and hHero.bSettled then
-        HeroBuilder:ReconnectRefundBook(hHero)
-   end
-   
-   Timers:CreateTimer({
-        endTime = 5,
-        callback = function()
-        local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-        if hHero then                      
-            if retryTimes>50 then
-                return nil
-            end
-
-            if true~=hHero.bSettled then
-                return nil
-            end
-            
-            if hHero.nAbilityNumber then                   
-                if hHero.nAbilityNumber< HeroBuilder.totalAbilityNumber[nPlayerID] then
-                    HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
-                end
-            end
-        end
-        retryTimes = retryTimes + 1
-        return 1
-    end})
-end
-
 function GameMode:cha_update_camera_visible(data)
     if data.PlayerID == nil then return end
     local playerid = data.PlayerID
@@ -818,6 +778,15 @@ function GameMode:ModifyGoldFilter(keys)
             end
         end
     end
+    if math.floor(tonumber(keys.gold)) == 160 and tonumber(keys.reason_const) == 14 then
+        local playerID = keys.player_id_const
+        local heroUnit = playerID and PlayerResource:GetSelectedHeroEntity(playerID)
+        if heroUnit then
+            if heroUnit:HasModifier("modifier_skill_golden_warrior") then
+                keys.gold = keys.gold * 2
+            end
+        end
+    end
     return true
 end
 
@@ -1108,6 +1077,7 @@ function GameMode:ClientReconnected(keys)
     if GameMode.reconnectedConfirm then
         GameMode.reconnectedConfirm[nPlayerID] = true
     end
+    Chadisconnect:OnPlayerReconnected({PlayerID = nPlayerID})
 end
 
 function GameMode:OnHeroLearnAbility(keys)

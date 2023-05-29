@@ -71,7 +71,7 @@ function modifier_item_ranged_cleave_3:GetModifierProcAttack_BonusDamage_Physica
 	if self:GetParent():FindAllModifiersByName("modifier_item_ranged_cleave_3")[1] == self and not params.target:IsHero() then
 		local bonus = 0
 		if self:GetParent():HasModifier("modifier_skill_eternalist") then
-			bonus = 30
+			bonus = 90
 		end
 		local percentage_damage = params.original_damage / 100 * (self:GetAbility():GetSpecialValueFor("bonus_damage_creeps_no_late") + bonus)
 		if GameMode.currentRound and GameMode.currentRound.nRoundNumber > 60 then
@@ -115,7 +115,7 @@ function modifier_item_ranged_cleave_3:AttackLandedModifier(params)
 
 	local bonus = 0
 	if self:GetParent():HasModifier("modifier_skill_eternalist") then
-		bonus = 30
+		bonus = 90
 	end
 
 	local percentage_damage = params.original_damage / 100 * (self:GetAbility():GetSpecialValueFor("bonus_damage_creeps_no_late") + bonus)

@@ -190,7 +190,6 @@ end
 function modifier_item_bloodstone_2:TakeDamageScriptModifier( keys )
 	if keys.attacker == self:GetParent() and not keys.unit:IsBuilding() and not keys.unit:IsOther() and not self:GetParent():IsIllusion() then		
 		if keys.inflictor == nil then return end
-
 		local table_skills = 
 		{
 			["doom_bringer_devour_custom"] = true,
@@ -206,7 +205,6 @@ function modifier_item_bloodstone_2:TakeDamageScriptModifier( keys )
 			["enigma_demonic_conversion_custom"] = true,
 			["item_hand_of_midas"] = true,
 		}
-
 		if self:GetParent():FindAllModifiersByName(self:GetName())[1] == self and (keys.damage_category == DOTA_DAMAGE_CATEGORY_SPELL or table_skills[keys.inflictor:GetAbilityName()]) and keys.inflictor and bit:_and(keys.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL) ~= DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL then
 			if keys.unit:IsIllusion() then
 				if keys.damage_type == DAMAGE_TYPE_PHYSICAL and keys.unit.GetPhysicalArmorValue and GetReductionFromArmor then

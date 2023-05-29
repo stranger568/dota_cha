@@ -127,10 +127,12 @@ function chen_holy_persuasion_custom:OnSpellStart()
 
 	for i = #self.created_units, 1, -1 do
         if self.created_units[i] ~= nil then
-        	if not self.created_units[i]:IsNull() and self.created_units[i]:IsAlive() then
-        		self.created_units[i]:ForceKill(false)
+        	if not self.created_units[i]:IsNull() and self.created_units[i]:IsAlive() and self.created_units[i]:GetTeamNumber() == self:GetCaster():GetTeamNumber() then
+        		self.created_units[i]:Kill(self, self:GetCaster())
         	end
-            table.remove(self.created_units, i)
+        	if not self.created_units[i]:IsNull() and self.created_units[i]:GetTeamNumber() == self:GetCaster():GetTeamNumber() then
+            	table.remove(self.created_units, i)
+            end
         end
     end
 

@@ -3,6 +3,103 @@
 {
 	"Version"       "1"
 
+    "disruptor_static_storm_custom"
+    {
+        "BaseClass"                     "ability_lua"
+        "ScriptFile"                    "abilities/disruptor_static_storm_custom"
+        "AbilityTextureName"            "custom/disruptor_static_storm"
+        "AbilityType"                   "DOTA_ABILITY_TYPE_ULTIMATE"
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+        "AbilityUnitDamageType"         "DAMAGE_TYPE_MAGICAL"   
+        "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+        "SpellDispellableType"          "SPELL_DISPELLABLE_NO"
+        "FightRecapLevel"               "2"
+        "AbilitySound"                  "Hero_Disruptor.StaticStorm.Cast"
+        "HasScepterUpgrade"             "1"
+        "AbilityCastAnimation"          "ACT_DOTA_STATIC_STORM"
+        "AbilityCastGestureSlot"        "DEFAULT"
+        "AbilityCastPoint"              "0.05 0.05 0.05 0.05"
+        "AbilityCooldown"               "90 80 70"
+        "AbilityManaCost"               "125 175 225"
+        "AbilityCastRange"              "800 800 800 800"
+
+        "AbilityValues"
+        {
+            "radius"
+            {
+                "value"                                                         "500"
+                "special_bonus_unique_disruptor_8"                              "+200"  
+            }
+            "pulses"
+            {
+                "value"                                                         "20"
+                "special_bonus_unique_disruptor_7"                              "+6"  
+            }
+            "damage_max"
+            {
+                "value"                                                         "200 275 350" 
+            }
+            "duration"
+            {
+                "value"                                                         "6.0"
+                "special_bonus_unique_disruptor_7"                              "+1.5"  
+            }
+        }
+    }
+
+    "skeleton_king_vampiric_aura_custom"
+    {
+        "BaseClass"                     "ability_lua"
+        "ScriptFile"                    "abilities/skeleton_king_vampiric_aura_custom"
+        "AbilityTextureName"            "skeleton_king_vampiric_aura"
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+        "AbilityUnitDamageType"         "DAMAGE_TYPE_PHYSICAL"
+        "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+        "AbilityCastPoint"              "0.1"
+        "AbilityManaCost"               "70 80 90 100"
+
+        "AbilityValues"
+        {
+            "vampiric_aura"
+            {
+                "value"                                 "9 16 23 30"
+                "special_bonus_unique_wraith_king_2"    "+8"
+            }
+            "skeleton_duration"
+            {
+                "value"                 "40"
+                "special_bonus_unique_wraith_king_vampiric_skeleton_duration"   "+25%"  
+            }
+            "AbilityCooldown"
+            {
+                "value"                 "30"
+                "special_bonus_unique_wraith_king_vampiric_skeleton_duration"   "-25%"  
+            }
+            "max_skeleton_charges"          "0"
+            "min_skeleton_spawn"
+            {
+                "value"     "1 2 3 4"
+            }
+            "spawn_interval"            "0.25"
+            "reincarnate_time"          "3"
+            "gold_bounty"                       "5"
+            "xp_bounty"                     "5"
+            "skeleton_damage_tooltip"
+            {
+                "value"                         "32 64 98 128"
+                "special_bonus_unique_wraith_king_6"            "26"
+                "CalculateSpellDamageTooltip"   "0"
+            }
+            "skeleton_health_tooltip"
+            {
+                "value"                         "700"
+                "special_bonus_unique_wraith_king_5"    "x3"
+                "CalculateSpellDamageTooltip"   "0"
+            }
+        }
+        "AbilityCastAnimation"      "ACT_DOTA_CAST_ABILITY_2"
+    }
+
     "stranger_think"
     {
         "BaseClass"                     "ability_lua"
@@ -1425,6 +1522,7 @@
         "AbilitySound"                  "Hero_Zuus.StaticField"
         "MaxLevel"                      "1"
         "IsGrantedByShard"              "1"
+        "AbilityCooldown"               "0.5"
 
         "AbilityValues"
         {
@@ -1633,7 +1731,7 @@
                 "value"     "1 1 2 3"
                 "special_bonus_shard"       "+2"
             }
-            "int_steal_duration"        "30 45 60 90"
+            "int_steal_duration"        "15 30 45 60"
             "bounce_range"
             {
                 "value"                 "0"
@@ -7101,86 +7199,103 @@
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_1"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_2"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_3"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_4"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_5"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_6"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_7"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_8"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_9"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_10"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_11"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_12"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_13"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_14"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_15"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
     "empty_16"
     {
         "BaseClass"             "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
     }
 
     "empty_special_1"
@@ -7933,7 +8048,7 @@
         "AbilityUnitDamageType"         "DAMAGE_TYPE_PHYSICAL"  
         "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
         "FightRecapLevel"               "1"
-        "LinkedAbility"                 "tiny_tree_grab_lua"
+        "LinkedAbility"                 "tiny_tree_channel_custom"
 
         "AbilityTextureName"            "tiny_toss_tree"
 
@@ -10240,6 +10355,7 @@
         "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
         "FightRecapLevel"               "1"
         "MaxLevel"                      "1"
+        "LinkedAbility"                 "tiny_tree_grab_lua"
 
         "AbilityChannelTime"            "2.5"
         "AbilityCastRange"              "1200"

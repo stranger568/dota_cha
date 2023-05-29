@@ -18,15 +18,15 @@ function modifier_skill_pierce:DeclareFunctions()
 	return 
 	{
 		MODIFIER_EVENT_ON_ATTACK_START,
-		MODIFIER_EVENT_ON_ATTACK,
-		MODIFIER_EVENT_ON_ATTACK_LANDED,
 		MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY,
 	}
 end
 
-function modifier_skill_pierce:OnAttackLanded( params )
+function modifier_skill_pierce:AttackLandedModifier( params )
+	if params.attacker~=self:GetParent() then return end
 	if self:GetParent():PassivesDisabled() then return end
 	if not self.records[params.record] then return end
+	if params.no_attack_cooldown then return end
 	local modifier = params.target:AddNewModifier( self:GetParent(), nil, "modifier_skill_pierce_debuff", { duration = 1 } )
 	self.records[params.record] = modifier
 end
@@ -41,16 +41,18 @@ function modifier_skill_pierce:OnAttackStart( params )
 	end
 end
 
-function modifier_skill_pierce:OnAttack( params )
+function modifier_skill_pierce:AttackModifier( params )
 	if not IsServer() then return end
 	if self:GetParent():PassivesDisabled() then return end
 	if params.attacker~=self:GetParent() then return end
 	if not self.procs then return end
+	if params.no_attack_cooldown then return end
 	self.procs = false
 	self.records[params.record] = true
 end
 
 function modifier_skill_pierce:OnAttackRecordDestroy( params )
+	if params.attacker~=self:GetParent() then return end
 	if not self.records[params.record] then return end
 	if self:GetParent():PassivesDisabled() then return end
 	local modifier = self.records[params.record]
@@ -83,14 +85,14 @@ end
 function modifier_skill_pierce_debuff:DeclareFunctions()
 	local funcs = 
 	{
-		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BASE_PERCENTAGE,
+		MODIFIER_PROPERTY_IGNORE_PHYSICAL_ARMOR,
 	}
 	return funcs
 end
 
-function modifier_skill_pierce_debuff:GetModifierPhysicalArmorBase_Percentage()
+function modifier_skill_pierce_debuff:GetModifierIgnorePhysicalArmor()
 	if IsClient() then 
-		return 100 
+		return 0 
 	end
-	return 0
+	return 1
 end

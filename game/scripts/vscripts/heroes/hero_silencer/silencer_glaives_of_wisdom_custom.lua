@@ -64,7 +64,7 @@ function silencer_glaives_of_wisdom_custom:OnOrbImpact( params )
 
 	if self:GetCaster():HasShard() then
 		self.shard_attack_count = self.shard_attack_count + 1
-		if self.shard_attack_count >= self:GetSpecialValueFor("stacks_for_silence") then
+		if self.shard_attack_count >= self:GetSpecialValueFor("stacks_for_silence") - 1 then
 			self.shard_attack_count = 0
 			target:AddNewModifier(self:GetCaster(), self, "modifier_silence", {duration = self:GetSpecialValueFor("silence_duration")})
 		end

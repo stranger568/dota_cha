@@ -167,7 +167,7 @@
       "reward_button_received"                                                      "Получено"
       "reward_button_closed"                                                        "Недоступно"
       "reward_error_has_received"                                                   "Вы уже получали сегодня награду"
-      "reward_battlepass"                                                           "Пропуск 3 уровня на 3 дня"  
+      "reward_battlepass"                                                           "Пропуск 2 уровня на 3 дня"  
       "reward_arena_coin_30"                                                        "30 Arena Coins"              
       "reward_arena_coin_50"                                                        "50 Arena Coins"              
       "reward_arena_coin_70"                                                        "70 Arena Coins"              
@@ -726,16 +726,16 @@
       "skill_armored_desc"                                                          "+10 брони"
 
       "skill_splash"                                                                "Cleave"
-      "skill_splash_desc"                                                           "40% Cleave от цели атак. Навык работает при наличии предмета Battle Fury или Boomstick"
+      "skill_splash_desc"                                                           "40% Cleave от цели атак"
 
       "skill_golden_warrior"                                                        "Golden Warrior"
-      "skill_golden_warrior_desc"                                                   "+70% к получению золота с крипов"
+      "skill_golden_warrior_desc"                                                   "+70% к получению золота с крипов. Увеличивает золото от Hand of Midas в 2 раза"
 
       "skill_solo"                                                                  "Solo"
       "skill_solo_desc"                                                             "+322 золота в минуту"
 
       "skill_veteran"                                                               "Veteran"
-      "skill_veteran_desc"                                                          "+70% к получению опыта"
+      "skill_veteran_desc"                                                          "+100% к получению опыта"
 
       "skill_benefiter"                                                             "Benefiter"
       "skill_benefiter_desc"                                                        "+25% к золоту с дивидендов и возвращает 15% золота после проигранной ставки"
@@ -762,12 +762,15 @@
       "skill_investment_desc"                                                       "Каждые 5 раундов Вам начисляется 3% от вашего нетворса(максимальный лимит нетворса 200к,все что выше дает как 200к)"
 
       "skill_smoker"                                                                "Smoker"
-      "skill_smoker_desc"                                                           "+100% к длительности Smoke of Deceit. В начале каждого раунда вы получаете эффект Ninja Gear на 8 секунд"
+      "skill_smoker_desc"                                                           "+100% к длительности Smoke of Deceit. В начале каждого раунда вы получаете эффект Ninja Gear на 5 секунд"
 
-      "skill_damage_investor"                                                       "Damage Investor"
+      "skill_warrior_investor"                                                      "Warrior Investor"
+      "skill_warrior_investor_desc"                                                 "+1 к урону за каждые 25 золота и +1 брони за каждые 300 золота в вашем тайнике(лимит не более 20к золота в тайнике)"
+
+      "skill_damage_investor"                                                       "Warrior Investor"
       "skill_damage_investor_desc"                                                  "+1 к урону за каждые 25 золота в вашем тайнике(лимит не более 20к золота в тайнике)"
 
-      "skill_armor_investor"                                                        "Armor Investor"
+      "skill_armor_investor"                                                        "Warrior Investor"
       "skill_armor_investor_desc"                                                   "+1 броня за каждые 300 золота в вашем тайнике(лимит не более 20к золота в тайнике)"
 
       "skill_magic_investor"                                                        "Magic Investor"
@@ -807,10 +810,10 @@
       "skill_mage_slayer_desc"                                                      "Атакуемые враги наносят на 40% меньше урона заклинаниями на 5 сек. Ваше сопротивление к магии увеличивается на 25%"
 
       "skill_slackening"                                                            "Slackening"
-      "skill_slackening_desc"                                                       "Увеличивает ваше здоровье и ману на 20%. Уменьшает восстановление здоровья/вампиризм/лечение на 40% при атаке врага на 3 сек."
+      "skill_slackening_desc"                                                       "Увеличивает ваше здоровье и ману на 20%. Уменьшает восстановление здоровья/вампиризм/лечение на 40% всем противникам в радиусе 1200."
 
       "skill_craggy_man"                                                            "Craggy Man"
-      "skill_craggy_man_desc"                                                       "Враги, атакующие вас, могут быть оглушены на 1 сек.  с шансом 15%. Не работает сквозь иммунитет к магии, отключается истощением."
+      "skill_craggy_man_desc"                                                       "Враги, атакующие вас, могут быть оглушены на 1 сек.  с шансом 10%. Не работает сквозь иммунитет к магии, отключается истощением."
 
       "skill_reducer"                                                               "Reducer"
       "skill_reducer_desc"                                                          "Противники в радиусе 800 теряют 60% урона(Не работает на крипов, не работает сквозь к иммунитет к магии, отключается истощением)"
@@ -855,7 +858,7 @@
       "skill_overbuffed_desc"                                                       "+0.5% к урону за единицу интеллекта от Sky Staff/Force of Star и +0.25% от Torture Pipe 1/2"
 
       "skill_eternalist"                                                            "Eternalist"
-      "skill_eternalist_desc"                                                       "+30% к урону от Eternal Battle Fury и Eternal Beadies Boomstick"
+      "skill_eternalist_desc"                                                       "+90% к урону от Eternal Battle Fury и Eternal Beadies Boomstick"
 
       "skill_linkens_sphere"                                                        "Linkens Sphere"
       "skill_linkens_sphere_desc"                                                   "Блокирует любое направленное заклинение с перезарядкой 17 секунд"
@@ -894,7 +897,7 @@
       "skill_pierce_desc"                                                           "45% шанс игнорировать броню цели при атаке"
 
       "skill_enervation"                                                            "Enervation"
-      "skill_enervation_desc"                                                       "Уменьшает дальность атаки и применения заклинаний врагов на 50% в радиусе 1500"
+      "skill_enervation_desc"                                                       "Уменьшает дальность атаки и применения заклинаний врагов на 40% в радиусе 1500"
 
       "skill_unbreakble"                                                            "Unbreakble"
       "skill_unbreakble_desc"                                                       "+15% сопротивления эффектам, За каждый отрицательный эффект на герое, вы получаете доп. 7% сопротивления эффектам (макс. 5)"
@@ -1020,7 +1023,7 @@
       "DOTA_Tooltip_Ability_item_ex_machina_custom_bonus_armor"          "+$armor"
 
       "DOTA_Tooltip_Ability_item_shivas_guard_2"        "Shiva's Core"
-      "DOTA_Tooltip_ability_item_shivas_guard_2_Description"              "<h1>Активное: Arctic Blast</h1> Выпускает морозную волну, которая наносит противникам %blast_damage% магического урона.<br>Накладывает эффект на %blast_debuff_duration% сек., который снижает скорость передвижения на %blast_movement_speed%%% и наносит %persentage_damage%%% от текущего здоровья магического урона в секунду.<br><br>Радиус: %blast_radius%\n<h1>Пассивное: Freezing Aura</h1>Снижает скорость атаки противников на %aura_attack_speed%, а их лечение, восстановление здоровья и вампиризм — на %hp_regen_degen_aura%%%.<br><br>Радиус: %aura_radius%"
+      "DOTA_Tooltip_ability_item_shivas_guard_2_Description"              "<h1>Активное: Arctic Blast</h1> Выпускает морозную волну, которая наносит противникам %blast_damage% магического урона.<br>Накладывает эффект на %blast_debuff_duration% сек., который снижает скорость передвижения на %blast_movement_speed%%%.<br><br>Радиус: %blast_radius%\n<h1>Пассивное: Freezing Aura</h1>Снижает скорость атаки противников на %aura_attack_speed%, а их лечение, восстановление здоровья и вампиризм — на %hp_regen_degen_aura%%%.<br><br>Радиус: %aura_radius%"
       "DOTA_Tooltip_ability_item_shivas_guard_2_Lore"                     "Говорят, когда-то этот артефакт принадлежал богине, и он не теряет былого могущества по сей день."
       "DOTA_Tooltip_ability_item_shivas_guard_2_Note0"                    "Волна распространяется со скоростью в %blast_speed% до максимального размера в %blast_radius%."
       "DOTA_Tooltip_ability_item_shivas_guard_2_Note1"                    "Морозная волна следует за владельцем."
@@ -1152,7 +1155,7 @@
 
       "DOTA_Tooltip_Ability_item_hellmask"            "HellMask"
       "DOTA_Tooltip_Ability_item_recipe_hellmask"              "Рецепт: HellMask"
-      "DOTA_Tooltip_ability_item_hellmask_Description"                     "<h1>Активное: Unholy Rage</h1> Увеличивает эффект вампиризма до %unholy_lifesteal_total_tooltip%%% на %unholy_duration% сек.<br><br>Тип развеивания: <span class=\"GameplayValues GameplayVariable\">нормальное</span>\n<h1>Пассивное: Assault Aura</h1> Увеличивает броню союзных построек и существ на %aura_positive_armor%, а их скорость атаки — на %aura_attack_speed%. Снижает броню врагов на %aura_negative_armor%.<br><br>Радиус: %aura_radius%\n<h1>Пассивное: HellMask</h1> За убийство крипа добавляет навсегда в предмет +%bonus_armor_per_stack%  брони и +%bonus_damage_per_stack% урона (аналог Flash Heap у Pudge).<br><br> Эффект отключается если в радиусе %armor_bonus_radius% находится вражеский герой."
+      "DOTA_Tooltip_ability_item_hellmask_Description"                     "<h1>Активное: Unholy Rage</h1> Увеличивает эффект вампиризма до %unholy_lifesteal_total_tooltip%%% на %unholy_duration% сек.<br><br>Тип развеивания: <span class=\"GameplayValues GameplayVariable\">нормальное</span>\n<h1>Пассивное: Assault Aura</h1> Увеличивает броню союзных построек и существ на %aura_positive_armor%, а их скорость атаки — на %aura_attack_speed%. Снижает броню врагов на %aura_negative_armor%.<br><br>Радиус: %aura_radius%\n<h1>Пассивное: HellMask</h1> За убийство крипа добавляет навсегда в предмет +%bonus_armor_per_stack%  брони и +%bonus_damage_per_stack% урона (аналог Flash Heap у Pudge).<br><br> Дополнительная броня отключается если в радиусе %armor_bonus_radius% находится вражеский герой."
       "DOTA_Tooltip_ability_item_hellmask_Lore"                      ""
       "DOTA_Tooltip_ability_item_hellmask_bonus_attack_speed"              "+$attack"
       "DOTA_Tooltip_ability_item_hellmask_bonus_armor"                     "+$armor"
@@ -3912,10 +3915,10 @@
       "DOTA_Tooltip_modifier_skill_goldgainer_cooldown"                                            "Перезарядка GoldGainer"
       "DOTA_Tooltip_modifier_skill_linkens_sphere_cooldown"                                        "Перезарядка Linkens Sphere"
 
-      "DOTA_Tooltip_modifier_skill_armor_investor"                                        "Armor Investor"
+      "DOTA_Tooltip_modifier_skill_armor_investor"                                        "Warrior Investor"
       "DOTA_Tooltip_modifier_skill_armor_investor_Description"                            "Броня увеличена на %dMODIFIER_PROPERTY_TOOLTIP%"
 
-      "DOTA_Tooltip_modifier_skill_damage_investor"                                       "Damage Investor"
+      "DOTA_Tooltip_modifier_skill_damage_investor"                                       "Warrior Investor"
       "DOTA_Tooltip_modifier_skill_damage_investor_Description"                           "Урон увеличен на %dMODIFIER_PROPERTY_TOOLTIP%"
 
       "DOTA_Tooltip_modifier_skill_magic_investor"                                        "Magic Investor"
@@ -3931,10 +3934,15 @@
       "DOTA_Tooltip_modifier_ninja_gear_custom_Description" "В невидимости, передвигается на %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% быстрее, не отображается на вражеской мини-карте. Приближение к вражескому герою на расстояние в 1200 раскроет невидимость."
 
       "DOTA_Tooltip_Ability_warlock_rain_of_chaos"                                        "Chaotic Offering (Heroic)"
-      "DOTA_Tooltip_Ability_skeleton_king_vampiric_aura"                                  "Vampiric Spirit (Heroic)"
-      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_Description"                      "Герой восстанавливает себе здоровье в зависимости от наносимого атаками урона. Способность можно применить, чтобы призвать скелетов. Погибшие скелеты возрождаются один раз."
-      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_min_skeleton_spawn"               "КОЛИЧЕСТВО СКЕЛЕТОВ:"
-      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_max_skeleton_charges"             ""
+
+      "DOTA_Tooltip_Ability_skeleton_king_vampiric_aura_custom"                                  "Vampiric Spirit (Heroic)"
+      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_Description"                      "Герой восстанавливает себе здоровье в зависимости от наносимого атаками урона. Способность можно применить, чтобы призвать скелетов. Погибшие скелеты возрождаются один раз."
+      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_min_skeleton_spawn"               "КОЛИЧЕСТВО СКЕЛЕТОВ:"
+      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_vampiric_aura"                    "%ВАМПИРИЗМ:"
+      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_skeleton_duration"                "ДЛИТЕЛЬНОСТЬ СКЕЛЕТОВ:"
+      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_skeleton_damage_tooltip"          "УРОН СКЕЛЕТА:"
+      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_skeleton_health_tooltip"          "ЗДОРОВЬЕ СКЕЛЕТА:"
+      "DOTA_Tooltip_ability_special_bonus_unique_wraith_king_5"                                  "х3 здоровье скелетов Vampiric Spirit"
 
       "DOTA_Tooltip_Ability_item_bag_of_gold"   "Монета"
 
@@ -3948,7 +3956,7 @@
     "DOTA_Tooltip_ability_ogre_magi_fireblast_custom_fireblast_damage"                      "УРОН:"
 
     "DOTA_Tooltip_ability_broodmother_insatiable_hunger_custom"                             "Insatiable Hunger (Heroic)"
-    "DOTA_Tooltip_ability_broodmother_insatiable_hunger_custom_Description"                 "Неистовая жажда питательных соков увеличивает урон героя и наделяет его вампиризмом."
+    "DOTA_Tooltip_ability_broodmother_insatiable_hunger_custom_Description"                 "Неистовая жажда питательных соков увеличивает урон героя и наделяет его вампиризмом.<br><br>Дополнительный урон <font color='#f00'>Отключается истощением</font>"
     "DOTA_Tooltip_ability_broodmother_insatiable_hunger_custom_shard_Description"           "Увеличивает длительность. Пока эта способность действует, бонусный урон увеличивается на %shard_damage_per_tick%%% каждые %shard_damage_tick_interval% сек."
     "DOTA_Tooltip_ability_broodmother_insatiable_hunger_custom_Lore"                        "Большинство своих жертв паучиха заплетает в шёлковые коконы и оставляет на пропитание выводку, но и сама она тоже любит полакомиться заплутавшими героями."
     "DOTA_Tooltip_ability_broodmother_insatiable_hunger_custom_Note0"                       "Полностью складывается с другими источниками вампиризма."
@@ -4100,7 +4108,7 @@
 
     "DOTA_Tooltip_ability_wisp_overcharge_custom"                                           "Overcharge (Heroic)"
     "DOTA_Tooltip_ability_wisp_overcharge_custom_Lore"                                      "Привлекая энергию мироздания из всех миров, предвечный начинает расплетать время."
-    "DOTA_Tooltip_ability_wisp_overcharge_custom_Description"                               "Герой повышает свою скорость атаки, наносит увеличенный урон от заклинаний и получает дополнительное восстановление здоровья, зависящее от своего максимального здоровья. Связанное с владельцем способности существо также получает эти бонусы."
+    "DOTA_Tooltip_ability_wisp_overcharge_custom_Description"                               "Герой повышает свою скорость атаки, наносит увеличенный урон от заклинаний и получает дополнительное восстановление здоровья, зависящее от своего максимального здоровья. Связанное с владельцем способности существо также получает эти бонусы. <br><br>Дополнительный урон <font color='#f00'>Отключается истощением</font>"
     "DOTA_Tooltip_ability_wisp_overcharge_custom_shard_description"                         ""
     "DOTA_Tooltip_ability_wisp_overcharge_custom_shard_bonus_spell_amp"                     "%ДОП. УРОН ОТ ЗАКЛИНАНИЙ:"
     "DOTA_Tooltip_ability_wisp_overcharge_custom_shard_bonus_spell_lifesteal"               "%ВАМПИРИЗМ ЗАКЛИНАНИЯМИ:"
@@ -4166,6 +4174,7 @@
     "DOTA_Tooltip_ability_zuus_lightning_hands_custom_attack_range_bonus"                      "ДОП. ДАЛЬНОСТЬ АТАКИ:"
     "DOTA_Tooltip_ability_zuus_lightning_hands_custom_arc_lightning_damage_pct"          "%УРОН ARC LIGHTNING:"
     "DOTA_Tooltip_ability_zuus_lightning_hands_custom_arc_lightning_damage_illusion_pct"       "%УРОН ARC LIGHTNING У ИЛЛЮЗИЙ:"
+    "DOTA_Tooltip_ability_zuus_lightning_hands_custom_ability_note"                             "Отключены визуальные эффекты молний, но урон наносится"
 
     "DOTA_Tooltip_ability_undying_flesh_golem_custom"                                       "Flesh Golem (Heroic)"   
     "DOTA_Tooltip_ability_undying_flesh_golem_custom_Description"                           "Герой превращается в ужасающего голема из плоти. Голем имеет увеличенную силу, а его атаки замедляют жертв и увеличивают получаемый ими урон."
@@ -4227,7 +4236,7 @@
 
     "DOTA_Tooltip_ability_doom_bringer_devour_custom"                                       "Devour"
     "DOTA_Tooltip_ability_doom_bringer_devour_custom_Description"                           "Пожирает вражеского или нейтрального крипа, перенимая его способности и получая дополнительную броню на время, пока он переваривается. Если автоматическое применение выключено, способности не перенимаются. Длительность действия равна времени перезарядки способности."
-    "DOTA_Tooltip_ability_doom_bringer_devour_ability_note"                                 "Золото от способности можно получить 3 раза за раунд"
+    "DOTA_Tooltip_ability_doom_bringer_devour_custom_ability_note"                                 "Золото от способности можно получить 3 раза за раунд"
     "DOTA_Tooltip_ability_doom_bringer_devour_custom_shard_description"                     ""
     "DOTA_Tooltip_ability_doom_bringer_devour_custom_abilitydraft_note"                     "В этом режиме герой получает только пассивные способности сожранных нейтральных крипов. Способность Rearm <b>не</b> действует на перезарядку Devour."
     "DOTA_Tooltip_ability_doom_bringer_devour_custom_Lore"                                  "Обжорство и жадность Люцифера неистощимы."
@@ -4325,7 +4334,6 @@
     "DOTA_Tooltip_ability_omniknight_hammer_of_purity_custom_ability_note"                  "Переключаемая - Срабатывает от атаки"
     "DOTA_Tooltip_ability_skywrath_mage_arcane_bolt_custom_ability_note"                    "Способность применяется на всех целях в радиусе"
     "DOTA_Tooltip_ability_sniper_assassinate_custom_ability_note"                           "Способность применяется на всех целях в радиусе"
-    "DOTA_Tooltip_ability_doom_bringer_devour_custom_ability_note"                          ""
     "DOTA_Tooltip_ability_nevermore_shadowraze1_custom_ability_note"                        "Имеет несколько зарядов, но тратятся сразу на всех ShadowRaze"
     "DOTA_Tooltip_ability_nevermore_shadowraze2_custom_ability_note"                        "Имеет несколько зарядов, но тратятся сразу на всех ShadowRaze"
     "DOTA_Tooltip_ability_nevermore_shadowraze3_custom_ability_note"                        "Имеет несколько зарядов, но тратятся сразу на всех ShadowRaze"
@@ -4356,7 +4364,7 @@
     "skill_rearm_desc"                                                                      "25% шанс что использованная способность сбросит перезарядку, ультимативная способность - 15% шанс"
 
     "skill_fervor"                                                                          "Fervor"
-    "skill_fervor_desc"                                                                     "Каждая атака увеличивает ваш исходящий урон на 2% (максимум 12 стаков). При смене цели атаки, теряется 50% стаков"
+    "skill_fervor_desc"                                                                     "Каждая атака увеличивает ваш исходящий урон на 2.5% (максимум 12 стаков). При смене цели атаки, теряется 50% стаков"
 
     "skill_block_shield"                                                                    "Block Shield"
     "skill_block_shield_desc"                                                               "Блокирует 25% всего входящего урона"
@@ -4394,5 +4402,18 @@
 
       "DOTA_Tooltip_modifier_drow_ranger_frost_arrows_custom_debuff"            "Переохлаждение"
       "DOTA_Tooltip_modifier_drow_ranger_frost_arrows_custom_debuff_Description"            "Всё лечение, вампиризм и восстановление здоровья уменьшены на %dMODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE%%%."
+
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom"                                       "Static Storm"
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_Description"                     "Создаёт статический шторм, наносящий урон и запрещающий применять способности всем вражеским существам в указанной области. Урон увеличивается со временем действия способности."
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_Lore"                                  "Летний друудский шквал может пережить только уроженец народа Оглоди."
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_radius"                          "РАДИУС:"
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_damage_max"                      "МАКС. УРОН В СЕКУНДУ:"
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_duration"                              "ДЛИТЕЛЬНОСТЬ:"
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_pulses"                          "РАЗРЯДОВ:"
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_duration_scepter"                "ДЛИТЕЛЬНОСТЬ СО СКИПЕТРОМ:"
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_pulses_scepter"                  "РАЗРЯДОВ СО СКИПЕТРОМ:"
+      "DOTA_Tooltip_ability_disruptor_static_storm_custom_scepter_description"       "Запрещает врагам использовать предметы."
+      "DOTA_Tooltip_modifier_disruptor_static_storm_custom"                          "Static Storm"
+      "DOTA_Tooltip_modifier_disruptor_static_storm_custom_Description"        "Не может применять способности"
 } 
 }

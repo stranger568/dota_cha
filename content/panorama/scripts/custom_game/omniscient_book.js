@@ -266,7 +266,6 @@ function ShowAllAbilitySelection(keys) {
     if (parent==undefined) {
         return
     }
-    GameEvents.SendCustomGameEventToServer("ClientReconnected", {});
     parent.ui_secret=keys.ui_secret;
     parent.RemoveClass("Hidden");
     $("#OmniscientButtonPanel").RemoveClass("Hidden");

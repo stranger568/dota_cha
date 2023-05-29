@@ -140,19 +140,27 @@ end
 function modifier_emp_pull_custom:OnIntervalThink()
     if not IsServer() then return end
     if self:GetAuraOwner() == nil then return end
+    if self:GetParent():IsCustomHasDebuffImmune() then return end
+    if self:GetParent():IsInvulnerable() then return end
     local unit_location = self:GetParent():GetAbsOrigin()
     local vector_distance = self:GetAuraOwner():GetAbsOrigin() - unit_location
     local distance = (vector_distance):Length2D()
     local direction = (vector_distance):Normalized()
 
-    if distance >= 50 then
-        self:GetParent():SetAbsOrigin(unit_location + direction * (100 * FrameTime()))
-    else
-        self:GetParent():SetAbsOrigin(unit_location)
+    if not self:GetParent():IsCurrentlyHorizontalMotionControlled() and not self:GetParent():IsCurrentlyVerticalMotionControlled() then
+        if distance >= 50 then
+            self:GetParent():SetAbsOrigin(unit_location + direction * (100 * FrameTime()))
+        else
+            self:GetParent():SetAbsOrigin(unit_location)
+        end
     end
 end
 
 function modifier_emp_pull_custom:OnDestroy()
     if not IsServer() then return end
+    if self:GetParent():IsCustomHasDebuffImmune() then return end
+    if self:GetParent():IsInvulnerable() then return end
+    if self:GetParent():IsCurrentlyHorizontalMotionControlled() then return end
+    if self:GetParent():IsCurrentlyVerticalMotionControlled() then return end
     FindClearSpaceForUnit(self:GetParent(), self:GetParent():GetAbsOrigin(), true)
 end

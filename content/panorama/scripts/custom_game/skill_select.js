@@ -6,7 +6,7 @@ var Tier_color =
     "#D57BFF",
     "#FFE195",
 ]
-
+  
 function HideSkillSelect() 
 {
     $("#SkillSelectorPanel").ToggleClass("Hide")
@@ -50,7 +50,7 @@ function CreateSkill(info, panel, battlepass, tier, number)
     { 
         $("#SkillSelectorSkillBody").RemoveAndDeleteChildren()
         $("#SkillSelectorPanelRoot").SetHasClass("show", false)
-        GameEvents.SendCustomGameEventToServer( "ChooseSkillReal", {skill : info[1]} );
+        GameEvents.SendCustomGameEventToServer( "ChooseSkillReal", {skill : info[1], tier : tier} );
     })
 
     var Label = $.CreatePanel("Label", Skill_full, "");

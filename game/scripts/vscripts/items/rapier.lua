@@ -66,34 +66,22 @@ function modifier_item_rapier_custom:OnCreated(args)
 end
 
 function modifier_item_rapier_custom:DeclareFunctions()
-    return {
+    return 
+    {
         MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-        --MODIFIER_EVENT_ON_ATTACK_LANDED,
-        MODIFIER_EVENT_ON_ATTACK_RECORD,
+        MODIFIER_EVENT_ON_ATTACK_START,
         MODIFIER_EVENT_ON_DEATH
     }
 end
 
-function modifier_item_rapier_custom:OnAttackRecord(keys)
-    if keys.attacker == self:GetParent() then
-        if keys.target:IsOther() then
-            return nil
-        end
+function modifier_item_rapier_custom:OnAttackStart(params)
+    if not IsServer() then return end
+    if params.attacker ~= self:GetParent() then return end
+    if params.target:IsWard() then return end
+    if RollPercentage( self:GetAbility():GetSpecialValueFor("truestrike_chance") ) then
         self.critProc = true
-        self.chance = self:GetAbility():GetSpecialValueFor("truestrike_chance")
-        if RollPercentage(self.chance-20) then
-            self.critProc = false
-        else
-            self.critProc = true
-        end
-    end
-end
-
-function modifier_item_rapier_custom:AttackLandedModifier(params)
-    if params.attacker == self:GetParent() then
-        if self.critProc then
-            self.critProc = false
-        end
+    else
+        self.critProc = false
     end
 end
 

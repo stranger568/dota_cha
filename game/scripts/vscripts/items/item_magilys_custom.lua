@@ -175,12 +175,19 @@ function modifier_item_gleipnir_magic_custom_debuff:DeclareFunctions()
     return 
     { 
         MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE, 
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DIRECT_MODIFICATION,
     } 
 end
 
 function modifier_item_gleipnir_magic_custom_debuff:GetModifierIncomingDamage_Percentage(keys)
-    if keys.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
+    if keys.damage_category == DOTA_DAMAGE_CATEGORY_SPELL or keys.damage_type == DAMAGE_TYPE_MAGICAL then
         return self:GetAbility():GetSpecialValueFor("spell_amplify")
+    end
+end
+
+function modifier_item_gleipnir_magic_custom_debuff:GetModifierMagicalResistanceDirectModification(keys)
+    if IsClient() then
+        return self:GetAbility():GetSpecialValueFor("spell_amplify") * -1
     end
 end
 

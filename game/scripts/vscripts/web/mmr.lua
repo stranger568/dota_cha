@@ -56,6 +56,7 @@ function ChaServerData:RegisterPlayerSiteInfo(player_id)
             quest_1 = Quests_arena:CheckQuest(id, 1, data.quest_1, PlayerResource:GetSteamAccountID(id)),
             quest_2 = Quests_arena:CheckQuest(id, 2, data.quest_2, PlayerResource:GetSteamAccountID(id)),
             quest_3 = Quests_arena:CheckQuest(id, 3, data.quest_3, PlayerResource:GetSteamAccountID(id)),
+            game_time = tonumber(data.game_time) or 0,
         }
 
         local settings_table = 
@@ -199,6 +200,7 @@ function ChaServerData.SetPlayerStatsGameEnd(player_id, place)
         frame = ChaServerData.GetCurrentFrame(player_id),
         effect_settings = ChaServerData:GetSettingsAbilitiesSelect(player_id, true, false),
         right_settings = ChaServerData:GetSettingsAbilitiesSelect(player_id, false, true),
+        game_time = GameRules:GetGameTime() - GameRules.nGameStartTime,
     }
     ChaServerData.PLAYERS_LOSE_MMR_STATS[player_id] =  player_table
 end
@@ -234,7 +236,8 @@ function ChaServerData.GetCurrentFrame(id)
 end
 
 function ChaServerData.UpdateLastBanneds()
-    local post_data = { 
+    local post_data = 
+    { 
         players = {}
     }
 
@@ -456,7 +459,8 @@ function ChaServerData.CheckUnbanGame(place)
     end
 end
 
-local calibrating_ratings_bonus = {
+local calibrating_ratings_bonus = 
+{
     [1] = 300,
     [2] = 200,
     [3] = 150,
@@ -467,48 +471,53 @@ local calibrating_ratings_bonus = {
     [8] = -100,
 }
 
-local calibrating_ratings_bonus_diff_5000_high_1 = {
+local calibrating_ratings_bonus_diff_5000_high_1 = 
+{
     [1] = 3,
     [2] = 1,
     [3] = 0,
     [4] = -20,
-    [5] = -45,
-    [6] = -90,
-    [7] = -135,
-    [8] = -200,
+    [5] = -40,
+    [6] = -60,
+    [7] = -80,
+    [8] = -120,
 }
-local calibrating_ratings_bonus_diff_5000_high_2 = {
+local calibrating_ratings_bonus_diff_5000_high_2 = 
+{
     [1] = 10,
     [2] = 4,
     [3] = 1,
     [4] = 0,
     [5] = -20,
-    [6] = -45,
-    [7] = -90,
-    [8] = -135,
+    [6] = -40,
+    [7] = -60,
+    [8] = -80,
 }
-local calibrating_ratings_bonus_diff_5000_high_3 = {
+local calibrating_ratings_bonus_diff_5000_high_3 = 
+{
     [1] = 20,
     [2] = 8,
     [3] = 4,
-    [4] = 0,
-    [5] = -15,
-    [6] = -30,
-    [7] = -60,
-    [8] = -90,
-}
-local calibrating_ratings_bonus_diff_5000_high_4 = {
-    [1] = 30,
-    [2] = 15,
-    [3] = 8,
     [4] = 0,
     [5] = -10,
     [6] = -20,
     [7] = -40,
     [8] = -60,
 }
+local calibrating_ratings_bonus_diff_5000_high_4 = 
+{
+    [1] = 30,
+    [2] = 15,
+    [3] = 8,
+    [4] = 3,
+    [5] = 0,
+    [6] = -10,
+    [7] = -20,
+    [8] = -40,
+}
 
-local calibrating_ratings_bonus_diff_5000_low_1 = {
+local calibrating_ratings_bonus_diff_5000_low_1 = 
+{
     [1] = 240,
     [2] = 160,
     [3] = 80,
@@ -518,63 +527,71 @@ local calibrating_ratings_bonus_diff_5000_low_1 = {
     [7] = 10,
     [8] = 0,
 }
-local calibrating_ratings_bonus_diff_5000_low_2 = {
+local calibrating_ratings_bonus_diff_5000_low_2 = 
+{
     [1] = 120,
     [2] = 80,
     [3] = 40,
     [4] = 20,
     [5] = 10,
-    [6] = 0,
-    [7] = -10,
-    [8] = -15,
+    [6] = 5,
+    [7] = 0,
+    [8] = -10,
 }
-local calibrating_ratings_bonus_diff_5000_low_3 = {
+local calibrating_ratings_bonus_diff_5000_low_3 = 
+{
     [1] = 60,
     [2] = 40,
     [3] = 20,
     [4] = 10,
-    [5] = 0,
-    [6] = -10,
-    [7] = -20,
-    [8] = -30,
+    [5] = 5,
+    [6] = 0,
+    [7] = -10,
+    [8] = -20,
 }
-local calibrating_ratings_bonus_diff_5000_low_4 = {
+local calibrating_ratings_bonus_diff_5000_low_4 = 
+{
     [1] = 30,
     [2] = 20,
     [3] = 10,
-    [4] = 0,
-    [5] = -10,
-    [6] = -20,
-    [7] = -40,
-    [8] = -60,
+    [4] = 5,
+    [5] = 0,
+    [6] = -10,
+    [7] = -20,
+    [8] = -40,
 }
 
 function ChaServerData.GetMmrByTeamPlace(player_id, place)
+
     if ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id] == nil then
         CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = 0, new_rating = 0})
         return 0
     end
 
+    --- Текущий рейтинг + средний переменная + новый рейтинг изменнный + игр в калибровке  ----------------------------------------
     local original_rating = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].mmr[5] or 2500
-
     local new_rating = original_rating
-
     local average_rating = 0
+    local calibrating_games = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].calibrating_games[5] or 10
+    ------------------------------------------------------------------------
 
-    local bonus_rating_time_multiple = math.min((0.01 * (GameRules:GetGameTime() - GameRules.nGameStartTime)/60), 1)
-
+    ------------ Cредний рейтинг----------------------------------------
     for id, player_info in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION) do
         average_rating = average_rating + (player_info.mmr[5] or 2500)
     end
-
     local players_count = math.max(ChaServerData.GetPlayersCount(), 1)
-
     average_rating = average_rating / players_count
+    ------------------------------------------------------------------------
 
+    -- Разница Среднего и твоего рейтинга
     local rating_difference = math.abs(average_rating - original_rating)
 
-    local calibrating_games = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].calibrating_games[5] or 10
+    -- Множитель рейтинга за игру
+    local game_time_minutes = ((GameRules:GetGameTime() - GameRules.nGameStartTime) / 60)
+    local game_time_hours = game_time_minutes / 60
+    local bonus_rating_time_multiple = math.max(1, math.min(game_time_hours, 3))
 
+    -- Если у человека до сих пор идет калибровка
     if calibrating_games > 0 then
         local rating_bonus = calibrating_ratings_bonus[place]
         if rating_bonus then
@@ -585,348 +602,251 @@ function ChaServerData.GetMmrByTeamPlace(player_id, place)
         end
     end
 
+    local rating_bonus = 0
+
+    -- Если средний рейтинг выше 5к или у тебя 5к рейтинга
     if average_rating > 5000 or original_rating >= 5000 then
+        -- Если у тебя больше чем средний рейтинг
         if original_rating >= average_rating then
             if rating_difference >= 3001 then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_1[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus) + (rating_bonus * bonus_rating_time_multiple)
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_1[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * bonus_rating_time_multiple
+                    else
+                        rating_bonus = tonumber(rating_bonus_place) / bonus_rating_time_multiple
+                    end
                 end
             elseif (rating_difference >= 2001 and rating_difference <= 3000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_2[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus) + (rating_bonus * bonus_rating_time_multiple)
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_2[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * bonus_rating_time_multiple
+                    else
+                        rating_bonus = tonumber(rating_bonus_place) / bonus_rating_time_multiple
+                    end
                 end
             elseif (rating_difference >= 1001 and rating_difference <= 2000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_3[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus) + (rating_bonus * bonus_rating_time_multiple)
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_3[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * bonus_rating_time_multiple
+                    else
+                        rating_bonus = tonumber(rating_bonus_place) / bonus_rating_time_multiple
+                    end
                 end
             else
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_4[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus) + (rating_bonus * bonus_rating_time_multiple)
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_4[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * bonus_rating_time_multiple
+                    else
+                        rating_bonus = tonumber(rating_bonus_place) / bonus_rating_time_multiple
+                    end
                 end
             end
-        else
+        else -- Если средний рейтинг меньше твоего ммр
             if rating_difference >= 3001 then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_1[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus) + (rating_bonus * bonus_rating_time_multiple)
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_1[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * bonus_rating_time_multiple
+                    else
+                        rating_bonus = tonumber(rating_bonus_place) / bonus_rating_time_multiple
+                    end
                 end
             elseif (rating_difference >= 2001 and rating_difference <= 3000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_2[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus) + (rating_bonus * bonus_rating_time_multiple)
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_2[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * bonus_rating_time_multiple
+                    else
+                        rating_bonus = tonumber(rating_bonus_place) / bonus_rating_time_multiple
+                    end
                 end
             elseif (rating_difference >= 1001 and rating_difference <= 2000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_3[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus) + (rating_bonus * bonus_rating_time_multiple)
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_3[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * bonus_rating_time_multiple
+                    else
+                        rating_bonus = tonumber(rating_bonus_place) / bonus_rating_time_multiple
+                    end
                 end
             else
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_4[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus) + (rating_bonus * bonus_rating_time_multiple)
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_4[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * bonus_rating_time_multiple
+                    else
+                        rating_bonus = tonumber(rating_bonus_place) / bonus_rating_time_multiple
+                    end
                 end
             end
         end
+    -- Средний рейтинг выше 3к
     elseif average_rating > 3000 then
         if original_rating >= average_rating then
             if rating_difference >= 3001 then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_1[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 2
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 1.5
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_1[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 1.5
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             elseif (rating_difference >= 2001 and rating_difference <= 3000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_2[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 2
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 1.5
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_2[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 1.5
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             elseif (rating_difference >= 1001 and rating_difference <= 2000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_3[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 2
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 1.5
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_3[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 1.5
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             else
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_4[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 2
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 1.5
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_4[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 1.5
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             end
         else
             if rating_difference >= 3001 then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_1[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 2
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 1.5
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_1[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 1.5
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             elseif (rating_difference >= 2001 and rating_difference <= 3000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_2[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 2
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 1.5
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_2[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 1.5
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             elseif (rating_difference >= 1001 and rating_difference <= 2000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_3[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 2
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 1.5
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_3[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 1.5
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             else
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_4[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 2
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 1.5
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_4[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 1.5
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             end
         end
     else
         if original_rating >= average_rating then
             if rating_difference >= 3001 then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_1[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 3
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 2
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_1[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 3
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             elseif (rating_difference >= 2001 and rating_difference <= 3000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_2[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 3
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 2
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_2[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 3
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             elseif (rating_difference >= 1001 and rating_difference <= 2000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_3[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 3
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 2
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_3[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 3
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             else
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_high_4[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 3
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 2
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_high_4[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 3
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             end
         else
             if rating_difference >= 3001 then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_1[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 3
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 2
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_1[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 3
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             elseif (rating_difference >= 2001 and rating_difference <= 3000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_2[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 3
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 2
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_2[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 3
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             elseif (rating_difference >= 1001 and rating_difference <= 2000) then
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_3[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 3
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 2
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_3[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 3
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             else
-                local rating_bonus = calibrating_ratings_bonus_diff_5000_low_4[place]
-                if rating_bonus then
-                    rating_bonus = tonumber(rating_bonus)
-                    if rating_bonus > 0 then
-                        rating_bonus = rating_bonus * 3
-                    elseif rating_bonus < 0 then
-                        rating_bonus = rating_bonus * 2
+                local rating_bonus_place = calibrating_ratings_bonus_diff_5000_low_4[place]
+                if rating_bonus_place then
+                    if rating_bonus_place > 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 3
+                    elseif rating_bonus_place < 0 then
+                        rating_bonus = tonumber(rating_bonus_place) * 2
                     end
-                    new_rating = original_rating + rating_bonus
-                    rating_bonus = math.floor(rating_bonus)
-                    new_rating = math.floor(new_rating)
-                    CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-                    return rating_bonus
                 end
             end
         end
     end
 
+    rating_bonus = math.floor(rating_bonus)
+    new_rating = math.floor(original_rating + rating_bonus)
     CustomNetTables:SetTableValue('mmr_player', tostring(player_id), {original_rating = original_rating, new_rating = new_rating})
-    return 0
+    return rating_bonus
 end
 
 -- Quests
@@ -1025,4 +945,12 @@ function ChaServerData.SendQuestProgreess(id)
             SendData(ChaServerData.url .. '/cha_data/post_data_progress_quest.php', post_data, nil)
         end
     end
+end
+
+----- Rating Debug
+function ChaServerData:RatingDebug()
+    local game_time_minutes = ((GameRules:GetGameTime() - GameRules.nGameStartTime) / 60)
+    local game_time_hours = game_time_minutes / 60
+    local bonus_rating_time_multiple = math.max(1, math.min(game_time_hours, 3))
+    print(game_time_minutes, game_time_hours, bonus_rating_time_multiple)
 end

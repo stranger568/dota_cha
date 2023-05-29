@@ -5,6 +5,9 @@ nyx_assassin_spiked_carapace_custom = class({})
 function nyx_assassin_spiked_carapace_custom:OnSpellStart()
     if not IsServer() then return end
     local duration = self:GetSpecialValueFor("reflect_duration")
+    if IsInToolsMode() then
+        duration = 20
+    end
     self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_nyx_assassin_spiked_carapace_custom", {duration = duration} )
     self:GetCaster():EmitSound("Hero_NyxAssassin.SpikedCarapace")
 

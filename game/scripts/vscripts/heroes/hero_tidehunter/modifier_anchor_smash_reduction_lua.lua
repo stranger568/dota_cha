@@ -14,7 +14,8 @@ function modifier_anchor_smash_reduction_lua:OnCreated()
 end
 
 function modifier_anchor_smash_reduction_lua:DeclareFunctions()
-	return {
+	return 
+	{
 		MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE
 	}
 end

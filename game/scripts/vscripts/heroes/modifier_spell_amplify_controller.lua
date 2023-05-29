@@ -130,7 +130,7 @@ local dot_abilities=
 	["bane_nightmare"] = true,
 	["dazzle_poison_touch"] = true,
 	["disruptor_thunder_strike"] = true,
-	["disruptor_static_storm"] = true,
+	["disruptor_static_storm_custom"] = true,
 	["jakiro_dual_breath"] = true,
 	["jakiro_liquid_fire_lua"] = true,
 	["ogre_magi_ignite_custom"] = true,
@@ -214,7 +214,7 @@ function modifier_spell_amplify_controller:GetModifierSpellAmplify_Percentage(pa
       
       	if bHeroTarget then
 	      	if inflictor and inflictor:GetAbilityName() == "silencer_glaives_of_wisdom_custom" then
-	      		return self.spell_amplify * 0.02
+	      		return self.spell_amplify * 0
 	      	end
 
       		return self.spell_amplify * 0.2

@@ -29,6 +29,7 @@ end
 function modifier_wisp_overcharge_custom:GetModifierPreAttack_BonusDamage( params )
 	if not IsServer() then return end
 	if not self:GetCaster():HasModifier("modifier_wisp_overcharge") then return end
+	if self:GetCaster():PassivesDisabled() then return end
 	if params.target == nil then return end
 	local leech = params.target:GetMaxHealth() / 100 * self:GetAbility():GetSpecialValueFor("damage_pct")
 	return leech

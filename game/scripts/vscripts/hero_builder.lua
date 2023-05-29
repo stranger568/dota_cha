@@ -177,7 +177,7 @@ AbilitiesRandomChanceList_1 =
     "night_stalker_hunter_in_the_night_custom",
     "spirit_breaker_greater_bash",
     "sven_great_cleave",
-    "skeleton_king_vampiric_aura",
+    "skeleton_king_vampiric_aura_custom",
     "antimage_mana_break",
     "clinkz_strafe",
     "gyrocopter_flak_cannon_lua",
@@ -608,6 +608,7 @@ function HeroBuilder:InitPlayerHero( hHero )
     if hHero:GetUnitName() == "npc_dota_hero_gyrocopter" then
         hHero:AddNewModifier(hHero, nil, "modifier_gyrocopter_flak_cannon_lua_scepter", {})
     end
+    hHero.selected_skills = {}
 
     if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hHero:GetPlayerID()] ~= nil then
         if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hHero:GetPlayerID()].game_blocked ~= 0 and ChaServerData.PLAYERS_GLOBAL_INFORMATION[hHero:GetPlayerID()].game_blocked >= 0 then
@@ -789,13 +790,13 @@ function HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
 
     local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
 
-    if not hHero then print("Ошибка выбора способности 1") return end
+    if not hHero then return end
 
     local hPlayer = PlayerResource:GetPlayer(nPlayerID)
 
-    if not hPlayer then print("Ошибка выбора способности 2") return end
+    if not hPlayer then return end
 
-    if true == hHero.bOmniscientBookSelectingAbility then print("Ошибка выбора способности 3") return end
+    if true == hHero.bOmniscientBookSelectingAbility then return end
 
     if true == hHero.bRemovingAbility then
         local hItem = CreateItem("item_relearn_book_lua", hHero, hHero)
@@ -1943,13 +1944,13 @@ end
 
 function HeroBuilder:ReconnectRefundBook(hHero)
 
-    if true==hHero.bOmniscientBookSelectingAbility then
+    if true == hHero.bOmniscientBookSelectingAbility then
 
     end
 
-    hHero.bOmniscientBookSelectingAbility=false
+    hHero.bOmniscientBookSelectingAbility = false
 
-    if true==hHero.bRemovingAbility then
+    if true == hHero.bRemovingAbility then
         local hItem = CreateItem("item_relearn_book_lua", hHero, hHero)
         hHero:AddItem(hItem)
         hItem:SetPurchaseTime(0)
@@ -1957,7 +1958,7 @@ function HeroBuilder:ReconnectRefundBook(hHero)
 
     hHero.bRemovingAbility = false
     
-    if true==hHero.bOmniscientBookRemoving then
+    if true == hHero.bOmniscientBookRemoving then
         local hItem = CreateItem("item_omniscient_book", hHero, hHero)
         hHero:AddItem(hItem)
         hItem:SetPurchaseTime(0)
@@ -1965,7 +1966,7 @@ function HeroBuilder:ReconnectRefundBook(hHero)
 
     hHero.bOmniscientBookRemoving = false
 
-    if true==hHero.bSelectingSpellBook then
+    if true == hHero.bSelectingSpellBook then
         local hItem = CreateItem("item_spell_book_empty_lua", hHero, hHero)
         hHero:AddItem(hItem)
         hItem:SetPurchaseTime(0)

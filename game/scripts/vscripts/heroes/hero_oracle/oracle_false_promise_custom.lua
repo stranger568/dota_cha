@@ -45,6 +45,11 @@ function modifier_oracle_false_promise_custom:OnCreated()
 	self.amplify = self:GetAbility():GetSpecialValueFor("shard_spell_amp_bonus")
 	
 	if not IsServer() then return end
+
+	local brewmaster_primal_split = self:GetParent():FindAbilityByName("brewmaster_primal_split")
+    if brewmaster_primal_split then
+        brewmaster_primal_split:SetActivated(false)
+    end
 	
 	self.overhead_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_indicator.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent())
 	self:AddParticle(self.overhead_particle, false, false, -1, true, true)
@@ -72,6 +77,11 @@ end
 
 function modifier_oracle_false_promise_custom:OnDestroy()
 	if not IsServer() then return end
+
+	local brewmaster_primal_split = self:GetParent():FindAbilityByName("brewmaster_primal_split")
+    if brewmaster_primal_split then
+        brewmaster_primal_split:SetActivated(true)
+    end
 
 	if self.damage_counter < self.heal_counter then
 		self:GetParent():EmitSound("Hero_Oracle.FalsePromise.Healed")

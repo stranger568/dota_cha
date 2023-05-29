@@ -42,7 +42,7 @@ var recentBannedAbilities = null;
 var recentBannedHeroes = null;
 var abilityTimeLeft = 0
 var heroTimeLeft = 0
-
+  
 var table_player = CustomNetTables.GetTableValue("ban_count", String(Players.GetLocalPlayer()))
 
 if (table_player)

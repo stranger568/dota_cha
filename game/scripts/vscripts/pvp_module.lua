@@ -813,7 +813,12 @@ function PvpModule:PunishLoser(nWinnerTeamID,nLoserTeamID)
 			  	Barrage:FireBullet(data)
 			  	local hDebuff = hLoserHero:FindModifierByName("modifier_loser_curse")
 			  	if hDebuff == nil then
-					hDebuff = hLoserHero:AddNewModifier(hLoserHero, hLoserHero, "modifier_loser_curse", {})
+			  		local curse_ability = nil
+			  		local empty_0 = hLoserHero:FindAbilityByName("empty_0")
+			  		if empty_0 then
+			  			curse_ability = empty_0
+			  		end
+					hDebuff = hLoserHero:AddNewModifier(hLoserHero, curse_ability, "modifier_loser_curse", {})
 					if hDebuff ~= nil then
 						hDebuff:SetStackCount(0)
 					end
@@ -1240,14 +1245,15 @@ function PvpModule:RefreshTeamHero(nTeamID)
 					hHero:RemoveModifierByName("modifier_duel_curse_cooldown")
 					hHero.bJoiningPvp = false
 			  	end})
-		   		Util:RefreshAbilityAndItem( hHero )
+			  	Timers:CreateTimer({ endTime = 0.7, callback = function()
+			  		Util:RefreshAbilityAndItem( hHero )
+			  	end})
 		   		for _, modifier in pairs( hHero:FindAllModifiers() ) do
 			  		if modifier and modifier:GetCaster() ~= hHero and modifier:IsDebuff() then
 						modifier:Destroy()
 			  		end
 				end
 	  		else
-		   		Util:RefreshAbilityAndItem( hHero )
 		   		hHero:SetHealth(hHero:GetMaxHealth())
 		   		hHero:SetMana(hHero:GetMaxMana())
 		   		hHero:RemoveModifierByName("modifier_razor_static_link")
@@ -1261,6 +1267,9 @@ function PvpModule:RefreshTeamHero(nTeamID)
 					Util:MoveHeroToCenter(nPlayerID)
 					hHero.bJoiningPvp = false
 				end})
+				Timers:CreateTimer({ endTime = 0.7, callback = function()
+			  		Util:RefreshAbilityAndItem( hHero )
+			  	end})
 				for _, modifier in pairs( hHero:FindAllModifiers() ) do
 			  		if modifier and modifier:GetCaster() ~= hHero and modifier:IsDebuff() then
 						modifier:Destroy()
@@ -1285,7 +1294,9 @@ function PvpModule:RefreshSingleHero(nPlayerID)
 					hHero:RemoveModifierByName("modifier_duel_damage_check")
 					hHero:RemoveModifierByName("modifier_duel_curse")
 					Util:MoveHeroToLocation( nPlayerID,wayPoint:GetOrigin() )
-					Util:RefreshAbilityAndItem( hHero )
+					Timers:CreateTimer({ endTime = 0.7, callback = function()
+			  			Util:RefreshAbilityAndItem( hHero )
+			  		end})
 			  	else
 				 	hHero:RemoveModifierByName("modifier_razor_static_link")
 				 	hHero:AddNewModifier(hHero, nil, "modifier_hero_refreshing", {})
@@ -1293,7 +1304,9 @@ function PvpModule:RefreshSingleHero(nPlayerID)
 				 	hHero:RemoveModifierByName("modifier_duel_curse")
 				 	hHero:RemoveModifierByName("modifier_duel_curse_cooldown")
 				 	Util:MoveHeroToCenter( nPlayerID )
-				 	Util:RefreshAbilityAndItem( hHero )
+				 	Timers:CreateTimer({ endTime = 0.7, callback = function()
+			  			Util:RefreshAbilityAndItem( hHero )
+			  		end})
 			  	end  
 			  	hHero.bJoiningPvp = false
 			end})

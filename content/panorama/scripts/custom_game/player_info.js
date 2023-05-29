@@ -122,7 +122,7 @@ function CreateSkill(info, panel, tier)
     SetShowText(Skill, "<b>" + $.Localize("#"+info[2]) + "</b>" + "<br><br>" + $.Localize("#" + info[2]+ "_desc"))
     Skill.SetPanelEvent("onactivate", function() 
     { 
-        GameEvents.SendCustomGameEventToServer( "ChooseSkill", { skill : info[1] } );
+        GameEvents.SendCustomGameEventToServer( "ChooseSkill", { skill : info[1], tier : tier } );
     })
 }
 

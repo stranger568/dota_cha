@@ -157,11 +157,12 @@ function modifier_zuus_lightning_hands_custom_tracker:AttackLandedModifier(param
 	if self:GetParent() ~= params.attacker then return end
 	if not params.target:IsHero() and not params.target:IsCreep() then return end
 	if params.target:IsMagicImmune() then return end
+	if not self:GetAbility():IsFullyCastable() then return end
 	local arc = self:GetParent():FindAbilityByName("zuus_arc_lightning_custom")
 	if not arc then return end
+	self:GetAbility():UseResources(false, false, false, true)
 	arc:StartArc(params.target, arc:GetSpecialValueFor("jump_count"), true, 1)
 end
-
 
 function modifier_zuus_lightning_hands_custom_tracker:OnTooltip()
 	return self.damage

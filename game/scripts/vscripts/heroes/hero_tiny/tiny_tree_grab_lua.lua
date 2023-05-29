@@ -1,16 +1,14 @@
-tiny_tree_grab_lua = class({})
 LinkLuaModifier("modifier_tiny_grab_lua", "heroes/hero_tiny/modifier_tiny_grab_lua", LUA_MODIFIER_MOTION_NONE)
 
---function tiny_tree_grab_lua:GetBehaviorInt( ... )
-	
---end
+tiny_tree_grab_lua = class({})
 
-function tiny_tree_grab_lua:OnSpellStart( ... )
+function tiny_tree_grab_lua:OnSpellStart()
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
 
 	local mod = caster:AddNewModifier(caster, self, "modifier_tiny_grab_lua", {})
-    local attack_count= self:GetSpecialValueFor("attack_count")+caster:GetTalentValue("special_bonus_unique_tiny_6")
+
+    local attack_count= self:GetSpecialValueFor("attack_count") + caster:GetTalentValue("special_bonus_unique_tiny_6")
 	
 	if not mod then return end
 

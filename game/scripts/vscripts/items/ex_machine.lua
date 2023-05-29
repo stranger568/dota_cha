@@ -8,6 +8,7 @@ item_ex_machina_custom.NotRefresh = {
     ["item_refresher_shard"] = true,
     ["item_ex_machina_custom"] = true,
     ["item_black_king_bar"] = true,
+    ["item_extra_creature_ogreseal"] = true,
 }
 
 function item_ex_machina_custom:NotRefresher( item )

@@ -119,7 +119,7 @@ function modifier_item_bfury_3:GetModifierProcAttack_BonusDamage_Physical( param
 		local bonus = 0
 
 		if self:GetParent():HasModifier("modifier_skill_eternalist") then
-			bonus = 30
+			bonus = 90
 		end
 
 		local percentage_damage = params.original_damage / 100 * (self:GetAbility():GetSpecialValueFor("bonus_damage_creeps_no_late") + bonus)
@@ -171,7 +171,7 @@ function modifier_item_bfury_3:AttackLandedModifier(params)
 
 	local bonus = 0
 	if self:GetParent():HasModifier("modifier_skill_eternalist") then
-		bonus = 30
+		bonus = 90
 	end
 
 	local percentage_damage = params.original_damage / 100 * (self:GetAbility():GetSpecialValueFor("bonus_damage_creeps_no_late") + bonus)

@@ -1421,56 +1421,39 @@
 		"IsObsolete"                    "0"
 		"ItemStockTime"					"1"			  
 		"ItemStockInitial"				"0"
-		"ItemStockMax"					"1"
-		"ItemInitialStockTime"			"360.0"
-		"ItemInitialStockTimeTurbo"		"360.0"
+		"ItemStockMax"					"3"
+        "ItemInitialStockTime"          "300.0"
+        "ItemInitialStockTimeTurbo"     "300.0"
 	}
 
 	"item_recipe_necronomicon_2"
 	{
 		"ItemPurchasable"				"1"
 		"IsObsolete"                    "0"
-		"ItemStockTime"					"1"			  
-		"ItemStockInitial"				"0"
-		"ItemStockMax"					"1"
-		"ItemInitialStockTime"			"360.0"
-		"ItemInitialStockTimeTurbo"		"360.0"
 	}
 
 	"item_recipe_necronomicon_3"
 	{
 		"ItemPurchasable"				"1"
 		"IsObsolete"                    "0"
-		"ItemStockTime"					"1"			  
-		"ItemStockInitial"				"0"
-		"ItemStockMax"					"1"
-		"ItemInitialStockTime"			"360.0"
-		"ItemInitialStockTimeTurbo"		"360.0"
-		"ItemInitialCharges"			"1"
 	}
 
 	"item_necronomicon"
 	{
 		"ItemPurchasable"				"1"
 		"IsObsolete"                    "0"
-		"ItemInitialStockTime"			"360.0"
-		"ItemInitialStockTimeTurbo"		"360.0"
 	}
 
     "item_necronomicon_2"
 	{
 		"ItemPurchasable"				"1"
 	    "IsObsolete"                    "0"
-	    "ItemInitialStockTime"			"360.0"
-		"ItemInitialStockTimeTurbo"		"360.0"
 	}
 
 	"item_necronomicon_3"
 	{
 		"ItemPurchasable"				"1"
 		"IsObsolete"                    "0"
-		"ItemInitialStockTime"			"360.0"
-		"ItemInitialStockTimeTurbo"		"360.0"
 	}
 
 	"beastmaster_hawk_dive"

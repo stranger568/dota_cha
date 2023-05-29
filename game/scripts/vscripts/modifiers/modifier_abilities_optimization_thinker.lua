@@ -68,7 +68,7 @@ function modifier_abilities_optimization_thinker:OnAbilityExecuted( params )
 	    end
 	end
 
-	if params.ability:GetAbilityName() == "skeleton_king_vampiric_aura" then
+	if params.ability:GetAbilityName() == "skeleton_king_vampiric_aura_custom" then
 	    for _, warlock_gl in pairs(FindUnitsInRadius(unit:GetTeamNumber(), unit:GetAbsOrigin(), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_PLAYER_CONTROLLED + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)) do
 	        if warlock_gl:GetUnitName() == "npc_dota_wraith_king_skeleton_warrior" and warlock_gl:GetOwner() == unit then
 	            warlock_gl:Destroy()             
@@ -284,16 +284,24 @@ function modifier_abilities_optimization_thinker:OnAttackLanded(params)
 	end
 
 	-- modifier_skill_slackening
-	if attacker:HasModifier("modifier_skill_slackening") then 
-		local modifier = attacker:FindModifierByName("modifier_skill_slackening")
+	--if attacker:HasModifier("modifier_skill_slackening") then 
+	--	local modifier = attacker:FindModifierByName("modifier_skill_slackening")
+	--	if modifier then
+	--		modifier:AttackLandedModifier( params )
+	--	end
+	--end
+
+	-- modifier_zuus_lightning_hands_custom_tracker
+	if attacker:HasModifier("modifier_zuus_lightning_hands_custom_tracker") then 
+		local modifier = attacker:FindModifierByName("modifier_zuus_lightning_hands_custom_tracker")
 		if modifier then
 			modifier:AttackLandedModifier( params )
 		end
 	end
 
-	-- modifier_zuus_lightning_hands_custom_tracker
-	if attacker:HasModifier("modifier_zuus_lightning_hands_custom_tracker") then 
-		local modifier = attacker:FindModifierByName("modifier_zuus_lightning_hands_custom_tracker")
+	-- modifier_skill_pierce
+	if attacker:HasModifier("modifier_skill_pierce") then 
+		local modifier = attacker:FindModifierByName("modifier_skill_pierce")
 		if modifier then
 			modifier:AttackLandedModifier( params )
 		end
@@ -392,14 +400,6 @@ function modifier_abilities_optimization_thinker:OnAttackLanded(params)
 	-- modifier_skill_basher
 	if attacker:HasModifier("modifier_skill_basher") then 
 		local modifier = attacker:FindModifierByName("modifier_skill_basher")
-		if modifier then
-			modifier:AttackLandedModifier( params )
-		end
-	end
-
-	-- modiifer_bloodseeker_bloodrage_custom
-	if attacker:HasModifier("modiifer_bloodseeker_bloodrage_custom") then 
-		local modifier = attacker:FindModifierByName("modiifer_bloodseeker_bloodrage_custom")
 		if modifier then
 			modifier:AttackLandedModifier( params )
 		end
@@ -557,15 +557,7 @@ function modifier_abilities_optimization_thinker:OnAttackLanded(params)
 			modifier:AttackLandedModifier( params )
 		end
 	end
-
-	-- modifier_item_rapier_custom
-	if attacker:HasModifier("modifier_item_rapier_custom") then 
-		local modifier = attacker:FindModifierByName("modifier_item_rapier_custom")
-		if modifier then
-			modifier:AttackLandedModifier( params )
-		end
-	end
-
+	
 	-- modifier_silencer_glaives_of_wisdom_custom
 	if attacker:HasModifier("modifier_silencer_glaives_of_wisdom_custom") then 
 		local modifier = attacker:FindModifierByName("modifier_silencer_glaives_of_wisdom_custom")
@@ -592,6 +584,14 @@ function modifier_abilities_optimization_thinker:OnAttack(params)
 	-- modifier_drow_ranger_marksmanship_custom
 	if attacker:HasModifier("modifier_drow_ranger_marksmanship_custom") then 
 		local modifier = attacker:FindModifierByName("modifier_drow_ranger_marksmanship_custom")
+		if modifier then
+			modifier:AttackModifier( params )
+		end
+	end
+
+	-- modifier_skill_pierce
+	if attacker:HasModifier("modifier_skill_pierce") then 
+		local modifier = attacker:FindModifierByName("modifier_skill_pierce")
 		if modifier then
 			modifier:AttackModifier( params )
 		end

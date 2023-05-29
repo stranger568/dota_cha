@@ -16,6 +16,7 @@ item_refresher_custom.NotRefresh = {
     ["item_ex_machina"] = true,
     ["item_ex_machina_custom"] = true,
     ["primal_beast_uproar_custom"] = true,
+    ["item_extra_creature_ogreseal"] = true,
 }
 
 function item_refresher_custom:NotRefresher( item )

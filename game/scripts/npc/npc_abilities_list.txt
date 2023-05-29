@@ -376,7 +376,7 @@
   "disruptor" {
   "1"    "disruptor_thunder_strike"
   "2"    "disruptor_kinetic_field"
-  "3"    "disruptor_static_storm"
+  "3"    "disruptor_static_storm_custom"
   }
   "keeper_of_the_light" {
   "keeper_of_the_light_illuminate" {"keeper_of_the_light_illuminate_end" "0"}
@@ -436,7 +436,7 @@
   }
   "skeleton_king" {
   "1"    "skeleton_king_hellfire_blast"
-  "2"    "skeleton_king_vampiric_aura"
+  "2"    "skeleton_king_vampiric_aura_custom"
   "3"    "skeleton_king_mortal_strike"
   "4"    "skeleton_king_reincarnation"
   }

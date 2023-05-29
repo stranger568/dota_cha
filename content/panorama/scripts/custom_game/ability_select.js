@@ -45,13 +45,13 @@ var AbilitiesFullReact =
     "lion_finger_of_death_custom" : true,
     "obsidian_destroyer_arcane_orb" : true,
     "life_stealer_feast"    : true,
+    "pugna_life_drain_custom" :true,
 };
 
 var AbilitiesFullReactPurple = 
 {
     "drow_ranger_frost_arrows_custom" : true,
     "enigma_midnight_pulse_custom" : true,
-    "pugna_life_drain_custom" :true,
     "sandking_caustic_finale_lua":true,
     "winter_wyvern_arctic_burn":true,
     "phoenix_sun_ray":true,
@@ -89,9 +89,6 @@ function AdjustPosition()
     }
 }
 
-
-
-
 //判断两个队列是否值相等
 function IsDataListSame(dataList1,dataList2) {
     
@@ -110,50 +107,57 @@ function IsDataListSame(dataList1,dataList2) {
 
     return true
 } 
-
-
-function ShowRandomAbilitySelection(keys) {
+ 
+   
+function ShowRandomAbilitySelection(keys) 
+{
     var parent = $("#AbilitySelectorAbilityBody");
 
-    if (parent==undefined) {
+    if (parent==undefined)
+    {
         return
     }
-    
 
-    GameEvents.SendCustomGameEventToServer("ClientReconnected", {});
+    parent.ui_secret = keys.ui_secret;
 
-    //防止Js作弊 对请求进行加密
-    //这个写在前面，防止新弹出的窗口顶掉重修之书的窗口，导致ui_secret错乱
-    parent.ui_secret=keys.ui_secret;
-
-    //如果两次发来的队列完全相同，前台跳过
     if (parent.dataList)
     {
-         if (IsDataListSame(parent.dataList,keys.data_list))
+        if (IsDataListSame(parent.dataList,keys.data_list))
         {  
+            $("#AbilitySelectorPanelRoot").SetHasClass("Show", true);
+            $("#AbilitySelectorTitle").text= $.Localize("#AbilitySelectorTitle_1") +keys.ability_number+ $.Localize("#AbilitySelectorTitle_2");
+            $("#AbilitySelection_Close").text = $.Localize("#AbilitySelection_Close");
+            $("#AbilitySelector_CloseButton").SetPanelEvent("onmouseover", function() {
+              $.DispatchEvent( "DOTAShowTextTooltip", $("#AbilitySelector_CloseButton"), $.Localize("#AbilitySelection_Close_Description"));
+            });
+            $("#AbilitySelector_CloseButton").SetPanelEvent("onactivate", function() {
+                CloseAbilitySelect();
+            });
             return
         }
     }
-    
+ 
     parent.dataList = keys.data_list;
-     
+
     AdjustPosition()
 
     $("#AbilitySelectorPanelRoot").SetHasClass("Show", true);
-    
-    //如果玩家还有足够金币
-    if (Players.GetGold(Players.GetLocalPlayer())>=150)
+
+    if (Players.GetGold(Players.GetLocalPlayer()) >= 150)
     {
         $("#SaveSpellBookCheckBox").RemoveClass("Hidden")
         $("#SaveSpellBookCheckBox").SetSelected( false );
-    } else {
+    } 
+    else 
+    {
         $("#SaveSpellBookCheckBox").AddClass("Hidden")
     }
 
     var dataList = keys.data_list
-    for (var n in dataList) {
-        var abilityName = dataList[n].ability_name;
 
+    for (var n in dataList) 
+    {
+        var abilityName = dataList[n].ability_name;
         var panelID = "ability_"+n;
         var panel = parent.FindChildTraverse(panelID);
         if (panel == undefined && panel == null) {
@@ -182,6 +186,7 @@ function ShowRandomAbilitySelection(keys) {
         } else {
             panel.FindChildTraverse("EffectReact").visible = false
         }
+
         panel.FindChildTraverse("LinkedAbilityPlusIcon").SetHasClass("LinkedAbilityCollapse", true);
         panel.FindChildTraverse("LinkedAbilityImage_1").SetHasClass("LinkedAbilityCollapse", true);
         panel.FindChildTraverse("LinkedAbilityImage_2").SetHasClass("LinkedAbilityCollapse", true);
@@ -473,17 +478,18 @@ function UpdateAbilityMask() {
     } 
 }
 
-function HideAbilitySelect() {
+function HideAbilitySelect() 
+{
     
     $("#AbilitySelectorPanel").ToggleClass("Hide")
     $("#AbilitySelector_CloseButton").ToggleClass("Hide")
     
 }
 
-
-
-(function() {
+(function() 
+{
     GameEvents.Subscribe("ShowRandomAbilitySelection", ShowRandomAbilitySelection);
     GameEvents.Subscribe("ShowSpellBookAbilitySelection", ShowSpellBookAbilitySelection);
     GameEvents.Subscribe("ShowRelearnBookAbilitySelection", ShowRelearnBookAbilitySelection);
+    GameEvents.SendCustomGameEventToServer("ClientReconnected", {});
 })();

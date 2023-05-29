@@ -96,14 +96,12 @@ end
 function modifier_item_hellmask:GetModifierDamageOutgoing_Percentage()
 	if not self:GetParent():HasModifier("modifier_skill_hellcrown") then return end
 	local bonus_unique = self:GetAbility():GetCurrentCharges()
-	if self:GetAbility():GetSecondaryCharges() == 1 then bonus_unique = 0 end
 	return 0.2 * bonus_unique
 end
 
 function modifier_item_hellmask:GetModifierPreAttack_BonusDamage()
 	if self:GetAbility() then
 		local bonus_unique = self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_damage_per_stack")
-		if self:GetAbility():GetSecondaryCharges() == 1 then bonus_unique = 0 end
 		return self:GetAbility():GetSpecialValueFor("bonus_damage") + bonus_unique
 	end
 end
@@ -157,6 +155,7 @@ function modifier_item_hellmask:AttackLandedModifier(params)
 			["npc_dota_techies_land_mine"] = true,
 			["npc_dota_zeus_cloud"] = true,
 			["npc_dota_rattletrap_cog"] = true,
+			["npc_dota_lich_ice_spire"] = true,
 		}
 
 		if params.attacker == self:GetParent() then

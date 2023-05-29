@@ -1,24 +1,22 @@
-tiny_tree_throw_lua = class({})
 LinkLuaModifier("modifier_tiny_tree_throw_lua_slow", "heroes/hero_tiny/tiny_tree_throw_lua", LUA_MODIFIER_MOTION_NONE)
 
+tiny_tree_throw_lua = class({})
 
 function tiny_tree_throw_lua:GetAOERadius()
 	return self:GetSpecialValueFor("splash_radius")
 end
-
 
 function tiny_tree_throw_lua:OnSpellStart( ... )
 	if not IsServer() then return end
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
 	local position = self:GetCursorPosition()
-
 	caster:RemoveModifierByName("modifier_tiny_grab_lua")
-
 	local speed = self:GetSpecialValueFor("speed")
 
 	if target then
-		local projectile_info = {
+		local projectile_info = 
+		{
 			Target = target,
 			Source = caster,
 			Ability = self,
@@ -56,39 +54,32 @@ function tiny_tree_throw_lua:OnSpellStart( ... )
 		}
 		ProjectileManager:CreateLinearProjectile( projectile_info )
 	end
-
 	caster:EmitSound("Hero_Tiny.Tree.Throw")
 end
-
 
 function tiny_tree_throw_lua:OnProjectileHit(target, location)
 	if not IsServer() then return end
 	local caster = self:GetCaster()
 	if not caster or caster:IsNull() then return end
-
 	local damage = caster:GetAverageTrueAttackDamage(target)
 	local splash_pct = self:GetSpecialValueFor("splash_pct") / 100.0
 	local bonus_damage = (1 + self:GetSpecialValueFor("bonus_damage") / 100.0)
-
 	local dealt_damage = damage * splash_pct * bonus_damage
-
-	local damage_table = {
+	local damage_table = 
+	{
 		attacker = caster,
 		victim = nil,
 		damage = dealt_damage,
 		damage_type = DAMAGE_TYPE_PHYSICAL,
 		ability = self
 	}
-
 	local splash_radius = self:GetSpecialValueFor("splash_radius")
-
 	local search_location
 	if target then
 		search_location = target:GetAbsOrigin()
 	else
 		search_location = location
 	end
-
 	local enemies = FindUnitsInRadius(
 		caster:GetTeamNumber(),
 		search_location,
@@ -100,7 +91,6 @@ function tiny_tree_throw_lua:OnProjectileHit(target, location)
 		FIND_CLOSEST,
 		false
 	)
-
 	if target then
 		caster:PerformAttack(target, true, true, true, true, false, false, true)
 		target:EmitSound("Hero_Tiny.Tree.Target")
@@ -109,52 +99,37 @@ function tiny_tree_throw_lua:OnProjectileHit(target, location)
 		enemies[1]:EmitSound("Hero_Tiny.Tree.Target")
 		target = enemies[1]
 	end
-
 	if not enemies or not target then return end
-
 	if target:IsNull() then return end
-
 	if not target.AddNewModifier then return end
-
 	target:AddNewModifier(caster, self, "modifier_tiny_tree_throw_lua_slow", { duration = self:GetSpecialValueFor("slow_duration") })
-
 	local direction = (target:GetAbsOrigin() - caster:GetAbsOrigin()):Normalized()
-
 	local cleave_p = ParticleManager:CreateParticle("particles/units/heroes/hero_tiny/tiny_craggy_cleave.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
 	ParticleManager:SetParticleControl(cleave_p, 0, target:GetAbsOrigin())
 	ParticleManager:SetParticleControl(cleave_p, 1, target:GetAbsOrigin())
-	ParticleManager:SetParticleControlForward(cleave_p, 2, direction)
-
 	ParticleManager:ReleaseParticleIndex(cleave_p)
-
 	for i, unit in pairs(enemies) do
 		if unit and unit ~= target and not unit:IsNull() then
 			damage_table.victim = unit
 			ApplyDamage(damage_table)
 		end
 	end
-
 	return true
 end
-
-
 
 modifier_tiny_tree_throw_lua_slow = class({})
 
 function modifier_tiny_tree_throw_lua_slow:OnCreated()
-
 	local caster = self:GetCaster()
 	if not caster or caster:IsNull() then return end
-
 	local ability = self:GetAbility()
 	if not ability or ability:IsNull() then return end
-
 	self.slow = ability:GetSpecialValueFor("movement_slow")
-
 end
 
 function modifier_tiny_tree_throw_lua_slow:DeclareFunctions()
-	return {
+	return 
+	{
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE
 	}
 end

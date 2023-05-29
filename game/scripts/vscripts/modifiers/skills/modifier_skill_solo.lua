@@ -15,6 +15,6 @@ end
 function modifier_skill_solo:OnIntervalThink()
 	if not IsServer() then return end
 	if self:GetParent():IsRealHero() then
-		self:GetParent():ModifyGold(self.bonus_gold_min, true, DOTA_ModifyXP_Outpost)
+		self:GetParent():ModifyGold(math.ceil(self.bonus_gold_min), true, DOTA_ModifyXP_Outpost)
 	end
 end

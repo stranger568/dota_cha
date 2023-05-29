@@ -13,22 +13,19 @@ function modifier_item_aeon_disk_lua:IsHidden() return true end
 function modifier_item_aeon_disk_lua:IsDebuff() return false end
 function modifier_item_aeon_disk_lua:IsPurgable() return false end
 function modifier_item_aeon_disk_lua:GetAttributes() return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE end
+function modifier_item_aeon_disk_lua:RemoveOnDeath() return false end
 
 function modifier_item_aeon_disk_lua:OnCreated(keys)
 	if IsServer() and self:GetParent() and self:GetParent():IsIllusion() then self:Destroy() return end
-
 	self:OnRefresh(keys)
 end
 
 function modifier_item_aeon_disk_lua:OnRefresh(keys)
 	self.parent = self:GetParent()
 	self.ability = self:GetAbility()
-
 	if (not self.parent) or (not self.ability) or self.parent:IsNull() or self.ability:IsNull() then return end
-
 	self.bonus_health = self.ability:GetSpecialValueFor("bonus_health") or 0
 	self.bonus_mana = self.ability:GetSpecialValueFor("bonus_mana") or 0
-
 	if IsServer() then
 		self.health_threshold_pct = 0.01 * self.ability:GetSpecialValueFor("health_threshold_pct") or 0
 		self.buff_duration = self.ability:GetSpecialValueFor("buff_duration") or 0
@@ -36,7 +33,8 @@ function modifier_item_aeon_disk_lua:OnRefresh(keys)
 end
 
 function modifier_item_aeon_disk_lua:DeclareFunctions()
-	return {
+	return 
+	{
 		MODIFIER_PROPERTY_HEALTH_BONUS,
 		MODIFIER_PROPERTY_MANA_BONUS,
 		MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK,
@@ -54,19 +52,20 @@ end
 function modifier_item_aeon_disk_lua:GetModifierTotal_ConstantBlock(keys)
 	local parent = self:GetParent()
 	local health_threshold = parent:GetMaxHealth() * self.health_threshold_pct
-
 	if IsValidEntity(self.ability) and self.ability:IsCooldownReady() and parent:GetHealth() - keys.damage <= (health_threshold + 1) then
+		if parent:HasModifier("modifier_nyx_assassin_spiked_carapace_custom") then 
+			local modifier_nyx_assassin_spiked_carapace_custom = parent:FindModifierByName("modifier_nyx_assassin_spiked_carapace_custom")
+			if modifier_nyx_assassin_spiked_carapace_custom.carapaced_units[keys.attacker:entindex()] == nil then
+				return 
+			end
+		end
 		self.ability:UseResources(true, false, true, true)
-
 		parent:EmitSound("DOTA_Item.ComboBreaker")
-
 		parent:Purge(false, true, false, true, true)
 		parent:AddNewModifier(parent, self.ability, "modifier_item_aeon_disk_lua_buff", {duration = self.buff_duration})
-
 		if parent:GetHealth() > health_threshold then
 			parent:SetHealth(health_threshold)
 		end
-
 		return keys.damage * 10
 	end
 end

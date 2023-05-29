@@ -166,6 +166,56 @@ _G.creeps_small_random_special =
         ["UnitNumber"] = 1,
         ["SpawnInterval"] = 0.1,
     },
+    {
+        ["UnitName"] = "npc_dota_ogre_warlord",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_black_dragon",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_frostbitten_gaint",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_mud_golem",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_ogreseal_big",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_ogre_warlord",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_black_dragon",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_frostbitten_gaint",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_mud_golem",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
+    {
+        ["UnitName"] = "npc_dota_ogreseal_big",
+        ["UnitNumber"] = 1,
+        ["SpawnInterval"] = 0.1,
+    },
 }
 
 local big_ra = table.random_some(creeps_big_random, 2)
@@ -198,10 +248,10 @@ SkillRoundNumber[51]=true
 SkillRoundNumber[81]=true
 
 if IsInToolsMode() then
-    --abilitySelectionRoundNumber = {}
-    --abilitySelectionRoundNumber[2]=true
-    --abilitySelectionRoundNumber[3]=true
-    --abilitySelectionRoundNumber[4]=true
+    abilitySelectionRoundNumber = {}
+    abilitySelectionRoundNumber[2]=true
+    abilitySelectionRoundNumber[3]=true
+    abilitySelectionRoundNumber[4]=true
     --SkillRoundNumber = {}
     --SkillRoundNumber[1]=true
     --SkillRoundNumber[2]=true
@@ -508,12 +558,18 @@ function Round:Prepare(nRoundNumber)
             local big_ra = table.random_some(creeps_big_random, 1)
             creeps_random_60=table.join(creeps_random_60,big_ra)
             table.remove_item(creeps_big_random,big_ra)
-            if RollPercentage(20) then
+
+            local small_ra_full = table.random_some(creeps_small_random_special, 1)
+            creeps_random_60=table.join(creeps_random_60,small_ra_full)
+            table.remove_item(creeps_small_random_special,small_ra_full)
+
+            if RollPercentage(50) then
                 local small_ra = table.random_some(creeps_small_random_special, 1)
                 creeps_random_60=table.join(creeps_random_60,small_ra)
                 table.remove_item(creeps_small_random_special,small_ra)
             end
         end
+
         GameMode.vRoundData["Round_RandomCreeps"] = creeps_random_60
         self.nCreatureNumber = #creeps_random_60
     end
@@ -647,9 +703,9 @@ function Round:Begin()
                 end
 
                 if hHero:HasModifier("modifier_skill_smoker") then
-                    hHero:AddNewModifier(hHero, nil, "modifier_ninja_gear_custom", {duration = 8})
+                    hHero:AddNewModifier(hHero, nil, "modifier_ninja_gear_custom", {duration = 5})
                     if hHero.tempest_double_hClone and not hHero.tempest_double_hClone:IsNull() and hHero.tempest_double_hClone:IsAlive() then
-                        hHero.tempest_double_hClone:AddNewModifier(hHero, nil, "modifier_ninja_gear_custom", {duration = 8})
+                        hHero.tempest_double_hClone:AddNewModifier(hHero, nil, "modifier_ninja_gear_custom", {duration = 5})
                     end
                 end
 
@@ -1131,6 +1187,7 @@ function Round:CompensateRelearnBook(nRoundNumber)
                     data.nPlayerID = nPlayerID
                     table.insert(dataList, data)
                 end
+                GameMode:UpdatePlayerGold(nPlayerID)
             end
         end
     end

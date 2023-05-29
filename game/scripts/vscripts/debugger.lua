@@ -50,6 +50,29 @@ function Debugger:OnPlayerSay(keys)
         if szText=="book" then
              hHero:AddItemByName("item_omniscient_book")
         end
+        if szText=="reconnect" then
+            GameMode:OnPlayerReconnected({PlayerID = nPlayerId})
+        end
+        if szText=="rating_time" then
+            ChaServerData:RatingDebug()
+        end
+        if szText == "curse" then
+            local hDebuff = hHero:FindModifierByName("modifier_loser_curse")
+            if hDebuff == nil then
+                local curse_ability = nil
+                local empty_0 = hHero:FindAbilityByName("empty_0")
+                if empty_0 then
+                    curse_ability = empty_0
+                end
+                hDebuff = hHero:AddNewModifier(hHero, curse_ability, "modifier_loser_curse", {})
+                if hDebuff ~= nil then
+                    hDebuff:SetStackCount(0)
+                end
+            end
+            if hDebuff ~= nil then
+                hDebuff:SetStackCount(hDebuff:GetStackCount() + 1)
+            end
+        end
         if string.find(szText,"other_") == 1 then
           local sAbilityName = string.sub(szText,7,string.len(szText))
           print(sAbilityName)

@@ -8,21 +8,6 @@ function modifier_skill_slackening:IsPurgeException() return false end
 function modifier_skill_slackening:RemoveOnDeath() return false end
 function modifier_skill_slackening:AllowIllusionDuplicate() return true end
 
-function modifier_skill_slackening:AttackLandedModifier(params)
-    if params.attacker == self:GetParent() then
-
-        if params.target:IsOther() then
-            return nil
-        end
-
-        if self:GetParent():IsIllusion() then
-            return nil
-        end
-
-        params.target:AddNewModifier(self:GetParent(), nil, "modifier_skill_slackening_debuff", {duration = (1 - params.target:GetStatusResistance())*3})
-    end
-end
-
 function modifier_skill_slackening:DeclareFunctions()
 	return 
 	{
@@ -37,6 +22,30 @@ end
 
 function modifier_skill_slackening:GetModifierExtraHealthPercentage()
 	return 20
+end
+
+function modifier_skill_slackening:GetAuraRadius()
+	return 800
+end
+
+function modifier_skill_slackening:GetAuraSearchFlags()
+	return DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
+end
+
+function modifier_skill_slackening:GetAuraSearchTeam()
+	return DOTA_UNIT_TARGET_TEAM_ENEMY
+end
+
+function modifier_skill_slackening:GetAuraSearchType()
+	return DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_BUILDING
+end
+
+function modifier_skill_slackening:GetModifierAura()
+	return "modifier_skill_slackening_debuff"
+end
+
+function modifier_skill_slackening:IsAura()
+	return true
 end
 
 modifier_skill_slackening_debuff = class({})

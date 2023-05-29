@@ -31,8 +31,7 @@ _G.Skills_table =
 		{"modifier_skill_goldstealer", "skill_goldstealer", "tier2/Goldgainer_small"},
 		{"modifier_skill_deposit", "skill_deposit", "tier2/Deposit"},
 		{"modifier_skill_investment", "skill_investment", "tier2/Investment"},
-		{"modifier_skill_damage_investor", "skill_damage_investor", "tier2/Damage_Investor"},
-		{"modifier_skill_armor_investor", "skill_armor_investor", "tier2/Armor_Investor"},
+		{"modifier_skill_warrior_investor", "skill_warrior_investor", "tier2/Damage_Investor"},
 		{"modifier_skill_magic_investor", "skill_magic_investor", "tier2/Magic_Investor"},
 		{"modifier_skill_retraining", "skill_retraining", "tier2/retraining"},
 		{"modifier_skill_outsiders", "skill_outsiders", "tier2/outsiders"},
@@ -119,7 +118,15 @@ function Skills:ChooseSkill(data)
 	if data.PlayerID == nil then return end
 	if data.skill == nil then return end
 	if not GameRules:IsCheatMode() then return end
-	local hero = PlayerResource:GetSelectedHeroEntity(data.PlayerID)
+	local hero = PlayerResource:GetSelectedHeroEntity(data.PlayerID) or GameMode.HeroesPlayersList[data.PlayerID]
+	local tier = tonumber(data.tier)
+	if GameMode.currentRound and GameMode.currentRound.nRoundNumber > 80 then
+		tier = 6
+	end
+	if hero then
+		hero.selected_skill = false
+		hero.selected_skills[tonumber(tier)] = true
+	end
 	Timers:CreateTimer(0,function()	
 		if hero and not hero:IsAlive() then return 0.1 end
 		if hero:HasModifier(data.skill) then
@@ -134,17 +141,27 @@ function Skills:ChooseSkillReal(data)
 	if data.PlayerID == nil then return end
 	if data.skill == nil then return end
 	local hero = PlayerResource:GetSelectedHeroEntity(data.PlayerID)
+	local tier = tonumber(data.tier)
+	if GameMode.currentRound and GameMode.currentRound.nRoundNumber > 80 then
+		tier = 6
+	end
+	if hero then
+		hero.selected_skill = false
+		hero.selected_skills[tonumber(tier)] = true
+	end
 	Timers:CreateTimer(0,function()	
 		if hero and not hero:IsAlive() then return 0.1 end
 		local modifier_talent = hero:AddNewModifier(hero, nil, data.skill, {})
 	end)
 end
 
-function Skills:CreateRandomSkillsForPlayer(nPlayerID, tier)
-    local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
+function Skills:CreateRandomSkillsForPlayer(nPlayerID, tier, double)
+    local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID) or GameMode.HeroesPlayersList[nPlayerID]
     if not hHero then return end
     local hPlayer = PlayerResource:GetPlayer(nPlayerID)
     if not hPlayer then return end
+    print(hHero.selected_skill)
+    if hHero.selected_skill == true then return end
 
     local tier_skills = table.deepcopy(Skills_table[tier])
     local tier_skills_choose = {}
@@ -161,6 +178,8 @@ function Skills:CreateRandomSkillsForPlayer(nPlayerID, tier)
     else
     	tier_skills_choose = table.random_some(tier_skills, 4)
     end
+
+    hHero.selected_skill = true
 
     CustomGameEventManager:Send_ServerToPlayer(hPlayer, "ShowSkillChoose", {skills = tier_skills_choose, tier = tier})
 end

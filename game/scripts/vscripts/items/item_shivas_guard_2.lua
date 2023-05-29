@@ -220,8 +220,8 @@ end
 function modifier_item_shivas_guard_2_debuff:OnIntervalThink()
 	if not IsServer() then return end
 	if not self:GetParent():IsAncient() then
-		local damage = self:GetParent():GetHealth() / 100 * self.damage
-		ApplyDamage({attacker = self:GetCaster(), victim = self:GetParent(), ability = self:GetAbility(), damage = damage, damage_type = DAMAGE_TYPE_MAGICAL})
+		--local damage = self:GetParent():GetHealth() / 100 * self.damage
+		--ApplyDamage({attacker = self:GetCaster(), victim = self:GetParent(), ability = self:GetAbility(), damage = damage, damage_type = DAMAGE_TYPE_MAGICAL})
 		if self:GetParent():HasModifier("modifier_item_shivas_guard_blast") then
 			self:GetParent():RemoveModifierByName("modifier_item_shivas_guard_blast")
 		end
