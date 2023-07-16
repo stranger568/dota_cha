@@ -11,10 +11,11 @@ function ItemLoot:Init()
 end
 
 function ItemLoot:DropItem(hUnit, team, hKiller, tier, round)
-    local neutral_item_name = "item_tier"..tier.."_token" --ItemLoot:GetUniqueNeutralItem(tier, team)
+    local neutral_item_name = "item_tier"..tier.."_token_custom" --ItemLoot:GetUniqueNeutralItem(tier, team)
     ItemLoot.TeamHasNeutralItems[team][round] = neutral_item_name
     local item = DropNeutralItemAtPositionForHero(neutral_item_name, hUnit:GetAbsOrigin(), hKiller, -1, true )
     if item then
+        item.owner = hKiller
         item.nItemTeamNumber = team
     end
     Timers:CreateTimer(15, function()

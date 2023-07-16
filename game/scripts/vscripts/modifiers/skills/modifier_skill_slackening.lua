@@ -8,20 +8,30 @@ function modifier_skill_slackening:IsPurgeException() return false end
 function modifier_skill_slackening:RemoveOnDeath() return false end
 function modifier_skill_slackening:AllowIllusionDuplicate() return true end
 
+function modifier_skill_slackening:OnCreated()
+    self.parent = self:GetParent()
+    self:StartIntervalThink(1)
+end
+
+function modifier_skill_slackening:OnIntervalThink()
+    if not IsServer() then return end
+    self.parent:CalculateStatBonus(true)
+end
+
 function modifier_skill_slackening:DeclareFunctions()
 	return 
 	{
-		MODIFIER_PROPERTY_EXTRA_HEALTH_PERCENTAGE,
-		MODIFIER_PROPERTY_EXTRA_MANA_PERCENTAGE,
+		MODIFIER_PROPERTY_HEALTH_BONUS,
+		MODIFIER_PROPERTY_MANA_BONUS,
 	}
 end
 
-function modifier_skill_slackening:GetModifierExtraManaPercentage()
-	return 20
+function modifier_skill_slackening:GetModifierHealthBonus()
+	return self.parent:GetStrength() / 5 * 22
 end
 
-function modifier_skill_slackening:GetModifierExtraHealthPercentage()
-	return 20
+function modifier_skill_slackening:GetModifierManaBonus()
+	return self.parent:GetIntellect() / 5 * 12
 end
 
 function modifier_skill_slackening:GetAuraRadius()

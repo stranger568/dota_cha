@@ -43,10 +43,6 @@
 		<Panel hittest="false" id="PlayerNamePanel">
 			<Label hittest="false" id="PlayerName" />
 		</Panel>
-		<Panel class="AegisCountPanel">
-			<Panel class="AegisIcon" />
-			<Label class="AegisCount" id="AegisCount" text="0" />
-		</Panel>
 		<Panel hittest="false" class="ScoreboardPlayer">
 			<Button id="TopHero" class="PlayerPortraitWrapper" onmouseactivate="HeroIconClicked(false);" ondblclick="HeroIconClicked(true);">
 				<Image hittest="false" id="HeroIcon" />
@@ -55,6 +51,10 @@
 			<Panel hittest="false" id="RespawnIndicator">
 				<Label hittest="false" id="RespawnTimer" text="123" />
 			</Panel>
+			<Panel id="AegisCountPanel" class="AegisCountPanel">
+
+			</Panel>
+			<Panel class="BorderImg" />
 		</Panel>
 		<Button class="TipButton" id="TipButtonCustom">
 			<Label class="TipText" id="TipText" text="Tip" />

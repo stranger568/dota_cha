@@ -1,13 +1,9 @@
 creature_ogreseal_flop = class({})
 LinkLuaModifier( "modifier_ogreseal_flop", "creature_ability/modifier/modifier_ogreseal_flop", LUA_MODIFIER_MOTION_BOTH )
 
---------------------------------------------------------------------------------
-
 function creature_ogreseal_flop:ProcsMagicStick()
 	return false
 end
-
---------------------------------------------------------------------------------
 
 function creature_ogreseal_flop:OnAbilityPhaseStart()
 	if IsServer() then
@@ -18,16 +14,12 @@ function creature_ogreseal_flop:OnAbilityPhaseStart()
 	return true
 end
 
---------------------------------------------------------------------------------
-
 function creature_ogreseal_flop:OnAbilityPhaseInterrupted()
 	if IsServer() then
 		self:GetCaster():RemoveGesture( ACT_DOTA_CAST_ABILITY_2 )
 		self:GetCaster():RemoveModifierByName( "modifier_techies_suicide_leap_animation" )
 	end
 end
-
---------------------------------------------------------------------------------
 
 function creature_ogreseal_flop:OnSpellStart()
 	if IsServer() then
@@ -46,8 +38,6 @@ function creature_ogreseal_flop:OnSpellStart()
 		self:GetCaster():EmitSound("OgreTank.Grunt")
 	end
 end
-
---------------------------------------------------------------------------------
 
 function creature_ogreseal_flop:TryToDamage()
 	if IsServer() then
@@ -94,6 +84,3 @@ function creature_ogreseal_flop:TryToDamage()
 		GridNav:DestroyTreesAroundPoint( self:GetCaster():GetOrigin(), radius, false )
 	end
 end
-
-
---------------------------------------------------------------------------------

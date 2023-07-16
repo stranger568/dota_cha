@@ -1,4 +1,4 @@
-	<root>
+<root>
 	<styles>
 		<include src="s2r://panorama/styles/dotastyles.css" />
 		<include src="file://{resources}/styles/custom_game/player_info.css" />
@@ -11,68 +11,15 @@
 
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel id="QuestFront" hittest="false" class="QuestFront damage_close">
+			<Label class="name_button" text="#day_quests"/>
 			<Panel class="QuestFrontButton" onactivate="QuestToggle();">
-				<Panel class="AlignCne">
-					<Panel class="ImgRotate">
-						<Panel class="ImageArrow" id="ButtonQuestFront" />
-					</Panel>
-					<Label text="Задания" class="QuestFrontButtonText" />
-				</Panel>
+				<Panel class="ImageArrow" id="ButtonQuestFront" />
 			</Panel>
-			<Panel id="QuestFrontList" class="QuestFrontList" />
-		</Panel>
-
-		<Panel class="PlayerInfoWindow sethidden" id="PlayerInfoWindow" hittest="false">
-			<Panel class="PlayerInfologo">
-				<Label text="#cha_PlayerInfo_profile" class = "PlayerInfoNameLabel"/>	
-				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenProfile();"/>
-			</Panel> 
-			<Panel class="ButtonsMenu">
-				<Panel class="ButtonMenu" id="ChatWheelSettings" onactivate="GameUI.CustomUIConfig().OpenChatWheel();">
-					<Panel class="AlignCenterB">
-						<Panel class="ImageButton" id="ChatWheelSettingsImage" />
-						<Label class="ButtonLabel" text="#change_chat_wheel_settings" />
-					</Panel>
+			<Panel class="QuestFull" id="QuestFull">
+				<Panel class="QuestHeader">
+					<Label text="#day_quests" class="QuestHeaderLabel" />
 				</Panel>
-				<Panel class="ButtonMenu" id="CustomizeSettings" onactivate="GameUI.CustomUIConfig().OpenCustomize();">
-					<Panel class="AlignCenterB">
-						<Panel class="ImageButton" id="CustomizeSettingsImage" />
-						<Label class="ButtonLabel" text="#customize_profile_settings" />
-					</Panel>
-				</Panel>
-				<Panel class="ButtonMenu" id="KeybindsSettings" onactivate="GameUI.CustomUIConfig().OpenKeybind();">
-					<Panel class="AlignCenterB">
-						<Panel class="ImageButton" id="KeybindsSettingsImage" />
-						<Label class="ButtonLabel" text="#change_keybind_settings" />
-					</Panel>
-				</Panel>
-				<Panel class="ButtonMenu" id="RecalibrSettings" onactivate="GameUI.CustomUIConfig().OpenCalibrate();">
-					<Panel class="AlignCenterB">
-						<Panel class="ImageButton" id="RecalibrSettingsImage" />
-						<Label class="ButtonLabelMini" text="#calibrate_settings" />
-					</Panel>
-				</Panel>
-			</Panel>
-
-			<Panel class="PanelPlayerInfoMain" id="PanelPlayerInfoMain">
-				<Panel class="PlayerMain">
-					<Panel class="ProfileBlock">
-						<DOTAAvatarImage steamid="local" class="AvatarLocal" />
-						<Panel class="InfoLocal">
-							<Label class="ArenaLevel" id="ArenaLevel" text="Arena Level 0" />
-							<Panel class="ArenaLevelPanel">
-								<Panel class="ArenaLevelPanelBG" />
-								<Panel class="ArenaLevelPanelProgress" id="ArenaLevelPanelProgress">
-									<DOTAParticleScenePanel id="ProgressBurner" hittest="false" particleName="particles/ui/ui_progressbar_burner_2.vpcf" particleonly="true" cameraOrigin="-350 0 0" lookAt="0 -350 0" fov="90" squarePixels="true"/>
-								</Panel>
-								<Label class="ArenaLevelPoints" id="ArenaLevelPoints" text="0 / 1000" />
-							</Panel>
-							<Label class="LevelReward" text="#level_reward"/>
-							<Label class="QuestBlockLabel" text="Ежедневные задания" />
-							<Panel class="QuestBlock" id="QuestBlock" />
-						</Panel>
-					</Panel>
-				</Panel>
+				<Panel id="QuestFrontList" class="QuestFrontList" />
 			</Panel>
 		</Panel>
 	</Panel>

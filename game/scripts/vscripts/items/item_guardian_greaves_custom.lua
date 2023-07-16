@@ -33,6 +33,7 @@ function item_guardian_greaves_custom:OnSpellStart()
 	
 		local particle_2 = ParticleManager:CreateParticle("particles/items3_fx/warmage_recipient.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
 		ParticleManager:SetParticleControl(particle_2, 0, hero:GetAbsOrigin())
+        ParticleManager:ReleaseParticleIndex(particle_2)
     end
 end
 
@@ -53,7 +54,6 @@ function modifier_item_guardian_greaves_custom:DeclareFunctions()
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE,
 		MODIFIER_PROPERTY_MANA_BONUS,
 		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
-		MODIFIER_EVENT_ON_TAKEDAMAGE,
 		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
 	}
 end

@@ -1,10 +1,8 @@
 modifier_creature_tear_armor = class({})
 
-
 function modifier_creature_tear_armor:GetTexture()
 	return "ursa_fury_swipes"
 end
-
 
 function modifier_creature_tear_armor:IsHidden()
 	return true
@@ -18,22 +16,18 @@ function modifier_creature_tear_armor:IsPurgable()
 	return false
 end
 
-function modifier_creature_tear_armor:DeclareFunctions()
-    local funcs = {
-    	--MODIFIER_EVENT_ON_ATTACK_LANDED,
-	}
-	return funcs
+function modifier_creature_tear_armor:OnCreated()
+    self.parent = self:GetParent()
 end
-
 
 function modifier_creature_tear_armor:AttackLandedModifier(params)
     if IsServer() then
-        if self:GetParent() == params.attacker then
+        if self.parent == params.attacker then
             local hTarget = params.target
             if hTarget ~= nil then
                 local hDebuff = hTarget:FindModifierByName("modifier_creature_berserk_debuff")
                 if hDebuff == nil then
-                    hDebuff = hTarget:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_creature_berserk_debuff", { duration = 12.0 })
+                    hDebuff = hTarget:AddNewModifier(self.parent, self:GetAbility(), "modifier_creature_berserk_debuff", { duration = 12.0 })
                     if hDebuff ~= nil then
                         hDebuff:SetStackCount(0)
                     end

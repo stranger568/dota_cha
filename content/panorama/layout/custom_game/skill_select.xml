@@ -14,7 +14,9 @@
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel class="SkillSelectorPanelRoot" id="SkillSelectorPanelRoot">
 			<Panel class="SkillSelectorPanel" id="SkillSelectorPanel">
-				<Label id="SkillSelectorTitle" text="#SkillSelectorTitle" />
+				<Panel class="HeaderSkill">
+					<Label id="SkillSelectorTitle" text="#SkillSelectorTitle" />
+				</Panel>
 				<Label id="SkillSelectorTitleTier" text="Tier 1" />
 				<Panel class="SkillSelectorSkillBody" id="SkillSelectorSkillBody" />
 			</Panel>

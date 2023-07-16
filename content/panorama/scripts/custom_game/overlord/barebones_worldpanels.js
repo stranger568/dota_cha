@@ -35,10 +35,8 @@ function WorldPanelChange(id, changes, dels) {
             wp.panel.OnEdge = false;
             wp.panel.OffScreen = false;
             wp.panel.Data = wp.data;
-            $.Msg("panel")
             wp.panel.DeleteWorldPanel = function(pan) {
                 return function() {
-                    $.Msg("delete")
                     pan.DeleteAsync(0);
                     delete panels[k];
                 }

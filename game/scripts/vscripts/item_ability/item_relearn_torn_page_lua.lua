@@ -7,6 +7,9 @@ function item_relearn_torn_page_lua:OnSpellStart()
 
 	if hCaster and hCaster:IsRealHero() and not hCaster:IsTempestDouble() and not hCaster:HasModifier("modifier_arc_warden_tempest_double_lua") then          
 	    if hPlayer then
+
+            print(hCaster.bRemovingAbility)
+
 	        if hCaster.bSelectingAbility or hCaster.bRemovingAbility or hCaster.bSelectingSpellBook or hCaster.bOmniscientBookRemoving or hCaster.bOmniscientBookSelectingAbility then
 	        	print("ошибка 1")
 	           	return

@@ -18,6 +18,20 @@ function modifier_broodmother_insatiable_hunger_custom:IsPurgable() return false
 function modifier_broodmother_insatiable_hunger_custom:IsPurgeException() return false end
 function modifier_broodmother_insatiable_hunger_custom:RemoveOnDeath() return false end
 
+function modifier_broodmother_insatiable_hunger_custom:OnCreated()
+    if not IsServer() then return end
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
+    self.damage_pct = self.ability:GetSpecialValueFor("damage_pct")
+end
+
+function modifier_broodmother_insatiable_hunger_custom:OnRefresh()
+    if not IsServer() then return end
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
+    self.damage_pct = self.ability:GetSpecialValueFor("damage_pct")
+end
+
 function modifier_broodmother_insatiable_hunger_custom:DeclareFunctions()
 	local funcs = 
 	{
@@ -28,9 +42,14 @@ end
 
 function modifier_broodmother_insatiable_hunger_custom:GetModifierPreAttack_BonusDamage(params)
 	if not IsServer() then return end
-	if not self:GetCaster():HasModifier("modifier_broodmother_insatiable_hunger") then return end
-	if self:GetCaster():PassivesDisabled() then return end
+	if not self.parent:HasModifier("modifier_broodmother_insatiable_hunger") then return end
+	if self.parent:PassivesDisabled() then return end
 	if params.target == nil then return end
-	local leech = params.target:GetMaxHealth() / 100 * self:GetAbility():GetSpecialValueFor("damage_pct")
-	return leech
+    local roshan_phys_immune_resist = 1
+    local roshan_phys_immune = params.target:FindAbilityByName("roshan_phys_immune")
+    if roshan_phys_immune then
+        roshan_phys_immune_resist = 1 - (roshan_phys_immune:GetSpecialValueFor("phys_immune") / 100)
+    end
+	local leech = params.target:GetMaxHealth() / 100 * self.damage_pct
+	return leech * roshan_phys_immune_resist
 end

@@ -29,32 +29,40 @@ function modifier_item_ranged_cleave_3:DeclareFunctions()
 end
 
 function modifier_item_ranged_cleave_3:OnCreated()
-	local ability = self:GetAbility()
-	self.cleave_radius = ability:GetSpecialValueFor("cleave_radius")
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
+    self.cleave_radius = self.ability:GetSpecialValueFor("cleave_radius")
+    self.bonus_str = self.ability:GetSpecialValueFor("bonus_str")
+    self.bonus_agi = self.ability:GetSpecialValueFor("bonus_agi")
+    self.bonus_dmg = self.ability:GetSpecialValueFor("bonus_dmg")
+    self.bonus_range = self.ability:GetSpecialValueFor("bonus_range")
+    self.cleave_dmg = self.ability:GetSpecialValueFor("cleave_dmg")
+    self.attack_speed = self.ability:GetSpecialValueFor("attack_speed")
+    self.bonus_damage_creeps_no_late = self.ability:GetSpecialValueFor("bonus_damage_creeps_no_late")
+    self.bonus_damage_creeps_late = self.ability:GetSpecialValueFor("bonus_damage_creeps_late")
+    if not IsServer() then return end
 end
 
 function modifier_item_ranged_cleave_3:GetModifierBonusStats_Strength()
-	return self:GetAbility():GetSpecialValueFor("bonus_str")
+	return self.bonus_str
 end
 
 function modifier_item_ranged_cleave_3:GetModifierBonusStats_Agility()
-	return self:GetAbility():GetSpecialValueFor("bonus_agi")
+	return self.bonus_agi
 end
 
 function modifier_item_ranged_cleave_3:GetModifierPreAttack_BonusDamage()
-	return self:GetAbility():GetSpecialValueFor("bonus_dmg")
+	return self.bonus_dmg
 end
 
 function modifier_item_ranged_cleave_3:GetModifierAttackRangeBonusUnique()
-	if self:GetParent():IsRangedAttacker() then
-		return self:GetAbility():GetSpecialValueFor("bonus_range")
+	if self.parent:IsRangedAttacker() then
+		return self.bonus_range
 	end
 end
 
 function modifier_item_ranged_cleave_3:GetModifierAttackSpeedBonus_Constant()
-	if self:GetAbility() then
-		return self:GetAbility():GetSpecialValueFor("attack_speed")
-	end
+	return self.attack_speed
 end
 
 function modifier_item_ranged_cleave_3:GetModifierProcAttack_BonusDamage_Physical( params )
@@ -63,19 +71,18 @@ function modifier_item_ranged_cleave_3:GetModifierProcAttack_BonusDamage_Physica
 	if not params.attacker:IsRangedAttacker() then return end
 	if params.attacker:GetTeam() == params.target:GetTeam() then return end
 	if params.target:IsBuilding() then return end
-	if self:GetParent().anchor_attack_talent then return end
-	if self:GetParent().bCanTriggerLock then return end
+	if self.parent.anchor_attack_talent then return end
+	if self.parent.bCanTriggerLock then return end
 	if params.no_attack_cooldown then return end
-	if self:GetParent():HasModifier("modifier_muerta_pierce_the_veil_buff") then return end
-	if self:GetParent():IsTempestDouble() or self:GetParent():HasModifier("modifier_arc_warden_tempest_double_lua") then return end
-	if self:GetParent():FindAllModifiersByName("modifier_item_ranged_cleave_3")[1] == self and not params.target:IsHero() then
+	if self.parent:HasModifier("modifier_muerta_pierce_the_veil_buff") then return end
+	if self.parent:FindAllModifiersByName("modifier_item_ranged_cleave_3")[1] == self and not params.target:IsHero() then
 		local bonus = 0
-		if self:GetParent():HasModifier("modifier_skill_eternalist") then
+		if self.parent:HasModifier("modifier_skill_eternalist") then
 			bonus = 90
 		end
-		local percentage_damage = params.original_damage / 100 * (self:GetAbility():GetSpecialValueFor("bonus_damage_creeps_no_late") + bonus)
+		local percentage_damage = params.original_damage / 100 * (self.bonus_damage_creeps_no_late + bonus)
 		if GameMode.currentRound and GameMode.currentRound.nRoundNumber > 60 then
-			percentage_damage = params.original_damage / 100 * (self:GetAbility():GetSpecialValueFor("bonus_damage_creeps_late") + bonus)
+			percentage_damage = params.original_damage / 100 * (self.bonus_damage_creeps_late + bonus)
 		end
 		return percentage_damage
 	end
@@ -86,13 +93,11 @@ function modifier_item_ranged_cleave_3:AttackLandedModifier(params)
 	if not params.attacker:IsRealHero() or not params.attacker:IsRangedAttacker() then return end
 	if params.attacker:GetTeam() == params.target:GetTeam() then return end
 	if params.target:IsBuilding() then return end
-	if self:GetParent().anchor_attack_talent then return end
-	if self:GetParent().bCanTriggerLock then return end
+	if self.parent.anchor_attack_talent then return end
+	if self.parent.bCanTriggerLock then return end
 	if params.no_attack_cooldown then return end
-	if self:GetParent():HasModifier("modifier_muerta_pierce_the_veil_buff") then return end
-	if self:GetParent():IsTempestDouble() or self:GetParent():HasModifier("modifier_arc_warden_tempest_double_lua") then return end
-	
-	local frostivus2018_clinkz_searing_arrows = self:GetParent():FindAbilityByName("frostivus2018_clinkz_searing_arrows")
+	if self.parent:HasModifier("modifier_muerta_pierce_the_veil_buff") then return end
+	local frostivus2018_clinkz_searing_arrows = self.parent:FindAbilityByName("frostivus2018_clinkz_searing_arrows")
 	if frostivus2018_clinkz_searing_arrows then
 		if frostivus2018_clinkz_searing_arrows:GetAutoCastState() then
 			if params.no_attack_cooldown then
@@ -100,11 +105,8 @@ function modifier_item_ranged_cleave_3:AttackLandedModifier(params)
 			end
 		end
 	end
-
-	local ability = self:GetAbility()
 	local target_loc = params.target:GetAbsOrigin()
 	local fury_swipes_damage = 0
-	
 	if params.attacker:HasAbility("ursa_fury_swipes") and params.target:HasModifier("modifier_ursa_fury_swipes_damage_increase") then
 		local ursa_swipes = params.attacker:FindAbilityByName("ursa_fury_swipes")
 		if ursa_swipes and not ursa_swipes:IsNull() then
@@ -112,38 +114,28 @@ function modifier_item_ranged_cleave_3:AttackLandedModifier(params)
 			fury_swipes_damage = stacks * ursa_swipes:GetSpecialValueFor("damage_per_stack")
 		end
 	end
-
 	local bonus = 0
-	if self:GetParent():HasModifier("modifier_skill_eternalist") then
+	if self.parent:HasModifier("modifier_skill_eternalist") then
 		bonus = 90
 	end
-
-	local percentage_damage = params.original_damage / 100 * (self:GetAbility():GetSpecialValueFor("bonus_damage_creeps_no_late") + bonus)
+	local percentage_damage = params.original_damage / 100 * (self.bonus_damage_creeps_no_late + bonus)
 	if GameMode.currentRound and GameMode.currentRound.nRoundNumber > 60 then
-		percentage_damage = params.original_damage / 100 * (self:GetAbility():GetSpecialValueFor("bonus_damage_creeps_late") + bonus)
+		percentage_damage = params.original_damage / 100 * (self.bonus_damage_creeps_late + bonus)
 	end
-
 	local splash_damage = params.original_damage + fury_swipes_damage
-
-	local cleave_dmg = self:GetAbility():GetSpecialValueFor("cleave_dmg")
-
-	if self:GetParent():HasModifier("modifier_skill_splash") then
-		cleave_dmg = cleave_dmg + 40
+	local cleave_dmg = self.cleave_dmg
+	if self.parent:HasModifier("modifier_skill_splash") then
+		cleave_dmg = cleave_dmg + 30
 	end
-
 	splash_damage = splash_damage * cleave_dmg * 0.01
-
-	local modifier_dragon_knight_elder_dragon_form_custom = self:GetParent():FindModifierByName("modifier_dragon_knight_elder_dragon_form_custom")
+	local modifier_dragon_knight_elder_dragon_form_custom = self.parent:FindModifierByName("modifier_dragon_knight_elder_dragon_form_custom")
 	if modifier_dragon_knight_elder_dragon_form_custom then
 		splash_damage = splash_damage + (params.damage * modifier_dragon_knight_elder_dragon_form_custom.splash_pct)
 	end
-
-	print(params.damage, params.original_damage)
-
-	local enemies = FindUnitsInRadius(params.attacker:GetTeamNumber(), target_loc, nil, self.cleave_radius, ability:GetAbilityTargetTeam(), ability:GetAbilityTargetType(), ability:GetAbilityTargetFlags(), FIND_ANY_ORDER, false)
+	local enemies = FindUnitsInRadius(params.attacker:GetTeamNumber(), target_loc, nil, self.cleave_radius, self.ability:GetAbilityTargetTeam(), self.ability:GetAbilityTargetType(), self.ability:GetAbilityTargetFlags(), FIND_ANY_ORDER, false)
 	for _, enemy in pairs(enemies) do
 		if enemy ~= params.target then
-			ApplyDamage({ victim = enemy, attacker = params.attacker, damage = splash_damage, damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION, ability = ability})
+			ApplyDamage({ victim = enemy, attacker = params.attacker, damage = splash_damage, damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION, ability = self.ability})
 			if modifier_dragon_knight_elder_dragon_form_custom then
 				modifier_dragon_knight_elder_dragon_form_custom:Corrosive( enemy )
 			end

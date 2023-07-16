@@ -155,21 +155,14 @@ function modifier_liquid_fire_lua_orb:OnDestroy()
 	end
 end
 
-function modifier_liquid_fire_lua_orb:DeclareFunctions() 
-	return 
-	{
-		--MODIFIER_EVENT_ON_ATTACK, 
-		MODIFIER_EVENT_ON_ATTACK_LANDED
-	} 
-end
-
 function modifier_liquid_fire_lua_orb:AttackModifier(keys)
 	if not IsServer() then
 		return 
 	end
-	if keys.attacker ~= self:GetParent() or self:GetParent():IsSilenced() or self:GetParent():IsIllusion() or not self:GetAbility():IsCooldownReady() or not self:GetAbility():GetAutoCastState() then
+	if keys.attacker ~= self:GetParent() then
 		return
 	end
+    if self:GetParent():IsSilenced() or self:GetParent():IsIllusion() or not self:GetAbility():IsCooldownReady() or not self:GetAbility():GetAutoCastState() then return end
 	self:SetStackCount(1)
 	self:GetParent():StartGesture(ACT_DOTA_ATTACK2)
 	self:GetAbility():UseResources(true, false, true, true)
@@ -179,9 +172,10 @@ function modifier_liquid_fire_lua_orb:AttackLandedModifier(keys)
 	if not IsServer() then
 		return 
 	end
-	if keys.attacker ~= self:GetParent() or self:GetParent():IsIllusion() then
+	if keys.attacker ~= self:GetParent() then
 		return
 	end
+    if self:GetParent():IsIllusion() then return end
 	if self:GetStackCount() ~= 1 then
 		return
 	end

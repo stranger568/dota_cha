@@ -39,5 +39,5 @@ function modifier_aegis_buff_rebirth:GetModifierIncomingDamage_Percentage()
 end
 
 function modifier_aegis_buff_rebirth:GetModifierTotalDamageOutgoing_Percentage()
-     return 15
+     return 40
 end

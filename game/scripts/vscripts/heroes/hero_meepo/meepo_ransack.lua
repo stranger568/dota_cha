@@ -13,6 +13,13 @@ function modifier_meepo_ransack_custom:IsPurgable() return false end
 function modifier_meepo_ransack_custom:IsPurgeException() return false end
 function modifier_meepo_ransack_custom:RemoveOnDeath() return false end
 
+function modifier_meepo_ransack_custom:OnCreated()
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
+    self.damage = self.ability:GetSpecialValueFor("damage_physical")
+    self.dur = self.ability:GetSpecialValueFor("duration_debuff")
+end
+
 function modifier_meepo_ransack_custom:DeclareFunctions()
 	local funcs = 
 	{
@@ -24,22 +31,28 @@ end
 function modifier_meepo_ransack_custom:GetModifierPreAttack_BonusDamage(params)
 	if not IsServer() then return end
 	if params.target == nil then return end
-	local leech = params.target:GetMaxHealth() / 100 * self:GetAbility():GetSpecialValueFor("damage_physical")
-	return leech
+    if params.attacker:PassivesDisabled() then return end
+    local roshan_phys_immune_resist = 1
+    local roshan_phys_immune = params.target:FindAbilityByName("roshan_phys_immune")
+    if roshan_phys_immune then
+        roshan_phys_immune_resist = 1 - (roshan_phys_immune:GetSpecialValueFor("phys_immune") / 100)
+    end
+	local leech = params.target:GetMaxHealth() / 100 * self.damage
+	return leech * roshan_phys_immune_resist
 end
 
 function modifier_meepo_ransack_custom:TakeDamageScriptModifier( params )
 	if not IsServer() then return end
-	if params.unit == self:GetParent() then return end
-	if params.attacker ~= self:GetParent() then return end
+	if params.unit == self.parent then return end
+	if params.attacker ~= self.parent then return end
 	if params.attacker:PassivesDisabled() then return end
 	if params.attacker:IsIllusion() then return end
 	if params.no_attack_cooldown then return end
 	if params.inflictor ~= nil then return end
-	local leech = params.unit:GetMaxHealth() / 100 * self:GetAbility():GetSpecialValueFor("damage_physical")
-	self:GetParent():Heal(leech, self:GetAbility())
-	local duration = self:GetAbility():GetSpecialValueFor("duration_debuff")
-    params.unit:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_meepo_ransack_custom_debuff", {duration = duration})
+	local leech = params.unit:GetMaxHealth() / 100 * self.damage
+	self.parent:Heal(leech, self.ability)
+	local duration = self.dur
+    params.unit:AddNewModifier(self.parent, self.ability, "modifier_meepo_ransack_custom_debuff", {duration = duration})
 end
 
 modifier_meepo_ransack_custom_debuff = class({})

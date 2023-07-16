@@ -12,14 +12,6 @@ function modifier_faceless_void_time_lock_custom:IsPurgable()			return false end
 function modifier_faceless_void_time_lock_custom:IsDebuff()			return false end
 function modifier_faceless_void_time_lock_custom:IsHidden()			return true end
 
-function modifier_faceless_void_time_lock_custom:DeclareFunctions()
-	local funcs = 
-	{ 
-		--MODIFIER_EVENT_ON_ATTACK_LANDED 
-	}
-	return funcs
-end
-
 function modifier_faceless_void_time_lock_custom:OnCreated()
 	if IsServer() then
 		self:GetParent().bCanTriggerLock=false

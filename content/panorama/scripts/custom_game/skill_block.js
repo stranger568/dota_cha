@@ -76,7 +76,7 @@ function UpdateHeroHudBuffs()
         }
     }
 
-    $.Schedule(1/144, UpdateHeroHudBuffs)
+    $.Schedule(0.1, UpdateHeroHudBuffs)
 }
 
 function HasModifier(unit, modifier) 

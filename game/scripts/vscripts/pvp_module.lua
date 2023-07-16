@@ -232,6 +232,14 @@ function PvpModule:PrepareTeamPvp()
 						  	CustomGameEventManager:Send_ServerToPlayer(hPlayer,"ShowPvpBet",{players=dataList,firstTeamId=pair.nFirstTeamId,secondTeamId=pair.nSecondeTeamId,bet_ui_secret=hHero.sBetUISecret} )   
 						end
 					end
+					if true then
+						local hPlayer = PlayerResource:GetPlayer(nPlayerID)
+						local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
+						if hPlayer and hHero and hHero:GetTeamNumber() == DOTA_TEAM_CUSTOM_7 then
+							hHero.sBetUISecret = CreateSecretKey()
+						  	CustomGameEventManager:Send_ServerToPlayer(hPlayer,"ShowPvpBet",{players=dataList,firstTeamId=pair.nFirstTeamId,secondTeamId=pair.nSecondeTeamId,bet_ui_secret=hHero.sBetUISecret} )
+						end
+					end
 				end
 				if PlayerResource:IsValidPlayer(nPlayerID) then
 					if GameMode.vAliveTeam[PlayerResource:GetTeam( nPlayerID )] then
@@ -285,6 +293,14 @@ function PvpModule:PrepareSinglePvp()
 						local hPlayer = PlayerResource:GetPlayer(nPlayerID)
 						local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
 						if hPlayer and hHero then
+					  		hHero.sBetUISecret = CreateSecretKey()
+					  		CustomGameEventManager:Send_ServerToPlayer(hPlayer,"ShowPvpBet",{players=dataList,firstTeamId=PlayerResource:GetTeam(pair.nFirstPlayerId) ,secondTeamId=PlayerResource:GetTeam(pair.nSecondePlayerId),bet_ui_secret=hHero.sBetUISecret} )   
+						end
+					end
+					if true then
+						local hPlayer = PlayerResource:GetPlayer(nPlayerID)
+						local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
+						if hPlayer and hHero and hHero:GetTeamNumber() == DOTA_TEAM_CUSTOM_7 then
 					  		hHero.sBetUISecret = CreateSecretKey()
 					  		CustomGameEventManager:Send_ServerToPlayer(hPlayer,"ShowPvpBet",{players=dataList,firstTeamId=PlayerResource:GetTeam(pair.nFirstPlayerId) ,secondTeamId=PlayerResource:GetTeam(pair.nSecondePlayerId),bet_ui_secret=hHero.sBetUISecret} )   
 						end
@@ -538,7 +554,8 @@ function PvpModule:ConfirmBet(keys)
 
 	hHero:SpendGold(nValue, DOTA_ModifyGold_Unspecified)
 	hHero:EmitSound("DOTA_Item.Hand_Of_Midas")
-	ParticleManager:CreateParticle("particles/econ/items/ogre_magi/ogre_magi_arcana/ogre_magi_arcana_midas_coinshower.vpcf", PATTACH_ABSORIGIN, hHero)
+	local particle = ParticleManager:CreateParticle("particles/econ/items/ogre_magi/ogre_magi_arcana/ogre_magi_arcana_midas_coinshower.vpcf", PATTACH_ABSORIGIN, hHero)
+    ParticleManager:ReleaseParticleIndex(particle)
 end
 
 
@@ -932,7 +949,7 @@ end
 function PvpModule:RewardWinnerBonus(nPlayerId,nBonusGold)
 	local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerId)
 	if hHero and hHero:HasModifier("modifier_skill_benefiter") then
-		nBonusGold = nBonusGold + (nBonusGold / 100 * 25)
+		nBonusGold = nBonusGold + (nBonusGold / 100 * 35)
 	end
 	local nParticle1 = ParticleManager:CreateParticle("particles/econ/events/ti6/teleport_start_ti6.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, hHero)
 	ParticleManager:SetParticleControlEnt(nParticle1, 0, hHero, PATTACH_POINT_FOLLOW, "attach_hitloc", hHero:GetOrigin(), true)
@@ -951,7 +968,7 @@ end
 function PvpModule:RewardBetBonus(nPlayerId, nBonusGold)
 	local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerId)
 	if hHero and hHero:HasModifier("modifier_skill_gambler") then
-		nBonusGold = nBonusGold + (nBonusGold / 100 * 20)
+		nBonusGold = nBonusGold + (nBonusGold / 100 * 15)
 	end
 	Quests_arena:QuestProgress(nPlayerId, 25, 1, nBonusGold)
 	Quests_arena:QuestProgress(nPlayerId, 67, 2, nBonusGold)
@@ -967,7 +984,7 @@ end
 function PvpModule:RewardBetLoseBonus(nPlayerId, nBonusGold)
 	local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerId)
 	if hHero and (hHero:HasModifier("modifier_skill_benefiter") or hHero:HasModifier("modifier_skill_gambler")) then
-		local cashback = nBonusGold / 100 * 15
+		local cashback = nBonusGold / 100 * 10
 		if cashback > 0 then
 			SendOverheadEventMessage(hHero, OVERHEAD_ALERT_GOLD, hHero, cashback, nil)
 			PlayerResource:ModifyGold(nPlayerId, cashback, true, DOTA_ModifyGold_GameTick)
@@ -1226,7 +1243,8 @@ function PvpModule:BotAutoBet(nPlayerID)
 
 	hHero.nBotSpendGold = hHero.nBotSpendGold + nValue
 	hHero:EmitSound("DOTA_Item.Hand_Of_Midas")
-	ParticleManager:CreateParticle("particles/econ/items/ogre_magi/ogre_magi_arcana/ogre_magi_arcana_midas_coinshower.vpcf", PATTACH_ABSORIGIN, hHero)
+	local particle = ParticleManager:CreateParticle("particles/econ/items/ogre_magi/ogre_magi_arcana/ogre_magi_arcana_midas_coinshower.vpcf", PATTACH_ABSORIGIN, hHero)
+    ParticleManager:ReleaseParticleIndex(particle)
 end
 
 function PvpModule:RefreshTeamHero(nTeamID)

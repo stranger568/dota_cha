@@ -14,6 +14,7 @@ function modifier_duel_curse:OnIntervalThink()
     if not IsServer() then return end
     local hp = self:GetParent():GetHealth()
     local max_hp = self:GetParent():GetMaxHealth()
+
     local new_hp = hp - max_hp * 0.005
 
     if new_hp < 2 then
@@ -122,6 +123,12 @@ function modifier_duel_curse_cooldown:OnIntervalThink()
     if skeleton_king_reincarnation then
         if skeleton_king_reincarnation:IsCooldownReady() then
             skeleton_king_reincarnation:StartCooldown(10)
+        end
+    end
+    local phoenix_supernova = self:GetParent():FindAbilityByName("phoenix_supernova")
+    if phoenix_supernova then
+        if phoenix_supernova:IsCooldownReady() then
+            phoenix_supernova:StartCooldown(10)
         end
     end
 end

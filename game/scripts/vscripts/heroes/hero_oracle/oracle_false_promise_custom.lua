@@ -143,6 +143,9 @@ function modifier_oracle_false_promise_custom:DeclareFunctions()
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_MIN_HEALTH,
 		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
+        MODIFIER_PROPERTY_ALWAYS_AUTOATTACK_WHILE_HOLD_POSITION,
+        MODIFIER_PROPERTY_INVISIBILITY_ATTACK_BEHAVIOR_EXCEPTION,
+        MODIFIER_PROPERTY_PERSISTENT_INVISIBILITY,
 	}
 end
 
@@ -215,4 +218,15 @@ function modifier_oracle_false_promise_custom:OnAbilityfullCastCustom(keys)
 		self.invis_modifier:Destroy()
 		self:StartIntervalThink(self:GetAbility():GetSpecialValueFor("shard_fade_time"))
 	end
+end
+
+function modifier_oracle_false_promise_custom:GetModifierInvisibilityAttackBehaviorException()
+    return 1
+end
+
+function modifier_oracle_false_promise_custom:GetModifierPersistentInvisibility()
+    return 1
+end
+function modifier_oracle_false_promise_custom:GetAlwaysAutoAttackWhileHoldPosition()
+    return 1
 end

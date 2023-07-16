@@ -52,13 +52,6 @@ function modifier_gyrocopter_flak_cannon_lua:GetEffectName()
     return "particles/units/heroes/hero_gyrocopter/gyro_flak_cannon_overhead.vpcf"
 end
 
-
-function modifier_gyrocopter_flak_cannon_lua:DeclareFunctions()
-	return {
-		--MODIFIER_EVENT_ON_ATTACK
-	}
-end
-
 function modifier_gyrocopter_flak_cannon_lua:AttackModifier(params)
 
 	if params.attacker~=self:GetParent() then return end

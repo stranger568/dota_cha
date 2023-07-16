@@ -48,8 +48,8 @@ function modifier_abaddon_borrowed_time_custom:OnCreated()
 end
 
 function modifier_abaddon_borrowed_time_custom:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_TAKEDAMAGE,
+	local funcs = 
+    {
 		MODIFIER_EVENT_ON_STATE_CHANGED
 	}
 

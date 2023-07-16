@@ -1,316 +1,405 @@
- .DiscordPanel
- {
-  background-size: 100%;
-  background-image: url("file://{images}/custom_game/discord.png");
-  width: 230px;
-  height: 230px;
-  img-shadow: 0px 0px 8px 3.0 black;
-       align: left top;
-       margin-top: 200px;
-       margin-left: 20px;
-     z-index: 5;
-         animation-name: discord;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+ .DiscordPanel {
+ 	background-size: 100%;
+ 	background-image: url("file://{images}/custom_game/discord.png");
+ 	width: 230px;
+ 	height: 230px;
+ 	img-shadow: 0px 0px 8px 3.0 black;
+ 	align: left top;
+ 	margin-top: 200px;
+ 	margin-left: 20px;
+ 	z-index: 5;
+ 	animation-name: discord;
+ 	animation-duration: 2s;
+ 	animation-timing-function: linear;
+ 	animation-iteration-count: infinite;
  }
 
- .DiscordPanel:hover
- {
-    brightness: 1.2;
- }
- .DiscordPanel:active
- {
-    brightness: 0.8;
+ .DiscordPanel:hover {
+ 	brightness: 1.2;
  }
 
-@keyframes 'discord'
-{
-    0%
-    {
-        img-shadow: 0px 0px 8px 8.0 black;
-    }
-    50%
-    {
-        img-shadow: 0px 0px 8px 3.0 black;
-    }
-    100%
-    {
-        img-shadow: 0px 0px 8px 8.0 black;
-    }
-}
-
-#Movie
-{
-    width: 100%;
-    height: 100%;
-}
-
-#TipContainer{
-     margin-top: 200px;
-     margin-left: 950px;
-     width: 500px;
-     height: 60px;
-     border-radius: 8px;
-     padding: 8px;
-     background-color: gradient( linear, 0% 0%, 0% 100%, from( #272d2eee ), to( #131617ee ) );
-     box-shadow: #868686a8 0px 0px 5px 1px;
-     z-index: 1;
-     opacity: 0;
-}
- #TipText{
-
-     horizontal-align:center;
-
-     margin-right: 8px;
-     margin-left: 8px;
-     max-width: 500px;
-     height: 100%;
-     padding: 2px;
+ .DiscordPanel:active {
+ 	brightness: 0.8;
  }
- #TipText > Label{
 
+ @keyframes 'discord'
 
-   vertical-align: center;
-   color: #ffffff;
-   text-overflow: shrink;
+ 	{
+ 	0% {
+ 		img-shadow: 0px 0px 8px 8.0 black;
+ 	}
+
+ 	50% {
+ 		img-shadow: 0px 0px 8px 3.0 black;
+ 	}
+
+ 	100% {
+ 		img-shadow: 0px 0px 8px 8.0 black;
+ 	}
  }
- #PrevTip{
 
-     horizontal-align:left;
-     background-image: url("s2r://panorama/images/custom_game/extract/arrow_solid_left_png.vtex");
+ #Movie {
+ 	width: 100%;
+ 	height: 100%;
  }
- #NextTip{
 
-     horizontal-align:right;
-     background-image: url("s2r://panorama/images/custom_game/extract/arrow_solid_right_png.vtex");
+ #TipContainer {
+ 	margin-top: 200px;
+ 	margin-left: 950px;
+ 	width: 500px;
+ 	height: 60px;
+ 	border-radius: 8px;
+ 	padding: 8px;
+ 	background-color: gradient(linear, 0% 0%, 0% 100%, from(#272d2eee), to(#131617ee));
+ 	box-shadow: #868686a8 0px 0px 5px 1px;
+ 	z-index: 1;
+ 	opacity: 0;
  }
- .TipButton{
 
-     vertical-align: center;
-     width: 18px;
-     height: 18px;
-     background-size: 80% 80%;
-     background-position: 50% 50%;
-     background-repeat: no-repeat;
-     wash-color:white;
-}
+ #TipText {
 
-.LoadingScreenCup
-{
-    width: 100%;
-    height: 100%;
-    background-size: 100%;
-    background-image: url("file://{images}/custom_game/cup/bg.png");
-}
+ 	horizontal-align: center;
 
-.LoadingScreenTextGreen
-{
-    font-family: Radiance;
-    font-weight: bold;
-    font-size: 20px;
-    color: #7AFF58;
-    text-shadow: 0px 0px 12px 0 rgba(122, 255, 88, 0.15);
-}
+ 	margin-right: 8px;
+ 	margin-left: 8px;
+ 	max-width: 500px;
+ 	height: 100%;
+ 	padding: 2px;
+ }
 
-.LoadingScreenTextGreenSmall
-{
-    font-family: Radiance;
-    font-weight: bold;
-    font-size: 20px;
-    color: #7AFF58;
-}
-
-.LoadingScreenTextWhite
-{
-    font-family: Radiance;
-    font-weight: bold;
-    font-size: 28px;
-    color: #FFFFFF;
-}
-
-.LoadingScreenTextWhiteSmall
-{
-    font-family: Radiance;
-    font-weight: bold;
-    font-size: 20px;
-    color: #FFFFFF;
-}
-
-.RightInfo
-{
-    flow-children: down;
-    align: center bottom;
-    margin-bottom: 60px;
-    margin-left: 470px;
-}
-
-.FlowChildrenRight
-{
-    flow-children: right;
-    margin-top: 7px;
-}
-
-#loading_inf_2
-{
-    horizontal-align: center;
-}
-
-#loading_inf_7
-{
-
-}
-
-#loading_inf_1
-{
-    horizontal-align: center;
-}
-
-#loading_inf_8
-{
-    vertical-align: center;
-}
-#loading_inf_22
-{
-    vertical-align: center;
-    margin-left: 5px;
-}
-#loading_inf_9
-{
-    vertical-align: center;
-}
-#loading_inf_23
-{
-    vertical-align: center;
-    margin-left: 5px;
-}
-
-.LeftInfo
-{
-    flow-children: down;
-    align: center bottom;
-    margin-bottom: 125px;
-    margin-right: 470px;
-}
+ #TipText>Label {
 
 
-#loading_inf_4
-{
-    font-size: 20px;
-    text-decoration: underline;
-}
-#loading_inf_5
-{
-    font-size: 20px;
-    text-decoration: underline;
-}
-#loading_inf_6
-{
-    font-size: 20px;
-    text-decoration: underline;
-}
-#loading_inf_3
-{
+ 	vertical-align: center;
+ 	color: #ffffff;
+ 	text-overflow: shrink;
+ }
 
-}
-.Links
-{
-    flow-children: right;
-}
+ #PrevTip {
 
-.SiteFlow
-{
-    margin-left: 10px;margin-right: 10px;
-    margin-top: 5px;
-    flow-children: right;
-}
+ 	horizontal-align: left;
+ 	background-image: url("s2r://panorama/images/custom_game/extract/arrow_solid_left_png.vtex");
+ }
 
-.LinkImage
-{
-    margin-bottom: 3px;
-    width: 12px;
-    height: 12px;
-    vertical-align: bottom;
-    background-size: 100%;
-    background-image: url("file://{images}/custom_game/cup/link.png");
-}
+ #NextTip {
 
-#siteflow1
-{
-    margin-left: 0px;
-}
+ 	horizontal-align: right;
+ 	background-image: url("s2r://panorama/images/custom_game/extract/arrow_solid_right_png.vtex");
+ }
 
-#loading_inf_4:hover
-{
-    brightness: 1.5;
-}
-#loading_inf_5:hover
-{
-    brightness: 1.5;
-}
-#loading_inf_6:hover
-{
-    brightness: 1.5;
-}
+ .TipButton {
 
-.CenterFlow
-{
-    align: center bottom;
-    margin-bottom: 10px;
-    flow-children: right;
-}
-.TextGrayCenter
-{
-    font-size: 14px;
-    color: gray;
-    font-weight: bold;
-}
-#linktyt
-{
-    text-decoration: underline;
-}
-#linktyt:hover
-{
-    color: white;
-}
-.LinkImage2
-{
-    margin-bottom: 3px;
-    margin-left: 3px;
-    width: 12px;
-    height: 12px;
-    vertical-align: bottom;
-    background-size: 100%;
-    background-image: url("file://{images}/custom_game/cup/link.png");
-}
+ 	vertical-align: center;
+ 	width: 18px;
+ 	height: 18px;
+ 	background-size: 80% 80%;
+ 	background-position: 50% 50%;
+ 	background-repeat: no-repeat;
+ 	wash-color: white;
+ }
+
+ .LoadingScreenCup {
+ 	width: 100%;
+ 	height: 100%;
+
+ }
+
+ .LoadingScreenTextGreen {
+ 	font-family: Radiance;
+ 	font-weight: bold;
+ 	font-size: 20px;
+ 	color: #7AFF58;
+ 	text-shadow: 0px 0px 12px 0 rgba(122, 255, 88, 0.15);
+ }
+
+ .LoadingScreenTextGreenSmall {
+ 	font-family: Radiance;
+ 	font-weight: bold;
+ 	font-size: 20px;
+ 	color: #7AFF58;
+ }
+
+ .LoadingScreenTextWhite {
+ 	font-family: Radiance;
+ 	font-weight: bold;
+ 	font-size: 28px;
+ 	color: #FFFFFF;
+ }
+
+ .LoadingScreenTextWhiteSmall {
+ 	font-family: Radiance;
+ 	font-weight: bold;
+ 	font-size: 20px;
+ 	color: #FFFFFF;
+ }
+
+ .RightInfo {
+ 	flow-children: down;
+ 	align: center bottom;
+ 	margin-bottom: 60px;
+ 	margin-left: 470px;
+ }
+
+ .FlowChildrenRight {
+ 	flow-children: right;
+ 	margin-top: 7px;
+ }
+
+ #loading_inf_2 {
+ 	horizontal-align: center;
+ }
+
+ #loading_inf_7 {}
+
+ #loading_inf_1 {
+ 	horizontal-align: center;
+ }
+
+ #loading_inf_8 {
+ 	vertical-align: center;
+ }
+
+ #loading_inf_22 {
+ 	vertical-align: center;
+ 	margin-left: 5px;
+ }
+
+ #loading_inf_9 {
+ 	vertical-align: center;
+ }
+
+ #loading_inf_23 {
+ 	vertical-align: center;
+ 	margin-left: 5px;
+ }
+
+ .LeftInfo {
+ 	flow-children: down;
+ 	align: center bottom;
+ 	margin-bottom: 125px;
+ 	margin-right: 470px;
+ }
 
 
-.PanelBanHeroes
-{
-    width: 300px;
-    height: 62px;
-    vertical-align: center;
-    margin-left: 25px;
-    background-size: 100%;
-    z-index: 155;
-    opacity: 0;
-    background-image: url("file://{images}/custom_game/ban_button.png");
-}
-.PanelBanHeroesPassOnly
-{
-    width: 100px;
-    height: 32px;
-    vertical-align: center;
-    margin-top: 145px;
-    margin-left: 25px;
-    background-size: 100%;
-    z-index: 155;
-    opacity: 1;
-    background-image: url("file://{images}/custom_game/ban_button.png");
-}
-.BanHeroesLabel
-{
-    align: center center;
-    text-shadow: 0px 0px 3px 3 black;
-    color: white;
-}
+ #loading_inf_4 {
+ 	font-size: 20px;
+ 	text-decoration: underline;
+ }
+
+ #loading_inf_5 {
+ 	font-size: 20px;
+ 	text-decoration: underline;
+ }
+
+ #loading_inf_6 {
+ 	font-size: 20px;
+ 	text-decoration: underline;
+ }
+
+ #loading_inf_3 {}
+
+ .Links {
+ 	flow-children: right;
+ }
+
+ .SiteFlow {
+ 	margin-left: 10px;
+ 	margin-right: 10px;
+ 	margin-top: 5px;
+ 	flow-children: right;
+ }
+
+ .LinkImage {
+ 	margin-bottom: 3px;
+ 	width: 12px;
+ 	height: 12px;
+ 	vertical-align: bottom;
+ 	background-size: 100%;
+ 	background-image: url("file://{images}/custom_game/cup/link.png");
+ }
+
+ #siteflow1 {
+ 	margin-left: 0px;
+ }
+
+ #loading_inf_4:hover {
+ 	brightness: 1.5;
+ }
+
+ #loading_inf_5:hover {
+ 	brightness: 1.5;
+ }
+
+ #loading_inf_6:hover {
+ 	brightness: 1.5;
+ }
+
+ .CenterFlow {
+ 	align: center bottom;
+ 	margin-bottom: 10px;
+ 	flow-children: right;
+ }
+
+ .TextGrayCenter {
+ 	font-size: 14px;
+ 	color: gray;
+ 	font-weight: bold;
+ }
+
+ #linktyt {
+ 	text-decoration: underline;
+ }
+
+ #linktyt:hover {
+ 	color: white;
+ }
+
+ .LinkImage2 {
+ 	margin-bottom: 3px;
+ 	margin-left: 3px;
+ 	width: 12px;
+ 	height: 12px;
+ 	vertical-align: bottom;
+ 	background-size: 100%;
+ 	background-image: url("file://{images}/custom_game/cup/link.png");
+ }
+
+
+ .PanelBanHeroes {
+ 	width: 270px;
+ 	height: 45px;
+ 	vertical-align: center;
+ 	margin-left: 25px;
+ 	background-size: 100%;
+ 	z-index: 155;
+ 	opacity: 0;
+ 	background-image: url("file://{images}/custom_game/ban_button.png");
+ 	box-shadow: 0px 0px 10px rgba(212, 255, 89, 0.03);
+ 	transition-property: box-shadow;
+ 	transition-duration: 0.2s;
+ }
+
+ .PanelBanHeroes:hover {
+ 	box-shadow: 0px 0px 10px rgba(255, 89, 247, 0.1);
+ }
+
+ .PanelBanHeroes:active {
+ 	box-shadow: 0px 0px 10px rgba(255, 89, 191, 0.2);
+ }
+
+ .BanHeroesLabel {
+ 	align: center center;
+ 	text-shadow: 0px 0px 3px 3 black;
+ 	font-family: 'Radiance';
+ 	font-weight: bold;
+ 	color: #FFFFFF;
+ 	font-size: 24px;
+ 	text-shadow: 0px 0px 4px rgba(202, 74, 206, 0.45);
+ 	text-transform: uppercase;
+ }
+
+ .ArenaChampionSunray {
+ 	background-image: url("file://{images}/custom_game/arena_champion/sunray.png");
+ 	background-size: 100%;
+ 	width: 1740px;
+ 	height: 1511px;
+ 	opacity: 0.2;
+ 	vertical-align: center;
+ 	animation-name: SpinnerRotate;
+ 	animation-duration: 10.0s;
+ 	animation-timing-function: linear;
+ 	animation-iteration-count: infinite;
+ }
+
+ @keyframes 'SpinnerRotate'
+
+ 	{
+ 	0% {
+ 		transform: rotateZ(360deg);
+ 	}
+
+
+ 	100% {
+ 		transform: rotateZ(180deg);
+ 	}
+ }
+
+ .PrizeList {
+	margin-top: 19%;
+ 	flow-children: down;
+ 	align: center center;
+ }
+
+ .PrizeList_right {
+ 	horizontal-align: center;
+ 	flow-children: right;
+ }
+
+ .Prize1 {
+ 	width: 734px;
+ 	height: 184px;
+ 	background-image: url("file://{images}/custom_game/arena_champion/prize1.png");
+ 	background-size: 100%;
+ 	horizontal-align: center;
+ }
+
+ .Prize2 {
+ 	width: 364px;
+ 	height: 184px;
+ 	background-image: url("file://{images}/custom_game/arena_champion/prize2.png");
+ 	background-size: 100%;
+ }
+
+ .Prize3 {
+ 	width: 364px;
+ 	height: 184px;
+ 	background-image: url("file://{images}/custom_game/arena_champion/prize3.png");
+ 	background-size: 100%;
+ }
+
+ .Prize4 {
+ 	width: 364px;
+ 	height: 118px;
+ 	background-image: url("file://{images}/custom_game/arena_champion/prize4.png");
+ 	background-size: 100%;
+ }
+
+ .Prize5 {
+ 	width: 364px;
+ 	height: 118px;
+ 	background-image: url("file://{images}/custom_game/arena_champion/prize5.png");
+ 	background-size: 100%;
+ }
+
+ .ButtonInfoChampion {
+ 	width: 700px;
+ 	height: 62px;
+ 	background-image: url("file://{images}/custom_game/arena_champion/button.png");
+ 	background-size: 100%;
+ 	horizontal-align: center;
+ }
+
+ .ButtonInfoChampion Label {
+ 	color: #CB9FFF;
+ 	font-family: 'Radiance';
+ 	font-weight: semi-bold;
+ 	font-size: 24px;
+ 	align: center center;
+ }
+
+ .prizefond {
+ 	color: gradient(linear, 0% 0%, 0% 100%, from(#EADAFF), to(#DBDCFF));
+ 	font-family: 'Radiance';
+ 	font-weight: semi-bold;
+ 	font-size: 64px;
+ 	horizontal-align: center;
+ 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+ }
+
+ .prizefont_text {
+ 	color: white;
+ 	font-family: 'Radiance';
+ 	font-size: 24px;
+ 	horizontal-align: center;
+ }

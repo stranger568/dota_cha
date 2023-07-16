@@ -11,12 +11,6 @@ modifier_frostivus2018_weaver_geminate_attack_custom = class({})
 function modifier_frostivus2018_weaver_geminate_attack_custom:IsHidden() return true end
 function modifier_frostivus2018_weaver_geminate_attack_custom:IsPurgable() return false end
 
-function modifier_frostivus2018_weaver_geminate_attack_custom:DeclareFunctions()
-	return {
-		--MODIFIER_EVENT_ON_ATTACK
-	}
-end
-
 function modifier_frostivus2018_weaver_geminate_attack_custom:AttackModifier(params)
 	if not IsServer() then return end
 	if params.attacker ~= self:GetParent() then return end

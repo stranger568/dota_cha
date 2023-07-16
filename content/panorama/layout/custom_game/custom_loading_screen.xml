@@ -29,51 +29,24 @@
 		</snippet>
 	</snippets>
 	<Panel class="OverthrowLoadingRoot">
-
-		<Panel class="LoadingScreenCup" />
-
-		<Panel class="RightInfo">
-			<Label class="LoadingScreenTextGreen" id="loading_inf_2" text="Регистрация"/>
-			<Label class="LoadingScreenTextWhite" id="loading_inf_7" onactivate="ExternalBrowserGoToURL('https://t.me/custom_hero_arena_bot')" text="Перейдите в Telegram"/>
-			<Panel class="FlowChildrenRight">
-				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_8" text="Дата проведения турнира:"/>
-				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_22" text="02.06"/>
+		
+		<Panel class="LoadingScreenCup" id="LoadingScreenCup" />
+		<Panel class="ArenaChampionSunray" />
+		<Panel class="PrizeList">
+			<Label class="prizefont_text" text="Общий призовой фонд:" />
+			<Label class="prizefond" text="2,500,000 ₽" />
+			<Panel class="Prize1" />
+			<Panel class="PrizeList_right">
+				<Panel class="Prize2"/>
+				<Panel class="Prize3"/>
 			</Panel>
-			<Panel class="FlowChildrenRight">
-				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_9" text="Регистрация открыта до:"/>
-				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_23" text="28.05"/>
+			<Panel class="PrizeList_right">
+				<Panel class="Prize4"/>
+				<Panel class="Prize5"/>
 			</Panel>
-			<Panel class="FlowChildrenRight">
-				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_116" text="Лучшие"/>
-				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_117" text="топ 8"/>
-				<Label class="LoadingScreenTextWhiteSmall" id="loading_inf_118" text="рейтинга, сразу попадают в "/>
-				<Label class="LoadingScreenTextGreenSmall" id="loading_inf_119" text="полуфинал"/>
+			<Panel class="ButtonInfoChampion">
+				<Label text="Ознакомиться с условиями участия" />
 			</Panel>
-		</Panel>
-
-		<Panel class="LeftInfo">
-			<Label class="LoadingScreenTextGreen" id="loading_inf_1" text="Условия участия" />
-			<Label class="LoadingScreenTextWhite" id="loading_inf_3" text="Подписаться на наши:"/>
-			<Panel class="Links">
-				<Panel class="SiteFlow" id="siteflow1" onactivate="ExternalBrowserGoToURL('https://t.me/custom_hero_arena_bot')">
-					<Label class="LoadingScreenTextWhite" id="loading_inf_4" text="Telegram"/>
-					<Panel class="LinkImage" />
-				</Panel>
-				<Panel class="SiteFlow" onactivate="ExternalBrowserGoToURL('https://www.twitch.tv/hunterofun1')">
-					<Label class="LoadingScreenTextWhite" id="loading_inf_5" text="Twitch"/>
-					<Panel class="LinkImage" />
-				</Panel>
-				<Panel class="SiteFlow" onactivate="ExternalBrowserGoToURL('https://www.youtube.com/channel/UCiwmypsLcssMwkjefiWLEfA')">
-					<Label class="LoadingScreenTextWhite" id="loading_inf_6" text="YouTube"/>
-					<Panel class="LinkImage" />
-				</Panel>
-			</Panel>
-		</Panel>
-
-		<Panel class="CenterFlow">
-			<Label class="TextGrayCenter" text="Все остальные ответы на вопросы можете узнать"/>
-			<Label class="TextGrayCenter" id="linktyt" text="тут" onactivate="ExternalBrowserGoToURL('https://t.me/custom_hero_arena_bot')"/>
-			<Panel class="LinkImage2" />
 		</Panel>
 
 		<Panel id="MainBlock" class="Hidden">
@@ -82,7 +55,7 @@
 			<Panel id="OperatePanel">
 				<Panel class="OperatePanelRight">
 					<RadioButton id="HeroImageRadioButton">
-						<DOTAHeroImage id="HeroImage" heroname="" />
+						<DOTAHeroImage id="HeroImage" heroname="" heroimagestyle="portrait" scaling="stretch-to-cover-preserve-aspect" />
 					</RadioButton>
 					<Panel id="Abilities" />
 				</Panel>
@@ -90,26 +63,29 @@
 					<Button id="BanButton" onactivate="ActiveBan()" class="Hidden">
 						<Label id="BanButtonLabel" />
 					</Button>
-					<Label id="TimeLeftLabel" class="Green Hidden" text="#time_left" />
+					<Label id="TimeLeftLabel" class="Hidden" text="#time_left" />
 				</Panel>
 			</Panel>
 
-			<Panel class="bp">
-				<Panel id="RecentBannedAbilitiesContainer">
-					<Label id="RecentBannedAbilitiesLabel" text="#recent_ban_abilities" />
-					<Panel id="RecentBannedContainer">
-						<Panel id="RecentBannedAbilities" />
-						<Panel id="RecentBannedHeroes" />
+			<Panel style="width:100%;">
+				<Panel class="bp">
+					<Panel id="RecentBannedAbilitiesContainer">
+						<Panel class="RecentHeader">
+							<Label id="RecentBannedAbilitiesLabel" text="#recent_ban_abilities" />
+						</Panel> 
+						<Panel id="RecentBannedContainer">
+							<Panel id="RecentBannedAbilities" />
+							<Panel id="RecentBannedHeroes" />
+						</Panel>
 					</Panel>
 				</Panel>
+				<Panel id="DonateImage" class="DonateImage">
+					<Label class="Morebanwithbnp" text="Баны героев и способностей доступны для обладателей Pass" />
+				</Panel>
 			</Panel>
 		</Panel>
-
-		<Panel id="PanelBanHeroes" class="PanelBanHeroes">
-			<Label class="BanHeroesLabel" text="Забанить героев / способности" onactivate="OpenBanPanel();" />
-		</Panel>
-		<Panel id="DonateImage" class="DonateImage">
-			<Label class="Morebanwithbnp" text="Баны героев и способностей доступны для обладателей Pass" />
+		<Panel id="PanelBanHeroes" class="PanelBanHeroes" onactivate="OpenBanPanel();">
+			<Label class="BanHeroesLabel" text="#ban_abilities" />
 		</Panel>
 	</Panel>
 </root>

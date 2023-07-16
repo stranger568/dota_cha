@@ -14,7 +14,6 @@ function modifier_troll_warlord_fervor_custom:IsHidden() return false end
 
 function modifier_troll_warlord_fervor_custom:DeclareFunctions()
 	local funcs = {
-		--MODIFIER_EVENT_ON_ATTACK_LANDED,
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT
 	}
 	return funcs

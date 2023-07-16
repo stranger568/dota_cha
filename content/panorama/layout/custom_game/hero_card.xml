@@ -46,6 +46,3 @@
 		</Panel>
 	</Panel>
 </root>
-
-
-$.CreatePanelWithProperties("DOTAScenePanel", $("#HeroPickedContainer"), "hero_model", { style: "width:600px;height:600px;", drawbackground: "0", unit:kv.hero, particleonly:"false", renderdeferred:"false", antialias:"true", renderwaterreflections:"true" });

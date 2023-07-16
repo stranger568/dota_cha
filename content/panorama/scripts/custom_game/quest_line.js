@@ -8,14 +8,16 @@ function RefreshQuest(data)
 
     if ((typeof round_name !== 'undefined') && (typeof creep_kill !== 'undefined') && (typeof creep_count !== 'undefined'))
     {
-        $("#RoundName").text = $.Localize(round_name) + " " + "("+creep_kill+"/"+creep_count+")"
-        $("#RoundPanel").style.backgroundImage = 'url("file://{images}/custom_game/rounds/' + round_name.replace("#", '') + '.png")';
-        $("#RoundPanel").style.backgroundSize = '100%';
+        $("#RoundName").text = $.Localize(round_name)
+        $("#KillsInfo").text = "Убито " + creep_kill + " / " + creep_count
+        //$("#RoundPanel").style.backgroundImage = 'url("file://{images}/custom_game/rounds/' + round_name.replace("#", '') + '.png")';
+        //$("#RoundPanel").style.backgroundSize = '100%';
     } else if ((typeof round_name !== 'undefined'))
     {
        $("#RoundName").text = $.Localize(round_name) 
-       $("#RoundPanel").style.backgroundImage = 'url("file://{images}/custom_game/rounds/' + round_name.replace("#", '') + '.png")';
-       $("#RoundPanel").style.backgroundSize = '100%';
+       $("#KillsInfo").text = ""
+       //$("#RoundPanel").style.backgroundImage = 'url("file://{images}/custom_game/rounds/' + round_name.replace("#", '') + '.png")';
+       //$("#RoundPanel").style.backgroundSize = '100%';
     }
 
     if ((typeof data.text_value !== 'undefined'))
@@ -49,6 +51,7 @@ function RefreshPrepare(data)
     if ((typeof round_name !== 'undefined'))
     {
        $("#RoundName").text = $.Localize(round_name) 
+       $("#KillsInfo").text = ""
        $("#RoundPanel").style.backgroundImage = 'url("file://{images}/custom_game/rounds/' + round_name.replace("#", '') + '.png")';
        $("#RoundPanel").style.backgroundSize = '100%';
     }
@@ -60,6 +63,7 @@ function RefreshPrepare(data)
 
     $("#LinePanelActive").SetHasClass("color_round", false)
     $("#LinePanelActive").SetHasClass("color_prepare", true)
+    $("#WaveInfoDurationCurrentState").text = $.Localize("#next_wave_timer")
 
     var times = full_time-time
     var min = Math.trunc((times)/60) 
@@ -126,10 +130,12 @@ function UpdateRoundTimer(data)
 
     if ((typeof data.berserk !== 'undefined') && data.berserk != 0)
     {
-        $("#RoundTime").text = "Berserk stack: " + data.berserk
+        $("#RoundTime").text = data.berserk
+        $("#WaveInfoDurationCurrentState").text = $.Localize("#berserk_wave_timer")
     }
     else
     {
+        $("#WaveInfoDurationCurrentState").text = $.Localize("#end_wave_timer")
         var times = time
         var min = Math.trunc((times)/60) 
         var sec_n =  (times) - 60*Math.trunc((times)/60) 

@@ -149,7 +149,7 @@
 	"npc_unit_top1"
 	{
 		"BaseClass"					"npc_dota_creature"	
-		"Model"						"models/heroes/lina/lina.vmdl"	
+		"Model"						"models/items/wraith_king/arcana/wraith_king_arcana.vmdl"	
 		"ModelScale"				"0.8"
 		"Level"						"1"	
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
@@ -167,18 +167,21 @@
 		{
 			"AttachWearables"
 			{
-				"Wearable1" { "ItemDef" "14251" }
-				"Wearable2" { "ItemDef" "14250" }
-				"Wearable3" { "ItemDef" "14248" }
-				"Wearable4" { "ItemDef" "14247" }
-				"Wearable5" { "ItemDef" "9243" }
+				"Wearable1" { "ItemDef" "13569" }
+				"Wearable2" { "ItemDef" "13743" }
+				"Wearable3" { "ItemDef" "13473" }
+				"Wearable4" { "ItemDef" "13456" }
+				"Wearable5" { "ItemDef" "13571" }
+				"Wearable5" { "ItemDef" "13571" }
+				"Wearable6" { "ItemDef" "13760" }
 			}
 		}
 	}
+    
 	"npc_unit_top2"
 	{
 		"BaseClass"					"npc_dota_creature"	
-		"Model"						"models/heroes/earth_spirit/earth_spirit.vmdl"	
+		"Model"						"models/heroes/terrorblade/terrorblade_arcana.vmdl"	
 		"ModelScale"				"0.8"
 		"Level"						"1"	
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
@@ -196,36 +199,18 @@
 		{
 			"AttachWearables"
 			{
-				"Wearable1"
-				{
-					"ItemDef"			"8712" // arms: Arms of the Jade General
-				}
-				"Wearable2"
-				{
-					"ItemDef"			"8903" // belt: Belt of the Jade General
-				}
-				"Wearable3"
-				{
-					"ItemDef"			"13389" // head: Helm of the Jade Emissary
-					//"ItemDef"			"7185" // head: Kabuto of Bedrock Serenity
-					//"ItemDef"			"8904" // head: Style of the Jade General
-					//"ItemDef"			"477" // head: default
-				}
-				"Wearable4"
-				{
-					"ItemDef"			"8905" // neck: Armor of the Jade General
-				}
-				"Wearable5"
-				{
-					"ItemDef"			"8906" // Staff of the Jade General
-				}
+				"Wearable1" { "ItemDef" "307" }
+				"Wearable2" { "ItemDef" "5957" }
+				"Wearable3" { "ItemDef" "9750" }
+				"Wearable4" { "ItemDef" "26445" }
 			}
 		}
 	}
+
 	"npc_unit_top3"
 	{
 		"BaseClass"					"npc_dota_creature"	
-		"Model"						"models/heroes/furion/furion.vmdl"	
+		"Model"						"models/heroes/shadow_fiend/shadow_fiend_arcana.vmdl"	
 		"ModelScale"				"0.8"
 		"Level"						"1"	
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
@@ -243,12 +228,84 @@
 		{
 			"AttachWearables"
 			{
-				"Wearable1" { "ItemDef" "31" }
-				"Wearable2" { "ItemDef" "49" }
-				"Wearable3" { "ItemDef" "32" }
-				"Wearable4" { "ItemDef" "30" }
-				"Wearable5" { "ItemDef" "33" }
-				"Wearable6" { "ItemDef" "4566" }
+				"Wearable1" { "ItemDef" "8259" }
+				"Wearable2" { "ItemDef" "6996" }
+				"Wearable3" { "ItemDef" "9020" }
+			}
+		}
+	}
+
+    "npc_unit_top4"
+	{
+		"BaseClass"					"npc_dota_creature"	
+		"Model"						"models/kobold.vmdl"	
+		"ModelScale"				"1.1"
+		"Level"						"1"	
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"RingRadius"				"50"
+		"HealthBarOffset"			"250"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"	
+		"CanBeDominated"            "0"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"420"
+		"MovementTurnRate"			"400"
+		"StatusHealth"				"1"
+		"VisionDaytimeRange"		"0"	
+		"VisionNighttimeRange"		"0"
+	}
+
+    "npc_unit_top5"
+	{
+		"BaseClass"					"npc_dota_creature"	
+		"Model"						"models/heroes/huskar/huskar.vmdl"	
+		"ModelScale"				"0.8"
+		"Level"						"1"	
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"RingRadius"				"50"
+		"HealthBarOffset"			"250"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"	
+		"CanBeDominated"            "0"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"420"
+		"MovementTurnRate"			"400"
+		"StatusHealth"				"1"
+		"VisionDaytimeRange"		"0"	
+		"VisionNighttimeRange"		"0"
+		"Creature"
+		{
+			"AttachWearables"
+			{
+				"Wearable1" { "ItemDef" "18616" }
+				"Wearable2" { "ItemDef" "8188" }
+				"Wearable3" { "ItemDef" "14475" }
+			}
+		}
+	}
+
+    "npc_unit_top6"
+	{
+		"BaseClass"					"npc_dota_creature"	
+		"Model"						"models/heroes/juggernaut/juggernaut_arcana.vmdl"	
+		"ModelScale"				"0.8"
+		"Level"						"1"	
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"RingRadius"				"50"
+		"HealthBarOffset"			"250"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"	
+		"CanBeDominated"            "0"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"420"
+		"MovementTurnRate"			"400"
+		"StatusHealth"				"1"
+		"VisionDaytimeRange"		"0"	
+		"VisionNighttimeRange"		"0"
+		"Creature"
+		{
+			"AttachWearables"
+			{
+				"Wearable1" { "ItemDef" "9059" }
+				"Wearable2" { "ItemDef" "9984" }
+				"Wearable3" { "ItemDef" "62" }
 			}
 		}
 	}
@@ -3835,7 +3892,7 @@
 		"Ability1"					"roshan_spell_block"	// Ability 1.
 		"Ability2"					"roshan_bash"			// Ability 2.
 		"Ability3"					"roshan_slam"			// Ability 3.
-		"Ability4"					""                      // Ability 4.
+		"Ability4"					"roshan_phys_immune"                      // Ability 4.
 		"Ability5"					""		                // Ability 5.
 		"Ability6"					""						// Ability 6 - Extra.
 		"Ability7"					""						// Ability 7 - Extra.
@@ -3914,7 +3971,7 @@
 		"Ability1"					"nian_bash"						// Ability 1.
 		"Ability2"					"nian_rush"						// Ability 2.
 		"Ability3"					"nian_apocalypse"						// Ability 3.
-		"Ability4"					""                      // Ability 4.
+		"Ability4"					"roshan_phys_immune"                      // Ability 4.
 		"Ability5"					""		                // Ability 5.
 		"Ability6"					""						// Ability 6 - Extra.
 		"Ability7"					""						// Ability 7 - Extra.

@@ -21,6 +21,11 @@ function modifier_kunkka_torrent_storm_custom:IsPurgable() return false end
 
 function modifier_kunkka_torrent_storm_custom:OnCreated()
 	if not IsServer() then return end
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+	self.delay_spawn = self.ability:GetSpecialValueFor("torrent_interval")
+	self.radius = self.ability:GetSpecialValueFor("torrent_max_distance")
+	self.duration = self.ability:GetSpecialValueFor("torrent_duration")
 	self.timers = {}
 	self:StartTorrentStorm()
 end
@@ -31,13 +36,8 @@ end
 
 function modifier_kunkka_torrent_storm_custom:StartTorrentStorm()
 	if not IsServer() then return end
-	local caster = self:GetParent()
-	local delay_spawn = self:GetAbility():GetSpecialValueFor("torrent_interval")
-	local radius = self:GetAbility():GetSpecialValueFor("torrent_max_distance")
-	local duration = self:GetAbility():GetSpecialValueFor("torrent_duration")
-
-	local count = duration / delay_spawn
-
+	local caster = self.parent
+	local count = self.duration / self.delay_spawn
 	if #self.timers > 0 then 
 		for _,timer in pairs(self.timers) do
 			if timer then 
@@ -45,11 +45,10 @@ function modifier_kunkka_torrent_storm_custom:StartTorrentStorm()
 			end
 		end
 	end
-
 	for i = 0, count do
-		self.timers[i] = Timers:CreateTimer(delay_spawn * i, function()
-			local random_point = caster:GetAbsOrigin() + RandomVector(RandomInt(0, radius))
-			self:GetAbility():StartTorrent(random_point)
+		self.timers[i] = Timers:CreateTimer(self.delay_spawn * i, function()
+			local random_point = caster:GetAbsOrigin() + RandomVector(RandomInt(0, self.radius))
+			self.ability:StartTorrent(random_point)
 		end)
 	end
 end
@@ -120,14 +119,17 @@ function modifier_kunkka_torrent_custom_damage:IsHidden() return true end
 
 function modifier_kunkka_torrent_custom_damage:OnCreated()
 	if not IsServer() then return end
-	self.slow_duration = self:GetAbility():GetSpecialValueFor("slow_duration")
-	self.torrent_damage = self:GetAbility():GetSpecialValueFor("torrent_damage")
-	self.damage_tick_interval = self:GetAbility():GetSpecialValueFor("damage_tick_interval")
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.caster = self:GetCaster()
+	self.slow_duration =self.ability:GetSpecialValueFor("slow_duration")
+	self.torrent_damage = self.ability:GetSpecialValueFor("torrent_damage")
+	self.damage_tick_interval = self.ability:GetSpecialValueFor("damage_tick_interval")
 	self.damage = self.torrent_damage * self.damage_tick_interval
 	self:StartIntervalThink(self.damage_tick_interval)
 end
 
 function modifier_kunkka_torrent_custom_damage:OnIntervalThink()
 	if not IsServer() then return end
-	ApplyDamage({victim = self:GetParent(), attacker = self:GetCaster(), ability = self:GetAbility(), damage = self.damage, damage_type = DAMAGE_TYPE_MAGICAL})
+	ApplyDamage({victim = self.parent, attacker = self.caster, ability = self.ability, damage = self.damage, damage_type = DAMAGE_TYPE_MAGICAL})
 end

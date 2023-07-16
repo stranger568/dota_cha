@@ -29,6 +29,7 @@ end
 
 function sven_gods_strength_custom:GetCooldown(iLevel)
 	if self:GetCaster():HasScepter() then
+        if IsClient() then return 15 end
 		return 0
 	end
 	return self.BaseClass.GetCooldown(self, iLevel) 
@@ -54,18 +55,27 @@ function modifier_sven_gods_strength_custom_fly:IsPurgeException() return false 
 
 function modifier_sven_gods_strength_custom_fly:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(0.1)
+    self.caster = self:GetCaster()
+	self:StartIntervalThink(0.5)
 end
 
 function modifier_sven_gods_strength_custom_fly:OnIntervalThink()
 	if not IsServer() then return end
-	if not self:GetParent():HasModifier("modifier_sven_gods_strength") then
+    self.caster:SpendMana(15*0.5, self:GetAbility())
+    if self.caster:GetMana() <= 14 then
+        self.caster:RemoveModifierByName("modifier_undying_flesh_golem")
+        return
+    end
+	if not self.caster:HasModifier("modifier_sven_gods_strength") then
 		self:Destroy()
 	end
+    if not self.caster:HasScepter() then
+        self.caster:RemoveModifierByName("modifier_sven_gods_strength")
+    end
 end
 
 function modifier_sven_gods_strength_custom_fly:CheckState()
-	if not self:GetCaster():HasScepter() then return end
+	if not self.caster:HasScepter() then return end
 	return 
 	{
 		[MODIFIER_STATE_FLYING] = true

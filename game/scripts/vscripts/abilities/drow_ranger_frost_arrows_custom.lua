@@ -51,18 +51,28 @@ end
 modifier_drow_ranger_frost_arrows_custom_debuff = class({})
 
 function modifier_drow_ranger_frost_arrows_custom_debuff:OnCreated()
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
+    self.caster = self:GetCaster()
+    self.shard_burst_radius = self.ability:GetSpecialValueFor("shard_burst_radius")
+    self.shard_regen_reduction_pct_per_stack = self.ability:GetSpecialValueFor("shard_regen_reduction_pct_per_stack")
+    self.shard_burst_damage_per_stack = self.ability:GetSpecialValueFor("shard_burst_damage_per_stack")
 	if not IsServer() then return end
 	self:SetStackCount(1)
-	self.effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_drow/drow_hypothermia_counter_stack.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent() )
-	ParticleManager:SetParticleControl( self.effect_cast, 1, Vector( 0, self:GetStackCount(), 0 ) )
-	self:AddParticle(self.effect_cast,false, false, -1, false, false)
+    if self:GetParent():IsHero() then
+	    self.effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_drow/drow_hypothermia_counter_stack.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent() )
+	    ParticleManager:SetParticleControl( self.effect_cast, 1, Vector( 0, self:GetStackCount(), 0 ) )
+	    self:AddParticle(self.effect_cast,false, false, -1, false, false)
+    end
 end
 
 function modifier_drow_ranger_frost_arrows_custom_debuff:OnRefresh()
 	if not IsServer() then return end
 	if self:GetStackCount() < self:GetAbility():GetSpecialValueFor("shard_max_stacks") then
 		self:IncrementStackCount()
-		ParticleManager:SetParticleControl( self.effect_cast, 1, Vector( 0, self:GetStackCount(), 0 ) )
+        if self.effect_cast then
+		    ParticleManager:SetParticleControl( self.effect_cast, 1, Vector( 0, self:GetStackCount(), 0 ) )
+        end
 	end
 end
 
@@ -76,23 +86,23 @@ function modifier_drow_ranger_frost_arrows_custom_debuff:DeclareFunctions()
 end
 
 function modifier_drow_ranger_frost_arrows_custom_debuff:OnDeathEvent(params)
-	if params.unit == self:GetParent() then
-		local enemies = FindUnitsInRadius( self:GetCaster():GetTeamNumber(), self:GetParent():GetOrigin(), nil, self:GetAbility():GetSpecialValueFor("shard_burst_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_CLOSEST, false )
+	if params.unit == self.parent then
+		local enemies = FindUnitsInRadius( self.caster:GetTeamNumber(), self.parent:GetOrigin(), nil, self.shard_burst_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, FIND_CLOSEST, false )
 		for _, enemy in pairs(enemies) do
 			local info = 
 			{
 				Target = enemy,
-				Source = self:GetParent(),
-				Ability = self:GetAbility(),	
+				Source = self.parent,
+				Ability = self.ability,	
 				EffectName = "particles/units/heroes/hero_drow/drow_shard_hypothermia_projectile.vpcf",
-				iMoveSpeed = self:GetCaster():GetProjectileSpeed(),
+				iMoveSpeed = self.caster:GetProjectileSpeed(),
 				bDodgeable = false,
 				bVisibleToEnemies = true,
 				bProvidesVision = false,
-				iVisionTeamNumber = self:GetCaster():GetTeamNumber(),
+				iVisionTeamNumber = self.caster:GetTeamNumber(),
 				ExtraData = 
 				{
-					damage = self:GetAbility():GetSpecialValueFor("shard_burst_damage_per_stack") * self:GetStackCount(),
+					damage = self.shard_burst_damage_per_stack * self:GetStackCount(),
 				}
 			}
 			ProjectileManager:CreateTrackingProjectile(info)
@@ -101,15 +111,15 @@ function modifier_drow_ranger_frost_arrows_custom_debuff:OnDeathEvent(params)
 end
 
 function modifier_drow_ranger_frost_arrows_custom_debuff:GetModifierLifestealRegenAmplify_Percentage()
-	return self:GetAbility():GetSpecialValueFor("shard_regen_reduction_pct_per_stack") * self:GetStackCount()
+	return self.shard_regen_reduction_pct_per_stack * self:GetStackCount()
 end
 
 function modifier_drow_ranger_frost_arrows_custom_debuff:GetModifierHealAmplify_PercentageTarget()
-	return self:GetAbility():GetSpecialValueFor("shard_regen_reduction_pct_per_stack") * self:GetStackCount()
+	return self.shard_regen_reduction_pct_per_stack * self:GetStackCount()
 end
 
 function modifier_drow_ranger_frost_arrows_custom_debuff:GetModifierHPRegenAmplify_Percentage()
-	return self:GetAbility():GetSpecialValueFor("shard_regen_reduction_pct_per_stack") * self:GetStackCount()
+	return self.shard_regen_reduction_pct_per_stack * self:GetStackCount()
 end
 
 modifier_drow_ranger_frost_arrows_custom = class({})
@@ -131,13 +141,18 @@ function modifier_drow_ranger_frost_arrows_custom:IsPurgable()
 end
 
 function modifier_drow_ranger_frost_arrows_custom:OnCreated( kv )
-	self.slow = self:GetAbility():GetSpecialValueFor( "frost_arrows_movement_speed" )
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.caster = self:GetCaster()
+	self.slow = self.ability:GetSpecialValueFor( "frost_arrows_movement_speed" )
+    self.percent_damage = self.ability:GetSpecialValueFor("percent_damage")
 	if not IsServer() then return end
 	self:StartIntervalThink(1)
 end
 
 function modifier_drow_ranger_frost_arrows_custom:OnRefresh( kv )
-	self.slow = self:GetAbility():GetSpecialValueFor( "frost_arrows_movement_speed" )
+    self.slow = self.ability:GetSpecialValueFor( "frost_arrows_movement_speed" )
+    self.percent_damage = self.ability:GetSpecialValueFor("percent_damage")
 end
 
 function modifier_drow_ranger_frost_arrows_custom:DeclareFunctions()
@@ -162,8 +177,8 @@ end
 
 function modifier_drow_ranger_frost_arrows_custom:OnIntervalThink()
 	if not IsServer() then return end
-	local damage = self:GetParent():GetHealth() / 100 * self:GetAbility():GetSpecialValueFor("percent_damage")
-	ApplyDamage({ attacker = self:GetCaster(), victim = self:GetParent(), damage = math.max(1, damage), damage_type = DAMAGE_TYPE_MAGICAL, ability = self:GetAbility() })
+	local damage = self.parent:GetHealth() / 100 * self.percent_damage
+	ApplyDamage({ attacker = self.caster, victim = self.parent, damage = math.max(1, damage), damage_type = DAMAGE_TYPE_MAGICAL, ability = self.ability })
 end
 
 modifier_drow_ranger_frost_arrows_custom_orb = class({})
@@ -185,6 +200,7 @@ function modifier_drow_ranger_frost_arrows_custom_orb:GetAttributes()
 end
 
 function modifier_drow_ranger_frost_arrows_custom_orb:OnCreated( kv )
+    self.parent = self:GetParent()
 	self.ability = self:GetAbility()
 	self.cast = false
 	self.records = {}
@@ -206,7 +222,7 @@ function modifier_drow_ranger_frost_arrows_custom_orb:DeclareFunctions()
 end
 
 function modifier_drow_ranger_frost_arrows_custom_orb:OnAttack( params )
-	if params.attacker~=self:GetParent() then return end
+	if params.attacker~=self.parent then return end
 	if self:ShouldLaunch( params.target ) then
 		self.ability:UseResources( true, false, false, true )
 		self.records[params.record] = true
@@ -231,10 +247,10 @@ function modifier_drow_ranger_frost_arrows_custom_orb:OnAttackRecordDestroy( par
 end
 
 function modifier_drow_ranger_frost_arrows_custom_orb:OnOrder( params )
-	if params.unit~=self:GetParent() then return end
+	if params.unit~=self.parent then return end
 
 	if params.ability then
-		if params.ability==self:GetAbility() then
+		if params.ability==self.ability then
 			self.cast = true
 			return
 		end
@@ -266,7 +282,7 @@ function modifier_drow_ranger_frost_arrows_custom_orb:OnOrder( params )
 end
 
 function modifier_drow_ranger_frost_arrows_custom_orb:GetModifierProjectileName()
-	if self:ShouldLaunch( self:GetCaster():GetAggroTarget() ) then
+	if self:ShouldLaunch( self.parent:GetAggroTarget() ) then
 		return "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf"
 	end
 	return "particles/units/heroes/hero_drow/drow_base_attack.vpcf"
@@ -284,7 +300,7 @@ function modifier_drow_ranger_frost_arrows_custom_orb:ShouldLaunch( target )
 				self.ability:GetAbilityTargetTeam(),
 				self.ability:GetAbilityTargetType(),
 				self.ability:GetAbilityTargetFlags(),
-				self:GetCaster():GetTeamNumber()
+				self.parent:GetTeamNumber()
 			)
 			if nResult == UF_SUCCESS then
 				self.cast = true
@@ -315,8 +331,8 @@ function modifier_drow_ranger_frost_arrows_custom_orb:GetModifierProcAttack_Bonu
 		local bonus = 0
 		local modifier_drow_ranger_frost_arrows_custom_debuff = params.target:FindModifierByName("modifier_drow_ranger_frost_arrows_custom_debuff")
 		if modifier_drow_ranger_frost_arrows_custom_debuff then
-			bonus = modifier_drow_ranger_frost_arrows_custom_debuff:GetStackCount() * self:GetAbility():GetSpecialValueFor("shard_bonus_damage_per_stack")
+			bonus = modifier_drow_ranger_frost_arrows_custom_debuff:GetStackCount() * self.ability:GetSpecialValueFor("shard_bonus_damage_per_stack")
 		end
-		return self:GetAbility():GetSpecialValueFor("damage") + bonus
+		return self.ability:GetSpecialValueFor("damage") + bonus
 	end
 end

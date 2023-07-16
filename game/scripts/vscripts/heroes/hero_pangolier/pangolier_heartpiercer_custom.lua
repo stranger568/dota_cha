@@ -35,7 +35,8 @@ function modifier_pangolier_heartpiercer_custom:GetModifierTotalDamageOutgoing_P
 
         if (not params.target:IsMagicImmune() and RollPercentage(chance)) or IsInToolsMode() then
             local duration = self:GetAbility():GetSpecialValueFor("duration")
-            params.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_pangolier_heartpiercer_debuff", { duration = duration * (1 - params.target:GetStatusResistance()) })
+            --params.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_pangolier_heartpiercer_debuff", { duration = duration * (1 - params.target:GetStatusResistance()) })
+            params.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_pangolier_heartpiercer_delay", { duration = 2 })
         end
     end
 end

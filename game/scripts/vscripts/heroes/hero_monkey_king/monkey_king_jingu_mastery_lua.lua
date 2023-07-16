@@ -29,13 +29,6 @@ modifier_monkey_king_jingu_mastery_lua = modifier_monkey_king_jingu_mastery_lua 
 
 function modifier_monkey_king_jingu_mastery_lua:IsHidden() return true end
 
-function modifier_monkey_king_jingu_mastery_lua:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_ATTACK_LANDED
-	}
-	return funcs
-end
-
 function modifier_monkey_king_jingu_mastery_lua:OnCreated(  )
 	self.caster = self:GetCaster()
 	self.ability = self:GetAbility()
@@ -137,8 +130,6 @@ modifier_monkey_king_jingu_mastery_lua_buff = class({})
 function modifier_monkey_king_jingu_mastery_lua_buff:DeclareFunctions()
 
 	local funcs = {
-		--MODIFIER_EVENT_ON_TAKEDAMAGE,
-		--MODIFIER_EVENT_ON_ATTACK_LANDED,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 	}
 
@@ -247,16 +238,6 @@ function modifier_monkey_king_jingu_mastery_lua_buff:AttackLandedModifier( keys 
 	if caster:PassivesDisabled() then
 		return 0
 	end
-	
-	-- lifesteal pfx and heal
-	local lifePfx = ParticleManager:CreateParticle("particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_OVERHEAD_FOLLOW, caster)
---	ParticleManager:SetParticleControl(lifePfx, 0, caster:GetAbsOrigin())
-	ParticleManager:ReleaseParticleIndex(lifePfx)
-
-	-- jingu hit pfx
-	local hitPfx = ParticleManager:CreateParticle("particles/units/heroes/hero_monkey_king/monkey_king_quad_tap_hit.vpcf", PATTACH_ROOTBONE_FOLLOW, target)
-	ParticleManager:SetParticleControl(hitPfx, 1, target:GetAbsOrigin())
-	ParticleManager:ReleaseParticleIndex(hitPfx)
 	
     local healAmount = damage *  self.lifesteal * 0.01
 	attacker:Heal(healAmount, attacker)

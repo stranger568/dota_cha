@@ -22,6 +22,7 @@ function item_seer_stone_custom:OnSpellStart()
 	local particle = ParticleManager:CreateParticleForTeam("particles/items4_fx/seer_stone.vpcf", PATTACH_WORLDORIGIN, nil, self:GetCaster():GetTeamNumber())
 	ParticleManager:SetParticleControl(particle, 0, self:GetCursorPosition())
 	ParticleManager:SetParticleControl(particle, 1, Vector(self:GetSpecialValueFor("duration")+0.5, self:GetSpecialValueFor("radius"), 0))
+    ParticleManager:ReleaseParticleIndex(particle)
 end
 
 modifier_item_seer_stone_custom = class({})

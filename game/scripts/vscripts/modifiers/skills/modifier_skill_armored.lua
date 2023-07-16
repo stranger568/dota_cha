@@ -14,5 +14,5 @@ function modifier_skill_armored:DeclareFunctions()
 end
 
 function modifier_skill_armored:GetModifierPhysicalArmorBonus()
-	return 10
+	return 15
 end

@@ -1,77 +1,63 @@
 
 modifier_ogre_tank_melee_smash_thinker = class({})
 
------------------------------------------------------------------------------
-
 function modifier_ogre_tank_melee_smash_thinker:OnCreated( kv )
 	if IsServer() then
-		self.impact_radius = self:GetAbility():GetSpecialValueFor( "impact_radius" )
-		self.stun_duration = self:GetAbility():GetSpecialValueFor( "stun_duration" )
-		self.damage = self:GetAbility():GetSpecialValueFor( "damage" )
-
+        self.ability = self:GetAbility()
+        self.caster = self:GetCaster()
+        self.parent = self:GetParent()
+		self.impact_radius = self.ability:GetSpecialValueFor( "impact_radius" )
+		self.stun_duration = self.ability:GetSpecialValueFor( "stun_duration" )
+		self.damage = self.ability:GetSpecialValueFor( "damage" )
 		self:StartIntervalThink( 0.01 )
 	end
 end
 
------------------------------------------------------------------------------
-
 function modifier_ogre_tank_melee_smash_thinker:OnIntervalThink()
 	if IsServer() then
-		if self:GetCaster() == nil or self:GetCaster():IsNull() or self:GetCaster():IsAlive() == false or self:GetCaster():IsStunned() then
-			--print( string.format( "Caster is nil, dead, or stunned, removing smash thinker" ) )
-			--现在使用UTIL_Remove 也会触发OnDestory, 设置标志位无效化
+		if self.caster == nil or self.caster:IsNull() or self.caster:IsAlive() == false or self.caster:IsStunned() then
 			self.bInvalid = true
-			UTIL_Remove( self:GetParent() )
+			UTIL_Remove( self.parent )
 			return -1
 		end
 	end
 end
 
------------------------------------------------------------------------------
-
 function modifier_ogre_tank_melee_smash_thinker:OnDestroy()
 	if IsServer() then
-		if self:GetCaster() ~= nil and self:GetCaster():IsAlive() and true~=self.bInvalid then
-			EmitSoundOnLocationWithCaster( self:GetParent():GetOrigin(), "OgreTank.GroundSmash", self:GetCaster() )
-			local nFXIndex = ParticleManager:CreateParticle( "particles/test_particle/ogre_melee_smash.vpcf", PATTACH_WORLDORIGIN,  self:GetCaster()  )
-			ParticleManager:SetParticleControl( nFXIndex, 0, self:GetParent():GetOrigin() )
+		if self.caster ~= nil and self.caster:IsAlive() and true~=self.bInvalid then
+			EmitSoundOnLocationWithCaster( self.parent:GetOrigin(), "OgreTank.GroundSmash", self.caster )
+			local nFXIndex = ParticleManager:CreateParticle( "particles/test_particle/ogre_melee_smash.vpcf", PATTACH_WORLDORIGIN,  self.caster  )
+			ParticleManager:SetParticleControl( nFXIndex, 0, self.parent:GetOrigin() )
 			ParticleManager:SetParticleControl( nFXIndex, 1, Vector( self.impact_radius, self.impact_radius, self.impact_radius ) )
 			ParticleManager:ReleaseParticleIndex( nFXIndex )
 
-			local enemies = FindUnitsInRadius( self:GetParent():GetTeamNumber(), self:GetParent():GetOrigin(), self:GetParent(), self.impact_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
+			local enemies = FindUnitsInRadius( self.parent:GetTeamNumber(), self.parent:GetOrigin(), self.parent, self.impact_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
 			for _,enemy in pairs( enemies ) do
 				if enemy ~= nil and enemy:IsInvulnerable() == false then
 					local damageInfo = 
 					{
 						victim = enemy,
-						attacker = self:GetCaster(),
+						attacker = self.caster,
 						damage = self.damage,
 						damage_type = DAMAGE_TYPE_PHYSICAL,
-						ability = self,
+						ability = self.ability,
 					}
-
 					ApplyDamage( damageInfo )
 					if enemy:IsAlive() == false then
 						local nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_phantom_assassin/phantom_assassin_crit_impact.vpcf", PATTACH_CUSTOMORIGIN, nil )
 						ParticleManager:SetParticleControlEnt( nFXIndex, 0, enemy, PATTACH_POINT_FOLLOW, "attach_hitloc", enemy:GetOrigin(), true )
 						ParticleManager:SetParticleControl( nFXIndex, 1, enemy:GetOrigin() )
-						ParticleManager:SetParticleControlForward( nFXIndex, 1, -self:GetCaster():GetForwardVector() )
+						ParticleManager:SetParticleControlForward( nFXIndex, 1, -self.caster:GetForwardVector() )
 						ParticleManager:SetParticleControlEnt( nFXIndex, 10, enemy, PATTACH_ABSORIGIN_FOLLOW, nil, enemy:GetOrigin(), true )
 						ParticleManager:ReleaseParticleIndex( nFXIndex )
-
 						enemy:EmitSound("Dungeon.BloodSplatterImpact")
 					else
-						enemy:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_stunned", { duration = self.stun_duration * (1-enemy:GetStatusResistance()) } )
+						enemy:AddNewModifier( self.caster, self.ability, "modifier_stunned", { duration = self.stun_duration * (1-enemy:GetStatusResistance()) } )
 					end
 				end
 			end
 		end
-
-		ScreenShake( self:GetParent():GetOrigin(), 10.0, 100.0, 0.5, 1300.0, 0, true )
-
-		UTIL_Remove( self:GetParent() )
+		UTIL_Remove( self.parent )
 	end
 end
-
------------------------------------------------------------------------------
-

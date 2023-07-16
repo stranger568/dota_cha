@@ -200,6 +200,7 @@ function modifier_item_wraith_dominator_active:OnIntervalThink()
 	local particle = ParticleManager:CreateParticle("particles/items5_fx/wraith_pact_pulses.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 	ParticleManager:SetParticleControl(particle, 0, self:GetParent():GetAbsOrigin())
 	ParticleManager:SetParticleControl(particle, 1, Vector(self.radius,0,0))
+    ParticleManager:ReleaseParticleIndex(particle)
 	self:GetParent():EmitSound("Item.WraithTotem.Pulse")
 
 	local enemies = FindUnitsInRadius( self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, 0, false )

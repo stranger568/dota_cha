@@ -17,7 +17,7 @@ function modifier_skill_deposit:OnIntervalThink()
 	if self:GetStackCount() == 5 then
 		self:SetStackCount(0)
 		local gold = math.min(self:GetParent():GetGold(), 20000)
-		local bonus_gold = gold / 100 * 20
+		local bonus_gold = gold / 100 * 25
 		self:GetParent():ModifyGold(bonus_gold, true, 0)
 	end
 end

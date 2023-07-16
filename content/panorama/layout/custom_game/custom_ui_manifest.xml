@@ -128,24 +128,26 @@
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/damage_block.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pvp_bet.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pvp_brief.vxml_c" />
-        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/setting.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/leaderboard.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/player_info.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/donate.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/chat_wheel_settings.xml" />
-        <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/keybinds.xml" />
-        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/guide.vxml_c" />
-        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/customize.vxml_c" />
+        <!--<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/keybinds.xml" />-->
+        
+        <!--<CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/customize.vxml_c" />-->
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/top_menu.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/skill_select.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/ability_select.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/swap_abilities.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/omniscient_book.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/neutral_reward.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/skill_block.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pause_block.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/player_lose.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/hero_card.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/setting.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/guide.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/barebones_notifications.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/actor_confirm.vxml_c" />
         <CustomUIElement type="FlyoutScoreboard" layoutfile="s2r://panorama/layout/custom_game/multiteam_flyout_scoreboard.vxml_c" />

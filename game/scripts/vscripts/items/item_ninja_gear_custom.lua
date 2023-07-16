@@ -52,15 +52,16 @@ function modifier_ninja_gear_custom:GetTexture() return "item_ninja_gear" end
 function modifier_ninja_gear_custom:OnCreated(args)
     if not IsServer() then return end
     self.radius = 1200
+    self.parent = self:GetParent()
     self:StartIntervalThink(FrameTime())
 end
 
 function modifier_ninja_gear_custom:OnIntervalThink()
-    local parent = self:GetParent()
-    self:GetParent():RemoveModifierByName("modifier_gem_active_truesight")
-    self:GetParent():RemoveModifierByName("modifier_truesight")
-    self:GetParent():RemoveModifierByName("modifier_item_dustofappearance")
-    local area = FindUnitsInRadius( self:GetParent():GetTeam(), self:GetParent():GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS, FIND_ANY_ORDER, false )
+    if not IsServer() then return end
+    self.parent:RemoveModifierByName("modifier_gem_active_truesight")
+    self.parent:RemoveModifierByName("modifier_truesight")
+    self.parent:RemoveModifierByName("modifier_item_dustofappearance")
+    local area = FindUnitsInRadius( self.parent:GetTeam(), self.parent:GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS, FIND_ANY_ORDER, false )
     if area[1] then self:Destroy() end
 end
 
@@ -82,12 +83,11 @@ end
 function modifier_ninja_gear_custom:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_INVISIBILITY_LEVEL,
-        MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT,
         MODIFIER_PROPERTY_ALWAYS_AUTOATTACK_WHILE_HOLD_POSITION,
         MODIFIER_PROPERTY_INVISIBILITY_ATTACK_BEHAVIOR_EXCEPTION,
         MODIFIER_PROPERTY_PERSISTENT_INVISIBILITY,
         MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
-        --MODIFIER_EVENT_ON_ATTACK_LANDED,
     }
 end
 
@@ -107,17 +107,17 @@ function modifier_ninja_gear_custom:GetAlwaysAutoAttackWhileHoldPosition()
     return 1
 end
 
-function modifier_ninja_gear_custom:GetModifierMoveSpeedBonus_Percentage()
-    return 20
+function modifier_ninja_gear_custom:GetModifierMoveSpeedBonus_Constant()
+    return 25
 end
 
 function modifier_ninja_gear_custom:GetModifierTotalDamageOutgoing_Percentage()
-    if not self:GetParent():HasModifier("modifier_skill_hookah_master") then return end
+    if not self.parent:HasModifier("modifier_skill_hookah_master") then return end
     return 20
 end
 
 function modifier_ninja_gear_custom:AttackLandedModifier(params)
     if not IsServer() then return end
-    if params.attacker ~= self:GetParent() then return end
+    if params.attacker ~= self.parent then return end
     self:Destroy()
 end

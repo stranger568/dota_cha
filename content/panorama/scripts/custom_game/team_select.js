@@ -308,7 +308,7 @@ function GetAverageRating()
         let info = CustomNetTables.GetTableValue('cha_server_data', String(playerId));
         if (info) {
         	current_players = current_players + 1
-            average_rating = average_rating + (info.mmr[5] || 2500)
+            average_rating = average_rating + (info.mmr[6] || 2500)
         }
     }
 

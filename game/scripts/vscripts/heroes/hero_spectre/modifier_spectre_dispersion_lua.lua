@@ -5,13 +5,6 @@ require( "util" )
 
 modifier_spectre_dispersion_lua = class({})
 
-function modifier_spectre_dispersion_lua:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_TAKEDAMAGE
-	}
-	return funcs
-end
-
 function modifier_spectre_dispersion_lua:TakeDamageScriptModifier(event)
 
 	if event.unit == self:GetParent() then

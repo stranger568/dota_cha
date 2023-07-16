@@ -19,24 +19,25 @@ function modifier_disruptor_static_storm_custom:OnCreated( kv )
 	if not IsServer() then return end
 	self.owner = kv.isProvidedByAura~=1
 	if not self.owner then return end
-	self.radius = self:GetAbility():GetSpecialValueFor( "radius" )
-	self.pulses = self:GetAbility():GetSpecialValueFor( "pulses" )
-	local duration = self:GetAbility():GetSpecialValueFor( "duration" )
-	local damage = self:GetAbility():GetSpecialValueFor( "damage_max" )
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.caster = self:GetCaster()
+	self.radius = self.ability:GetSpecialValueFor( "radius" )
+	self.pulses = self.ability:GetSpecialValueFor( "pulses" )
+	local duration = self.ability:GetSpecialValueFor( "duration" )
+	self.damage = self.ability:GetSpecialValueFor( "damage_max" )
 	self.interval = duration/self.pulses
-	local max_tick_damage = damage * self.interval
-	self.tick_damage = max_tick_damage / self.pulses
 	self.pulse = 0
 	self.dmg_interval = 0
 	self.damageTable = 
 	{
-		attacker = self:GetCaster(),
-		damage_type = self:GetAbility():GetAbilityDamageType(),
-		ability = self:GetAbility(),
+		attacker = self.caster,
+		damage_type = self.ability:GetAbilityDamageType(),
+		ability = self.ability,
 	}
 	self:StartIntervalThink( self.interval )
 	self:PlayEffects1( duration )
-	self:GetParent():EmitSound("Hero_Disruptor.StaticStorm")
+	self.parent:EmitSound("Hero_Disruptor.StaticStorm")
 end
 
 function modifier_disruptor_static_storm_custom:OnDestroy()
@@ -53,7 +54,7 @@ function modifier_disruptor_static_storm_custom:CheckState()
 	{
 		[MODIFIER_STATE_SILENCED] = true,
 	}
-	if self:GetCaster():HasScepter() then
+	if self.caster and self.caster:HasScepter() then
 		state = 
 		{
 			[MODIFIER_STATE_SILENCED] = true,
@@ -67,7 +68,7 @@ function modifier_disruptor_static_storm_custom:OnIntervalThink()
 	self.dmg_interval = self.dmg_interval + self.interval
 	if self.dmg_interval >= 1 then
 		self.dmg_interval = 0
-		local enemies = FindUnitsInRadius( self:GetCaster():GetTeamNumber(), self:GetParent():GetOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false )
+		local enemies = FindUnitsInRadius( self.caster:GetTeamNumber(), self.parent:GetOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false )
 		for _,enemy in pairs(enemies) do
 			self.damageTable.victim = enemy
 			ApplyDamage( self.damageTable )
@@ -75,7 +76,7 @@ function modifier_disruptor_static_storm_custom:OnIntervalThink()
 		end
 	end
 	self.pulse = self.pulse + 1
-	self.damageTable.damage = self.tick_damage * self.pulse
+	self.damageTable.damage = self.damage
 	if self.pulse >= self.pulses then
 		self:Destroy()
 	end
@@ -107,13 +108,15 @@ end
 
 function modifier_disruptor_static_storm_custom:PlayEffects1( duration )
 	local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_disruptor/disruptor_static_storm.vpcf", PATTACH_WORLDORIGIN, nil )
-	ParticleManager:SetParticleControl( effect_cast, 0, self:GetParent():GetOrigin() )
+	ParticleManager:SetParticleControl( effect_cast, 0, self.parent:GetOrigin() )
 	ParticleManager:SetParticleControl( effect_cast, 1, Vector( self.radius, self.radius, self.radius ) )
 	ParticleManager:SetParticleControl( effect_cast, 2, Vector( duration, 0, 0 ) )
 	ParticleManager:ReleaseParticleIndex( effect_cast )
 end
 
 function modifier_disruptor_static_storm_custom:PlayEffects2( target )
-	local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_disruptor/disruptor_static_storm_bolt_hero.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
-	ParticleManager:ReleaseParticleIndex( effect_cast )
+    if target:IsHero() then
+	    local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_disruptor/disruptor_static_storm_bolt_hero.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
+	    ParticleManager:ReleaseParticleIndex( effect_cast )
+    end
 end

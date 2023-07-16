@@ -48,21 +48,23 @@ function modifier_alchemist_goblins_greed_custom:AllowIllusionDuplicate()
 end
 
 function modifier_alchemist_goblins_greed_custom:OnCreated( kv )
-	self.base_gold = self:GetAbility():GetSpecialValueFor( "bonus_gold" )
-	self.bonus_gold = self:GetAbility():GetSpecialValueFor( "bonus_bonus_gold" )
-	self.max_gold = self:GetAbility():GetSpecialValueFor( "bonus_gold_cap" )
-	self.duration = self:GetAbility():GetSpecialValueFor( "duration" )
-	self.damage = self:GetAbility():GetSpecialValueFor("damage")
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
+	self.base_gold = self.ability:GetSpecialValueFor( "bonus_gold" )
+	self.bonus_gold = self.ability:GetSpecialValueFor( "bonus_bonus_gold" )
+	self.max_gold = self.ability:GetSpecialValueFor( "bonus_gold_cap" )
+	self.duration = self.ability:GetSpecialValueFor( "duration" )
+	self.damage = self.ability:GetSpecialValueFor("damage")
 	self.actual_stack = 0
 	if not IsServer() then return end
 end
 
 function modifier_alchemist_goblins_greed_custom:OnRefresh( kv )
-	self.base_gold = self:GetAbility():GetSpecialValueFor( "bonus_gold" )
-	self.bonus_gold = self:GetAbility():GetSpecialValueFor( "bonus_bonus_gold" )
-	self.max_gold = self:GetAbility():GetSpecialValueFor( "bonus_gold_cap" )
-	self.duration = self:GetAbility():GetSpecialValueFor( "duration" )
-	self.damage = self:GetAbility():GetSpecialValueFor("damage")
+	self.base_gold = self.ability:GetSpecialValueFor( "bonus_gold" )
+	self.bonus_gold = self.ability:GetSpecialValueFor( "bonus_bonus_gold" )
+	self.max_gold = self.ability:GetSpecialValueFor( "bonus_gold_cap" )
+	self.duration = self.ability:GetSpecialValueFor( "duration" )
+	self.damage = self.ability:GetSpecialValueFor("damage")
 	if not IsServer() then return end
 	self:CalculateStack()
 end
@@ -81,11 +83,11 @@ end
 
 function modifier_alchemist_goblins_greed_custom:OnDeathEvent( params )
 	if not IsServer() then return end
-	if params.attacker:GetTeamNumber() ~= self:GetParent():GetTeamNumber() then return end
-	if self:GetCaster():GetTeamNumber()==params.unit:GetTeamNumber() then return end
-	if not self:GetParent():IsAlive() then return end
+	if params.attacker:GetTeamNumber() ~= self.parent:GetTeamNumber() then return end
+	if self.parent:GetTeamNumber()==params.unit:GetTeamNumber() then return end
+	if not self.parent:IsAlive() then return end
 	local gold = self:GetStackCount()
-	PlayerResource:ModifyGold( self:GetParent():GetPlayerOwnerID(), gold, false, DOTA_ModifyGold_Unspecified )
+	PlayerResource:ModifyGold( self.parent:GetPlayerOwnerID(), gold, false, DOTA_ModifyGold_Unspecified )
 	self:AddStack()
 end
 
@@ -93,7 +95,7 @@ function modifier_alchemist_goblins_greed_custom:AddStack()
 	if self.actual_stack * self.bonus_gold < self.max_gold then
 		self.actual_stack = self.actual_stack + 1
 		self:CalculateStack()
-		local modifier = self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_alchemist_goblins_greed_custom_stack", {} )
+		local modifier = self.parent:AddNewModifier( self:GetCaster(), self.ability, "modifier_alchemist_goblins_greed_custom_stack", {} )
 		modifier.parent_modifier = self
 	end
 end

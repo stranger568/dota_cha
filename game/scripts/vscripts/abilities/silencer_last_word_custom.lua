@@ -17,13 +17,10 @@ function silencer_last_word_custom:OnSpellStart()
 end
 
 function silencer_last_word_custom:PlayEffects( target )
-	local direction = target:GetOrigin()-self:GetCaster():GetOrigin()
-	direction.z = 0
-	direction = direction:Normalized()
-
-	local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_silencer/silencer_last_word_status_cast.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster() )
-	ParticleManager:SetParticleControlEnt( effect_cast, 0, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_attack1", Vector(0,0,0), true )
-	ParticleManager:SetParticleControlForward( effect_cast, 1, direction )
-	ParticleManager:ReleaseParticleIndex( effect_cast )
+    if target:IsHero() then
+	    local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_silencer/silencer_last_word_status_cast.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster() )
+	    ParticleManager:SetParticleControlEnt( effect_cast, 0, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_attack1", Vector(0,0,0), true )
+	    ParticleManager:ReleaseParticleIndex( effect_cast )
+    end
 	EmitSoundOn( "Hero_Silencer.LastWord.Cast", self:GetCaster() )
 end

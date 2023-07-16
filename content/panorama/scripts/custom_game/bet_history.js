@@ -106,6 +106,9 @@ function ToggleBetHistory()
       case "1x8":
         $("#BetHistoyMain").style.width="350px";
         break;
+      case "tournament_1x8":
+        $("#BetHistoyMain").style.width="350px";
+        break;
       case "halloween_1x8":
         $("#BetHistoyMain").style.width="350px";
         break;

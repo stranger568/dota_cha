@@ -120,8 +120,8 @@ function modifier_axe_battle_hunger_custom_debuff:OnDestroy( kv )
 end
 
 function modifier_axe_battle_hunger_custom_debuff:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_DEATH,
+	local funcs = 
+    {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 	}

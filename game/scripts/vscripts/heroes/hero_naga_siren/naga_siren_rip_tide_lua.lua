@@ -26,13 +26,6 @@ modifier_naga_siren_rip_tide_lua = modifier_naga_siren_rip_tide_lua or class({})
 
 function modifier_naga_siren_rip_tide_lua:IsHidden() return true end
 
-function modifier_naga_siren_rip_tide_lua:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_ATTACK_LANDED
-	}
-	return funcs
-end
-
 function modifier_naga_siren_rip_tide_lua:OnCreated(  )
 	self.hCaster = self:GetCaster()
 	self.hAbility = self:GetAbility()

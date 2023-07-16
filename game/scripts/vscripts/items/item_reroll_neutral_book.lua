@@ -13,10 +13,11 @@ item_reroll_neutral_book.neutrals_tier_5 =
 	["item_fallen_sky"] = true,
 	["item_pirate_hat"] = true,
 	["item_ex_machina_custom"] = true,
-	["item_giants_ring"] = true,
+	["item_giants_ring_custom"] = true,
 	["item_book_of_shadows"] = true,
 	["item_fusion_rune_custom"] = true,
 	["item_force_field"] = true,
+    ["item_demonicon"] = true,
 }
 
 function item_reroll_neutral_book:OnSpellStart()
@@ -25,13 +26,16 @@ function item_reroll_neutral_book:OnSpellStart()
 	local neutral_item = self:GetCaster():GetItemInSlot(16)
 	if neutral_item then
 		if self.neutrals_tier_5[neutral_item:GetAbilityName()] ~= nil then
-			local neutral_item_name = ItemLoot:GetUniqueNeutralItem(5, self:GetCaster():GetTeamNumber() )
+			local neutral_item_name = HeroBuilder:GetUniqueNeutralItemRandom(self:GetCaster():GetPlayerOwnerID(), 5)
 			if neutral_item_name then
 				self:GetCaster():EmitSound("Item.TomeOfKnowledge")
 				UTIL_Remove(neutral_item)
 				local caster = self:GetCaster()
 				item:SpendCharge()
-				caster:AddItemByName(neutral_item_name)
+                local neutralItem = CreateItem(neutral_item_name[1], caster, caster)
+                caster:AddItem(neutralItem)
+                neutralItem:SetPurchaseTime(0)
+                neutralItem.owner = caster
 			end
 		else
 			local player = PlayerResource:GetPlayer(self:GetCaster():GetPlayerID())

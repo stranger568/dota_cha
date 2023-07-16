@@ -77,6 +77,7 @@ if IsServer() then
 		item_refresher_arena = MULTICAST_TYPE_NONE,
 		item_refresher_core = MULTICAST_TYPE_NONE,
 		abyssal_underlord_firestorm_custom = MULTICAST_TYPE_NONE,
+        grimstroke_spirit_walk_custom = MULTICAST_TYPE_NONE,
 		beastmaster_wild_axes = MULTICAST_TYPE_INSTANT,
 		doom_bringer_devour_custom = MULTICAST_TYPE_DIFFERENT,
 		custom_phantom_assassin_fan_of_knives = MULTICAST_TYPE_SAME,

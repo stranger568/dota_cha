@@ -68,30 +68,12 @@ function spider_nethertoxin_lua:OnProjectileHit( target, location )
 	)
 end
 
-------------------------------------------------------------------------------
 function spider_nethertoxin_lua:PlayEffects( point )
-	-- Get Resources
-	local particle_cast = "particles/units/heroes/hero_viper/viper_nethertoxin_proj.vpcf"
-	local sound_cast = "Hero_Viper.Nethertoxin.Cast"
-
-	-- Get Data
 	local projectile_speed = self:GetSpecialValueFor( "projectile_speed" )
-
-	-- Create Particle
-	local effect_cast = ParticleManager:CreateParticle( particle_cast, PATTACH_ABSORIGIN_FOLLOW, self:GetCaster() )
-	ParticleManager:SetParticleControlEnt(
-		effect_cast,
-		0,
-		self:GetCaster(),
-		PATTACH_POINT_FOLLOW,
-		"attach_attack1",
-		Vector(0,0,0), -- unknown
-		true -- unknown, true
-	)
+	local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_viper/viper_nethertoxin_proj.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster() )
+	ParticleManager:SetParticleControlEnt( effect_cast, 0, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_attack1", Vector(0,0,0), true )
 	ParticleManager:SetParticleControl( effect_cast, 1, Vector( projectile_speed, 0, 0 ) )
 	ParticleManager:SetParticleControl( effect_cast, 5, point )
 	ParticleManager:ReleaseParticleIndex( effect_cast )
-
-	-- Create Sound
 	self:GetCaster():EmitSound("Hero_Viper.Nethertoxin.Cast")
 end

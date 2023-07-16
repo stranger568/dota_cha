@@ -3,7 +3,6 @@
 		<include src="s2r://panorama/styles/dotastyles.css" />
 		<include src="file://{resources}/styles/custom_game/donate.css" />
 	</styles>
-
 	<scripts>
 		<include src="file://{resources}/scripts/custom_game/donate.js" />
 		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
@@ -11,199 +10,202 @@
 
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel id="SmilesButton" onactivate="ToggleSmiles();" />
-
-		<Panel class="SmilesWindow sethidden" id="SmilesWindow" hittest="false">
-
-		</Panel>
+		<Panel class="SmilesWindow sethidden" id="SmilesWindow" hittest="false" />
 
 		<Panel class="BattlePassWindow sethidden" id="BattlePassWindow" hittest="false">
-			<Panel class="HeaderDonate">
-				<Label text="#cha_battlepass" class="HeaderPanelLabel"/>	
-				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenPass();"/>
-			</Panel> 
-
-			<Panel class="BattlePassMain">
-				<Panel class="CurrencyBar">
-					<Panel class="DonateCoinPanel">
-						<Panel class="DonateBPIcon1" />
-						<Panel class="PanelBack">
-							<Label class="DonateBattlePassDays" id="DonateBattlePassDays1" text="0" />
-						</Panel>
+			<Panel class="HeaderDonate">	
+				<Panel class="DonateButtons" id="DonateButtons">
+					<Panel class="DonateButton" onactivate="SetMenu('DonateButtonShop', 'DonateWindowBattleShop')" id="DonateButtonShop">
+						<Label class="DonateButtonLabel" text="#button_shop" />
 					</Panel>
-
-					<Panel class="DonateCoinPanel">
-						<Panel class="DonateBPIcon2" />
-						<Panel class="PanelBack">
-							<Label class="DonateBattlePassDays" id="DonateBattlePassDays2" text="0" />
-						</Panel>
+					<Panel class="DonateButton" onactivate="SetMenu('DonateButtonBattlePass', 'DonateWindowBattlePass')" id="DonateButtonBattlePass">
+						<Label class="DonateButtonLabel" text="#button_bp" />
 					</Panel>
-
-					<Panel class="ArenaCoinPanel">
-						<Panel class="ArenaCoinIcon" />
-						<Panel class="PanelBack">
-							<Label class="ArenaCoinLabel" id="ArenaCoinLabel" text="0" />
-							<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />
-						</Panel>
+					<Panel class="DonateButton" onactivate="SetMenu('DonateButtonProfile', 'DonateWindowBattleProfile')" id="DonateButtonProfile">
+						<Label class="DonateButtonLabel" text="#button_profile" />
 					</Panel>
-					<Panel class="DonateCoinPanel">
-						<Panel class="DonateCoinIcon" />
-						<Panel class="PanelBack">
-							<Label class="DonateCoinLabel" id="DonateCoinLabel" text="0" />
-							<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />
+					<Panel class="DonateButton" onactivate="SetMenu('DonateButtonRewards', 'DonateWindowBattleRewards')" id="DonateButtonRewards">
+						<Label class="DonateButtonLabel" text="#button_rewards" />
+					</Panel>
+				</Panel>
+				<Panel class="ArenaCoinPanel">
+					<Panel class="ArenaCoinIcon" />
+					<Panel class="PanelBack">
+						<Label class="ArenaCoinLabel" id="ArenaCoinLabel" text="0" />
+						<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />
+					</Panel>
+				</Panel>
+				<Panel class="DonateCoinPanel">
+					<Panel class="DonateCoinIcon" />
+					<Panel class="PanelBack">
+						<Label class="DonateCoinLabel" id="DonateCoinLabel" text="0" />
+						<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />
+					</Panel>
+				</Panel>
+				<Panel class="Close" onactivate="CloseWindowsBPFast();"/>
+			</Panel>
+			<Panel class="DonateWindowBasic" id="DonateWindowBattlePass">
+				<Panel class="BattlePassInformation">
+					<Panel class="BattlePassInformationHeader">
+						<Label class="BattlePassInformationHeaderLabel" text="#how_to_you" />
+					</Panel>
+					<Panel class="BattlePassInformationBody">
+						<Panel class="BattlePassInformationBodyImage" id="BattlePassInformationBodyImage" />
+						<Panel class="BattlePassInformationBodyInfo">
+							<Label class="BattlePassInformationBodyInfoName" text="Battle Pass" />
+							<Label class="BattlePassInformationBodyInfoDescr" id="BattlePassInformationBodyInfoDescr" text="" />
+							<Panel class="BattlePassInformationBodyInfoNavigation">
+								<Panel class="NavigationArrowLeft" onactivate="BattlePassInfoSwap('left');" />
+								<Panel class="NavigationWidgets" id="NavigationWidgets">
+									<Panel class="NavigationWidget NavigationWidget_Active" />
+									<Panel class="NavigationWidget" />
+									<Panel class="NavigationWidget" />
+									<Panel class="NavigationWidget" />
+									<Panel class="NavigationWidget" />
+									<Panel class="NavigationWidget" />
+									<Panel class="NavigationWidget" />
+									<Panel class="NavigationWidget" />
+									<Panel class="NavigationWidget" />
+								</Panel>
+								<Panel class="NavigationArrowRight" onactivate="BattlePassInfoSwap('right');" />
+							</Panel>
 						</Panel>
 					</Panel>
 				</Panel>
-				<Panel class="BattlePassBuyMain">
-					<Panel class="BattlePassBuyPanel bp_level_1" onactivate="OpenBattlePassInfo('BuyBattlePassWindow_level_1');">
-						<Label class="BuyBattlePassLabel" text="#bp_level_1" />
+
+				<Panel class="BattlePassInformationBuy">
+					<Panel class="BattlePassInformationHeader">
+						<Label class="BattlePassInformationHeaderLabel" text="#bp_inf_1" />
 					</Panel>
-					<Panel class="BattlePassBuyPanel bp_level_2" onactivate="OpenBattlePassInfo('BuyBattlePassWindow_level_2');">
-						<Label class="BuyBattlePassLabel" text="#bp_level_2" />
+					<Panel class="BattlePassInformationBody" style="flow-children:down;">
+						<Panel class="BattlePassBlockInfo" style="margin-top:12px;">
+							<Label class="BattlePassBlockInfoMain" text="#bp_inf_2" />
+							<Label class="BattlePassBlockInfoMini" text="#bp_inf_3" />
+						</Panel>
+						<Panel class="BattlePassBlockInfo">
+							<Label class="BattlePassBlockInfoMain" text="#bp_inf_4" />
+							<Panel class="BattlePassBlockInfoTochka">
+								<Panel class="TochkaInfo"/>
+								<Label class="BattlePassBlockInfoMini" text="#bp_inf_5" />
+							</Panel>
+							<Panel class="BattlePassBlockInfoTochka">
+								<Panel class="TochkaInfoMax"/>
+								<Label class="BattlePassBlockInfoMini" text="#bp_inf_6" />
+							</Panel>
+						</Panel>
+						<Panel class="BattlePassBlockInfo" id="DurationBattlePassPrice">
+							<Label class="BattlePassBlockInfoMain" text="#bp_inf_7" />
+							<Panel class="BattlePassPricePanel">
+								<RadioButton onactivate="UpdateBattlePassPrice('0');" lass="RadioBPrice" group="BPPrice" selected="true" />
+								<Label class="BpPriceLabel" html="true" text="Battle Pass на 1 месяц" />
+							</Panel>
+							<Panel class="BattlePassPricePanel">
+								<RadioButton onactivate="UpdateBattlePassPrice('1');" class="RadioBPrice" group="BPPrice" />
+								<Label class="BpPriceLabel" html="true" text="Battle Pass на 3 месяца" />
+							</Panel>
+							<Panel class="BattlePassPricePanel">
+								<RadioButton onactivate="UpdateBattlePassPrice('2');" class="RadioBPrice" group="BPPrice" />
+								<Label class="BpPriceLabel" html="true" text="Battle Pass на 6 месяцев" />
+							</Panel>
+							<Panel class="BattlePassPricePanel">
+								<RadioButton onactivate="UpdateBattlePassPrice('3');" class="RadioBPrice" group="BPPrice" />
+								<Label class="BpPriceLabel" html="true" text="Battle Pass на 12 месяцев" />
+							</Panel>
+						</Panel>
+						<Panel class="BattlePassBlockInfo">
+							<Panel class="BuyBattlePassButtons" id="BuyBattlePassButtons">
+								<Panel class="BuyBattlePassButtonRed" id="BuyBattlePassButtonRed">
+									<Panel style="flow-children:right;align:center center;">
+										<Label class="BuyBattlePassButtonRedPrice" id="BuyBattlePassButtonRedPrice" text="0" />
+										<Panel class="BuyBattlePassButtonRedPriceIcon" />
+									</Panel>
+								</Panel>
+								<Panel class="BuyBattlePassButtonBlue" id="BuyBattlePassButtonBlue">
+									<Panel style="flow-children:right;align:center center;">
+										<Label class="BuyBattlePassButtonBluePrice" id="BuyBattlePassButtonBluePrice" text="0" />
+										<Panel class="BuyBattlePassButtonBluePriceIcon" />
+									</Panel>
+								</Panel>
+							</Panel>
+							<Label class="BattlePassDaysDuration" id="BattlePassDaysDuration" text="" />
+						</Panel>
 					</Panel>
+				</Panel>
+			</Panel>
+
+			<Panel class="DonateWindowBasic" id="DonateWindowBattleRewards">
+				<Panel class="RewardsMain" id="RewardsMain" hittest="false">
+
+				</Panel>
+			</Panel>
+
+			<Panel class="DonateWindowBasic" id="DonateWindowBattleProfile">
+				<Panel class="ProfileColumnStart" >
+					<Panel class="ProfileAndQuests">
+						<Panel class="PlayerProfile">
+							<Panel class="NickNameAvatarRating">
+								<DOTAAvatarImage steamid="local" class="AvatarProfile" />
+								<Panel class="PlayerNameAndRating">
+									<DOTAUserName steamid="local" class="NameProfile"/>
+									<Label class="PlayerRatingProfile" id="PlayerRatingProfile" text="Rating 0" />
+								</Panel>
+								<Panel class="PlayerRankProfile" id="PlayerRankProfile">
+									<Label class="PlayerRankProfilePlace" id="PlayerRankProfilePlace" text="" />
+								</Panel>
+							</Panel>
+							<Panel class="ArenaLevelPanel">
+								<Label class="ArenaLevel" id="ArenaLevel" text="Arena Level 0" />
+								<Label class="ArenaLevelPoints" id="ArenaLevelPoints" text="0 / 1000" />
+								<Panel class="ArenaLevelPanelline">
+									<Panel class="ArenaLevelPanelBG" />
+									<Panel class="ArenaLevelPanelProgress" id="ArenaLevelPanelProgress" />
+								</Panel>
+								<Label class="LevelReward" html="true" text="#level_reward"/>
+							</Panel>
+						</Panel>
+						<Panel class="QuestsProfile">
+							<Panel class="QuestsProfileHeader">
+								<Label class="QuestBlockLabel" text="#day_quests" />
+							</Panel>
+							<Panel class="QuestBlock" id="QuestBlock" />
+						</Panel>
+					</Panel>
+
+					<Panel class="BlockChatWheel" onactivate="GameUI.CustomUIConfig().OpenChatWheel();">
+						<Panel class="ChatWheelHeader">
+							<Label class="ChatWheelHeaderLabel" text="#select_sounds" />
+						</Panel>
+						<Panel class="SoundBoard" />
+					</Panel>
+				</Panel>
+				<Panel class="ProfileColumnEffects" >
+					<Panel class="ChooseCustomizeBlock">
+						<Label class="ChooseCustomizeBlockTitle" text="#customize_nickname" />
+						<Panel class="ChooseList" id="NickNamePanel" >
+						</Panel>
+					</Panel>
+
+					<Panel class="ChooseCustomizeBlock">
+						<Label class="ChooseCustomizeBlockTitle" text="#customize_frame" />
+						<Panel class="ChooseList" id="FramesPanel" >
+						</Panel>
+					</Panel>
+
+					<Panel class="ChooseCustomizeBlock">
+						<Label class="ChooseCustomizeBlockTitle" text="#customize_effect" />
+						<Panel class="ChooseList" id="EffectsPanel" >
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+
+			<Panel class="DonateWindowBasic" id="DonateWindowBattleShop">
+				<Panel class="DonateShopItems" id="DonateShopItems">
+
 				</Panel>
 			</Panel>
 		</Panel>
 
-		<Button class="BuyBattlePassWindow" id="BuyBattlePassWindow_level_1" hittest="true">
-			<Panel class="BuyBattlePassWindowHeader">
-				<Label text="#bp_level_1" class="BuyBattlePassWindowHeaderLabel"/>	
-				<Panel class="Close" onactivate="CloseBattlePassInfo('BuyBattlePassWindow_level_1');"/>
-			</Panel>
-			<Panel class="BuyMenu">
-				<Panel class="DonateLine_1">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_1" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_1_price_1" />
-						<Panel class="DonateLineIconArena" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_1" onactivate="battlepass_buy('arena', 1, 1);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateLine_1">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_1" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_1_price_2" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_1" onactivate="battlepass_buy('donate', 1, 1);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateBonus" />
-				<Label class="DonateBonusLabel" html="true" text="#bp_level_1_bonus_list" />
-			</Panel>
-		</Button>
-		<Button class="BuyBattlePassWindow" id="BuyBattlePassWindow_level_2" hittest="true">
-			<Panel class="BuyBattlePassWindowHeader">
-				<Label text="#bp_level_2" class="BuyBattlePassWindowHeaderLabel"/>	
-				<Panel class="Close" onactivate="CloseBattlePassInfo('BuyBattlePassWindow_level_2');"/>
-			</Panel>
-			<Panel class="BuyMenu">
-				<Panel class="DonateLine_2">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_1" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_3_price_2" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 3, 1);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateLine_2">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_3" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_3_price_3" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 3, 3);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateLine_2">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_6" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_3_price_4" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 3, 6);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateLine_2">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_12" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_3_price_5" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_2" onactivate="battlepass_buy('donate', 3, 12);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateBonus" />
-				<Label class="DonateBonusLabel" html="true" text="#bp_level_3_bonus_list" />
-			</Panel>
-		</Button>
-		<Button class="BuyBattlePassWindow" id="BuyBattlePassWindow_level_3" hittest="true">
-			<Panel class="BuyBattlePassWindowHeader">
-				<Label text="#bp_level_3" class="BuyBattlePassWindowHeaderLabel"/>	
-				<Panel class="Close" onactivate="CloseBattlePassInfo('BuyBattlePassWindow_level_3');"/>
-			</Panel>
-			<Panel class="BuyMenu">
-				<Panel class="DonateLine_3">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_1" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_3_price_2" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_3" onactivate="battlepass_buy('donate', 3, 1);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateLine_3">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_3" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_3_price_3" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_3" onactivate="battlepass_buy('donate', 3, 3);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateLine_3">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_6" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_3_price_4" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_3" onactivate="battlepass_buy('donate', 3, 6);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateLine_3">
-					<Panel style="flow-children:right;vertical-align:center;">
-						<Label class="DonateLineText" text="#bp_month_count_12" />
-						<Label class="DonateLineText" text="  —  " />
-						<Label class="DonateLineSum" text="#bp_level_3_price_5" />
-						<Panel class="DonateLineIconDonate" />
-					</Panel>
-					<Panel class="DonateLineButton DonateLineButtonText_3" onactivate="battlepass_buy('donate', 3, 12);">
-						<Label class="DonateLineButtonText" text="#bp_button_buy" />
-					</Panel>
-				</Panel>
-				<Panel class="DonateBonus" />
-				<Label class="DonateBonusLabel" html="true" text="#bp_level_3_bonus_list" />
-			</Panel>
-		</Button>
 		<Button class="BuyBattlePassWindow" id="BuyBattlePassWindow_coinshop" hittest="true">
 			<Panel class="BuyBattlePassWindowHeader">
 				<Label text="#bp_coin_shop" class="BuyBattlePassWindowHeaderLabel"/>	
@@ -211,134 +213,96 @@
 			</Panel>
 			<Panel class="CoinShop2Panels">
 				<Panel class="CoinShopStolb">
-					<Panel class="CoinShopStolbHeader">
-						<Panel class="CoinShopStolbIcon"/>
-						<Label class="CoinShopStolbName" text="Arena Coin" />
-					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="swap_currency(75, 1000);">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_arena_coin_1_1" />
 							<Panel class="DonateLineIconArena" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_arena_coin_2_1" />
 							<Panel class="DonateLineIconDonate" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="swap_currency(75, 1000);">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="swap_currency(150, 2000);">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_arena_coin_1_2" />
 							<Panel class="DonateLineIconArena" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_arena_coin_2_2" />
 							<Panel class="DonateLineIconDonate" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="swap_currency(150, 2000);">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="swap_currency(375, 5000);">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_arena_coin_1_3" />
 							<Panel class="DonateLineIconArena" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_arena_coin_2_3" />
 							<Panel class="DonateLineIconDonate" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="swap_currency(375, 5000);">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="swap_currency(750, 10000);">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_arena_coin_1_4" />
 							<Panel class="DonateLineIconArena" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_arena_coin_2_4" />
 							<Panel class="DonateLineIconDonate" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="swap_currency(750, 10000);">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="swap_currency(2250, 30000);">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_arena_coin_1_5" />
 							<Panel class="DonateLineIconArena" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_arena_coin_2_5" />
 							<Panel class="DonateLineIconDonate" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="swap_currency(2250, 30000);">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
 				</Panel>
 				<Panel class="CoinShopStolb">
-					<Panel class="CoinShopStolbHeader">
-						<Panel class="CoinShopStolbIcon2"/>
-						<Label class="CoinShopStolbName" text="Donate Coin" />
-					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="OpenDonateInfo();">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_donate_coin_1_1" />
 							<Panel class="DonateLineIconDonate" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_donate_coin_2_1" />
 							<Label class="DonateLineText" text="#bp_coinshop_currency_name" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="OpenDonateInfo();">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="OpenDonateInfo();">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_donate_coin_1_2" />
 							<Panel class="DonateLineIconDonate" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_donate_coin_2_2" />
 							<Label class="DonateLineText" text="#bp_coinshop_currency_name" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="OpenDonateInfo();">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="OpenDonateInfo();">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_donate_coin_1_3" />
 							<Panel class="DonateLineIconDonate" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_donate_coin_2_3" />
 							<Label class="DonateLineText" text="#bp_coinshop_currency_name" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="OpenDonateInfo();">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="OpenDonateInfo();">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_donate_coin_1_4" />
 							<Panel class="DonateLineIconDonate" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_donate_coin_2_4" />
 							<Label class="DonateLineText" text="#bp_coinshop_currency_name" />
 						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="OpenDonateInfo();">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
-						</Panel>
 					</Panel>
-					<Panel class="coinshop_line">
-						<Panel style="flow-children:right;vertical-align:center;">
+					<Panel class="coinshop_line" onactivate="OpenDonateInfo();">
+						<Panel style="flow-children:right;vertical-align:center;horizontal-align:center;">
 							<Label class="DonateLineSum" text="#bp_coinshop_donate_coin_1_5" />
 							<Panel class="DonateLineIconDonate" />
 							<Label class="DonateLineText" text="  —  " />
 							<Label class="DonateLineText" text="#bp_coinshop_donate_coin_2_5" />
 							<Label class="DonateLineText" text="#bp_coinshop_currency_name" />
-						</Panel>
-						<Panel class="DonateLineButton DonateLineButtonText_4" onactivate="OpenDonateInfo();">
-							<Label class="DonateLineButtonText" text="#bp_button_buy" />
 						</Panel>
 					</Panel>
 				</Panel>
@@ -346,108 +310,11 @@
 			<Label class="DonateCallbackInfo" html="true" text="#DonateCallbackInfo" />
 		</Button>
 
-		<Panel class="Recalibrate_panel sethidden" id="RacalibrateWindow" hittest="false">
-			<Panel class="HeaderRecalibrate">
-				<Label text="#calibrate_settings" class="HeaderPanelLabelRecalibr"/>	
-				<Panel class="CloseRec" onactivate="GameUI.CustomUIConfig().OpenCalibrate();"/>
-			</Panel>
-			<Panel class="RecalMain">
-				<Panel class="PanelTicket">
-					<Panel class="TicketIcon" />
-					<Label class="TicketCount" id="TicketCount" text="#ticket_count" />
-				</Panel>
-				<Panel class="RecalButton" onactivate="recalibrating_start();">
-					<Label class="RecalAccept" text="#RecalAccept" />
-				</Panel>
-			</Panel>
-		</Panel>
-
-		<Panel class="WheelWindow sethidden" id="WheelWindow" hittest="false">
-			<Panel class="HeaderDonate">
-				<Label text="#cha_wheel" class="HeaderPanelLabel"/>	
-				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenWheel();"/>
-			</Panel> 
-
-			<Panel class="WheelMain" hittest="false">
-				<Panel id="chest_1" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_2" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_3" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_4" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_5" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_6" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_7" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_8" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_9" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_10" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_11" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_12" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_13" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_14" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_15" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_16" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_17" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_18" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_19" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel id="chest_20" class="ChestImage Closed">
-					<Label class="QuestSingle" text="?" />
-				</Panel>
-				<Panel class="ChestBGImage" />
-				<Panel class="KeyBGImage" />
-				<Panel style="flow-children:right;align:center center;margin-left:250px;margin-top:130px;">
-					<Panel class="ArenaCoinChest" />
-					<Label class="ArenaCoinChestLabel" text="100" />
-				</Panel>
-				<Panel class="ButtonChestOpen" id="ButtonChestOpen" onactivate="RollChestStart();">
-					<Label class="ButtonChestOpenLabel" text="#wheel_chest_open" />
-				</Panel>
-				<Panel class="BalanceChest">
-					<Panel class="BalanceCoinChest" />
-					<Label class="BalanceCoinChestLabel" id="BalanceCoinChestLabel" text="0" />
-				</Panel>
-			</Panel>
-		</Panel>
-
-
 		<Button id="donate_coin_panel">
-			<Panel class="CloseInfoItem" onactivate="CloseDonateInfo();"/>
+			<Panel class="BuyBattlePassWindowHeader">
+				<Label text="#bp_coin_shop" class="BuyBattlePassWindowHeaderLabel"/>	
+				<Panel class="Close" onactivate="CloseDonateInfo();"/>
+			</Panel>
 			<Panel style="flow-children:right;horizontal-align:center;vertical-align:center;">
 				<Panel style="flow-children:down;horizontal-align:center;vertical-align:center;" onactivate="ExternalBrowserGoToURL('https://qiwi.com/n/CUSTOMHEROARENA');">
 					<Panel class="QiwiButton" />
@@ -459,30 +326,6 @@
 				</Panel>
 			</Panel>
 		</Button>
-
-
-		<Panel class="RewardsWindow sethidden" id="RewardsWindow" hittest="false">
-			<Panel class="HeaderDonate">
-				<Label text="#cha_rewards" class="HeaderPanelLabel"/>	
-				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenRewards();"/>
-			</Panel> 
-
-			<Panel class="RewardsMain" id="RewardsMain" hittest="false">
-
-			</Panel>
-		</Panel>
-
-
-
-		<Panel id="wheel_reward_panel">
-			<Label class="wheel_reward_panel_label1" text="#wheel_reward_panel_label1" />
-			<Label class="wheel_reward_panel_label2" id="wheel_reward_panel_label2" text="" />
-			<Panel class="wheel_reward_panel_button" onactivate="CloseRewardPanel();">
-				<Label class="wheel_reward_panel_label3" text="#wheel_reward_panel_label3" />
-			</Panel>
-		</Panel>
-
-
 
 		<Panel id="donate_accept_window">
 			<Panel style="align:center center;flow-children:down;">

@@ -44,7 +44,6 @@ function modifier_skill_fearful_debuff:DeclareFunctions()
 end
 
 function modifier_skill_fearful_debuff:GetModifierIncomingDamage_Percentage(params)
-	if self:GetParent():HasModifier("modifier_loser_curse") then return end
 	if params.damage_type == DAMAGE_TYPE_PURE then return end
-	return 20
+	return 30
 end

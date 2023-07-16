@@ -11,46 +11,43 @@ end
 
 function item_shivas_guard_2:OnSpellStart()
 	if not IsServer() then return end
-
-	local blast_radius = self:GetSpecialValueFor("blast_radius")
-	local blast_speed = self:GetSpecialValueFor("blast_speed")
+    local ability = self
+    local caster = ability:GetCaster()
+	local blast_radius = ability:GetSpecialValueFor("blast_radius")
+	local blast_speed = ability:GetSpecialValueFor("blast_speed")
+    local blast_debuff_duration = ability:GetSpecialValueFor("blast_debuff_duration")
+    local damage = ability:GetSpecialValueFor("blast_damage")
 	local blast_duration = blast_radius / blast_speed
-	local current_loc = self:GetCaster():GetAbsOrigin()
-
-	self:GetCaster():EmitSound("DOTA_Item.ShivasGuard.Activate")
-
-	local blast_pfx = ParticleManager:CreateParticle("particles/items2_fx/shivas_guard_active.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster())
-	ParticleManager:SetParticleControl(blast_pfx, 0, self:GetCaster():GetAbsOrigin())
+	local current_loc = caster:GetAbsOrigin()
+	caster:EmitSound("DOTA_Item.ShivasGuard.Activate")
+	local blast_pfx = ParticleManager:CreateParticle("particles/items2_fx/shivas_guard_active.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
+	ParticleManager:SetParticleControl(blast_pfx, 0, caster:GetAbsOrigin())
 	ParticleManager:SetParticleControl(blast_pfx, 1, Vector(blast_radius, blast_duration * 1.33, blast_speed))
 	ParticleManager:ReleaseParticleIndex(blast_pfx)
-
 	local targets_hit = {}
 	local current_radius = 0
 	local tick_interval = 0.1
-
 	Timers:CreateTimer(tick_interval, function()
-		AddFOWViewer(self:GetCaster():GetTeamNumber(), current_loc, current_radius, 0.1, false)
+		AddFOWViewer(caster:GetTeamNumber(), current_loc, current_radius, 0.1, false)
 		current_radius = current_radius + blast_speed * tick_interval
-		current_loc = self:GetCaster():GetAbsOrigin()
-		local nearby_enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), current_loc, nil, current_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+		current_loc = caster:GetAbsOrigin()
+		local nearby_enemies = FindUnitsInRadius(caster:GetTeamNumber(), current_loc, nil, current_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 		for _,enemy in pairs(nearby_enemies) do
-
 			local enemy_has_been_hit = false
 			for _,enemy_hit in pairs(targets_hit) do
 				if enemy == enemy_hit then enemy_has_been_hit = true end
 			end
-
 			if not enemy_has_been_hit then
-				Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 30, 1)
-				Quests_arena:QuestProgress(self:GetCaster():GetPlayerOwnerID(), 72, 2)
-				local hit_pfx = ParticleManager:CreateParticle("particles/items2_fx/shivas_guard_impact.vpcf", PATTACH_ABSORIGIN_FOLLOW, enemy)
-				ParticleManager:SetParticleControl(hit_pfx, 0, enemy:GetAbsOrigin())
-				ParticleManager:SetParticleControl(hit_pfx, 1, enemy:GetAbsOrigin())
-				ParticleManager:ReleaseParticleIndex(hit_pfx)
-				--enemy:AddNewModifier(self:GetCaster(), self, "modifier_item_shivas_guard_2_discord_debuff", {duration = self:GetSpecialValueFor("discord_duration")})
-				enemy:AddNewModifier(self:GetCaster(), self, "modifier_item_shivas_guard_2_debuff", {duration = self:GetSpecialValueFor("blast_debuff_duration")})
-				local damage = self:GetSpecialValueFor("blast_damage")
-				ApplyDamage({attacker = self:GetCaster(), victim = enemy, ability = self, damage = damage, damage_type = DAMAGE_TYPE_MAGICAL})
+				Quests_arena:QuestProgress(caster:GetPlayerOwnerID(), 30, 1)
+				Quests_arena:QuestProgress(caster:GetPlayerOwnerID(), 72, 2)
+                if enemy:IsHero() then
+				    local hit_pfx = ParticleManager:CreateParticle("particles/items2_fx/shivas_guard_impact.vpcf", PATTACH_ABSORIGIN_FOLLOW, enemy)
+				    ParticleManager:SetParticleControl(hit_pfx, 0, enemy:GetAbsOrigin())
+				    ParticleManager:SetParticleControl(hit_pfx, 1, enemy:GetAbsOrigin())
+				    ParticleManager:ReleaseParticleIndex(hit_pfx)
+                end
+				enemy:AddNewModifier(caster, self, "modifier_item_shivas_guard_2_debuff", {duration = blast_debuff_duration})
+				ApplyDamage({attacker = caster, victim = enemy, ability = ability, damage = damage, damage_type = DAMAGE_TYPE_MAGICAL})
 				targets_hit[#targets_hit + 1] = enemy
 			end
 		end
@@ -67,11 +64,23 @@ function modifier_item_shivas_guard_2:IsPurgable() return false end
 function modifier_item_shivas_guard_2:RemoveOnDeath() return false end
 
 function modifier_item_shivas_guard_2:OnCreated()
-	self.aura_radius = self:GetAbility():GetSpecialValueFor("aura_radius")
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+	self.aura_radius = self.ability:GetSpecialValueFor("aura_radius")
+    self.bonus_armor = self.ability:GetSpecialValueFor("bonus_armor")
+    self.bonus_intellect = self.ability:GetSpecialValueFor("bonus_intellect")
+    self.bonus_attribute_agi = self.ability:GetSpecialValueFor("bonus_attribute_agi")
+    self.bonus_attribute_str = self.ability:GetSpecialValueFor("bonus_attribute_str")
+    self.bonus_cooldown = self.ability:GetSpecialValueFor("bonus_cooldown")
+    self.bonus_castrange = self.ability:GetSpecialValueFor("bonus_castrange")
+    self.bonus_health = self.ability:GetSpecialValueFor("bonus_health")
+    self.bonus_mana = self.ability:GetSpecialValueFor("bonus_mana")
+    self.bonus_manaregen = self.ability:GetSpecialValueFor("bonus_manaregen")
 end
 
 function modifier_item_shivas_guard_2:DeclareFunctions()
-	return {
+	return 
+    {
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
@@ -85,40 +94,40 @@ function modifier_item_shivas_guard_2:DeclareFunctions()
 end
 
 function modifier_item_shivas_guard_2:GetModifierPhysicalArmorBonus()
-	return self:GetAbility():GetSpecialValueFor("bonus_armor")
+	return self.bonus_armor
 end
 
 function modifier_item_shivas_guard_2:GetModifierBonusStats_Intellect()
-	return self:GetAbility():GetSpecialValueFor("bonus_intellect")
+	return self.bonus_intellect
 end
 
 function modifier_item_shivas_guard_2:GetModifierBonusStats_Agility()
-	return self:GetAbility():GetSpecialValueFor("bonus_attribute_agi")
+	return self.bonus_attribute_agi
 end
 
 function modifier_item_shivas_guard_2:GetModifierBonusStats_Strength()
-	return self:GetAbility():GetSpecialValueFor("bonus_attribute_str")
+	return self.bonus_attribute_str
 end
 
 function modifier_item_shivas_guard_2:GetModifierPercentageCooldown()
 	if self:GetParent():HasItemInInventory("item_octarine_core") then return 0 end
-	return self:GetAbility():GetSpecialValueFor("bonus_cooldown")
+	return self.bonus_cooldown
 end
 
 function modifier_item_shivas_guard_2:GetModifierCastRangeBonus()
-	return self:GetAbility():GetSpecialValueFor("bonus_castrange")
+	return self.bonus_castrange
 end
 
 function modifier_item_shivas_guard_2:GetModifierHealthBonus()
-	return self:GetAbility():GetSpecialValueFor("bonus_health")
+	return self.bonus_health
 end
 
 function modifier_item_shivas_guard_2:GetModifierManaBonus()
-	return self:GetAbility():GetSpecialValueFor("bonus_mana")
+	return self.bonus_mana
 end
 
 function modifier_item_shivas_guard_2:GetModifierConstantManaRegen()
-	return self:GetAbility():GetSpecialValueFor("bonus_manaregen")
+	return self.bonus_manaregen
 end
 
 function modifier_item_shivas_guard_2:GetEffectName()
@@ -131,10 +140,8 @@ end
 
 function modifier_item_shivas_guard_2:IsAura() return true end
 function modifier_item_shivas_guard_2:IsAuraActiveOnDeath()	return false end
-
 function modifier_item_shivas_guard_2:GetAuraRadius() return self.aura_radius end
 function modifier_item_shivas_guard_2:GetAuraSearchFlags() return DOTA_UNIT_TARGET_FLAG_NONE end
-
 function modifier_item_shivas_guard_2:GetAuraSearchTeam() return DOTA_UNIT_TARGET_TEAM_ENEMY end
 function modifier_item_shivas_guard_2:GetAuraSearchType() return DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC end
 function modifier_item_shivas_guard_2:GetModifierAura()	return "modifier_item_shivas_guard_2_aura" end
@@ -193,7 +200,8 @@ end
 
 function modifier_item_shivas_guard_2_discord_debuff:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
+    self.discord_effect = self:GetAbility():GetSpecialValueFor("discord_effect")
+	self:StartIntervalThink(0.1)
 end
 
 function modifier_item_shivas_guard_2_discord_debuff:OnIntervalThink()
@@ -205,7 +213,7 @@ end
 
 function modifier_item_shivas_guard_2_discord_debuff:GetModifierIncomingDamage_Percentage(keys)
 	if keys.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
-		return self:GetAbility():GetSpecialValueFor("discord_effect")
+		return self.discord_effect
 	end
 end
 

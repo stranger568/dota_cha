@@ -68,11 +68,3 @@ end
 function modifier_shadow_fiend_requiem_of_souls_lua_scepter:AddTotalHeal( value )
 	self.heal = self.heal + value
 end
-
---------------------------------------------------------------------------------
--- Effects
-function modifier_shadow_fiend_requiem_of_souls_lua_scepter:PlayEffects()
-	local particle_cast = "particles/items3_fx/octarine_core_lifesteal.vpcf"
-	local effect_cast = ParticleManager:CreateParticle( particle_cast, PATTACH_ABSORIGIN_FOLLOW, self:GetParent() )
-	ParticleManager:ReleaseParticleIndex( effect_cast )
-end

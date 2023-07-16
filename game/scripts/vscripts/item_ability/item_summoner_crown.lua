@@ -94,7 +94,6 @@ end
 function modifier_item_summoner_crown_buff_int:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE,
-		--MODIFIER_EVENT_ON_TAKEDAMAGE
 	}
 	return funcs
 end

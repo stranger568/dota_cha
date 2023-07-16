@@ -21,10 +21,10 @@
 		<snippet name="PlayerBetLine">
 			<Panel class="PlayerBetLine">
 				<Image id="HeroIcon" />
-				<Label id="BetValue" />
 				<ProgressBar id="BetValueProgressBar" value="0.5">
 					<Panel id="BetValueProgressBar_Left" class="ProgressBarLeft" />
 				</ProgressBar>
+				<Label id="BetValue" />
 			</Panel>
 		</snippet>
 		<snippet name="BarBurner">

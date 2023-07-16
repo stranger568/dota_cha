@@ -167,18 +167,6 @@ function modifier_dark_seer_wall_of_replica_nb2017:OnIntervalThink()
 	end
 end
 
---------------------------------------------------------------------------------
-
-function modifier_dark_seer_wall_of_replica_nb2017:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_DEATH,
-	}
-
-	return funcs
-end
-
---------------------------------------------------------------------------------
-
 function modifier_dark_seer_wall_of_replica_nb2017:OnDeathEvent( params )
 	if IsServer() then
 		local hUnit = params.unit

@@ -114,4 +114,5 @@ function modifier_centaur_return_lua:PlayEffects( target )
 		target:GetOrigin(), -- unknown
 		true -- unknown, true
 	)
+    ParticleManager:ReleaseParticleIndex(effect_cast)
 end

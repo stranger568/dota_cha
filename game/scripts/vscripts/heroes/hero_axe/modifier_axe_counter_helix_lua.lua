@@ -39,16 +39,6 @@ function modifier_axe_counter_helix_lua:OnDestroy()
 
 end
 
---------------------------------------------------------------------------------
--- Modifier Effects
-function modifier_axe_counter_helix_lua:DeclareFunctions()
-    local funcs = {
-        --MODIFIER_EVENT_ON_ATTACK_LANDED,
-    }
-
-    return funcs
-end
-
 function modifier_axe_counter_helix_lua:AttackLandedModifier(params)
     if IsServer() then
         if params.attacker:GetTeamNumber() == params.target:GetTeamNumber() then return end

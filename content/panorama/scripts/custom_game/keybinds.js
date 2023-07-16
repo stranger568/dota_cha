@@ -69,8 +69,11 @@ function OnSettingsClose() {
 
 let keybindRefs = new Map();
 
-function RefreshKeybindSettings() {
+function RefreshKeybindSettings()
+ 
+    {
     let keylist = $("#SettingsKeybindsList");
+    keylist.RemoveAndDeleteChildren()
     for (let [name, [key, func]] of keybinds) {
         if (!keybindRefs.has(name)) {
             const keybind = new PanoramaKeybind(name, key, func, keylist);
@@ -127,7 +130,6 @@ class PanoramaKeybind {
         }
         this.key = newKey;
         AddNewKeybind(newKey, this.name, this.callback);
-        GameEvents.SendCustomGameEventToServer("custom_keybind_changed", { name: this.name, newKey: newKey });
     }
     updateCallback(callback) {
         if (callback === this.callback)
@@ -151,8 +153,10 @@ function GetGameKeybind(command) {
 
 let keybinds = new Map();
 
-function AddNewKeybind(key, name, func) {
+function AddNewKeybind(key, name, func, ability_save) 
+{ 
     key = ConvertHumanFriendlyToActual(key);
+    GameEvents.SendCustomGameEventToServer("custom_keybind_changed", { name: name, key: key });
     const successful = KeyEvents.RegisterKeybind(key, func);
     keybinds.set(name, [successful ? key : "", func]);
     //GameEvents.SendEventClientSide("on_keybind_changed", { name: name, key: successful ? key : "" });
@@ -502,63 +506,140 @@ function UpdateSkillBar()
             }
         }
     }
-    $.Schedule(0.25, UpdateSkillBar)
+    $.Schedule(1, UpdateSkillBar)
+}
+
+var locked_keys = {}
+
+function GetKeyBindFree(key)
+{
+    if (locked_keys[key] == null || locked_keys[key] == undefined)
+    {
+        locked_keys[key] = true
+        return key
+    }
+    for (let index = 0; index < keys_list_b.length; index++) 
+    {
+        if (keys_list_b[index] != null && keys_list_b[index] != undefined && (locked_keys[keys_list_b[index]] == null || locked_keys[keys_list_b[index]] == undefined))
+        {
+            keys_list_b[index] = ConvertHumanFriendlyToActual(keys_list_b[index]);
+            locked_keys[keys_list_b[index]] = true
+            return keys_list_b[index]
+        }
+    }
 }
 
 function SetKeyBind()
 {
-    let ability_setted = 0
-    for (let index = 0; index < keys_list_b.length; index++) {
-        if (keys_list_b[index] != null && keys_list_b[index] != undefined)
+    let player_table_keybinds = CustomNetTables.GetTableValue("player_info", "setting_data_" + Players.GetLocalPlayer())
+    let ability_setted = 0 
+
+    for (let index = 0; index < keys_list_b.length; index++) 
+    {
+        if (player_table_keybinds && player_table_keybinds.keybinds && player_table_keybinds.keybinds[ability_setted + 1] && player_table_keybinds.keybinds[ability_setted +1] != "")
         {
             ability_setted = ability_setted + 1
 
-            if (ability_setted >= 11) {
+            if (ability_setted >= 11) 
+            {
                 break
             }
 
-            keys_list_b[index] = ConvertHumanFriendlyToActual(keys_list_b[index]);
-
+            player_table_keybinds.keybinds[ability_setted] = ConvertHumanFriendlyToActual(player_table_keybinds.keybinds[ability_setted]);
+  
             if (ability_setted == 1)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_7", () => CastAbility1());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_7", () => CastAbility1());
             }
             if (ability_setted == 2)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_8", () => CastAbility2());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_8", () => CastAbility2());
             }
             if (ability_setted == 3)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_9", () => CastAbility3());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_9", () => CastAbility3());
             }
             if (ability_setted == 4)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_10", () => CastAbility4());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_10", () => CastAbility4());
             }
             if (ability_setted == 5)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_11", () => CastAbility5());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_11", () => CastAbility5());
             }
             if (ability_setted == 6)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_12", () => CastAbility6());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_12", () => CastAbility6());
             }
             if (ability_setted == 7)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_13", () => CastAbility7());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_13", () => CastAbility7());
             }
             if (ability_setted == 8)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_14", () => CastAbility8());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_14", () => CastAbility8());
             }
             if (ability_setted == 9)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_15", () => CastAbility9());
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_15", () => CastAbility9());
             }
             if (ability_setted == 10)
             {
-                AddNewKeybind(keys_list_b[index], "cast_ability_16", () => CastAbility10());
-            }   
+                AddNewKeybind(GetKeyBindFree(player_table_keybinds.keybinds[ability_setted]), "cast_ability_16", () => CastAbility10());
+            } 
+        } else {
+            if (keys_list_b[index] != null && keys_list_b[index] != undefined)
+            {
+                ability_setted = ability_setted + 1
+
+                if (ability_setted >= 11) 
+                {
+                    break
+                } 
+
+                keys_list_b[index] = ConvertHumanFriendlyToActual(keys_list_b[index]);
+
+                if (ability_setted == 1)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_7", () => CastAbility1());
+                }
+                if (ability_setted == 2)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_8", () => CastAbility2());
+                }
+                if (ability_setted == 3)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_9", () => CastAbility3());
+                }
+                if (ability_setted == 4)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_10", () => CastAbility4());
+                }
+                if (ability_setted == 5)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_11", () => CastAbility5());
+                }
+                if (ability_setted == 6)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_12", () => CastAbility6());
+                }
+                if (ability_setted == 7)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_13", () => CastAbility7());
+                }
+                if (ability_setted == 8)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_14", () => CastAbility8());
+                }
+                if (ability_setted == 9)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_15", () => CastAbility9());
+                }
+                if (ability_setted == 10)
+                {
+                    AddNewKeybind(GetKeyBindFree(keys_list_b[index]), "cast_ability_16", () => CastAbility10());
+                }   
+            }
         }
     }
 }

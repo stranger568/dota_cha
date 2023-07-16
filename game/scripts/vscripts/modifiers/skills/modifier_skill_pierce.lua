@@ -36,7 +36,7 @@ function modifier_skill_pierce:OnAttackStart( params )
 	if self:GetParent():PassivesDisabled() then return end
 	if params.attacker~=self:GetParent() then return end
 	local rand = RandomInt( 0, 100 )
-	if RollPercentage(45) then
+	if RollPercentage(30) then
 		self.procs = true
 	end
 end

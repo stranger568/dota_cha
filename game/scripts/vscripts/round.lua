@@ -260,7 +260,7 @@ if IsInToolsMode() then
     --SkillRoundNumber[5]=true
 end
 
-function Round:Prepare(nRoundNumber)
+function Round:Prepare(nRoundNumber, bonus_time)
     self.spanwers={}
     self.bEnd = false
     self.nCreatureNumber = 0
@@ -279,6 +279,9 @@ function Round:Prepare(nRoundNumber)
 
     self.nPlayerRank = 0
     self.nPrepareTotalTime = nBasePrepareTotalTime
+    if bonus_time then
+        self.nPrepareTotalTime = nBasePrepareTotalTime + bonus_time
+    end
     self.readyPlayers = {}
 
     for nTeamNumber,bAlive in pairs(GameMode.vAliveTeam) do

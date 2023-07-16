@@ -45,16 +45,6 @@ function modifier_invoker_cold_snap_lua:OnRefresh( kv )
 	end
 end
 
---------------------------------------------------------------------------------
--- Modifier Effects
-function modifier_invoker_cold_snap_lua:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_TAKEDAMAGE,
-	}
-
-	return funcs
-end
-
 function modifier_invoker_cold_snap_lua:TakeDamageScriptModifier( params )
 	if IsServer() then
 		if params.unit~=self:GetParent() then return end

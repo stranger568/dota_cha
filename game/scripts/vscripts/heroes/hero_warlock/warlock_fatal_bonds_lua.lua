@@ -67,7 +67,6 @@ end
 function modifier_fatal_bonds_debuff:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_TOOLTIP,
-		--MODIFIER_EVENT_ON_TAKEDAMAGE
 	}
 	return funcs
 end

@@ -57,13 +57,15 @@ function Util:MoveHeroToLocation( nPlayerID,vLocation,hObservingTarget)
     local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
     if hHero then 
         Util:RemoveMovemenModifier(hHero)
-        ParticleManager:CreateParticle("particles/items_fx/blink_dagger_start.vpcf", PATTACH_ABSORIGIN, hHero)
+        local particle_start = ParticleManager:CreateParticle("particles/items_fx/blink_dagger_start.vpcf", PATTACH_ABSORIGIN, hHero)
+        ParticleManager:ReleaseParticleIndex(particle_start)
         if Util.supposedLocations == nil then
             Util.supposedLocations = {}
         end
         Util.supposedLocations[nPlayerID] = vLocation
         FindClearSpaceForUnit(hHero, vLocation, true)
-        ParticleManager:CreateParticle("particles/items_fx/blink_dagger_end.vpcf", PATTACH_ABSORIGIN_FOLLOW, hHero)
+        local particle_end = ParticleManager:CreateParticle("particles/items_fx/blink_dagger_end.vpcf", PATTACH_ABSORIGIN_FOLLOW, hHero)
+        ParticleManager:ReleaseParticleIndex(particle_end)
         hHero:EmitSound("DOTA_Item.BlinkDagger.Activate") 
         if hObservingTarget==nil then
             hObservingTarget = hHero

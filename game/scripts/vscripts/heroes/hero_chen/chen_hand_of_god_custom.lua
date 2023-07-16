@@ -44,3 +44,42 @@ function modifier_chen_hand_of_god_custom:OnIntervalThink()
 	local heal = health * self.heal_per_second
 	self:GetParent():Heal(heal, self:GetAbility())
 end
+
+function modifier_chen_hand_of_god_custom:DeclareFunctions()
+	return
+	{
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+        MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
+	}
+end
+function modifier_chen_hand_of_god_custom:GetModifierIncomingDamage_Percentage(params)
+	if not IsServer() then return end
+	if not params.attacker then return end
+	if not params.inflictor then return end
+	if bit.band(params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION) == DOTA_DAMAGE_FLAG_REFLECTION then 
+		return -100 
+	end
+	local behavior = params.inflictor:GetAbilityTargetFlags()
+	if bit.band(behavior, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES) == 0 then
+    	if params.damage_type == DAMAGE_TYPE_MAGICAL then 
+        	return -80
+    	end
+    	if params.damage_type == DAMAGE_TYPE_PURE then 
+        	return -100
+   		end
+	end
+end
+function modifier_chen_hand_of_god_custom:GetModifierMagicalResistanceBonus()
+	if not IsClient() then return end
+	return 80
+end
+function modifier_chen_hand_of_god_custom:CheckState()
+ 	return 
+ 	{
+ 		[MODIFIER_STATE_DEBUFF_IMMUNE] = true
+	}
+end
+
+function modifier_chen_hand_of_god_custom:GetEffectName()
+    return "particles/items_fx/black_king_bar_avatar.vpcf"
+end

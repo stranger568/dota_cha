@@ -17,19 +17,15 @@
 				<Panel class="TopMenuIcon" id="TopMenuIcon_Leaderboard" />
 				<Label class="TopMenuLabel" text="#cha_Leaderboard_b" />
 			</Panel>
-			<Panel class="ButtonMenu" onactivate="OpenPass();">
+			<Panel class="ButtonMenu" onactivate="OpenProfileAndDonate('DonateButtonBattlePass', 'DonateWindowBattlePass');">
 				<Panel class="TopMenuIcon" id="TopMenuIcon_Pass" />
 				<Label class="TopMenuLabel" text="#cha_Pass" />
 			</Panel>
-			<Panel class="ButtonMenu" onactivate="OpenWheel();">
-				<Panel class="TopMenuIcon" id="TopMenuIcon_Wheel" />
-				<Label class="TopMenuLabel" text="#cha_Wheel" />
-			</Panel>
-			<Panel class="ButtonMenu" onactivate="OpenRewards();">
+			<Panel class="ButtonMenu" onactivate="OpenProfileAndDonate('DonateButtonRewards', 'DonateWindowBattleRewards');">
 				<Panel class="TopMenuIcon" id="TopMenuIcon_Rewards" />
 				<Label class="TopMenuLabel" text="#cha_Rewards" />
 			</Panel>
-			<Panel class="ButtonMenu" onactivate="OpenProfile();">
+			<Panel class="ButtonMenu" onactivate="OpenProfileAndDonate('DonateButtonProfile', 'DonateWindowBattleProfile');">
 				<Panel class="TopMenuIcon" id="TopMenuIcon_Profile" />
 				<Label class="TopMenuLabel" text="#cha_PlayerInfo_profile" />
 			</Panel>

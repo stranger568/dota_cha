@@ -5,6 +5,7 @@
 		"1x8",
 		"2x6",
 		"1x8_pve",
+		"tournament_1x8",
 	]
 	IsPlayable = 1
 	HeroGuidesSupported = 1
@@ -25,6 +26,10 @@
 		{
 			MaxPlayers = 1
 			map = "1x8_pve"
+		},
+		{
+			MaxPlayers = 9
+			map = "tournament_1x8"
 		},
 	]
 	HideInTools = false

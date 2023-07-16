@@ -51,6 +51,7 @@ function item_refresher_custom:OnSpellStart()
     self:GetCaster():EmitSound("DOTA_Item.Refresher.Activate")
     local particle = ParticleManager:CreateParticle("particles/items2_fx/refresher.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster())
     ParticleManager:SetParticleControlEnt(particle, 0, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_hitloc", self:GetCaster():GetAbsOrigin(), true)
+    ParticleManager:ReleaseParticleIndex(particle)
 end
 
 modifier_item_refresher_custom = class({})

@@ -139,12 +139,7 @@ modifier_lina_laguna_blade_custom_damage = class({})
 
 function modifier_lina_laguna_blade_custom_damage:IsHidden() return true end
 function modifier_lina_laguna_blade_custom_damage:IsPurgable() return false end
-function modifier_lina_laguna_blade_custom_damage:DeclareFunctions()
-	return 
-	{
-		--MODIFIER_EVENT_ON_DEATH
-	}
-end
+
 function modifier_lina_laguna_blade_custom_damage:OnDeathEvent(params)
 	if params.unit ~= self:GetParent() then return end
 

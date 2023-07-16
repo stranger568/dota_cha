@@ -1,8 +1,8 @@
 function UpdateReadyButton(data){
 	if (!Players.IsSpectator(Players.GetLocalPlayer())) {
-		$("#ReadyButton").visible = data.visible
+		$("#ReadyButtonNew").visible = data.visible
 	} else {
-		$("#ReadyButton").visible = false
+		$("#ReadyButtonNew").visible = false
 	}
 }
 

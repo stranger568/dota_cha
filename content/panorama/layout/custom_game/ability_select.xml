@@ -22,12 +22,12 @@
 					<Panel id="EffectReactPurple" class="EffectReact">
 						<DOTAParticleScenePanel class="EffectReactParticle" particleName="particles/ability_effect_choose_purplesquare.vpcf" particleonly="true" startActive="true" cameraOrigin="0 0 165" lookAt="0 0 0"  fov="29" squarePixels="true"/>
 					</Panel>
-					<Panel class="LinkedAbility">
-						<Panel id="LinkedAbilityPlusIcon" class="LinkedAbilityPlusIcon LinkedAbilityCollapse" />
-						<DOTAAbilityImage id="LinkedAbilityImage_1" class="LinkedAbilityCollapse" />
-						<DOTAAbilityImage id="LinkedAbilityImage_2" class="LinkedAbilityCollapse" />
-						<DOTAAbilityImage id="LinkedAbilityImage_3" class="LinkedAbilityCollapse" />
-					</Panel>
+				</Panel>
+				<Panel class="LinkedAbility">
+					<Panel id="LinkedAbilityPlusIcon" class="LinkedAbilityPlusIcon LinkedAbilityCollapse" />
+					<DOTAAbilityImage id="LinkedAbilityImage_1" class="LinkedAbilityCollapse" />
+					<DOTAAbilityImage id="LinkedAbilityImage_2" class="LinkedAbilityCollapse" />
+					<DOTAAbilityImage id="LinkedAbilityImage_3" class="LinkedAbilityCollapse" />
 				</Panel>
 				<Label id="AbilityName" text="" />
 			</Panel>
@@ -36,11 +36,10 @@
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel class="AbilitySelectorPanelRootSide" id="AbilitySelectorPanelRoot">
 			<Panel class="AbilitySelectorPanelSide" id="AbilitySelectorPanel">
-				<Label id="AbilitySelectorTitle" text="#AbilitySelectorTitle" />
+				<Panel class="AbilitySelectorPanelTop">
+					<Label id="AbilitySelectorTitle" text="#AbilitySelectorTitle" />
+				</Panel>
 				<Panel class="AbilitySelectorAbilityBodySide" id="AbilitySelectorAbilityBody" />
-				<ToggleButton id="SaveSpellBookCheckBox">
-					<Label class="SaveSpellBookLabel" text="#save_spell_book" />
-				</ToggleButton>
 			</Panel>
 			<Panel id="AbilitySelectButtonPanel">
 				<Button id="AbilitySelector_CloseButton" onactivate="CloseAbilitySelect()" onmouseover="DOTAShowTextTooltip(&apos;#AbilitySelection_Close_Description&apos;)" onmouseout="DOTAHideTextTooltip()">

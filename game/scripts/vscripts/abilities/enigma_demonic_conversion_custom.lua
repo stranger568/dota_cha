@@ -76,9 +76,11 @@ function modifier_enigma_demonic_conversion_custom_creep:IsPurgeException() retu
 
 function modifier_enigma_demonic_conversion_custom_creep:OnCreated()
 	if not IsServer() then return end
-	self:GetParent():SetBaseDamageMin(self:GetAbility():GetSpecialValueFor("eidolon_dmg_tooltip"))
-	self:GetParent():SetBaseDamageMax(self:GetAbility():GetSpecialValueFor("eidolon_dmg_tooltip"))
-	self:GetParent():SetBaseMaxHealth(self:GetAbility():GetSpecialValueFor("eidolon_hp_tooltip"))
-	self:GetParent():SetMaxHealth(self:GetAbility():GetSpecialValueFor("eidolon_hp_tooltip"))
-	self:GetParent():SetHealth(self:GetAbility():GetSpecialValueFor("eidolon_hp_tooltip"))
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+	self.parent:SetBaseDamageMin(self.ability:GetSpecialValueFor("eidolon_dmg_tooltip"))
+	self.parent:SetBaseDamageMax(self.ability:GetSpecialValueFor("eidolon_dmg_tooltip"))
+	self.parent:SetBaseMaxHealth(self.ability:GetSpecialValueFor("eidolon_hp_tooltip"))
+	self.parent:SetMaxHealth(self.ability:GetSpecialValueFor("eidolon_hp_tooltip"))
+	self.parent:SetHealth(self.ability:GetSpecialValueFor("eidolon_hp_tooltip"))
 end

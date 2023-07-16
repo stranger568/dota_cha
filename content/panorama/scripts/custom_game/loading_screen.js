@@ -30,7 +30,7 @@
 
 (function()
 {
-
+    $.CreatePanelWithProperties("Movie", $("#LoadingScreenCup"), "Movie", { src: "file://{resources}/videos/custom_game/loading_screen_3.webm", style: "width:100%;height:100%;", controls: "none", repeat: "true", hittest: "false", autoplay: "onload" });
 })(); 
 
 var hittestBlocker = $.GetContextPanel().GetParent().FindChild("SidebarAndBattleCupLayoutContainer");
@@ -38,4 +38,19 @@ var hittestBlocker = $.GetContextPanel().GetParent().FindChild("SidebarAndBattle
 if (hittestBlocker) {
     hittestBlocker.hittest = false;
     hittestBlocker.hittestchildren = false;
+}
+
+function FindDotaHudElement(id) {
+    var hudRoot;
+    for (panel = $.GetContextPanel(); panel != null; panel = panel.GetParent()) {
+        hudRoot = panel;
+    }
+    var comp = hudRoot.FindChildTraverse(id);
+    return comp;
+}
+
+let loading_chat = FindDotaHudElement('LoadingScreenChat')
+if (loading_chat) 
+{
+    loading_chat.style.width = "410px"
 }

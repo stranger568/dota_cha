@@ -206,7 +206,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
        
 		       if (rank_info && rank_info.mmr && rank_info.games)
 		       {     
-		            if (rank_info.calibrating_games[5] > 0)
+		            if (rank_info.calibrating_games[6] > 0)
 		            {
 		               PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + "rank0" + '.png")';
 		               PlayerRank.style.backgroundSize = "100%" 
@@ -215,11 +215,11 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		            {
 		            	//if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0))
 		            	//{
-			               if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[5] || 2500) >= 5420)
+			               if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[6] || 2500) >= 5420)
 					       {
 					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
 					       } else {
-					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[5] || 2500) + '.png")';
+					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[6] || 2500) + '.png")';
 					       }
 			               PlayerRank.style.backgroundSize = "100%" 
 			            //} else {
@@ -467,9 +467,9 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		 		change_rate = "+ " + change_rate
 		 	}
 		    RatingsContainer.FindChildTraverse("PlayerRating").text = player_data.original_rating + " " + String( change_rate )
-		    if (player_data_main.calibrating_games[5] > 0)
+		    if (player_data_main.calibrating_games[6] > 0)
 		    {
-		       RatingsContainer.FindChildTraverse("PlayerRating").text = $.Localize("#dota_mind_calibrating") + " (" + player_data_main.calibrating_games[5] + ")";
+		       RatingsContainer.FindChildTraverse("PlayerRating").text = $.Localize("#dota_mind_calibrating") + " (" + player_data_main.calibrating_games[6] + ")";
 		    }
 		}
     }
@@ -501,6 +501,7 @@ function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, t
 		return;
 
 	var teamId = teamDetails.team_id;
+
 //	$.Msg( "_ScoreboardUpdater_UpdateTeamPanel: ", teamId );
 
 	var teamPanelName = "_dynamic_team_" + teamId;
@@ -574,6 +575,11 @@ function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, t
 //			$.Msg( gradientText );
 			teamColor_GradentFromTransparentLeft.style.backgroundColor = gradientText;
 		}
+	}
+
+	if (teamId == 12)
+	{
+		teamPanel.visible = false
 	}
 	
 	return teamPanel;
@@ -943,16 +949,24 @@ function UpdateAegisCount(table, key, data ) {
 			{
 				if (data.count)
 				{
-					let AegisCount = playerPanel.FindChildTraverse("AegisCount")
-					if (AegisCount)
+					let AegisCountPanel = playerPanel.FindChildTraverse("AegisCountPanel")
+					if (AegisCountPanel)
 					{
-						AegisCount.text = data.count
+						AegisCountPanel.RemoveAndDeleteChildren()
+						for (var i = 1; i <= Number(data.count); ++i) 
+						{
+							$.Msg(i)
+							let aegis = $.CreatePanel("Panel", AegisCountPanel, "");
+							aegis.AddClass("AegisIcon")
+						}
 					}
-				} else {
-					let AegisCount = playerPanel.FindChildTraverse("AegisCount")
-					if (AegisCount)
+				} 
+				else 
+				{
+					let AegisCountPanel = playerPanel.FindChildTraverse("AegisCountPanel")
+					if (AegisCountPanel) 
 					{
-						AegisCount.text = "0"
+						AegisCountPanel.RemoveAndDeleteChildren()
 					}
 				}
 			}

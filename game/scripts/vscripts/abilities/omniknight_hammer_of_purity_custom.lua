@@ -73,13 +73,18 @@ function modifier_omniknight_hammer_of_purity_custom:IsHidden() return true end
 function modifier_omniknight_hammer_of_purity_custom:IsPurgable() return false end
 function modifier_omniknight_hammer_of_purity_custom:IsPurgeException() return false end
 
+function modifier_omniknight_hammer_of_purity_custom:OnCreated()
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+end
+
 function modifier_omniknight_hammer_of_purity_custom:AttackLandedModifier(params)
 	if not IsServer() then return end
-	if params.attacker ~= self:GetParent() then return end
-	if self:GetAbility():GetAutoCastState() then
-		if self:GetAbility():IsFullyCastable() and params.target:IsAlive() then
-			self:GetAbility():UseResources(true, false, false, true)
-			self:GetAbility():OnSpellStart(params.target)
+	if params.attacker ~= self.parent then return end
+	if self.ability:GetAutoCastState() then
+		if self.ability:IsFullyCastable() and params.target:IsAlive() then
+			self.ability:UseResources(true, false, false, true)
+			self.ability:OnSpellStart(params.target)
 		end
 	end
 end

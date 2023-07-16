@@ -18,8 +18,14 @@ end
 
 function modifier_skill_second_life:ReincarnateTime()
 	if self:GetParent():HasModifier("modifier_duel_curse_cooldown") then return end
+    
 	if self:GetParent():HasModifier("modifier_skill_second_life_cooldown") then return nil end
+
 	local parent = self:GetParent()
+
+	local skeleton_king_reincarnation = parent:FindAbilityByName("skeleton_king_reincarnation")
+	if skeleton_king_reincarnation and skeleton_king_reincarnation:IsFullyCastable() then return 5 end
+
 	Timers:CreateTimer(0, function()
 		if parent and not parent:IsAlive() then return 0.1 end
 		parent:AddNewModifier(parent, nil, "modifier_skill_second_life_cooldown", {duration = 300})

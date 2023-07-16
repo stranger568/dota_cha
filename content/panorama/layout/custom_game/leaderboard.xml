@@ -17,32 +17,27 @@
 				<Panel class="Close" onactivate="GameUI.CustomUIConfig().OpenLeaderboard();"/>
 			</Panel> 
 
+			<DropDown id="ChooseMode" style="align:center center;" oninputsubmit="PlusMinusScale()">
+				
+            </DropDown>
+
+			<Panel class="RankContainerHeader" id="RankContainerHeaderSolo">
+				<Label text="#cha_leaderboard_rank" class="cha_leaderboard_rank"/>
+				<Label text="#player" class="cha_leaderboard_map"/>
+				<Label text="#cha_leaderboard_rating" class="cha_leaderboard_rating"/>
+			</Panel>
+
 			<Panel class="Leaderboardblock" hittest="false">
 				<Panel style="flow-children:right;horizontal-align:center;">
-					<Panel class="RankContainer" hittest="false">
-						<Panel class="RankContainerHeader" id="RankContainerHeaderSolo">
-							<Label text="#cha_leaderboard_rank" class="cha_leaderboard_rank"/>
-							<Label text="#cha_leaderboard_solo" class="cha_leaderboard_map"/>
-							<Label text="#cha_leaderboard_rating" class="cha_leaderboard_rating"/>
-						</Panel>
+					<Panel class="RankContainer" id="RankContainerSolo" hittest="false">
 						<Panel class="PlayersTable" id="PlayersTableSolo" />
 					</Panel>
 
-					<Panel class="RankContainer" hittest="false">
-						<Panel class="RankContainerHeader" id="RankContainerHeaderDuo">
-							<Label text="#cha_leaderboard_rank" class="cha_leaderboard_rank"/>
-							<Label text="#cha_leaderboard_duo" class="cha_leaderboard_map"/>
-							<Label text="#cha_leaderboard_rating" class="cha_leaderboard_rating"/>
-						</Panel>
+					<Panel class="RankContainer" id="RankContainerDuo" hittest="false">
 						<Panel class="PlayersTable" id="PlayersTableDuo" />
 					</Panel>
 
-					<Panel class="RankContainer" hittest="false">
-						<Panel class="RankContainerHeader" id="RankContainerHeaderPVE">
-							<Label text="#cha_leaderboard_rank" class="cha_leaderboard_rank"/>
-							<Label text="#cha_leaderboard_pve" class="cha_leaderboard_map"/>
-							<Label text="Time" class="cha_leaderboard_rating"/>
-						</Panel>
+					<Panel class="RankContainer" id="RankContainerPVE" hittest="false">
 						<Panel class="PlayersTable" id="PlayersTablePVE" />
 					</Panel>
 				</Panel>

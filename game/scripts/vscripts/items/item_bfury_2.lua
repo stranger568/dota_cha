@@ -57,6 +57,20 @@ function modifier_item_bfury_2:RemoveOnDeath() return false end
 function modifier_item_bfury_2:IsHidden() return true end
 function modifier_item_bfury_2:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
 
+function modifier_item_bfury_2:OnCreated()
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
+    self.bonus_damage = self.ability:GetSpecialValueFor("bonus_damage")
+    self.bonus_mana_regen = self.ability:GetSpecialValueFor("bonus_mana_regen")
+    self.bonus_health_regen = self.ability:GetSpecialValueFor("bonus_health_regen")
+    self.attack_range = self.ability:GetSpecialValueFor("attack_range")
+    self.quelling_bonus = self.ability:GetSpecialValueFor("quelling_bonus")
+    self.quelling_bonus_ranged = self.ability:GetSpecialValueFor("quelling_bonus_ranged")
+    self.cleave_damage_percent = self.ability:GetSpecialValueFor("cleave_damage_percent")
+    self.cleave_damage_percent_creep = self.ability:GetSpecialValueFor("cleave_damage_percent_creep")
+    self.cleave_radius = self.ability:GetSpecialValueFor("cleave_radius")
+end
+
 function modifier_item_bfury_2:DeclareFunctions()
 	local funcs = 
 	{
@@ -70,37 +84,29 @@ function modifier_item_bfury_2:DeclareFunctions()
 end
 
 function modifier_item_bfury_2:GetModifierPreAttack_BonusDamage(keys)
-	if self:GetAbility() then
-		return self:GetAbility():GetSpecialValueFor("bonus_damage")
-	end
+    return self.bonus_damage
 end
 
 function modifier_item_bfury_2:GetModifierConstantManaRegen()
-	if self:GetAbility() then
-		return self:GetAbility():GetSpecialValueFor("bonus_mana_regen")
-	end
+    return self.bonus_mana_regen
 end
 
 function modifier_item_bfury_2:GetModifierConstantHealthRegen()
-	if self:GetAbility() then
-		return self:GetAbility():GetSpecialValueFor("bonus_health_regen")
-	end
+    return self.bonus_health_regen
 end
 
 function modifier_item_bfury_2:GetModifierAttackRangeBonus()
-	if self:GetAbility() then
-		if self:GetParent():IsRangedAttacker() then return 0 end
-		return self:GetAbility():GetSpecialValueFor("attack_range")
-	end
+	if self.parent:IsRangedAttacker() then return 0 end
+    return self.attack_range
 end
 
 function modifier_item_bfury_2:GetModifierProcAttack_BonusDamage_Physical( keys )
 	if not IsServer() then return end
-	if (self:GetParent():FindAllModifiersByName("modifier_item_bfury_2")[1] == self) and keys.target and not keys.target:IsHero() and not keys.target:IsOther() and not keys.target:IsBuilding() and not string.find(keys.target:GetUnitName(), "npc_dota_lone_druid_bear") and keys.target:GetTeamNumber() ~= self:GetParent():GetTeamNumber() then
-		if not self:GetParent():IsRangedAttacker() then
-			return self:GetAbility():GetSpecialValueFor("quelling_bonus")
+	if (self.parent:FindAllModifiersByName("modifier_item_bfury_2")[1] == self) and keys.target and not keys.target:IsHero() and not keys.target:IsOther() and not keys.target:IsBuilding() and not string.find(keys.target:GetUnitName(), "npc_dota_lone_druid_bear") and keys.target:GetTeamNumber() ~= self.parent:GetTeamNumber() then
+		if not self.parent:IsRangedAttacker() then
+			return self.quelling_bonus
 		else
-			return self:GetAbility():GetSpecialValueFor("quelling_bonus_ranged")
+			return self.quelling_bonus_ranged
 		end
 	end
 end
@@ -111,13 +117,11 @@ function modifier_item_bfury_2:AttackLandedModifier(keys)
 	if keys.attacker:IsRangedAttacker() then return end
 	if keys.attacker:GetTeam() == keys.target:GetTeam() then return end
 	if keys.target:IsBuilding() then return end
-	if self:GetParent().anchor_attack_talent then return end
-	if self:GetParent().bCanTriggerLock then return end
+	if self.parent.anchor_attack_talent then return end
+	if self.parent.bCanTriggerLock then return end
 	if keys.no_attack_cooldown then return end
-	if self:GetParent():HasModifier("modifier_muerta_pierce_the_veil_buff") then return end
-	if self:GetParent():IsTempestDouble() or self:GetParent():HasModifier("modifier_arc_warden_tempest_double_lua") then return end
-
-	local frostivus2018_clinkz_searing_arrows = self:GetParent():FindAbilityByName("frostivus2018_clinkz_searing_arrows")
+	if self.parent:HasModifier("modifier_muerta_pierce_the_veil_buff") then return end
+	local frostivus2018_clinkz_searing_arrows = self.parent:FindAbilityByName("frostivus2018_clinkz_searing_arrows")
 	if frostivus2018_clinkz_searing_arrows then
 		if frostivus2018_clinkz_searing_arrows:GetAutoCastState() then
 			if keys.no_attack_cooldown then
@@ -125,10 +129,7 @@ function modifier_item_bfury_2:AttackLandedModifier(keys)
 			end
 		end
 	end
-
-	local ability = self:GetAbility()
 	local target_loc = keys.target:GetAbsOrigin()
-
 	local fury_swipes_damage = 0
 	if keys.attacker:HasAbility("ursa_fury_swipes") and keys.target:HasModifier("modifier_ursa_fury_swipes_damage_increase") then
 		local ursa_swipes = keys.attacker:FindAbilityByName("ursa_fury_swipes")
@@ -137,28 +138,23 @@ function modifier_item_bfury_2:AttackLandedModifier(keys)
 			fury_swipes_damage = stacks * ursa_swipes:GetSpecialValueFor("damage_per_stack")
 		end
 	end
-
 	local damage = keys.original_damage + fury_swipes_damage
-
-	local cleave_damage_percent = self:GetAbility():GetSpecialValueFor("cleave_damage_percent")
-	local cleave_damage_percent_creep = self:GetAbility():GetSpecialValueFor("cleave_damage_percent_creep")
-	if self:GetParent():HasModifier("modifier_skill_splash") then
-		cleave_damage_percent = cleave_damage_percent + 40
-		cleave_damage_percent_creep = cleave_damage_percent_creep + 40
+	local cleave_damage_percent = self.cleave_damage_percent
+	local cleave_damage_percent_creep = self.cleave_damage_percent_creep
+	if self.parent:HasModifier("modifier_skill_splash") then
+		cleave_damage_percent = cleave_damage_percent + 30
+		cleave_damage_percent_creep = cleave_damage_percent_creep + 30
 	end
-
 	if keys.target:IsHero() then
 		damage = damage * (cleave_damage_percent / 100)
 	else
 		damage = damage * (cleave_damage_percent_creep / 100)
 	end
-
-	local modifier_dragon_knight_elder_dragon_form_custom = self:GetParent():FindModifierByName("modifier_dragon_knight_elder_dragon_form_custom")
+	local modifier_dragon_knight_elder_dragon_form_custom = self.parent:FindModifierByName("modifier_dragon_knight_elder_dragon_form_custom")
 	if modifier_dragon_knight_elder_dragon_form_custom then
 		damage = damage + (keys.damage * modifier_dragon_knight_elder_dragon_form_custom.splash_pct)
 	end
-
-	local enemies = FindUnitsInRadius(keys.attacker:GetTeamNumber(), target_loc, nil, self:GetAbility():GetSpecialValueFor("cleave_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE, FIND_ANY_ORDER, false)
+	local enemies = FindUnitsInRadius(keys.attacker:GetTeamNumber(), target_loc, nil, self.cleave_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE, FIND_ANY_ORDER, false)
 	for _, enemy in pairs(enemies) do
 		if enemy ~= keys.target then
 			ApplyDamage({ victim = enemy, attacker = keys.attacker, damage = damage, damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION, ability = ability })

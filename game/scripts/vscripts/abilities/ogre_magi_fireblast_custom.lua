@@ -33,9 +33,11 @@ function ogre_magi_fireblast_custom:OnSpellStart()
 end
 
 function ogre_magi_fireblast_custom:PlayEffects( target )
-	local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_ogre_magi/ogre_magi_fireblast.vpcf", PATTACH_ABSORIGIN_FOLLOW, target )
-	ParticleManager:SetParticleControlEnt( effect_cast, 0, target, PATTACH_POINT_FOLLOW, "attach_hitloc", Vector(0,0,0), true )
-	ParticleManager:SetParticleControl( effect_cast, 1, target:GetOrigin() )
-	ParticleManager:ReleaseParticleIndex( effect_cast )
+    if target:IsHero() then
+	    local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_ogre_magi/ogre_magi_fireblast.vpcf", PATTACH_ABSORIGIN_FOLLOW, target )
+	    ParticleManager:SetParticleControlEnt( effect_cast, 0, target, PATTACH_POINT_FOLLOW, "attach_hitloc", Vector(0,0,0), true )
+	    ParticleManager:SetParticleControl( effect_cast, 1, target:GetOrigin() )
+	    ParticleManager:ReleaseParticleIndex( effect_cast )
+    end
 	target:EmitSound("Hero_OgreMagi.Fireblast.Target")
 end

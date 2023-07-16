@@ -1,49 +1,35 @@
 function Spawn( entityKeyValues )
-	if not IsServer() then
-		return
-	end
+	if not IsServer() then return end
+	if thisEntity == nil then return end
+    if thisEntity:GetTeam() ~= DOTA_TEAM_NEUTRALS then return end
+    if not thisEntity:IsAlive() then return end
 
-	if thisEntity == nil then
-		return
-	end
-
-    if thisEntity:GetTeam()~=DOTA_TEAM_NEUTRALS then
-        return
-    end
-  
     for i=0,20 do
         local hAbility=thisEntity:GetAbilityByIndex(i)
         if hAbility and hAbility.IsPassive then
             if not hAbility:IsPassive() then
                 hAbility:StartCooldown(0.5)
                 if hAbility:GetAbilityName()=="harpy_storm_chain_lightning" then
-                    Timers:CreateTimer({
-                        endTime = 0.45,
-                        callback = function()
-                            if GetMapName()=="5v5" then
-                                hAbility:SetLevel(1)
-                            end
-                         if GetMapName()=="2x6" then
-                             hAbility:SetLevel(2)
-                         end
-                         if string.find(GetMapName(),"1x8") then
-                             hAbility:SetLevel(3)
-                         end
+                    Timers:CreateTimer({endTime = 0.45, callback = function()
+                        if GetMapName()=="2x6" then
+                            hAbility:SetLevel(2)
+                        end
+                        if string.find(GetMapName(),"1x8") then
+                            hAbility:SetLevel(3)
+                        end
                     end})
                 end
                 if hAbility:GetAbilityName()=="golem_anti_blademail" then
-                    Timers:CreateTimer({
-                        endTime = 0.45,
-                        callback = function()
-                         if thisEntity:GetUnitName()=="npc_dota_mud_golem" then
-                             hAbility:SetLevel(1)
-                         end
-                         if thisEntity:GetUnitName()=="npc_dota_rock_golem" then
-                             hAbility:SetLevel(2)
-                         end
-                         if thisEntity:GetUnitName()=="npc_dota_granite_golem" then
-                             hAbility:SetLevel(3)
-                         end
+                    Timers:CreateTimer({ endTime = 0.45, callback = function()
+                        if thisEntity:GetUnitName() == "npc_dota_mud_golem" then
+                            hAbility:SetLevel(1)
+                        end
+                        if thisEntity:GetUnitName() == "npc_dota_rock_golem" then
+                            hAbility:SetLevel(2)
+                        end
+                        if thisEntity:GetUnitName() == "npc_dota_granite_golem" then
+                            hAbility:SetLevel(3)
+                        end
                     end})
                 end
             end
@@ -56,13 +42,8 @@ end
 function CreepThink()
     local bResult,flResult = xpcall(
         function()
-            if not thisEntity:IsAlive() then
-          		return
-          	end
-
-          	if GameRules:IsGamePaused() then
-          		return 0.1
-          	end
+            if not thisEntity:IsAlive() then return end
+          	if GameRules:IsGamePaused() then return 0.1 end
 
             if thisEntity:HasAbility("life_stealer_consume") then
                 local  hInfest = thisEntity:FindAbilityByName("life_stealer_consume")
@@ -75,13 +56,12 @@ function CreepThink()
                 end
             end
 
-            if thisEntity:IsChanneling() then
-          		return 0.1
-          	end
+            if thisEntity:IsChanneling() then return 0.1 end
 
           	local hTarget
+
             if thisEntity.hTarget and not thisEntity.hTarget:IsNull() and thisEntity.hTarget:IsAlive() and (not thisEntity.hTarget:IsUnselectable()) then
-                hTarget=thisEntity.hTarget
+                hTarget = thisEntity.hTarget
             else
                 local vEnemies = {}               
              
@@ -93,13 +73,13 @@ function CreepThink()
              
                 for _,hEnemy in pairs(vEnemies) do
                     if hEnemy and not hEnemy:IsNull() and hEnemy:IsAlive() and (not hEnemy:IsUnselectable())  then
-                        hTarget =  hEnemy
+                        hTarget = hEnemy
                         thisEntity.hTarget = hEnemy
                         break
                     end
                 end
 
-                if nil==hTarget then
+                if nil == hTarget then
              	    thisEntity.hTarget=nil
                     if not thisEntity:IsAttacking() then
                         thisEntity:MoveToPositionAggressive(thisEntity:GetOrigin())
@@ -111,7 +91,7 @@ function CreepThink()
             local flAbilityCastTime = TryCastAbility(hTarget)
       	  
             if flAbilityCastTime then
-          	     return flAbilityCastTime
+          	    return flAbilityCastTime
             else
                 if not thisEntity:IsAttacking() then
                     if thisEntity:CanEntityBeSeenByMyTeam(hTarget) then

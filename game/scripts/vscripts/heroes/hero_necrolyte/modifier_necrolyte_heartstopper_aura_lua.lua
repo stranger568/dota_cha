@@ -50,15 +50,7 @@ end
 function modifier_necrolyte_heartstopper_aura_lua:GetAuraDuration()
     return 0.5
 end
-
-function modifier_necrolyte_heartstopper_aura_lua:DeclareFunctions()
-    local funcs = {
-        --MODIFIER_EVENT_ON_DEATH,
-    }
-
-    return funcs
-end
---------------------------------------------------------------------------------
+--------------------------------------------------------------------------
 -- Initializations
 function modifier_necrolyte_heartstopper_aura_lua:OnCreated(kv)
     -- references

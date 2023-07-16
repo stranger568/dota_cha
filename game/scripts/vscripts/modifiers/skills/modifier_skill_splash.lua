@@ -14,16 +14,20 @@ function modifier_skill_splash:DeclareFunctions()
 	return funcs
 end
 
+function modifier_skill_splash:OnCreated()
+    self.parent = self:GetParent()
+end
+
 function modifier_skill_splash:GetModifierProcAttack_Feedback(keys)
 	if not IsServer() then return end
 	if not keys.attacker:IsRealHero() then return end
 	if keys.attacker:GetTeam() == keys.target:GetTeam() then return end
 	if keys.target:IsBuilding() then return end
-	if self:GetParent().anchor_attack_talent then return end
-	if self:GetParent().bCanTriggerLock then return end
+	if self.parent.anchor_attack_talent then return end
+	if self.parent.bCanTriggerLock then return end
 	if keys.no_attack_cooldown then return end
 
-	local frostivus2018_clinkz_searing_arrows = self:GetParent():FindAbilityByName("frostivus2018_clinkz_searing_arrows")
+	local frostivus2018_clinkz_searing_arrows = self.parent:FindAbilityByName("frostivus2018_clinkz_searing_arrows")
 	if frostivus2018_clinkz_searing_arrows then
 		if frostivus2018_clinkz_searing_arrows:GetAutoCastState() then
 			if keys.no_attack_cooldown then
@@ -32,11 +36,11 @@ function modifier_skill_splash:GetModifierProcAttack_Feedback(keys)
 		end
 	end
 
-	if self:GetParent():HasModifier("modifier_item_bfury_2") then return end
-	if self:GetParent():HasModifier("modifier_item_bfury_3") then return end
-	if self:GetParent():HasModifier("modifier_item_ranged_cleave") then return end
-	if self:GetParent():HasModifier("modifier_item_ranged_cleave_2") then return end
-	if self:GetParent():HasModifier("modifier_item_ranged_cleave_3") then return end
+	if self.parent:HasModifier("modifier_item_bfury_2") then return end
+	if self.parent:HasModifier("modifier_item_bfury_3") then return end
+	if self.parent:HasModifier("modifier_item_ranged_cleave") then return end
+	if self.parent:HasModifier("modifier_item_ranged_cleave_2") then return end
+	if self.parent:HasModifier("modifier_item_ranged_cleave_3") then return end
 	
 	local target_loc = keys.target:GetAbsOrigin()
 	local fury_swipes_damage = 0
@@ -49,7 +53,7 @@ function modifier_skill_splash:GetModifierProcAttack_Feedback(keys)
 		end
 	end
 
-	local cleave_dmg = 40
+	local cleave_dmg = 30
 	local damage = (keys.original_damage + fury_swipes_damage) * cleave_dmg * 0.01
 
 	local enemies = FindUnitsInRadius(keys.attacker:GetTeamNumber(), target_loc, nil, 400, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false)

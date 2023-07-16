@@ -6,7 +6,7 @@ function AbilitiesCooldownCheck()
 		$("#NicknameLocal").accountid = $.GetContextPanel().Data.id
 	}
 
-	$.Schedule(1, AbilitiesCooldownCheck);
+	$.Schedule(5, AbilitiesCooldownCheck);
 }
  
 (function() {

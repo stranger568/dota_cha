@@ -33,24 +33,24 @@ function OnPlayerDetailsChanged()
        
        if (rank_info && rank_info.mmr && rank_info.games)
        {    
-            if (rank_info.calibrating_games[5] > 0)
+            if (rank_info.calibrating_games[6] > 0)
             {
                 $("#rank_image").style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + "rank0" + '.png")';
                 $("#rank_image").style.backgroundSize = "100%" 
                 $("#PlayTime").text = $.Localize("#dota_mind_calibrating")
-                $("#EarlyLeave").text = (rank_info.games[5] || 0)
+                $("#EarlyLeave").text = (rank_info.games[6] || 0)
             } 
             else 
             {
-                if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[5] || 2500) >= 5420)
+                if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[6] || 2500) >= 5420)
                {
                       $("#rank_image").style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
                } else {
-                      $("#rank_image").style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[5] || 2500) + '.png")';
+                      $("#rank_image").style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[6] || 2500) + '.png")';
                }
                 $("#rank_image").style.backgroundSize = "100%" 
-                $("#PlayTime").text = (rank_info.mmr[5] || $.Localize("#dota_mind_calibrating"))
-                $("#EarlyLeave").text = (rank_info.games[5] || 0)
+                $("#PlayTime").text = (rank_info.mmr[6] || $.Localize("#dota_mind_calibrating"))
+                $("#EarlyLeave").text = (rank_info.games[6] || 0)
             }
             if (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0")
             {

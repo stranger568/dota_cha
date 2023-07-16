@@ -49,17 +49,14 @@ function ShowPvpBrief(data) {
     var firstTeamPanel = $.CreatePanel("Panel", mainBriefPvpPanel, "FirstTeamBrief");
     firstTeamPanel.AddClass("TeamBriefPvpPanel");
 
-    var firstBetInfo = $.CreatePanel("Panel", mainBriefPvpPanel, "BetInfoContainer_1");
-    firstBetInfo.AddClass("BetInfoContainer");
-
     var vsImageSrc = $.CreatePanel("Image", mainBriefPvpPanel, "VsLogo");
     vsImageSrc.SetImage("file://{resources}/images/custom_game/duel_bg.png")
 
     var secondTeamPanel = $.CreatePanel("Panel", mainBriefPvpPanel, "SecondTeamBrief");
     secondTeamPanel.AddClass("TeamBriefPvpPanel");
 
-    var secondBetInfo = $.CreatePanel("Panel", mainBriefPvpPanel, "BetInfoContainer_2");
-    secondBetInfo.AddClass("BetInfoContainer");
+    var secondBetInfo = null
+    var firstBetInfo = null
 
     for (var index in data.players) {
         var playerId = data.players[index].playerID;
@@ -75,10 +72,58 @@ function ShowPvpBrief(data) {
             positionOnScreen = "bottom"
         }
 
-        var playerAbilityPanel = $.CreatePanel("Panel", currentPanel, "PlayerAbilityPanel_" + index);
+        var playermainpanelwithbg = $.CreatePanel("Panel", currentPanel, "playermainpanelwithbg_" + index);
+        playermainpanelwithbg.AddClass("playermainpanelwithbg");
+
+        var playermainpanelbg = $.CreatePanel("Panel", playermainpanelwithbg, "");
+        playermainpanelbg.AddClass("playermainpanelbg");
+        playermainpanelbg.style.backgroundImage = 'url( "file://{images}/heroes/' + playerInfo.player_selected_hero + '.png" )';
+        playermainpanelbg.style.backgroundSize = "100% 220px"
+
+        var playerAbilityPanel = $.CreatePanel("Panel", playermainpanelwithbg, "PlayerAbilityPanel_" + index);
         playerAbilityPanel.AddClass("PlayerAbilityPanel");
         playerAbilityPanel.positionOnScreen = positionOnScreen
         playerAbilityPanel.teamId = teamId
+        
+
+        var heroInfo = $.CreatePanel("Panel", playerAbilityPanel, "");
+        heroInfo.AddClass("HeroInfo");
+        var heroInfoPlayer = $.CreatePanel("Label", heroInfo, "");
+        heroInfoPlayer.AddClass("PlayerName");
+        heroInfoPlayer.text = playerInfo.player_name;
+ 
+        // Цвет никнейма
+        var player_information_battlepass = CustomNetTables.GetTableValue("cha_server_data", String(playerId));
+        if (player_information_battlepass) {
+            if (heroInfoPlayer) {
+                if (player_information_battlepass.nickname == 1) {
+                    if (GameUI.CustomUIConfig().team_colors) {
+                        var teamColor = GameUI.CustomUIConfig().team_colors[playerInfo.player_team_id];
+                        if (teamColor) {
+                            heroInfoPlayer.style.color = teamColor
+                        }
+                    }
+                } else if (player_information_battlepass.nickname == 2) {
+                    heroInfoPlayer.SetHasClass("rainbow_nickname", true)
+                    heroInfoPlayer.style.color = "gradient( linear, 100% 0%, 0% 0%, from( rgb(0, 183, 255)), color-stop( 0.5, rgb(0, 255, 85)), to( rgb(255, 196, 0)))"
+                } else if (player_information_battlepass.nickname == 3) {
+                    heroInfoPlayer.SetHasClass("rainbow_nickname_animate", true)
+                }
+            }
+        }
+
+        var HeroRank = $.CreatePanel("Panel", heroInfo, "HeroRank" + index);
+        HeroRank.AddClass("HeroRank");
+
+        var rank_number = $.CreatePanel("Label", HeroRank, "rank_number" + index);
+        rank_number.AddClass("rank_number");
+
+        var HeroInfoRating = $.CreatePanel("Panel", heroInfo, "HeroInfoRating" + index);
+        HeroInfoRating.AddClass("HeroInfoRating");
+
+        var HeroInfoRatingLabel = $.CreatePanel("Label", HeroInfoRating, "HeroInfoRatingLabel" + index);
+        HeroInfoRatingLabel.AddClass("HeroInfoRatingLabel");
+        HeroInfoRatingLabel.text = ""
 
         var HeroIconAndHealthAndMana = $.CreatePanel("Image", playerAbilityPanel, "HeroIconAndHealthAndMana" + index);
         HeroIconAndHealthAndMana.AddClass("HeroIconAndHealthAndMana");
@@ -89,107 +134,50 @@ function ShowPvpBrief(data) {
         heroBriefIcon.playerId = playerId;
         HeroIconEvent(heroBriefIcon, index)
 
-        if (GameUI.CustomUIConfig().team_colors) {
-            var teamColor = GameUI.CustomUIConfig().team_colors[playerInfo.player_team_id];
-            if (teamColor) {
-                heroBriefIcon.style.borderTop = "3px solid  " + teamColor;
-            }
-        }
+        var heroInfoHeroName = $.CreatePanel("Label", HeroIconAndHealthAndMana, "");
+        heroInfoHeroName.AddClass("HeroName");
+        heroInfoHeroName.text = $.Localize("#" + playerInfo.player_selected_hero);
 
-        var BonusPlayerInformation = $.CreatePanel("Panel", HeroIconAndHealthAndMana, "BonusPlayerInformation" + index);
-        BonusPlayerInformation.AddClass("BonusPlayerInformation");
-
-        var HeroRank = $.CreatePanel("Panel", BonusPlayerInformation, "HeroRank" + index);
-        HeroRank.AddClass("HeroRank");
-
-        var rank_number = $.CreatePanel("Label", HeroRank, "rank_number" + index);
-        rank_number.AddClass("rank_number");
-
-        var HeroInfoAndRating = $.CreatePanel("Panel", BonusPlayerInformation, "HeroInfoAndRating" + index);
-        HeroInfoAndRating.AddClass("HeroInfoAndRating");
-
-        var HeroInfoLevel = $.CreatePanel("Panel", HeroInfoAndRating, "HeroInfoLevel" + index);
-        HeroInfoLevel.AddClass("HeroInfoLevel");
-
-        var LevelCircle = $.CreatePanel("Panel", HeroInfoLevel, "LevelCircle" + index);
-        LevelCircle.AddClass("LevelCircle");
-
-        var LevelLabel = $.CreatePanel("Label", LevelCircle, "LevelLabel" + index);
+        var LevelLabel = $.CreatePanel("Label", HeroIconAndHealthAndMana, "LevelLabel" + index);
         LevelLabel.AddClass("LevelLabel");
-        LevelLabel.text = playerInfo.player_level
+        LevelLabel.text = playerInfo.player_level + $.Localize("#duel_level")
 
-        var GoldInfoLabel = $.CreatePanel("Panel", HeroInfoLevel, "GoldInfoLabel" + index);
-        GoldInfoLabel.AddClass("GoldInfoLabel");
+        var GoldInfoIcon = $.CreatePanel("Panel", HeroIconAndHealthAndMana, "GoldInfoIcon" + index);
+        GoldInfoIcon.AddClass("GoldInfoIcon");
 
-        var GoldInfoLabelText = $.CreatePanel("Label", HeroInfoLevel, "GoldInfoLabelText" + index);
+        var GoldInfoLabelText = $.CreatePanel("Label", HeroIconAndHealthAndMana, "GoldInfoLabelText" + index);
         GoldInfoLabelText.AddClass("GoldInfoLabelText");
 
         var goldData = CustomNetTables.GetTableValue("player_info", playerId)
+
         if (goldData != undefined) {
             GoldInfoLabelText.text = goldData.gold
-        } else {
+        }
+        else {
             GoldInfoLabelText.text = 600
         }
-
-        var GoldInfoIcon = $.CreatePanel("Panel", HeroInfoLevel, "GoldInfoIcon" + index);
-        GoldInfoIcon.AddClass("GoldInfoIcon");
-
-        var HeroInfoRating = $.CreatePanel("Panel", HeroInfoAndRating, "HeroInfoRating" + index);
-        HeroInfoRating.AddClass("HeroInfoRating");
-
-        var HeroInfoRatingLabel = $.CreatePanel("Label", HeroInfoRating, "HeroInfoRatingLabel" + index);
-        HeroInfoRatingLabel.AddClass("HeroInfoRatingLabel");
-        HeroInfoRatingLabel.text = ""
 
         var localPlayerId = Game.GetLocalPlayerInfo().player_id;
 
         var pass_info = CustomNetTables.GetTableValue("player_info", "pass_data_" + localPlayerId);
-
-        //if (pass_info && (pass_info.pass_level_3_days > 0 || pass_info.pass_level_2_days > 0 || pass_info.pass_level_1_days > 0)) {
-            var rank_info_duel = CustomNetTables.GetTableValue("cha_server_data", String(playerId));
-            if (rank_info_duel) {
-                HeroInfoRatingLabel.text = $.Localize("#score") + ":" + (rank_info_duel.mmr[5] || 0) + "     " + $.Localize("#games_duel") + ":" + (rank_info_duel.games[5] || 0);
-                if ((rank_info_duel.rating_number_in_top != 0 && rank_info_duel.rating_number_in_top != "0" && rank_info_duel.rating_number_in_top <= 10) && (rank_info_duel.mmr[5] || 2500) >= 5420) {
-                    HeroRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
-                } else {
-                    HeroRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info_duel.mmr[5] || 2500) + '.png")';
-                }
-                HeroRank.style.backgroundSize = "100%"
-                if (rank_info_duel.rating_number_in_top != 0 && rank_info_duel.rating_number_in_top != "0") {
-                    rank_number.text = rank_info_duel.rating_number_in_top
-                }
+        var rank_info_duel = CustomNetTables.GetTableValue("cha_server_data", String(playerId));
+        if (rank_info_duel) {
+            HeroInfoRatingLabel.text = $.Localize("#score") + ": " + (rank_info_duel.mmr[6] || 0) + "  " + $.Localize("#games_duel") + ": " + (rank_info_duel.games[6] || 0);
+            if ((rank_info_duel.rating_number_in_top != 0 && rank_info_duel.rating_number_in_top != "0" && rank_info_duel.rating_number_in_top <= 10) && (rank_info_duel.mmr[6] || 2500) >= 5420) {
+                HeroRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
+            } else {
+                HeroRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info_duel.mmr[6] || 2500) + '.png")';
             }
-        //} else {
-        //    HeroInfoRatingLabel.style.opacity = "0"
-        //    HeroRank.style.opacity = "0"
-        //}
-
-        var teamLogo = $.CreatePanel("Panel", heroBriefIcon, "");
-        teamLogo.AddClass("TeamLogoBrief");
-
-        var teamLogoShadow = $.CreatePanel("Image", teamLogo, "");
-        teamLogoShadow.SetImage("file://{resources}/images/custom_game/team_icons/team_shield_shadow_01.psd")
-        var teamLogoBorder = $.CreatePanel("Image", teamLogo, "");
-        teamLogoBorder.SetImage("file://{resources}/images/custom_game/team_icons/team_shield_border_01.psd")
-        var teamLogoColor = $.CreatePanel("Image", teamLogo, "");
-        teamLogoColor.SetImage("file://{resources}/images/custom_game/team_icons/team_shield_color_01.psd")
-        var teamLogoIcon = $.CreatePanel("Image", teamLogo, "");
-        teamLogoIcon.SetImage("")
-        teamLogoIcon.AddClass("TeamLogoBriefIcon")
-        if (GameUI.CustomUIConfig().team_colors) {
-            var teamColor = GameUI.CustomUIConfig().team_colors[teamId];
-            if (teamColor) {
-                teamLogoColor.style.washColor = teamColor;
-            }
-        }
-        if (GameUI.CustomUIConfig().team_icons) {
-            var teamIcon = GameUI.CustomUIConfig().team_icons[teamId];
-            if (teamIcon) {
-                teamLogoIcon.SetImage(teamIcon);
+            HeroRank.style.backgroundSize = "100%"
+            if (rank_info_duel.rating_number_in_top != 0 && rank_info_duel.rating_number_in_top != "0") {
+                rank_number.text = rank_info_duel.rating_number_in_top
             }
         }
 
-        var HealthAndManaPanel = $.CreatePanel("Image", playerAbilityPanel, "HealthAndManaPanel" + index);
+        var HealthAndManaPanelWitchScepter = $.CreatePanel("Panel", playerAbilityPanel, "HealthAndManaPanel" + index);
+        HealthAndManaPanelWitchScepter.AddClass("HealthAndManaPanelWitchScepter");
+
+        var HealthAndManaPanel = $.CreatePanel("Panel", HealthAndManaPanelWitchScepter, "HealthAndManaPanel" + index);
         HealthAndManaPanel.AddClass("HealthAndManaPanel");
 
         var itemPanel = $.CreatePanel("Panel", playerAbilityPanel, "ItemPanel_" + index);
@@ -197,6 +185,9 @@ function ShowPvpBrief(data) {
 
         var abilityPanel = $.CreatePanel("Panel", playerAbilityPanel, "AbilityPanel_" + index);
         abilityPanel.AddClass("AbilityPanel");
+
+        var SkillPanel = $.CreatePanel("Panel", playerAbilityPanel, "SkillBlock" + index);
+        SkillPanel.AddClass("SkillPanelBlock");
 
         var healthContainer = $.CreatePanel("Panel", HealthAndManaPanel, "HealthContainer_" + index);
         healthContainer.AddClass("HealthContainer");
@@ -215,11 +206,6 @@ function ShowPvpBrief(data) {
         var healthProgressRight = $("#HealthProgress_" + index + "_Right")
         healthProgressRight.AddClass("HealthProgressRight");
 
-        var dotaSceneContainer = $.CreatePanel("Panel", healthProgressLeft, "");
-        dotaSceneContainer.AddClass("DotaSceneContainer");
-        var healthBarBurner = $.CreatePanel("Panel", dotaSceneContainer, "");
-        healthBarBurner.BLoadLayoutSnippet("BarBurner");
-
         var manaContainer = $.CreatePanel("Panel", HealthAndManaPanel, "ManaContainer_" + index);
         manaContainer.AddClass("ManaContainer");
         manaContainer.positionOnScreen = positionOnScreen
@@ -237,11 +223,23 @@ function ShowPvpBrief(data) {
         var manaProgressRight = $("#ManaProgress_" + index + "_Right")
         manaProgressRight.AddClass("ManaProgressRight");
 
-        var dotaSceneManaContainer = $.CreatePanel("Panel", manaProgressLeft, "");
-        dotaSceneManaContainer.AddClass("DotaSceneManaContainer");
-        var manaBarBurner = $.CreatePanel("Panel", dotaSceneManaContainer, "");
-        manaBarBurner.BLoadLayoutSnippet("BarBurner");
+        let shard_and_scepter_upgrade_panel = $.CreatePanel("Panel", HealthAndManaPanelWitchScepter, "shard_and_scepter_upgrade_panel_" + index)
+        shard_and_scepter_upgrade_panel.style.width = "28px"
+        shard_and_scepter_upgrade_panel.style.height = "100%"
+        shard_and_scepter_upgrade_panel.style.marginLeft = "5px"
+        shard_and_scepter_upgrade_panel.style.flowChildren = "down"
 
+        let scepter_upgrade_panel = $.CreatePanel("Panel", shard_and_scepter_upgrade_panel, "scepter_upgrade_panel")
+        scepter_upgrade_panel.style.width = "28px"
+        scepter_upgrade_panel.style.height = "28px"
+        scepter_upgrade_panel.style.backgroundImage = 'url("s2r://panorama/images/hud/reborn/aghsstatus_scepter_psd.vtex")';
+        scepter_upgrade_panel.style.backgroundSize = "100%"
+
+        let shard_upgrade_panel = $.CreatePanel("Panel", shard_and_scepter_upgrade_panel, "shard_upgrade_panel")
+        shard_upgrade_panel.style.width = "28px"
+        shard_upgrade_panel.style.height = "16px"
+        shard_upgrade_panel.style.backgroundImage = 'url("s2r://panorama/images/hud/reborn/aghsstatus_shard_psd.vtex")';
+        shard_upgrade_panel.style.backgroundSize = "100%"
 
         $("#HealthLabel_" + index).text = Entities.GetHealth(heroIndex) + " / " + Entities.GetMaxHealth(heroIndex);
         $("#ManaLabel_" + index).text = Entities.GetMana(heroIndex) + " / " + Entities.GetMaxMana(heroIndex);
@@ -251,6 +249,15 @@ function ShowPvpBrief(data) {
 
         var manaPercent = Entities.GetMana(heroIndex) / Entities.GetMaxMana(heroIndex);
         $("#ManaProgress_" + index).value = manaPercent;
+
+        if (teamId == firstTeamId) 
+        {
+            firstBetInfo = $.CreatePanel("Panel", playerAbilityPanel, "BetInfoContainer_1");
+            firstBetInfo.AddClass("BetInfoContainer");
+        } else {
+            secondBetInfo = $.CreatePanel("Panel", playerAbilityPanel, "BetInfoContainer_2");
+            secondBetInfo.AddClass("BetInfoContainer");
+        }
     }
 
     // СОЗДАНИЕ СТАВОЧЕК////////////////////////////////////////////////////////////////////////////////////////
@@ -290,7 +297,6 @@ function ShowPvpBrief(data) {
                 playerBetLine.FindChildTraverse("BetValueProgressBar").value = percent;
                 playerBetLine.FindChildTraverse("BetValue").text = betData.nValue;
                 var heroName = Players.GetPlayerSelectedHero(betData.nPlayerId)
-
                 playerBetLine.FindChildTraverse("HeroIcon").SetImage("file://{images}/heroes/icons/" + heroName + ".png");
             }
         }
@@ -347,7 +353,7 @@ function ShowPvpBrief(data) {
         $("#PvPMainHeaderShowPanel").RemoveClass("Hidden");
     }
 
-    $.Schedule(0.1, function() {
+    $.Schedule(0.5, function() {
         UpdatePvpBrief(heroNumber)
     });
 }
@@ -389,6 +395,8 @@ function UpdatePvpBrief(heroNumber)
                         EntityAbilitiesNames.push(Abilities.GetAbilityName(ability));
                     }
                 }
+
+                UpdateHeroHudBuffs(index);
 
                 for (var i = 0; i <= 5; i++) 
                 {
@@ -451,6 +459,13 @@ function UpdatePvpBrief(heroNumber)
                                 }
                             //}
                         }
+                        let hidden_abil_spawn = 6 - EntityAbilities.length
+                        if (hidden_abil_spawn > 0) {
+                            for (var ddd = 0; ddd < hidden_abil_spawn; ddd++) {
+                                let ability_box = $.CreatePanel("Panel", ability_panel, "");
+                                ability_box.AddClass("hidden_ab_spawn")
+                            }
+                        }
                     }
 
                     ability_panel.EntityAbilities = EntityAbilities;
@@ -460,65 +475,50 @@ function UpdatePvpBrief(heroNumber)
                     {
                         var abilityPanel = ability_panel.GetChild(i);
                         let ability = abilityPanel.abilityId
-                        var cooldown = Abilities.GetCooldownTimeRemaining(ability);
-                        if (cooldown > 0) 
+                        if (ability)
                         {
-                            abilityPanel.FindChildTraverse("CooldownTimer").text = Math.ceil(cooldown);
-                            abilityPanel.FindChildTraverse("CooldownOverlay").RemoveClass("Hidden");
-                            var cooldownLength = Abilities.GetCooldownLength(ability);
-                            var angle = cooldown / cooldownLength * -360;
-                            if (cooldownLength > 0) 
+                            var cooldown = Abilities.GetCooldownTimeRemaining(ability);
+                            if (cooldown > 0) 
                             {
+                                abilityPanel.FindChildTraverse("CooldownTimer").text = Math.ceil(cooldown);
+                                abilityPanel.FindChildTraverse("CooldownOverlay").RemoveClass("Hidden");
+                                var cooldownLength = Abilities.GetCooldown(ability);
                                 var angle = cooldown / cooldownLength * -360;
-                                abilityPanel.FindChildTraverse("CooldownOverlay").style.clip = "radial( 50.0% 50.0%, 0.0deg, " + angle + "deg)";
-                            }
-                        } 
-                        else 
-                        {
-                            abilityPanel.FindChildTraverse("CooldownTimer").text = "";
-                            abilityPanel.FindChildTraverse("CooldownOverlay").AddClass("Hidden");
-                            abilityPanel.FindChildTraverse("CooldownOverlay").style.clip = "radial( 50.0% 50.0%, 0.0deg, -360deg)";
-                        }
-                        for (var ability_level = 1; ability_level <= Abilities.GetMaxLevel(ability); ability_level++) 
-                        {
-                            let ability_level_quad = abilityPanel.FindChildTraverse("ability_level_quad" + ability_level)
-                            if (ability_level_quad)
+                                if (cooldownLength > 0) 
+                                {
+                                    var angle = cooldown / cooldownLength * -360;
+                                    abilityPanel.FindChildTraverse("CooldownOverlay").style.clip = "radial( 50.0% 50.0%, 0.0deg, " + angle + "deg)";
+                                }
+                            } 
+                            else 
                             {
-                                if (Abilities.GetLevel(ability) >= ability_level) 
+                                abilityPanel.FindChildTraverse("CooldownTimer").text = "";
+                                abilityPanel.FindChildTraverse("CooldownOverlay").AddClass("Hidden");
+                                abilityPanel.FindChildTraverse("CooldownOverlay").style.clip = "radial( 50.0% 50.0%, 0.0deg, -360deg)";
+                            }
+                            for (var ability_level = 1; ability_level <= Abilities.GetMaxLevel(ability); ability_level++) 
+                            {
+                                let ability_level_quad = abilityPanel.FindChildTraverse("ability_level_quad" + ability_level)
+                                if (ability_level_quad)
                                 {
-                                    ability_level_quad.RemoveClass("ability_level_quad_not_learn")
-                                    ability_level_quad.AddClass("ability_level_quad")
-                                } 
-                                else 
-                                {
-                                    ability_level_quad.RemoveClass("ability_level_quad")
-                                    ability_level_quad.AddClass("ability_level_quad_not_learn")
+                                    if (Abilities.GetLevel(ability) >= ability_level) 
+                                    {
+                                        ability_level_quad.RemoveClass("ability_level_quad_not_learn")
+                                        ability_level_quad.AddClass("ability_level_quad")
+                                    } 
+                                    else 
+                                    {
+                                        ability_level_quad.RemoveClass("ability_level_quad")
+                                        ability_level_quad.AddClass("ability_level_quad_not_learn")
+                                    }
                                 }
                             }
-                        }
+                        }   
                     }
 
                     if (!isEqual(EntityItemsNames, item_panel.EntityItemsNames) || item_panel.GetChildCount() <= 0 || NeutralItem !== item_panel.NeutralItem) 
                     {
                         item_panel.RemoveAndDeleteChildren()
-
-                        let shard_and_scepter_upgrade_panel = $.CreatePanel("Panel", item_panel, "shard_and_scepter_upgrade_panel")
-                        shard_and_scepter_upgrade_panel.style.width = "25px"
-                        shard_and_scepter_upgrade_panel.style.height = "100%"
-                        shard_and_scepter_upgrade_panel.style.marginRight = "3px"
-                        shard_and_scepter_upgrade_panel.style.flowChildren = "down"
-
-                        let scepter_upgrade_panel = $.CreatePanel("Panel", shard_and_scepter_upgrade_panel, "scepter_upgrade_panel")
-                        scepter_upgrade_panel.style.width = "40px"
-                        scepter_upgrade_panel.style.height = "70%"
-                        scepter_upgrade_panel.style.backgroundImage = 'url("s2r://panorama/images/hud/reborn/aghsstatus_scepter_psd.vtex")';
-                        scepter_upgrade_panel.style.backgroundSize = "100%"
-
-                        let shard_upgrade_panel = $.CreatePanel("Panel", shard_and_scepter_upgrade_panel, "shard_upgrade_panel")
-                        shard_upgrade_panel.style.width = "40px"
-                        shard_upgrade_panel.style.height = "30%"
-                        shard_upgrade_panel.style.backgroundImage = 'url("s2r://panorama/images/hud/reborn/aghsstatus_shard_psd.vtex")';
-                        shard_upgrade_panel.style.backgroundSize = "100%"
 
                         for (k in EntityItems)
                         {
@@ -526,7 +526,6 @@ function UpdatePvpBrief(heroNumber)
                             var itemName = Abilities.GetAbilityName(item);
                             let itemImage = $.CreatePanel("DOTAItemImage", item_panel, "");
                             itemImage.abilityId = item;
-                            $.Msg("dadada", " ", itemImage.abilityId)
                             itemImage.itemname = itemName;
                             itemImage.SetPanelEvent("onmouseover", ShowItemTooltip(itemImage));
                             itemImage.SetPanelEvent("onmouseout", HideItemTooltip(itemImage));
@@ -567,7 +566,7 @@ function UpdatePvpBrief(heroNumber)
                         item_panel.NeutralItem = NeutralItem;
                     }
 
-                    let scepter_upgrade_panel_new = item_panel.FindChildTraverse("scepter_upgrade_panel")
+                    let scepter_upgrade_panel_new = $("#shard_and_scepter_upgrade_panel_" + index).FindChildTraverse("scepter_upgrade_panel")
                     if (scepter_upgrade_panel_new)
                     {
                         if (Entities.HasScepter(playerHeroIndex)) 
@@ -582,7 +581,7 @@ function UpdatePvpBrief(heroNumber)
                         }
                     }
 
-                    let shard_upgrade_panel_new = item_panel.FindChildTraverse("shard_upgrade_panel")
+                    let shard_upgrade_panel_new = $("#shard_and_scepter_upgrade_panel_" + index).FindChildTraverse("shard_upgrade_panel")
                     if (shard_upgrade_panel_new)
                     {
                         if (HasModifier(playerHeroIndex, "modifier_item_aghanims_shard")) 
@@ -608,7 +607,7 @@ function UpdatePvpBrief(heroNumber)
                             {
                                 abilityPanel.FindChildTraverse("CooldownTimerItem").text = Math.ceil(cooldown);
                                 abilityPanel.FindChildTraverse("CooldownOverlayItem").RemoveClass("Hidden");
-                                var cooldownLength = Abilities.GetCooldownLength(ability);
+                                var cooldownLength = Abilities.GetCooldown(ability);
                                 var angle = cooldown / cooldownLength * -360;
                                 if (cooldownLength > 0) 
                                 {
@@ -699,7 +698,7 @@ function LocateVictoryParticle() {
 
     Particles.SetParticleControl(victoryParticleID, 3, location)
 
-    $.Schedule(0.01, LocateVictoryParticle);
+    $.Schedule(0.1, LocateVictoryParticle);
 }
 
 function ShowVictoryParticle() {
@@ -742,6 +741,14 @@ function TeamWin(data) {
                     if ($("#PlayerAbilityPanel_" + index) == undefined) {
                         return;
                     }
+                    var positionOnScreen = $("#PlayerAbilityPanel_" + index).positionOnScreen
+                    if (positionOnScreen == "top") 
+                    {
+                        $("#FirstTeamBrief").AddClass("Hidden")
+                    } else {
+                        $("#SecondTeamBrief").AddClass("Hidden")
+                    }
+                    $("#playermainpanelwithbg_" + index).AddClass("Hidden");
                     $("#PlayerAbilityPanel_" + index).AddClass("Hidden");
                     $("#HealthContainer_" + index).AddClass("Hidden");
                     $("#ManaContainer_" + index).AddClass("Hidden");
@@ -966,6 +973,83 @@ function CheckStringDamage(damage)
     } else {
         return damage.toFixed(0)
     }
+}
+
+function UpdateHeroHudBuffs(index) 
+{
+    if ($("#SkillBlock" + index) == null) {
+        return
+    }
+
+    var playerId = $("#HeroIcon_" + index).playerId;
+    let hero = Players.GetPlayerHeroEntityIndex(playerId);
+
+    let skills_1 = CustomNetTables.GetTableValue("skills_table", "tier_1")
+    if (skills_1 && skills_1.skills) {
+        for (var i = 1; i <= Object.keys(skills_1.skills).length; i++) {
+            if (HasModifier(hero, skills_1.skills[i][1])) {
+                CreateSkill(skills_1.skills[i], 1, index)
+            }
+        }
+    }
+    let skills_2 = CustomNetTables.GetTableValue("skills_table", "tier_2")
+    if (skills_2 && skills_2.skills) {
+        for (var i = 1; i <= Object.keys(skills_2.skills).length; i++) {
+            if (HasModifier(hero, skills_2.skills[i][1])) {
+                CreateSkill(skills_2.skills[i], 2, index)
+            }
+        }
+    }
+    let skills_3 = CustomNetTables.GetTableValue("skills_table", "tier_3")
+    if (skills_3 && skills_3.skills) {
+        for (var i = 1; i <= Object.keys(skills_3.skills).length; i++) {
+            if (HasModifier(hero, skills_3.skills[i][1])) {
+                CreateSkill(skills_3.skills[i], 3, index)
+            }
+        }
+    }
+
+    let skills_4 = CustomNetTables.GetTableValue("skills_table", "tier_4")
+    if (skills_4 && skills_4.skills) {
+        for (var i = 1; i <= Object.keys(skills_4.skills).length; i++) {
+            if (HasModifier(hero, skills_4.skills[i][1])) {
+                CreateSkill(skills_4.skills[i], 4, index)
+            }
+        }
+    }
+
+    let skills_5 = CustomNetTables.GetTableValue("skills_table", "tier_5")
+    if (skills_5 && skills_5.skills) {
+        for (var i = 1; i <= Object.keys(skills_5.skills).length; i++) {
+            if (HasModifier(hero, skills_5.skills[i][1])) {
+                CreateSkill(skills_5.skills[i], 5, index)
+            }
+        }
+    }
+
+    $.Schedule(3, UpdateHeroHudBuffs)
+}
+
+function CreateSkill(info, tier, index) {
+    let this_skill = $("#SkillBlock" + index).FindChildTraverse(info[1])
+    if (this_skill) {
+        return
+    }
+    var Skill = $.CreatePanel("Panel", $("#SkillBlock" + index), info[1]);
+    Skill.AddClass("SkillPanel" + tier);
+    Skill.style.backgroundImage = 'url("file://{images}/custom_game/skills/' + info[3] + '.png")';
+    Skill.style.backgroundSize = "100%"
+    SetShowText(Skill, "<b>" + $.Localize("#" + info[2]) + "</b>" + "<br><br>" + $.Localize("#" + info[2] + "_desc"))
+}
+
+function SetShowText(panel, text) {
+    panel.SetPanelEvent('onmouseover', function () {
+        $.DispatchEvent('DOTAShowTextTooltip', panel, text);
+    });
+
+    panel.SetPanelEvent('onmouseout', function () {
+        $.DispatchEvent('DOTAHideTextTooltip', panel);
+    });
 }
 
 (function() {

@@ -18,9 +18,22 @@ end
 
 HeroBuilder.totalAbilityNumber = {}
 HeroBuilder.nInitAegisNumber = 2
+HeroBuilder.neutral_list = LoadKeyValues("scripts/npc/neutral_items.txt")
+HeroBuilder.RewardForPlayer = {}
+HeroBuilder.RewardForPlayerRoshan = {}
+HeroBuilder.NeutralsHasRandomed = {}
+HeroBuilder.HasUseNeutralFiveTier = {}
 
 for nPlayerID = 0, 24 do
     HeroBuilder.totalAbilityNumber[nPlayerID] = 2
+    HeroBuilder.NeutralsHasRandomed[nPlayerID] = {}
+    HeroBuilder.HasUseNeutralFiveTier[nPlayerID] = false
+    HeroBuilder.RewardForPlayer[nPlayerID] = {}
+    HeroBuilder.RewardForPlayerRoshan[nPlayerID] = {}
+    for tier_ne = 1, 5 do
+        HeroBuilder.RewardForPlayer[nPlayerID][tier_ne] = {}
+        HeroBuilder.RewardForPlayerRoshan[nPlayerID][tier_ne] = {}
+    end
 end
 
 -- Способности которые не могут быть вместе
@@ -84,6 +97,7 @@ scepterLinkAbilities["juggernaut_omni_slash_custom"]={"juggernaut_swift_slash_cu
 scepterLinkAbilities["bloodseeker_thirst"]={"bloodseeker_blood_mist_custom"}
 scepterLinkAbilities["leshrac_pulse_nova"]={"leshrac_greater_lightning_storm"}
 scepterLinkAbilities["kunkka_torrent"]={"kunkka_torrent_storm_custom"}
+scepterLinkAbilities["nyx_assassin_vendetta"]={"nyx_assassin_burrow","nyx_assassin_unburrow"}
 
 -- Способности с шарда которые привязаны к способности
 shardLinkAbilities = {}
@@ -191,7 +205,7 @@ AbilitiesRandomChanceList_1 =
     "nevermore_necromastery",
     "slark_essence_shift_lua",
     "sniper_take_aim_custom",
-    "spectre_dispersion",
+    "spectre_dispersion_custom",
     "custom_terrorblade_metamorphosis",
     "ursa_overpower",
     "vengefulspirit_wave_of_terror",
@@ -222,20 +236,22 @@ AbilitiesRandomChanceList_1 =
 -- Способности вторые на который повышен шанс выпадения
 AbilitiesRandomChanceList_2 = 
 {
-    "tidehunter_anchor_smash_lua",
     "alchemist_chemical_rage",
     "dragon_knight_elder_dragon_form_custom",
     "frostivus2018_huskar_burning_spear",
     "life_stealer_feast",
     "tiny_tree_grab_lua",
     "bloodseeker_bloodrage_custom",
-    --"drow_ranger_marksmanship_custom",
     "faceless_void_time_lock_custom",
     "ursa_fury_swipes",
     "frostivus2018_weaver_geminate_attack_custom",
     "wisp_overcharge_custom",
     "broodmother_insatiable_hunger_custom",
-    "muerta_gunslinger",
+    "drow_ranger_frost_arrows_custom",
+    "meepo_ransack_custom",
+    "tiny_grow",
+    "lycan_shapeshift_custom",
+    "sven_gods_strength_custom",
 }
 
 -- Способности которые меняют вид атаки
@@ -289,6 +305,14 @@ function HeroBuilder:Init()
 
     CustomGameEventManager:RegisterListener("ReorderComplete",function(_, keys)
         self:ReorderComplete(keys)
+    end)
+
+    CustomGameEventManager:RegisterListener("SelectNeutralReward",function(_, keys)
+        self:SelectNeutralReward(keys)
+    end)
+
+    CustomGameEventManager:RegisterListener("SelectNeutralRewardReturn",function(_, keys)
+        self:SelectNeutralRewardReturn(keys)
     end)
 
     HeroBuilder.allHeroeNames=table.deepcopy(GameRules.heroesPoolList)
@@ -355,8 +379,10 @@ function HeroBuilder:Init()
 
     HeroBuilder.allAbilityNames = allAbilityNames
     HeroBuilder.scepterOwners = {}
-    HeroBuilder:BanRandomAbilities()
-    HeroBuilder:BanRandomHeroes()
+    if GetMapName() ~= "1x8_pve" then
+        HeroBuilder:BanRandomAbilities()
+        HeroBuilder:BanRandomHeroes()
+    end
 end
 
 function HeroBuilder:BanRandomAbilities()
@@ -634,6 +660,7 @@ function HeroBuilder:InitPlayerHero( hHero )
             if not string.find(sAbilityName, "special_bonus") then
                 hHero:RemoveAbility(sAbilityName)
             end
+            print("удаление")
         end
     end
 
@@ -649,6 +676,76 @@ function HeroBuilder:InitPlayerHero( hHero )
 
     hHero:AddNewModifier(hHero, nil, "modifier_spell_amplify_controller", {})
     HeroBuilder:RefreshAbilityOrder(hHero:GetPlayerOwnerID())
+end
+
+function HeroBuilder:HeroSelectedLoad(hero_name, player_id, aegis_count, level, ability_number, total_ability_number, gold, bet_value_sum)
+    local szHeroName = hero_name
+    local nPlayerID = player_id
+    local hPlayer = PlayerResource:GetPlayer(nPlayerID)
+    local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
+    if not hPlayer then return end
+
+    local nPrecacheCount = 20    
+    PrecacheUnitByNameAsync(szHeroName, function()
+        Timers:CreateTimer(1, function()
+            local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
+            local hPlayer = PlayerResource:GetPlayer(nPlayerID)
+            if hHero then
+                if hPlayer then
+                    local hOldHero = hHero
+                    local itemDataList = {}
+                    for i = 0, 16 do
+                        local hItem = hOldHero:GetItemInSlot(i);
+                        if hItem ~= nil and hItem:GetPurchaser():GetPlayerID()==hOldHero:GetPlayerID() then
+                            local itemData = {}
+                            itemData.sItemName = hItem:GetName()
+                            itemData.nPurchaserID=hItem:GetPurchaser():GetPlayerID()
+                            itemData.nCharges=hItem:GetCurrentCharges()
+                            table.insert(itemDataList, itemData)
+                        end
+                    end
+                    hHero = PlayerResource:ReplaceHeroWith(nPlayerID,szHeroName,gold,0)
+                    for _,itemData in ipairs(itemDataList) do
+                        local hItem = CreateItem(itemData.sItemName,hHero,hHero)
+                        hItem:SetCurrentCharges(itemData.nCharges)
+                        hHero:AddItem(hItem)
+                    end
+                    Timers:CreateTimer(0.5, function()
+                        hOldHero:ForceKill(false)
+                        UTIL_Remove(hOldHero)
+                    end)
+                    HeroBuilder:InitPlayerHero(hHero)
+                    local hModifierAegis = hHero:AddNewModifier(hHero, nil, "modifier_aegis", {})
+                    if hModifierAegis then
+                        CustomNetTables:SetTableValue("aegis_count", tostring(nPlayerID), {count = aegis_count})
+                        hModifierAegis:SetStackCount(aegis_count)
+                    end
+                    print("test8")
+                    hHero.bSettled=true
+                    hHero.bSelected = true
+                    CustomGameEventManager:Send_ServerToPlayer(hPlayer,"HideHeroPrecacheCountDown",{})
+                    hHero.nOriginalAttackCapability = hHero:GetAttackCapability()
+                    hHero.nAbilityNumber = ability_number
+                    hHero.abilitiesList = {}
+                    HeroBuilder.totalAbilityNumber[nPlayerID] = total_ability_number
+                    PvpModule.betValueSum[nPlayerID] = bet_value_sum
+                    for lsla = 1, level -1 do
+                        hHero:HeroLevelUp( false )
+                    end
+                    Timers:CreateTimer(1, function()
+                        hHero.nAbilityNumber=ability_number
+                        if hHero.nAbilityNumber< HeroBuilder.totalAbilityNumber[nPlayerID] then
+                            if not hHero.bSelectingAbility then
+                                HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
+                            end
+                        end
+                    end)
+                end
+                return nil
+            end
+            return 1
+        end)
+    end)
 end
 
 function HeroBuilder:HeroSelected(keys)
@@ -892,44 +989,32 @@ function HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
 
             count_abilities_from_all = count_abilities_from_all - 1
 
-            random_ability_1 = table.random_some(AbilitiesRandomChanceList_1List, 1)
+            --random_ability_1 = table.random_some(AbilitiesRandomChanceList_1List, 1)
+--
+            --if random_ability_1[1] then
+            --    table.remove_item(tempList, random_ability_1[1])
+            --    table.remove_item(AbilitiesRandomChanceList_1List, random_ability_1[1])
+            --    table.remove_item(AbilitiesRandomChanceList_2List, random_ability_1[1])
+            --end
 
-            if random_ability_1[1] then
-                table.remove_item(tempList, random_ability_1[1])
-                table.remove_item(AbilitiesRandomChanceList_1List, random_ability_1[1])
-                table.remove_item(AbilitiesRandomChanceList_2List, random_ability_1[1])
-            end
-
-            count_abilities_from_all = count_abilities_from_all - 1
+            --count_abilities_from_all = count_abilities_from_all - 1
 
             if RandomInt(1, 100) <= 5 then
                 random_ability_3 = table.random_some(AbilitiesRandomChanceList_2List, 1)
-
                 if random_ability_3[1] then
                     table.remove_item(tempList, random_ability_3[1])
-                    table.remove_item(AbilitiesRandomChanceList_1List, random_ability_3[1])
+                    --table.remove_item(AbilitiesRandomChanceList_1List, random_ability_3[1])
                     table.remove_item(AbilitiesRandomChanceList_2List, random_ability_3[1])
                 end
-
                 count_abilities_from_all = count_abilities_from_all - 1
-            --elseif RandomInt(1, 100) <= 10 then
-            --    random_ability_2 = table.random_some(AbilitiesRandomChanceList_1List, 1)
---
-            --    if random_ability_2[1] then
-            --        table.remove_item(tempList, random_ability_2[1])
-            --        table.remove_item(AbilitiesRandomChanceList_1List, random_ability_2[1])
-            --        table.remove_item(AbilitiesRandomChanceList_2List, random_ability_2[1])
-            --    end
---
-            --    count_abilities_from_all = count_abilities_from_all - 1
             end
 
             randomAbilityNames= table.random_some(tempList, count_abilities_from_all)
             randomAbilityNames= table.join(randomAbilityNames,randomOwnAbilities)
 
-            if random_ability_1 ~= nil then
-                randomAbilityNames=table.join(randomAbilityNames, random_ability_1)
-            end
+            --if random_ability_1 ~= nil then
+            --    randomAbilityNames=table.join(randomAbilityNames, random_ability_1)
+            --end
 
             --if random_ability_2 ~= nil then
             --    randomAbilityNames=table.join(randomAbilityNames, random_ability_2)
@@ -944,43 +1029,31 @@ function HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
             local random_ability_2 = nil
             local random_ability_3 = nil
 
-            random_ability_1 = table.random_some(AbilitiesRandomChanceList_1List, 1)
+            --random_ability_1 = table.random_some(AbilitiesRandomChanceList_1List, 1)
 
-            if random_ability_1[1] then
-                table.remove_item(tempList, random_ability_1[1])
-                table.remove_item(AbilitiesRandomChanceList_1List, random_ability_1[1])
-                table.remove_item(AbilitiesRandomChanceList_2List, random_ability_1[1])
-            end
+            --if random_ability_1[1] then
+            --    table.remove_item(tempList, random_ability_1[1])
+            --    table.remove_item(AbilitiesRandomChanceList_1List, random_ability_1[1])
+            --    table.remove_item(AbilitiesRandomChanceList_2List, random_ability_1[1])
+            --end
 
-            count_abilities_from_all = count_abilities_from_all - 1
+            --count_abilities_from_all = count_abilities_from_all - 1
 
             if RandomInt(1, 100) <= 5 then
                 random_ability_3 = table.random_some(AbilitiesRandomChanceList_2List, 1)
-
                 if random_ability_3[1] then
                     table.remove_item(tempList, random_ability_3[1])
-                    table.remove_item(AbilitiesRandomChanceList_1List, random_ability_3[1])
+                    --table.remove_item(AbilitiesRandomChanceList_1List, random_ability_3[1])
                     table.remove_item(AbilitiesRandomChanceList_2List, random_ability_3[1])
                 end
-
                 count_abilities_from_all = count_abilities_from_all - 1
-            --elseif RandomInt(1, 100) <= 10 then
-            --    random_ability_2 = table.random_some(AbilitiesRandomChanceList_1List, 1)
---
-            --    if random_ability_2[1] then
-            --        table.remove_item(tempList, random_ability_2[1])
-            --        table.remove_item(AbilitiesRandomChanceList_1List, random_ability_2[1])
-            --        table.remove_item(AbilitiesRandomChanceList_2List, random_ability_2[1])
-            --    end
---
-            --    count_abilities_from_all = count_abilities_from_all - 1
             end
 
             randomAbilityNames= table.random_some(tempList, count_abilities_from_all)
 
-            if random_ability_1 ~= nil then
-                randomAbilityNames=table.join(randomAbilityNames, random_ability_1)
-            end
+            --if random_ability_1 ~= nil then
+            --    randomAbilityNames=table.join(randomAbilityNames, random_ability_1)
+            --end
 
             --if random_ability_2 ~= nil then
             --    randomAbilityNames=table.join(randomAbilityNames, random_ability_2)
@@ -989,6 +1062,10 @@ function HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
             if random_ability_3 ~= nil then
                 randomAbilityNames=table.join(randomAbilityNames, random_ability_3)
             end
+        end
+
+        if IsInToolsMode() then
+            randomAbilityNames=table.join(randomAbilityNames, "abyssal_underlord_firestorm_custom")
         end
 
         hHero.randomAbilityNames = randomAbilityNames
@@ -1225,9 +1302,6 @@ function HeroBuilder:RelearnBookAbilitySelected(keys, retry)
         return 
     end
 
-    hHero.bRemovingAbility = false
-    hHero.bOmniscientBookRemoving = false
-
     if unremovableAbilities[sAbilityName] then
         print("Relearn Book - 5")
         return 
@@ -1247,6 +1321,9 @@ function HeroBuilder:RelearnBookAbilitySelected(keys, retry)
     --end
     
     Timers:CreateTimer(0.1, function()
+        hHero.bRemovingAbility = false
+        hHero.bOmniscientBookRemoving = false
+        
         local bFoundSomeWhere = false
 
         if hHero.spellBooks and hHero.spellBooks[sAbilityName] and not hHero.spellBooks[sAbilityName]:IsNull() then
@@ -1444,7 +1521,8 @@ function HeroBuilder:SetAbilityToSlot(hHero, hAbility)
         local hSlotAbility = hHero:GetAbilityByIndex(i)
         
         if not hSlotAbility or hSlotAbility:IsNull() then
-
+            slot_ability = hero:AddAbility("empty_"..i)
+			slot_ability.placeholder = i + 1
         end
 
         if hSlotAbility and hSlotAbility.nPlaceholder then
@@ -1481,6 +1559,8 @@ function HeroBuilder:AddAbility(nPlayerID, sAbilityName, nLevel, flCoolDown)
                     if flCoolDown and flCoolDown>0 then
                        hNewAbility:StartCooldown(flCoolDown)
                     end
+
+                    hNewAbility:SetRefCountsModifiers(true)
 
                     if hNewAbility:GetAbilityName() == "muerta_pierce_the_veil" then
                       hHero:AddNewModifier(hHero, hNewAbility, "modifier_muerta_pierce_the_veil", {})
@@ -2220,4 +2300,104 @@ function HeroBuilder:RemoveShardLinkAbilities(hHero,sRawAbilityName)
             end)
         end
     end
+end
+
+function HeroBuilder:NeutralItemSelect(hero, id, tier)
+    local current_random = HeroBuilder.neutral_list[tostring(tier)]["items"]
+    if HeroBuilder.RewardForPlayer[id][tier] ~= nil and HeroBuilder.RewardForPlayer[id][tier][1] == nil then
+        HeroBuilder.RewardForPlayer[id][tier] = {}
+        local random_items_list = {}
+        for name, data in pairs(current_random) do
+            if HeroBuilder.NeutralsHasRandomed[id][name] == nil then
+                table.insert(random_items_list, name)
+            end
+        end
+        local random_items_for_player = table.random_some(random_items_list, 5)
+        HeroBuilder.RewardForPlayer[id][tier] = random_items_for_player
+    end
+    local player = PlayerResource:GetPlayer(id)
+    if player then
+        CustomGameEventManager:Send_ServerToPlayer(player, "event_neutral_select", {neutral_items = HeroBuilder.RewardForPlayer[id][tier], tier = tier })
+    end
+end
+
+function HeroBuilder:NeutralItemSelectRoshan(hero, id, tier)
+    local current_random = HeroBuilder.neutral_list[tostring(tier)]["items"]
+    if HeroBuilder.RewardForPlayerRoshan[id][tier] ~= nil and HeroBuilder.RewardForPlayerRoshan[id][tier][1] == nil then
+        HeroBuilder.RewardForPlayerRoshan[id][tier] = {}
+        local random_items_list = {}
+        for name, data in pairs(current_random) do
+            if HeroBuilder.NeutralsHasRandomed[id][name] == nil then
+                table.insert(random_items_list, name)
+            end
+        end
+        local random_items_for_player = table.random_some(random_items_list, 1)
+        HeroBuilder.RewardForPlayerRoshan[id][tier] = random_items_for_player
+    end
+    local player = PlayerResource:GetPlayer(id)
+    if player then
+        CustomGameEventManager:Send_ServerToPlayer(player, "event_neutral_select", {neutral_items = HeroBuilder.RewardForPlayerRoshan[id][tier], roshan = 1, tier = tier })
+    end
+end
+
+function HeroBuilder:SelectNeutralRewardReturn(data)
+	if data.PlayerID == nil then return end
+	local id = data.PlayerID
+	local hero = PlayerResource:GetSelectedHeroEntity(id)
+    hero.neutral_select = false
+    local roshan = data.roshan
+    if roshan then
+        hero:AddItemByName("item_tier"..data.tier.."_token_roshan_custom")
+    else
+        hero:AddItemByName("item_tier"..data.tier.."_token_custom")
+    end
+end
+
+function HeroBuilder:SelectNeutralReward(data)
+	if data.PlayerID == nil then return end
+	local id = data.PlayerID
+	local choose = data.choose
+	local hero = PlayerResource:GetSelectedHeroEntity(id)
+    local roshan = data.roshan
+    local tier = data.tier
+
+    if roshan then
+        if HeroBuilder.RewardForPlayerRoshan[id][tier][choose] == nil then return end
+        local item_name = HeroBuilder.RewardForPlayerRoshan[id][tier][choose]
+        if hero and item_name then
+            HeroBuilder.NeutralsHasRandomed[id][item_name] = true
+            local neutralItem = CreateItem(item_name, hero, hero)
+            hero:AddItem(neutralItem)
+            neutralItem:SetPurchaseTime(0)
+            neutralItem.owner = hero
+        end
+        hero.neutral_select = false
+        HeroBuilder.RewardForPlayerRoshan[id][tier] = {}
+    else
+        if HeroBuilder.RewardForPlayer[id][tier][choose] == nil then return end
+        local item_name = HeroBuilder.RewardForPlayer[id][tier][choose]
+        if hero and item_name then
+            HeroBuilder.NeutralsHasRandomed[id][item_name] = true
+            local neutralItem = CreateItem(item_name, hero, hero)
+            hero:AddItem(neutralItem)
+            neutralItem:SetPurchaseTime(0)
+            neutralItem.owner = hero
+        end
+        hero.neutral_select = false
+        HeroBuilder.RewardForPlayer[id][tier] = {}
+        if tier == 5 then
+            HeroBuilder.HasUseNeutralFiveTier[id] = true
+        end
+    end
+end
+
+function HeroBuilder:GetUniqueNeutralItemRandom(id, tier)
+    local neutrals_items = HeroBuilder.neutral_list[tostring(tier)]["items"]
+    local random_items_list = {}
+    for name, data in pairs(neutrals_items) do
+        if HeroBuilder.NeutralsHasRandomed[id][name] == nil then
+            table.insert(random_items_list, name)
+        end
+    end
+    return table.random_some(random_items_list, 1)
 end

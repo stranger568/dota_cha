@@ -87,6 +87,14 @@ function AdjustPosition()
         $("#AbilitySelectorPanel").SetHasClass("AbilitySelectorPanel", true)
         $("#AbilitySelectorAbilityBody").SetHasClass("AbilitySelectorAbilityBody", true)
     }
+    
+    if (FindDotaHudElement("AbilitySelectorPanelRoot").dockWidth) 
+    {
+        $("#AbilitySelectorPanelRoot").SetHasClass("SelectorMini", true)
+    }
+    else {
+        $("#AbilitySelectorPanelRoot").SetHasClass("SelectorMini", false)
+    }
 }
 
 //判断两个队列是否值相等
@@ -142,16 +150,6 @@ function ShowRandomAbilitySelection(keys)
     AdjustPosition()
 
     $("#AbilitySelectorPanelRoot").SetHasClass("Show", true);
-
-    if (Players.GetGold(Players.GetLocalPlayer()) >= 150)
-    {
-        $("#SaveSpellBookCheckBox").RemoveClass("Hidden")
-        $("#SaveSpellBookCheckBox").SetSelected( false );
-    } 
-    else 
-    {
-        $("#SaveSpellBookCheckBox").AddClass("Hidden")
-    }
 
     var dataList = keys.data_list
 
@@ -234,7 +232,7 @@ function SetAbilityPanelEvent(panel,abilityName) {
         GameEvents.SendCustomGameEventToServer("AbilitySelected", {
             ability_name : abilityName,
             player_id : Players.GetLocalPlayer(),
-            spell_book_selected: $("#SaveSpellBookCheckBox").IsSelected(),
+            spell_book_selected: false,
             ui_secret: parent.ui_secret
         });
         $("#AbilitySelectorPanelRoot").SetHasClass("Show", false);
@@ -264,7 +262,6 @@ function ShowSpellBookAbilitySelection(keys) {
         
         AdjustPosition()
 
-        $("#SaveSpellBookCheckBox").AddClass("Hidden");
         $("#AbilitySelectorAbilityBody").RemoveAndDeleteChildren()
         $("#AbilitySelectorPanelRoot").SetHasClass("Show", true);
         $("#AbilitySelectorTitle").text = $.Localize("#record_ability")
@@ -347,7 +344,7 @@ function ShowRelearnBookAbilitySelection(keys) {
         //遍历 玩家技能
         var parent = $("#AbilitySelectorAbilityBody");
         parent.ui_secret = keys.ui_secret;
-        $("#SaveSpellBookCheckBox").AddClass("Hidden");
+
         $("#AbilitySelectorAbilityBody").RemoveAndDeleteChildren()
         $("#AbilitySelectorPanelRoot").SetHasClass("Show", true);
         $("#AbilitySelectorTitle").text = $.Localize("#unlearn_ability")
@@ -356,7 +353,7 @@ function ShowRelearnBookAbilitySelection(keys) {
         for (var i = 0; i <= 32; i++) {
             var ability = Entities.GetAbility(playerHeroIndex, i);
             var abilityName = Abilities.GetAbilityName(ability);
-            if ( (IsValidAbility(ability) || "wisp_spirits_lua"==abilityName) && unremovableAbilities[abilityName]==undefined)
+            if ( (IsValidAbility(ability) || "wisp_spirits_lua"==abilityName) && unremovableAbilities[abilityName]==undefined && IsAbilityUnlocked(abilityName))
             {
                 abilityIndex = abilityIndex + 1;
                 var panelID = "ability_"+abilityIndex;
@@ -484,6 +481,26 @@ function HideAbilitySelect()
     $("#AbilitySelectorPanel").ToggleClass("Hide")
     $("#AbilitySelector_CloseButton").ToggleClass("Hide")
     
+}
+
+function IsAbilityUnlocked(ability_name)
+{
+    if (GameUI.CustomUIConfig().abilities_locked == null)
+    {
+        return true
+    }
+    if (GameUI.CustomUIConfig().abilities_locked[ability_name] == null)
+    {
+        return true
+    }
+    if (GameUI.CustomUIConfig().abilities_locked[ability_name] == false)
+    {
+        return true
+    }
+    if (GameUI.CustomUIConfig().abilities_locked[ability_name] == true)
+    {
+        return false
+    }
 }
 
 (function() 

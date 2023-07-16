@@ -251,6 +251,7 @@ if IsServer() then
 		ancient_apparition_ice_blast_release = MULTICAST_TYPE_NONE,
 		item_fusion_rune = MULTICAST_TYPE_NONE,
 		item_blink = MULTICAST_TYPE_NONE,
+        grimstroke_spirit_walk_custom = MULTICAST_TYPE_NONE,
 		item_overwhelming_blink = MULTICAST_TYPE_NONE,
 		item_swift_blink = MULTICAST_TYPE_NONE,
 		item_arcane_blink = MULTICAST_TYPE_NONE,

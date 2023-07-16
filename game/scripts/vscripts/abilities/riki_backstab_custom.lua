@@ -57,8 +57,11 @@ function modifier_riki_backstab_custom:GetModifierProcAttack_BonusDamage_Physica
     local result_angle = attacker_angle - victim_angle
     result_angle = math.abs(result_angle)
     params.target:EmitSound("Hero_Riki.Backstab")
-    local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_riki/riki_backstab.vpcf", PATTACH_ABSORIGIN_FOLLOW, params.target) 
-    ParticleManager:SetParticleControlEnt(particle, 1, params.target, PATTACH_POINT_FOLLOW, "attach_hitloc", params.target:GetAbsOrigin(), true)
+    if target:IsHero() then
+        local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_riki/riki_backstab.vpcf", PATTACH_ABSORIGIN_FOLLOW, params.target) 
+        ParticleManager:SetParticleControlEnt(particle, 1, params.target, PATTACH_POINT_FOLLOW, "attach_hitloc", params.target:GetAbsOrigin(), true)
+        ParticleManager:ReleaseParticleIndex(particle)
+    end
     local end_damage = params.attacker:GetAgility() * agility_damage_multiplier
     if not params.target:IsHero() then
         end_damage = end_damage * 2

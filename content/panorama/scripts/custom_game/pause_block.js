@@ -24,5 +24,5 @@ function pause_owner_check()
     $("#PauseOwner").style.visibility = "collapse"
   }
 
-  $.Schedule(1/144, pause_owner_check)
+  $.Schedule(0.1, pause_owner_check)
 }

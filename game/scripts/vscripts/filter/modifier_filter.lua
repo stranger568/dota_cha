@@ -10,11 +10,13 @@ function GameMode:ModifierGainedFilter(keys)
         HeroBuilder:RegisterScepterOwner(hHero)
         EventDriver:Dispatch("Hero:ScepterReceived", {hero = hHero})
     end
+    
     if keys and keys.name_const and keys.name_const == "modifier_item_aghanims_shard" then
         local hHero = EntIndexToHScript(keys.entindex_parent_const)
         HeroBuilder:AddShardLinkAbilities(hHero)
         HeroBuilder:AddScepterShardAbility(keys.entindex_parent_const)
     end
+
     if keys and keys.name_const and keys.name_const == "modifier_skywrath_mage_shard" then
         local hHero = EntIndexToHScript(keys.entindex_parent_const)
         if hHero then
@@ -25,6 +27,7 @@ function GameMode:ModifierGainedFilter(keys)
             end
         end
     end
+
     if keys and keys.name_const and keys.name_const == "modifier_necrolyte_reapers_scythe" then
         local hUnit = EntIndexToHScript(keys.entindex_parent_const)
         local hModifier = hUnit:FindModifierByName("modifier_necrolyte_reapers_scythe")
@@ -38,6 +41,7 @@ function GameMode:ModifierGainedFilter(keys)
             end
         end
     end
+
     if keys and keys.name_const and keys.name_const == "modifier_lycan_summon_wolves_crit_maim" then
         local hUnit = EntIndexToHScript(keys.entindex_parent_const)
         if hUnit then
@@ -50,6 +54,7 @@ function GameMode:ModifierGainedFilter(keys)
             end
         end
     end
+
     if keys and keys.name_const and keys.name_const == "modifier_bounty_hunter_track" then
         local hUnit = EntIndexToHScript(keys.entindex_parent_const)
         local hModifier = hUnit:FindModifierByName("modifier_bounty_hunter_track")
@@ -66,6 +71,7 @@ function GameMode:ModifierGainedFilter(keys)
             end
         end
     end
+
     if keys and keys.name_const and keys.name_const == "modifier_faceless_void_time_walk" then
         local hHero = EntIndexToHScript(keys.entindex_parent_const)
         if hHero then

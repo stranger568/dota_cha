@@ -32,13 +32,23 @@ end
 modifier_item_hellmask = class({})
 
 function modifier_item_hellmask:IsPurgable() return false end
-function modifier_item_hellmask:IsHidden() return self:GetAbility():GetSecondaryCharges() == 1 end
+function modifier_item_hellmask:IsHidden() return self.ability:GetSecondaryCharges() == 1 end
 
 function modifier_item_hellmask:OnCreated()
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.bonus_armor_per_stack = self.ability:GetSpecialValueFor("bonus_armor_per_stack")
+    self.bonus_damage_per_stack = self.ability:GetSpecialValueFor("bonus_damage_per_stack")
+    self.bonus_damage = self.ability:GetSpecialValueFor("bonus_damage")
+    self.bonus_strength = self.ability:GetSpecialValueFor("bonus_strength")
+    self.bonus_armor = self.ability:GetSpecialValueFor("bonus_armor")
+    self.bonus_attack_speed = self.ability:GetSpecialValueFor("bonus_attack_speed")
+    self.lifesteal_percent = self.ability:GetSpecialValueFor("lifesteal_percent")
+    self.unholy_lifesteal_total_tooltip = self.ability:GetSpecialValueFor("unholy_lifesteal_total_tooltip")
 	if not IsServer() then return end
 	if not self:GetCaster():HasModifier("modifier_item_cuirass_2_aura_buff") then
-		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_item_hellmask_aura_buff", {})
-		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_item_hellmask_aura_debuff", {})
+		self:GetCaster():AddNewModifier(self:GetCaster(), self.ability, "modifier_item_hellmask_aura_buff", {})
+		self:GetCaster():AddNewModifier(self:GetCaster(), self.ability, "modifier_item_hellmask_aura_debuff", {})
 	end
 	self:StartIntervalThink(1)
 end
@@ -53,24 +63,23 @@ end
 
 function modifier_item_hellmask:OnIntervalThink()
 	if not IsServer() then return end
-	local units = FindUnitsInRadius(self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, 800, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_CLOSEST, false)
-	if #units>0 and not self:GetParent():HasModifier("modifier_hero_refreshing") then
-		self:GetAbility():SetSecondaryCharges(1)
+	local units = FindUnitsInRadius(self.parent:GetTeamNumber(), self.parent:GetAbsOrigin(), nil, 800, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD, FIND_CLOSEST, false)
+	if #units>0 and not self.parent:HasModifier("modifier_hero_refreshing") then
+		self.ability:SetSecondaryCharges(1)
 	else
-		self:GetAbility():SetSecondaryCharges(0)
+		self.ability:SetSecondaryCharges(0)
 	end
-	self:SetStackCount(self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack"))
+	self:SetStackCount(self.ability:GetCurrentCharges() * self.ability:GetSpecialValueFor("bonus_armor_per_stack"))
 end
 
 function modifier_item_hellmask:DeclareFunctions()
-    return {
-        --MODIFIER_EVENT_ON_ATTACK_LANDED,
+    return 
+    {
         MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
         MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
         MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
         MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
         MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE,
-        --MODIFIER_EVENT_ON_DEATH,
         MODIFIER_PROPERTY_TOOLTIP,
         MODIFIER_PROPERTY_TOOLTIP2
     }
@@ -78,55 +87,54 @@ end
 
 function modifier_item_hellmask:OnTooltip()
 	if self:GetCaster():HasModifier("modifier_skill_hellcrown") then
-		return self:GetAbility():GetCurrentCharges() * (self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack") + 0.1)
+		return self.ability:GetCurrentCharges() * (self.bonus_armor_per_stack + 0.1)
 	end
-	return self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack")
+	return self.ability:GetCurrentCharges() * self.bonus_armor_per_stack
 end
 
 function modifier_item_hellmask:OnTooltip2()
-	return self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_damage_per_stack")
+	return self.ability:GetCurrentCharges() * self.bonus_damage_per_stack
 end
 
 function modifier_item_hellmask:GetModifierBonusStats_Strength()
-	if self:GetAbility() then
-		return self:GetAbility():GetSpecialValueFor("bonus_strength")
+	if self.ability then
+		return self.bonus_strength
 	end
 end
 
 function modifier_item_hellmask:GetModifierDamageOutgoing_Percentage()
-	if not self:GetParent():HasModifier("modifier_skill_hellcrown") then return end
-	local bonus_unique = self:GetAbility():GetCurrentCharges()
+	if not self.parent:HasModifier("modifier_skill_hellcrown") then return end
+	local bonus_unique = self.ability:GetCurrentCharges()
 	return 0.2 * bonus_unique
 end
 
 function modifier_item_hellmask:GetModifierPreAttack_BonusDamage()
-	if self:GetAbility() then
-		local bonus_unique = self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_damage_per_stack")
-		return self:GetAbility():GetSpecialValueFor("bonus_damage") + bonus_unique
+	if self.ability then
+		local bonus_unique = self.ability:GetCurrentCharges() * self.bonus_damage_per_stack
+		return self.bonus_damage + bonus_unique
 	end
 end
 
 function modifier_item_hellmask:GetModifierPhysicalArmorBonus()
-	if self:GetAbility() then
-		local bonus_unique = self:GetAbility():GetCurrentCharges() * self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack")
+	if self.ability then
+		local bonus_unique = self.ability:GetCurrentCharges() * self.bonus_armor_per_stack
 		if self:GetCaster():HasModifier("modifier_skill_hellcrown") then
-			bonus_unique = self:GetAbility():GetCurrentCharges() * (self:GetAbility():GetSpecialValueFor("bonus_armor_per_stack") + 0.1)
+			bonus_unique = self.ability:GetCurrentCharges() * (self.bonus_armor_per_stack + 0.1)
 		end
-		if self:GetAbility():GetSecondaryCharges() == 1 then bonus_unique = 0 end
-		return self:GetAbility():GetSpecialValueFor("bonus_armor") + bonus_unique
+		if self.ability:GetSecondaryCharges() == 1 then bonus_unique = 0 end
+		return self.bonus_armor + bonus_unique
 	end
 end
 
 function modifier_item_hellmask:GetModifierAttackSpeedBonus_Constant()
-	if self:GetAbility() then
-		return self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
-	end
+	return self.bonus_attack_speed
 end
 
 function modifier_item_hellmask:AttackLandedModifier(params)
 	if IsServer() then
 
-		local no_heal_target = {
+		local no_heal_target = 
+        {
 			["npc_dota_phoenix_sun"] = true,
 			["npc_dota_grimstroke_ink_creature"] = true,
 			["npc_dota_juggernaut_healing_ward"] = true,
@@ -158,33 +166,33 @@ function modifier_item_hellmask:AttackLandedModifier(params)
 			["npc_dota_lich_ice_spire"] = true,
 		}
 
-		if params.attacker == self:GetParent() then
+		if params.attacker == self.parent then
 			if params.damage <= 0 then return end
 			if no_heal_target[params.target:GetUnitName()] then return end
 			if params.target:IsWard() or params.target:IsHeroWard() then return end
-			local lifesteal = self:GetAbility():GetSpecialValueFor("lifesteal_percent") / 100
-			if self:GetParent():HasModifier("modifier_item_hellmask_active") then
-				lifesteal = self:GetAbility():GetSpecialValueFor("unholy_lifesteal_total_tooltip") / 100
+			local lifesteal = self.lifesteal_percent / 100
+			if self.parent:HasModifier("modifier_item_hellmask_active") then
+				lifesteal = self.unholy_lifesteal_total_tooltip / 100
 			end
-			self:GetParent():Heal(params.original_damage * lifesteal, nil)
+			self.parent:Heal(params.original_damage * lifesteal, nil)
 		end
 	end
 end
 
 function modifier_item_hellmask:OnDeathEvent(params)
 	if not IsServer() then return end
-	if params.unit == self:GetParent() then return end
-	if params.attacker:GetTeamNumber() ~= self:GetParent():GetTeamNumber() then return end
+	if params.unit == self.parent then return end
+	if params.attacker:GetTeamNumber() ~= self.parent:GetTeamNumber() then return end
 	if params.unit:IsHero() then return end
-	if params.unit:GetTeamNumber() == self:GetParent():GetTeamNumber() then return end
+	if params.unit:GetTeamNumber() == self.parent:GetTeamNumber() then return end
 	if params.unit:IsOther() then return end
-	if (params.unit:GetAbsOrigin() - self:GetParent():GetAbsOrigin()):Length2D() > 1500 then return end
-	self:GetAbility():SetCurrentCharges(self:GetAbility():GetCurrentCharges() + 1)
-	if self:GetAbility():GetCurrentCharges() >= 250 then
-		Quests_arena:QuestProgress(self:GetParent():GetPlayerOwnerID(), 60, 2)
+	if (params.unit:GetAbsOrigin() - self.parent:GetAbsOrigin()):Length2D() > 1500 then return end
+	self.ability:SetCurrentCharges(self.ability:GetCurrentCharges() + 1)
+	if self.ability:GetCurrentCharges() >= 250 then
+		Quests_arena:QuestProgress(self.parent:GetPlayerOwnerID(), 60, 2)
 	end
-	if self:GetAbility():GetCurrentCharges() >= 400 then
-		Quests_arena:QuestProgress(self:GetParent():GetPlayerOwnerID(), 78, 3)
+	if self.ability:GetCurrentCharges() >= 400 then
+		Quests_arena:QuestProgress(self.parent:GetPlayerOwnerID(), 78, 3)
 	end
 	if params.attacker:IsTempestDouble() then
 		local owner = params.attacker.owner
@@ -235,8 +243,9 @@ function modifier_item_hellmask_buff:GetTexture()
 end
 
 function modifier_item_hellmask_buff:OnCreated()
-	self.aura_as_ally = self:GetAbility():GetSpecialValueFor("aura_attack_speed")
-	self.aura_armor_ally = self:GetAbility():GetSpecialValueFor("aura_positive_armor")
+    self.ability = self:GetAbility()
+	self.aura_as_ally = self.ability:GetSpecialValueFor("aura_attack_speed")
+	self.aura_armor_ally = self.ability:GetSpecialValueFor("aura_positive_armor")
 end
 
 function modifier_item_hellmask_buff:IsHidden() return false end
@@ -304,7 +313,8 @@ function modifier_item_hellmask_debuff:GetTexture()
 end
 
 function modifier_item_hellmask_debuff:OnCreated()
-	self.aura_armor_enemy = self:GetAbility():GetSpecialValueFor("aura_negative_armor")
+    self.ability = self:GetAbility()
+	self.aura_armor_enemy = self.ability:GetSpecialValueFor("aura_negative_armor")
 end
 
 function modifier_item_hellmask_debuff:IsHidden() return false end
@@ -312,7 +322,8 @@ function modifier_item_hellmask_debuff:IsPurgable() return false end
 function modifier_item_hellmask_debuff:IsDebuff() return true end
 
 function modifier_item_hellmask_debuff:DeclareFunctions()
-	return {
+	return 
+    {
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
 	}
 end

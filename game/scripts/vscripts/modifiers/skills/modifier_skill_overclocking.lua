@@ -31,11 +31,6 @@ function modifier_skill_overclocking:DeclareFunctions()
 end
 
 function modifier_skill_overclocking:GetModifierTotalDamageOutgoing_Percentage()
-	if self:GetParent():HasModifier("modifier_loser_curse") then return end
 	local damage_bonus = self:GetStackCount()
-	local modifier_loser_curse = self:GetParent():FindModifierByName("modifier_loser_curse")
-	if modifier_loser_curse then
-		damage_bonus = damage_bonus - ( damage_bonus / 100 * (-12 * modifier_loser_curse:GetStackCount()) )
-	end
 	return math.max(damage_bonus, 0)
 end

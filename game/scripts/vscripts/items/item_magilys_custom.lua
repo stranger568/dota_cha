@@ -22,7 +22,7 @@ modifier_item_magilys_custom.percentage_abilities =
     ["zeus_static_field_lua"] = true,
     ["huskar_life_break"] = true,
     ["phoenix_sun_ray"] = true,
-    ["spectre_dispersion"] = true,
+    ["spectre_dispersion_custom"] = true,
     ["death_prophet_spirit_siphon"] = true,
     ["custom_phantom_assassin_fan_of_knives"] = true,
     ["bloodseeker_rupture"] = true,
@@ -54,6 +54,17 @@ function modifier_item_magilys_custom:IsHidden() return true end
 function modifier_item_magilys_custom:IsPurgable() return false end
 function modifier_item_magilys_custom:IsPurgeException() return false end
 
+function modifier_item_magilys_custom:OnCreated()
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.bonus_strength = self.ability:GetSpecialValueFor("bonus_strength")
+    self.bonus_agility = self.ability:GetSpecialValueFor("bonus_agility")
+    self.bonus_intellect = self.ability:GetSpecialValueFor("bonus_intellect")
+    self.chance = self.ability:GetSpecialValueFor("chance")
+    self.cooldown_crit = self.ability:GetSpecialValueFor("cooldown_crit")
+    self.critical_damage = self.ability:GetSpecialValueFor("critical_damage")
+end
+
 function modifier_item_magilys_custom:DeclareFunctions()
     return  
     {
@@ -65,18 +76,15 @@ function modifier_item_magilys_custom:DeclareFunctions()
 end
 
 function modifier_item_magilys_custom:GetModifierBonusStats_Strength()
-    if not self:GetAbility() then return end
-    return self:GetAbility():GetSpecialValueFor("bonus_strength")
+    return self.bonus_strength
 end
 
 function modifier_item_magilys_custom:GetModifierBonusStats_Agility()
-    if not self:GetAbility() then return end
-    return self:GetAbility():GetSpecialValueFor("bonus_agility")
+    return self.bonus_agility
 end
 
 function modifier_item_magilys_custom:GetModifierBonusStats_Intellect()
-    if not self:GetAbility() then return end
-    return self:GetAbility():GetSpecialValueFor("bonus_intellect")
+    return self.bonus_intellect
 end
 
 function modifier_item_magilys_custom:PercentAbility(ability)
@@ -102,16 +110,13 @@ function modifier_item_magilys_custom:GetModifierTotalDamageOutgoing_Percentage(
         if params.inflictor == nil then return end
         if self:FlagExist( params.damage_flags, DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS ) then return end
         if self:FlagExist( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION ) then return end
-
-        local chance = self:GetAbility():GetSpecialValueFor("chance")
-
+        local chance = self.chance
         if params.target:HasModifier("modifier_item_gleipnir_magic_custom_debuff") and not params.target:IsHero() then
             chance = chance + self:GetAbility():GetSpecialValueFor("bonus_crit_creep")
         end
-
         if RollPercentage(chance) then
-            local critical_damage = self:GetAbility():GetSpecialValueFor("critical_damage")
-            if self:GetParent():HasModifier("modifier_item_magilys_custom_cooldown") then
+            local critical_damage = self.critical_damage
+            if self.parent:HasModifier("modifier_item_magilys_custom_cooldown") then
                 if params.target:HasModifier("modifier_item_gleipnir_magic_custom_debuff") and not params.target:IsHero() then
                     if self:PercentAbility(params.inflictor:GetAbilityName()) then
                         return
@@ -123,7 +128,7 @@ function modifier_item_magilys_custom:GetModifierTotalDamageOutgoing_Percentage(
                 if self:PercentAbility(params.inflictor:GetAbilityName()) then
                     return
                 end
-                self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_item_magilys_custom_cooldown", {duration = self:GetAbility():GetSpecialValueFor("cooldown_crit")})
+                self.parent:AddNewModifier(self.parent, self:GetAbility(), "modifier_item_magilys_custom_cooldown", {duration = self.cooldown_crit})
                 SendOverheadEventMessage(nil, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE, params.target, params.original_damage + (params.original_damage / 100 * (critical_damage - 100)), nil)
                 return critical_damage - 100
             end
@@ -179,15 +184,21 @@ function modifier_item_gleipnir_magic_custom_debuff:DeclareFunctions()
     } 
 end
 
+function modifier_item_gleipnir_magic_custom_debuff:OnCreated()
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.spell_amplify = self.ability:GetSpecialValueFor("spell_amplify")
+end
+
 function modifier_item_gleipnir_magic_custom_debuff:GetModifierIncomingDamage_Percentage(keys)
     if keys.damage_category == DOTA_DAMAGE_CATEGORY_SPELL or keys.damage_type == DAMAGE_TYPE_MAGICAL then
-        return self:GetAbility():GetSpecialValueFor("spell_amplify")
+        return self.spell_amplify
     end
 end
 
 function modifier_item_gleipnir_magic_custom_debuff:GetModifierMagicalResistanceDirectModification(keys)
     if IsClient() then
-        return self:GetAbility():GetSpecialValueFor("spell_amplify") * -1
+        return self.spell_amplify * -1
     end
 end
 

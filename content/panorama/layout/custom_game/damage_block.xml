@@ -9,13 +9,9 @@
 
 	<Panel hittest="false" style="width:100%;height:100%;">
 		<Panel id="DamageBlockWithButton" class="DamageBlockWithButton damage_close">
+			<Label class="name_button" text="#DamageRoundHistoryHeadLabel"/>
 			<Panel class="ButtonCloseDamage" onactivate="DamageToggle();" >
-				<Panel class="AlignCne">
-					<Panel class="ImgRotate">
-						<Panel class="ImageArrow" />
-					</Panel>
-					<Label class="LabelButton" text="#DamageRoundHistoryHeadLabel"/>
-				</Panel>
+				<Panel class="ImageArrow" />
 			</Panel>
 			<Panel id="DamageRoundHistory" class="DamageRoundHistory">
 				<Panel id="MenuButtons" class="MenuButtons">
@@ -26,11 +22,11 @@
 						<Label class="MenuButtonLabel" text="#DamageAbilitiesIncome" />
 					</Panel>
 				</Panel>
+				<Panel id="DamageAbilities" />
+				<Panel id="DamageAbilitiesIncome" />
 				<Panel class="DamageRoundHistoryHead">
 					<Label id="DamageRoundHistoryHeadLabel" html="true" class="DamageRoundHistoryHeadLabel" text="" />
 				</Panel>
-				<Panel id="DamageAbilities" />
-				<Panel id="DamageAbilitiesIncome" />
 			</Panel>
 		</Panel>
 	</Panel>

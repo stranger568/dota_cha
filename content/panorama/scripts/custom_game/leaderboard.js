@@ -21,6 +21,7 @@ GameUI.CustomUIConfig().OpenLeaderboard = function ToggleLeaderboard() {
                 GetPlayersDataSolo()
                 GetPlayersDataDuo()
                 GetPlayersDataPve()
+                OpenLeaderboard()
                 $("#LeaderboardWindow").AddClass("sethidden");
             }  
             if ($("#LeaderboardWindow").BHasClass("sethidden")) {
@@ -54,7 +55,7 @@ function GetPlayersDataSolo()
     var topmmr = CustomNetTables.GetTableValue("cha_server_data", "top_rating_solo_200");
     if (!topmmr)
     {
-        $.Schedule(1, GetPlayersDataSolo)
+        $.Schedule(5, GetPlayersDataSolo)
         return;
     } 
     for (var i = 1; i <= 200; i++)
@@ -71,7 +72,7 @@ function GetPlayersDataDuo()
     var topmmr = CustomNetTables.GetTableValue("cha_server_data", "top_rating_duo_200");
     if (!topmmr)
     {
-        $.Schedule(1, GetPlayersDataDuo)
+        $.Schedule(5, GetPlayersDataDuo)
         return;
     } 
     for (var i = 1; i <= 200; i++)
@@ -88,7 +89,7 @@ function GetPlayersDataPve()
     var topmmr = CustomNetTables.GetTableValue("cha_server_data", "top_rating_pve_200");
     if (!topmmr)
     {
-        $.Schedule(1, GetPlayersDataPve)
+        $.Schedule(5, GetPlayersDataPve)
         return;
     } 
     for (var i = 1; i <= 200; i++)
@@ -102,7 +103,6 @@ function GetPlayersDataPve()
 
 function CreatePlayer(id, rating, panel, number, time, round) 
 {
-
     var Line = $.CreatePanel("Panel", panel, "");
     Line.AddClass("LinePlayer");
 
@@ -126,8 +126,8 @@ function CreatePlayer(id, rating, panel, number, time, round)
     var AvatarNicknamePanel = $.CreatePanel("Panel", Line, "");
     AvatarNicknamePanel.AddClass("AvatarNicknamePanel");
 
-    $.CreatePanelWithProperties("DOTAAvatarImage", AvatarNicknamePanel, "AvatarLeaderboard", { style: "width:40px;height:40px;vertical-align:center;", accountid: id });
-    $.CreatePanelWithProperties("DOTAUserName", AvatarNicknamePanel, "AvatarLeaderboard", { style: "vertical-align:center;margin-left:25px;height: 20px;", accountid: id });
+    $.CreatePanelWithProperties("DOTAAvatarImage", AvatarNicknamePanel, "AvatarLeaderboard", { style: "width:28px;height:28px;vertical-align:center;", accountid: id });
+    $.CreatePanelWithProperties("DOTAUserName", AvatarNicknamePanel, "NickLeaderboard", { class:"DOTAUserNameCustom", style: "vertical-align:center;margin-left:10px;height: 20px;", accountid: id });
 
     var Rating = $.CreatePanel("Label", Line, "");
     Rating.AddClass("RatingLabel");
@@ -174,5 +174,61 @@ function CreatePlayerPve(id, rating, panel, number, time, round)
         Rating.text = String(formatted) + " (" + round + ")"
     } else {
         Rating.text = String(rating)
+    }
+}
+
+function OpenLeaderboard()
+{
+    $("#ChooseMode").RemoveAndDeleteChildren()
+    var solo_mode = $.CreatePanel("Label", $("#ChooseMode"), "solo_mode");
+    solo_mode.text = "Solo";
+    solo_mode.AddClass("DropDownChild");
+    $("#ChooseMode").AddOption(solo_mode);
+    var duo_mode = $.CreatePanel("Label", $("#ChooseMode"), "duo_mode");
+    duo_mode.text = "Duo";
+    duo_mode.AddClass("DropDownChild");
+    $("#ChooseMode").AddOption(duo_mode);
+    var pve_mode = $.CreatePanel("Label", $("#ChooseMode"), "pve_mode");
+    pve_mode.text = "Pve";
+    pve_mode.AddClass("DropDownChild");
+    $("#ChooseMode").AddOption(pve_mode);
+    $("#RankContainerSolo").style.visibility = "collapse"
+    $("#RankContainerDuo").style.visibility = "collapse"
+    $("#RankContainerPVE").style.visibility = "collapse"
+    if (Game.GetMapInfo().map_display_name == "1x8") 
+    {
+        $("#ChooseMode").SetSelected("solo_mode");
+        $("#RankContainerSolo").style.visibility = "visible"
+    }
+    if (Game.GetMapInfo().map_display_name == "2x6") 
+    {
+        $("#ChooseMode").SetSelected("duo_mode");
+        $("#RankContainerDuo").style.visibility = "visible"
+    }
+    if (Game.GetMapInfo().map_display_name == "1x8_pve") 
+    {
+        $("#ChooseMode").SetSelected("pve_mode");
+        $("#RankContainerPVE").style.visibility = "visible"
+    }
+}
+
+function PlusMinusScale()
+{
+    var dropdown = $("#ChooseMode").GetSelected().text;
+    $("#RankContainerSolo").style.visibility = "collapse"
+    $("#RankContainerDuo").style.visibility = "collapse"
+    $("#RankContainerPVE").style.visibility = "collapse"
+
+    if (String(dropdown) == "SOLO")
+    {
+        $("#RankContainerSolo").style.visibility = "visible"
+    }
+    if (String(dropdown) == "DUO") 
+    {
+        $("#RankContainerDuo").style.visibility = "visible"
+    }
+    if (String(dropdown) == "PVE") 
+    {
+        $("#RankContainerPVE").style.visibility = "visible"
     }
 }

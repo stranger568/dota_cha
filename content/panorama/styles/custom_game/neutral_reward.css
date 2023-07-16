@@ -1,0 +1,119 @@
+.NeutralPanelReward
+{
+	width: 330px;
+	background-color: rgba(0,0,0,0.3);
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: 16%;
+    margin-left: 45%;
+	flow-children: down;
+	transition-duration: 0.5s;
+	transition-property: opacity;
+	opacity: 0;
+}
+
+.NeutralRewardName
+{
+	horizontal-align: center;
+	font-size: 18px;
+	color: white;
+	font-family: Reaver;
+	font-weight: bold;
+	margin-top: 10px;
+	text-shadow: 1px 1px 8px 4.0 black;
+}
+
+#NeutralRewardPanelMain
+{
+	align: center center;
+	flow-children: down;
+	margin-bottom:4px;
+}
+
+.NeutralItem
+{
+    width: 280px;
+	margin: 8px;
+    padding: 8px;
+    flow-children: right;
+    background-color: #10171D;
+}
+
+.NeutralItem:hover
+{
+	brightness: 1.5;
+}
+
+.NeutralItem_Image
+{
+    width: 55px;
+	height: 40px;
+	border: 0px solid black;
+	box-shadow: 0px 0px 8px 0px black;
+	border-radius: 6px;
+}
+
+.ItemName
+{
+    vertical-align: center;
+    margin-left: 10px;
+    color: white;
+    font-size: 18px;
+    font-family: 'Radiance';
+    text-transform: uppercase;
+}
+
+.Header
+{
+	width: 100%;
+}
+
+.RewardRotate
+{
+	animation-name:RotateLetsgo;
+	animation-duration:0.8s;
+	animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes 'RotateLetsgo'
+{
+    0%
+    {
+    	transform: rotateZ( 0deg );
+    }
+    50%
+    {
+        transform: rotateZ( 180deg );
+    }
+    100%
+    {
+        transform: rotateZ( 360deg );
+    }
+}
+
+.ButtonReturn {
+    horizontal-align: center;
+    vertical-align: center;
+    height: 30px;
+    width: 150px;
+    background-color: gradient(linear, 10% 100%, 0% 0%,
+            from(rgba(43, 102, 190, 0.75)),
+            color-stop(0.5, rgba(44, 80, 210, 0.5)),
+            to(rgba(61, 74, 189, 0.52)));
+    box-shadow: 0px 0px 10px 1 rgba(255, 89, 89, 0.25);
+    transition-property: transform, brightness;
+    transition-duration: 0.3s;
+    border: 1px solid rgba(32, 89, 235, 1);
+    margin-bottom: 5px;
+}
+
+.ButtonReturnLabel {
+    vertical-align: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    horizontal-align: center;
+    text-shadow: 0px 0px 4px 3 rgba(74, 127, 206, 0.45);
+    text-transform: uppercase;
+}

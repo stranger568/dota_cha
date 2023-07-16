@@ -14,6 +14,10 @@ function modifier_skill_fervor:DeclareFunctions()
 	return funcs
 end
 
+function modifier_skill_fervor:GetTexture()
+    return "troll_warlord_fervor"
+end
+
 function modifier_skill_fervor:OnCreated()
 	if not IsServer() then return end
 	self.current_target = nil
@@ -40,5 +44,5 @@ end
 
 function modifier_skill_fervor:GetModifierDamageOutgoing_Percentage()
 	if self:GetParent():PassivesDisabled() then return end
-	return self:GetStackCount() * 2.5
+	return self:GetStackCount() * 3.5
 end

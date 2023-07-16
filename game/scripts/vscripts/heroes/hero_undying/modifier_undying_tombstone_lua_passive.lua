@@ -2,13 +2,6 @@ modifier_undying_tombstone_lua_passive = modifier_undying_tombstone_lua_passive 
 
 function modifier_undying_tombstone_lua_passive:IsHidden() return true end
 
-function modifier_undying_tombstone_lua_passive:DeclareFunctions()
-	local funcs = {
-		--MODIFIER_EVENT_ON_ATTACK_LANDED,	
-	}
-	return funcs
-end
-
 function modifier_undying_tombstone_lua_passive:OnCreated(  )
 	if IsServer() then
 		self.hCaster = self:GetCaster()

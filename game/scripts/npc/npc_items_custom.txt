@@ -73,7 +73,8 @@
 			
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"3000"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 		"AbilityCooldown"				"4"
@@ -105,7 +106,8 @@
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"4000"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 
@@ -162,53 +164,27 @@
 		}
 	}
 
-	"item_giants_ring"
+	"item_giants_ring_custom"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		
+        "BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_giants_ring_custom"	
+		"AbilityTextureName"			"item_giants_ring"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"6000"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
-
-
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
 		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_strength"			"35"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"movement_speed"			"50"
-			}		
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"model_scale"			"60"
-			}	
-			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"pct_str_damage_per_second"			"70"
-			}	
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage_radius"			"200"
-			}		
+			"bonus_strength"			    "35"
+            "movement_speed"			    "50"
+            "model_scale"			        "60"
+            "pct_str_damage_per_second"		"50"
+            "damage_radius"			        "200"		
 		}
 	}
 
@@ -320,7 +296,8 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"6000"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 
@@ -354,7 +331,8 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"6000"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 
@@ -635,8 +613,8 @@
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
-		"ItemSellable"					"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"6000"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 
@@ -1315,7 +1293,8 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"2500"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 
@@ -1345,7 +1324,8 @@
 			
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"6000"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"3"
@@ -1567,7 +1547,8 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemSellable"				    "1"
+        "ItemCost"						"6000"
 		"ItemIsNeutralDrop"				"1"
 		"DisplayOverheadAlertOnReceived" "0"
 		"ItemPurchasable"				"0"
@@ -1642,35 +1623,14 @@
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
 		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_agility"			"70"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_evasion"			"50"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_attack_speed"	"60"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_damage"			"50"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_movespeed"		"40"
-			}
+			"bonus_agility"			"70"
+            "bonus_evasion"			"40"
+            "bonus_attack_speed"	"60"
+            "bonus_damage"			"50"
+            "bonus_movespeed"		"40"
+            "bonus_universal_evasion"		"25"
 		}
 	}
 
@@ -1871,12 +1831,12 @@
 			"11"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"bonus_damage_creeps_no_late"			"90"
+				"bonus_damage_creeps_no_late"			"60"
 			}
 			"12"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"bonus_damage_creeps_late"			"180"
+				"bonus_damage_creeps_late"			"120"
 			}
 		}
 	}
@@ -2917,7 +2877,7 @@
 		"AbilityTextureName" 		    "item_recipe_demonicon"
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"4000"	
+		"ItemCost"						"2000"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -2929,8 +2889,6 @@
 			"01"						"item_necronomicon_3;item_necronomicon_3;"
 		}
 	}
-
-	
 
 	"item_swap_essence"
 	{
@@ -3851,12 +3809,12 @@
 			"08"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"bonus_damage_creeps_no_late"			"90"
+				"bonus_damage_creeps_no_late"			"60"
 			}
 			"09"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"bonus_damage_creeps_late"			"180"
+				"bonus_damage_creeps_late"			"120"
 			}
 		}
 	}
@@ -4950,4 +4908,511 @@
 			"duration"					"2.0"
 		}
 	}
+    "item_tier1_token_custom"
+	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/neutral_token"
+        "AbilityTextureName"            "item_tier1_token"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"ItemIsNeutralDrop"				"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"				    "0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"TokenTier"						"1"
+	}
+	"item_tier2_token_custom"
+	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/neutral_token"
+        "AbilityTextureName"            "item_tier2_token"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"ItemIsNeutralDrop"				"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"				    "0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"TokenTier"						"2"
+	}
+	"item_tier3_token_custom"
+	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/neutral_token"
+        "AbilityTextureName"            "item_tier3_token"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"ItemIsNeutralDrop"				"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"				    "0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"TokenTier"						"3"
+	}
+	"item_tier4_token_custom"
+	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/neutral_token"
+        "AbilityTextureName"            "item_tier4_token"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"ItemIsNeutralDrop"				"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"				    "0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"TokenTier"						"4"
+	}
+	"item_tier5_token_custom"
+	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/neutral_token"
+        "AbilityTextureName"            "item_tier5_token"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"ItemIsNeutralDrop"				"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"				    "0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"TokenTier"						"5"
+	}
+    "item_tier5_token_roshan_custom"
+	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/neutral_token"
+        "AbilityTextureName"            "item_tier5_token"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"ItemIsNeutralDrop"				"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"				    "0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"TokenTier"						"5"
+	}
+    
+    "item_keen_optic"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_poor_mans_shield"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_iron_talon"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_ironwood_tree"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_royal_jelly"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_mango_tree"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_ocean_heart"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_broom_handle"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_faded_broach"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_arcane_ring"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_chipped_vest"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_possessed_mask"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_mysterious_hat"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_elixer"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_unstable_wand"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_pogo_stick"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_seeds_of_serenity"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_lance_of_pursuit"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_occult_bracelet"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_duelist_gloves"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+    "item_spark_of_courage"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1000"
+    }
+
+    "item_grove_bow"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_vampire_fangs"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_ring_of_aquila"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_pupils_gift"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_imp_claw"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_philosophers_stone"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_nether_shawl"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_dragon_scale"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_essence_ring"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_vambrace"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_clumsy_net"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_bullwhip"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_quicksilver_amulet"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_paintball"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_misericorde"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_dagger_of_ristul"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_specialists_array"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_eye_of_the_vizier"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_gossamer_cape"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_horizon"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_craggy_coat"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_greater_faerie_fire"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_quickening_charm"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_spider_legs"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    "item_enchanted_quiver"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"1500"
+    }
+    
+    "item_orb_of_destruction"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_titan_sliver"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_mind_breaker"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_elven_tunic"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_cloak_of_flames"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_ceremonial_robe"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_psychic_headband"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_tome_of_aghanim"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_third_eye"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_black_powder_bag"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_ogre_seal_totem"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_defiant_shell"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_vindicators_axe"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+    "item_dandelion_amulet"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"2500"
+    }
+
+    "item_witless_shako"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_timeless_relic"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_spell_prism"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_princes_knife"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_flicker"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_illusionsts_cape"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_havoc_hammer"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_panic_button"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_the_leveller"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_minotaur_horn"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_trickster_cloak"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_stormcrafter"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_penta_edged_sword"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_spy_gadget"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_ascetic_cap"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_heavy_blade"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_martyrs_plate"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"4000"
+    }
+    "item_mirror_shield"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"6000"
+    }
+    "item_ballista"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"6000"
+    }
+    "item_woodland_striders"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"6000"
+    }
+    "item_trident"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"6000"
+    }
+    "item_fallen_sky"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"6000"
+    }
+    "item_pirate_hat"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"6000"
+    }
+    "item_book_of_shadows"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"6000"
+    }
+    "item_force_field"
+    {
+        "ItemSellable"				    "1"
+        "ItemCost"						"6000"
+    }
 }

@@ -1,12 +1,11 @@
-.SettingsHud{
+.SettingsHud {
 	width: 100%;
 	height: 100%;
 }
 
 
 
-#SettingsTop
-{
+#SettingsTop {
 	height: 50px;
 	width: 0%;
 	margin-left: 198px;
@@ -14,8 +13,7 @@
 	padding-top: 14px;
 }
 
-.TopBarIcon
-{
+.TopBarIcon {
 	width: 30px;
 	height: 30px;
 	margin-left: 8px;
@@ -32,29 +30,25 @@
 	img-shadow: 0px 0px 3px 3 black;
 }
 
-.TopBarIcon:hover
-{
+.TopBarIcon:hover {
 	opacity: 1;
 	wash-color: white;
 }
 
-.TopBarIcon:active
-{
+.TopBarIcon:active {
 	opacity: 1;
 	wash-color: white;
 }
 
-#SettingsOpen
-{
+#SettingsOpen {
 	background-image: url("s2r://panorama/images/control_icons/gear_return_png.vtex");
 }
 
-#TutorialStart
-{
-	background-color: red;}
+#TutorialStart {
+	background-color: red;
+}
 
-#SettingsRoot
-{
+#SettingsRoot {
 	width: fit-children;
 	min-width: 400px;
 	height: fit-children;
@@ -68,36 +62,33 @@
 	padding-bottom: 10px;
 	flow-children: none;
 	visibility: collapse;
-  	transition-property: transform, opacity;
-  	transition-duration: 0.2s;
-  	transition-timing-function: ease-in-out;
+	transition-property: transform, opacity;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-in-out;
 	opacity: 0;
 }
 
 
 
 
-#SettingsRoot.open
-{
+#SettingsRoot.open {
 	visibility: visible;
-    transform: translateY(0px) scale3d(1, 1, 1);
-    transition-property: transform;
-  	transition-duration: 0.3s;
-  	transition-timing-function: ease-in-out;
-  	opacity: 1;
+	transform: translateY(0px) scale3d(1, 1, 1);
+	transition-property: transform;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-in-out;
+	opacity: 1;
 }
 
 
-#SettingsRoot.closing
-{
+#SettingsRoot.closing {
 	visibility: visible;
 	transform: translateY(0px) scale3d(0, 0, 0);
 	opacity: 0;
 }
 
 
-#SettingsClose
-{
+#SettingsClose {
 	vertical-align: top;
 	width: 32px;
 	height: 32px;
@@ -115,23 +106,24 @@
 }
 
 
-#SettingsClose:hover
-{
+#SettingsClose:hover {
 	opacity: 1;
 }
 
 
-.SettingsSectionTitle
-{
+.SettingsSectionTitle {
 	font-family: defaultFont;
 	letter-spacing: 2px;
 	font-size: 24px;
-	font-weight: thin;color: #939da0;text-transform: uppercase;margin-top: 10px;margin-bottom: 5px;
+	font-weight: thin;
+	color: #939da0;
+	text-transform: uppercase;
+	margin-top: 10px;
+	margin-bottom: 5px;
 }
 
 
-#SettingsContent
-{
+#SettingsContent {
 	min-width: 400px;
 	width: fit-children;
 	height: fit-children;
@@ -139,16 +131,14 @@
 }
 
 
-#SettingsKeybinds
-{
+#SettingsKeybinds {
 	width: 100%;
 	flow-children: down;
 	height: fit-children;
 }
 
 
-#SettingsKeybindReset
-{
+#SettingsKeybindReset {
 	min-height: 24px;
 	min-width: 100px;
 	width: fit-children;
@@ -163,13 +153,12 @@
 }
 
 
-#SettingsKeybindReset:hover
-{
+#SettingsKeybindReset:hover {
 	border-color: #5b6a62;
 }
 
 
-#SettingsKeybindReset Label{
+#SettingsKeybindReset Label {
 	text-align: center;
 	font-size: 14px;
 	text-transform: uppercase;
@@ -181,43 +170,38 @@
 }
 
 
-#SettingsKeybindReset:hover Label
-{
+#SettingsKeybindReset:hover Label {
 	color: white;
 }
 
 
-#SettingsKeybindsList
-{
+#SettingsKeybindsList {
 	width: 100%;
 	height: fit-children;
 	flow-children: right-wrap;
 }
 
 
-.CustomKeybindContainer
-{
+.CustomKeybindContainer {
 	flow-children: down;
 	margin-left: 15px;
 	margin-right: 15px;
 }
 
 
-.CustomKeybind
-{
+.CustomKeybind {
 	width: 90px;
 	height: 90px;
 }
 
 
-.CustomKeybinder
-{
+.CustomKeybinder {
 	width: 84px;
 	height: 84px;
 	margin: 12px;
 	margin-top: 13px;
-	border: 2px solid #414a45;
-	background-color: #2b2f30;
+	background-image: url("file://{images}/custom_game/buttons/bind_button.png");
+	background-size: 100%;
 	color: #7d8688;
 	transition-property: background-color, border, color;
 	transition-duration: 0.16s;
@@ -225,16 +209,14 @@
 }
 
 
-.CustomKeybinder:hover
-{
+.CustomKeybinder:hover {
 	background-color: #414a45;
 	border-color: #5b6a62;
 	color: white;
 }
 
 
-.CustomKeybinder.active
-{
+.CustomKeybinder.active {
 	background-color: #323836;
 	border: 2px solid #5c99ff;
 	padding-left: 0px;
@@ -242,7 +224,7 @@
 }
 
 
-.CustomKeybinder #title{
+.CustomKeybinder #title {
 	width: 100%;
 	height: 50px;
 	background-color: transparent;
@@ -255,59 +237,114 @@
 	margin-bottom: -12px;
 	padding-top: 3px;
 	text-transform: uppercase;
-	transition-property: color, background-color;transition-duration: 0.16s;
+	transition-property: color, background-color;
+	transition-duration: 0.16s;
 	transition-timing-function: ease-in-out;
 }
 
 
-.CustomKeybinder:hover #title{color: #5c6460;}
-
-
-#BindingLabels{width: 100%;background-color: none;height: 100%;horizontal-align: right;transition-property: background-color;transition-duration: 0.16s;transition-timing-function: ease-in-out;color: #7d8688;}
-
-
-.CustomKeybinder.active #BindingLabels{animation-name: BackgroundPulse;animation-duration: 1.35s;animation-timing-function: linear;animation-iteration-count: infinite;}
-
-
-@keyframes 'BackgroundPulse'{
-0%{background-color: #1350a9;}
-50%{background-color: #021088;}
-100%{background-color: #1350a9;}
+.CustomKeybinder:hover #title {
+	color: #5c6460;
 }
 
 
-#BindingLabelsContainer{
+#BindingLabels {
+	width: 100%;
+	background-color: none;
 	height: 100%;
-	horizontal-align: left;
-	flow-children: none;
+	horizontal-align: right;
+	transition-property: background-color;
+	transition-duration: 0.16s;
+	transition-timing-function: ease-in-out;
+	color: #7d8688;
 }
 
 
-.CustomKeybinder.active #BindingLabelsContainer
-{
+.CustomKeybinder.active #BindingLabels {
+	animation-name: BackgroundPulse;
+	animation-duration: 1.35s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+
+@keyframes 'BackgroundPulse' {
+	0% {
+		background-color: #1350a9;
+	}
+
+	50% {
+		background-color: #021088;
+	}
+
+	100% {
+		background-color: #1350a9;
+	}
+}
+
+
+#BindingLabelsContainer {
+	height: 100%;
+	width: 100%;
+}
+
+
+.CustomKeybinder.active #BindingLabelsContainer {
 	visibility: collapse;
 }
 
 
-#BindingLabelsContainer .BindingRowButton
-{
+#BindingLabelsContainer .BindingRowButton {
 	color: white;
-	font-size: 15px;
-	vertical-align: top;
-	horizontal-align: left;
-	text-align: left;
-	background-color: transparent;
-	margin-left: 4px;
-	text-shadow: 0px 0px 3px 3 #000000;
-	padding-top: 3px;
+	font-size: 32px;
+	vertical-align: center;
+	horizontal-align: center;
+	text-align: center;
 	text-transform: uppercase;
+	font-family: 'Radiance';
 }
 
-#BindingLabelsContainer .BindingRowButton#mod{visibility: collapse;}
-#BindingClose{vertical-align: top;width: 24px;height: 24px;horizontal-align: right;background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");background-size: 100%;background-repeat: no-repeat;visibility: collapse;}
-.CustomKeybinder.active #BindingClose{visibility: visible;}
-#CustomKeybindTitle{text-align: center;width: 100%;margin-top: -10px;height: fit-children;text-overflow: clip;font-size: 14px;}
-.SettingsList{width: fit-children;height: fit-children;flow-children: down;}
-.SettingsComboBox{width: fit-children;height: 30px;}
-DOTASettingsCheckbox Label{vertical-align: center;}
+#BindingLabelsContainer .BindingRowButton#mod {
+	visibility: collapse;
+}
 
+#BindingClose {
+	vertical-align: center;
+	horizontal-align: center;
+	width: 32px;
+	height: 32px;
+	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	visibility: collapse;
+}
+
+.CustomKeybinder.active #BindingClose {
+	visibility: visible;
+}
+
+#CustomKeybindTitle {
+	text-align: center;
+	width: 100%;
+	margin-top: -5px;
+	height: fit-children;
+	text-overflow: clip;
+	font-size: 12px;
+	color: white;
+	font-family: 'Radiance';
+}
+
+.SettingsList {
+	width: fit-children;
+	height: fit-children;
+	flow-children: down;
+}
+
+.SettingsComboBox {
+	width: fit-children;
+	height: 30px;
+}
+
+DOTASettingsCheckbox Label {
+	vertical-align: center;
+}

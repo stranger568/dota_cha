@@ -189,7 +189,7 @@
 			"item_fallen_sky"		  	      "1"
 			"item_pirate_hat"				  "1"
 			"item_ex_machina_custom"				  "1"
-			"item_giants_ring"				  "1"
+			"item_giants_ring_custom"				  "1"
 			"item_book_of_shadows"			  "1"
 			//Add Back
 			"item_fusion_rune_custom"                "1"

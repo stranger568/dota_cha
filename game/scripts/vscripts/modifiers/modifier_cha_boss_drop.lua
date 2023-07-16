@@ -43,22 +43,10 @@ function modifier_cha_boss_drop_roshan:OnDeathEvent(params)
 		for _, hero in pairs(allHeroes) do
 	        if hero:IsRealHero() and not hero:IsIllusion() and not hero:IsTempestDouble() and not hero:HasModifier("modifier_arc_warden_tempest_double_lua") then
 	        	if hero:GetTeamNumber() == params.unit.team then
-	        		local neutral_item_name = ItemLoot:GetUniqueNeutralItem(5, params.unit.team )
+	        		local neutral_item_name = "item_tier".."5".."_token_roshan_custom"
 				  	local item = DropNeutralItemAtPositionForHero(neutral_item_name, params.unit:GetAbsOrigin(), hero, -1, true )
-
 				  	item.nItemTeamNumber = params.unit.team
-
-					--Timers:CreateTimer(15, function()
-					--    if item and (not item:IsNull()) and item.GetContainedItem and item:GetContainedItem() and item:GetContainedItem():IsNeutralDrop() then
-				    --  		local hContainedItem = item:GetContainedItem()
-				    --  		PlayerResource:AddNeutralItemToStash( 0, item.nItemTeamNumber, hContainedItem )
-				    --  		local nFXIndex = ParticleManager:CreateParticle( "particles/items2_fx/neutralitem_teleport.vpcf", PATTACH_CUSTOMORIGIN, nil )
-				    --  		ParticleManager:SetParticleControl( nFXIndex, 0, item:GetAbsOrigin() )
-				    --  		ParticleManager:ReleaseParticleIndex( nFXIndex )
-				    --  		EmitSoundOn( "NeutralItem.TeleportToStash", item )
-				    --  		UTIL_Remove( item )
-					--   	end
-					--end)
+                    item.owner = hero
 	        	end
 	        end
 	    end
@@ -112,14 +100,6 @@ function modifier_cha_boss_drop_nian:OnDeathEvent(params)
 	        if hero:IsRealHero() and not hero:IsIllusion() and not hero:IsTempestDouble() and not hero:HasModifier("modifier_arc_warden_tempest_double_lua") then
 	        	if hero:GetTeamNumber() == params.unit.team then
 	        		if self.nian_count <= 1 then
-		        		--if hero:HasModifier("modifier_aegis") then
-			            --   local hModifierAegis = hero:FindModifierByName("modifier_aegis")
-			            --   local nCurrentStack = hModifierAegis:GetStackCount()
-			            --   hModifierAegis:SetStackCount(nCurrentStack+1)
-					    --else
-			            --    local hModifierAegis = hero:AddNewModifier(hero, nil, "modifier_aegis", {})
-			            --    hModifierAegis:SetStackCount(1)
-					    --end
 					    local bonus_gold = 75 * self.round_count
 						hero:ModifyGold(bonus_gold, true, 0)
 					else

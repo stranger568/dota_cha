@@ -81,8 +81,13 @@ function modiifer_bloodseeker_bloodrage_custom:GetModifierPreAttack_BonusDamage(
 	if self:GetParent():PassivesDisabled() then return end
 	if not self:GetParent():HasShard() then return end
 	if params.target == nil then return end
+    local roshan_phys_immune_resist = 1
+    local roshan_phys_immune = params.target:FindAbilityByName("roshan_phys_immune")
+    if roshan_phys_immune then
+        roshan_phys_immune_resist = 1 - (roshan_phys_immune:GetSpecialValueFor("phys_immune") / 100)
+    end
 	local leech = params.target:GetMaxHealth() / 100 * self:GetAbility():GetSpecialValueFor("shard_max_health_dmg_pct")
-	return leech
+	return leech * roshan_phys_immune_resist
 end
 
 function modiifer_bloodseeker_bloodrage_custom:TakeDamageScriptModifier( params )

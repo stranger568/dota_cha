@@ -38,7 +38,7 @@ function modifier_item_apex_custom:OnCreated()
         self.attribute_bonus_all_agi = self:GetParent():GetAgility() / 100 * 20
         self.attribute_bonus_all_int = self:GetParent():GetIntellect() / 100 * 20
     end
-    self:StartIntervalThink(0.1)
+    self:StartIntervalThink(0.25)
 end
 
 function modifier_item_apex_custom:OnIntervalThink()

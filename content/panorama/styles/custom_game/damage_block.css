@@ -1,46 +1,43 @@
-.DamageBlockWithButton
-{
-	align: right top;
-	margin-top: 40px;
-	flow-children: right;
-	transition-property: transform, opacity, position;
-  	transition-duration: 0.5s;
-  	transition-timing-function: ease-out;
-}
-
-.ButtonCloseDamage
-{
-	height: 35px;
-    width: 235px;
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #373d45 ), to( #4d5860 ) );
-	border: 1px solid black;
+.DamageBlockWithButton {
+    align: right top;
+    margin-top: 4%;
     flow-children: right;
-    transform: rotateZ(-90deg) translateX(101px);
-    margin-top: 93px;
+    transition-property: transform, opacity, position;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
 }
 
-.ImageArrow
-{
-    width: 100%;
-    height: 100%;
+.ButtonCloseDamage {
+    height: 29px;
+    width: 25px;
+    background-color: gradient(linear, 100% 0%, 0% 0%, from(rgba(43, 63, 33, 0.65)), to(rgba(30, 39, 20, 0.65)));
+    border-left: 1.1px solid #c0ff73b2;
+    border-top: 1.1px solid #c0ff73b2;
+    border-bottom: 1.1px solid #c0ff73b2;
+    margin-right: -1px;
+    flow-children: right;
+    vertical-align: top;
 }
 
-.ImgRotate
-{
+.ImageArrow {
+    width: 12px;
+    height: 12px;
+    align: center center;
+}
+
+.ImgRotate {
     width: 15px;
     height: 27px;
     margin-right: 20px;
     vertical-align: center;
 }
 
-.AlignCne
-{
+.AlignCne {
     flow-children: right;
     align: center center;
 }
 
-.LabelButton
-{
+.LabelButton {
     font-size: 16px;
     vertical-align: center;
     color: white;
@@ -48,85 +45,67 @@
     text-transform: uppercase;
 }
 
-.damage_close .ImageArrow
-{
-    background-image: url("s2r://panorama/images/control_icons/arrow_min_right_psd.vtex");
+.damage_close .ImageArrow {
+    background-image: url("file://{images}/custom_game/buttons/swap_left.png");
     background-size: 100%;
     background-repeat: no-repeat;
-    transform: rotateZ(-90deg);
 }
 
-.damage_open .ImageArrow
-{
-    background-image: url("s2r://panorama/images/control_icons/arrow_min_left_psd.vtex");
+.damage_open .ImageArrow {
+    background-image: url("file://{images}/custom_game/buttons/swap_right.png");
     background-size: 100%;
-    transform: rotateZ(-90deg);
 }
 
-.AspectRatio4x3 .damage_close
-{
-   transform: translateX(28%); 
+
+.DamageRoundHistory {
+    width: 293px;
+    height: 350px;
+    flow-children: down;
+    background-image: url("file://{images}/custom_game/buttons/pisun2.png");
+    background-size: 100%;
+    transition-property: width;
+    transition-duration: 0.2s;
 }
 
-.AspectRatio16x10 .damage_close
-{
-   transform: translateX(22.2%); 
+.damage_close .DamageRoundHistory {
+    width: 0px;
 }
 
-.damage_close
-{
-	transform: translateX(21%);
-}
-.damage_open
-{
-	transform: translateX(0px);
-}
-
-.DamageRoundHistory
-{
-	width: 400px;
-	height: 496px;
-	flow-children: down;
-  	background-color: #000000d0;
-}
-
-.DamageRoundHistoryHead
-{
-	width: 100%;
-    margin-top: 10px;
-	flow-children: down;
-}
-
-.DamageRoundHistoryHeadLabel
-{
-	align: center center;
-	color: white;
-    text-align: center;
-	font-weight: bold;
-    text-transform: uppercase;
-    font-size: 16px;
-    letter-spacing: 1px;
-}
-
-#DamageAbilities
-{
-	width: 100%;
-	height: 446px;
-	overflow: squish scroll;
-	flow-children: down;
-}
-
-#DamageAbilitiesIncome
-{
+.DamageRoundHistoryHead {
     width: 100%;
-    height: 446px;
+    height: 25px;
+    background-color: rgba(0, 0, 0, 0.25);
+    flow-children: down;
+}
+
+.DamageRoundHistoryHeadLabel {
+    align: left center;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #93E29C;
+    margin-left: 20px;
+}
+
+#DamageAbilities {
+    width: 100%;
+    height: 285px;
+    overflow: squish scroll;
+    flow-children: down;
+}
+
+#DamageAbilitiesIncome {
+    width: 100%;
+    height: 285px;
     overflow: squish scroll;
     flow-children: down;
     visibility: collapse;
 }
 
-#BattlePassTier2Only
-{
+#BattlePassTier2Only {
     width: 100%;
     text-align: center;
     color: white;
@@ -134,8 +113,7 @@
     font-weight: bold;
 }
 
-#BattlePassTier2Only_panel
-{
+#BattlePassTier2Only_panel {
     horizontal-align: center;
     width: 200px;
     height: 250px;
@@ -144,59 +122,53 @@
     margin-top: 50px;
 }
 
-.MenuButtons
-{
+.MenuButtons {
     width: 100%;
     height: 40px;
     flow-children: right;
 }
 
-.MenuButton
-{
+.MenuButton {
     width: 50%;
     height: 100%;
-    background-color: gradient( linear, 0% 0%, 0% 100%, from( #516E77 ), to( #374C4F) );
-    border: 1px solid black;
 }
 
-.MenuButtonLabel
-{
+.MenuButtonLabel {
     color: white;
     font-weight: bold;
     align: center center;
     letter-spacing: 1px;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.25);
 }
 
-.button_select
-{
-    border: 2px solid white;
+.button_select .MenuButtonLabel {
+    color: white;
 }
 
 @keyframes 'button_select_anim'
-{
-     0%{
-         text-shadow: 0px 0px 10px 1.5 #3382ff;
-     }
-     50%{
-         text-shadow: 0px 0px 1px 0 #3382ff;
-     }
-     100%{
-          text-shadow: 0px 0px 10px 1.5 #3382ff;
-     }
+
+    {
+    0% {
+        text-shadow: 0px 0px 10px 1.5 #3382ff;
+    }
+
+    50% {
+        text-shadow: 0px 0px 1px 0 #3382ff;
+    }
+
+    100% {
+        text-shadow: 0px 0px 10px 1.5 #3382ff;
+    }
 }
-
-
-
 
 .UnitDamagePanel {
     width: 100%;
     horizontal-align: center;
-    height: 50px;
+    height: 30px;
     margin-left: 10px;
     flow-children: right;
-    margin-top: 5px;
     margin-bottom: 5px;
     tooltip-position: bottom;
     transition-property: transform, position;
@@ -210,7 +182,8 @@
 
 #DamageLineBG {
     width: 95%;
-    vertical-align: center;
+    vertical-align: bottom;
+    margin-bottom: 6px;
 }
 
 #DamageLineBG2 {
@@ -222,27 +195,27 @@
 }
 
 .DamageLineStart {
-    width: 15px;
-    height: 15px;
+    width: 6px;
+    height: 6px;
     vertical-align: center;
-    border-radius: 50px;
 }
 
 #DamageLine {
-    margin-left: 15px;
     width: 100%;
-    height: 5px;
+    height: 2px;
     vertical-align: center;
     horizontal-align: left;
 }
 
 #DamageUnitLabel {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
+    font-family: 'Radiance';
+    font-weight: semi-bold;
     color: white;
-    align: left top; 
+    align: left top;
     z-index: 10;
-    margin-left: 6px;
+    margin-left: 5px;
     text-shadow: 0px 0px 2px #000000;
 }
 
@@ -251,4 +224,21 @@
     height: 30px;
     background-color: gray;
     vertical-align: center;
+}
+
+#DamageLineEnd {
+    height: 6px;
+    width: 2px;
+    background-color: white;
+    horizontal-align: right;
+}
+
+.name_button {
+    vertical-align: top;
+    margin-top: 2px;
+    margin-right: 5px;
+}
+
+.damage_open .name_button {
+    opacity: 0;
 }

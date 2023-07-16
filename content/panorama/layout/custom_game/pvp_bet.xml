@@ -17,7 +17,10 @@
 		</snippet>
 		<snippet name="BetTextEntry">
 			<Panel hittest="false">
-				<TextEntry id="BetTextEntry" class="BetTextEntry" textmode="numeric" placeholder="#input_gold_value" />
+				<TextEntry id="BetTextEntry" class="BetTextEntry" textmode="numeric" placeholder="#input_gold_value">
+					
+				</TextEntry>
+				<Panel class="GoldIcon" />
 			</Panel>
 		</snippet>
 	</snippets>

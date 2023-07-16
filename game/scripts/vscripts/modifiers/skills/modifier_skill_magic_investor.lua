@@ -42,9 +42,9 @@ function modifier_skill_magic_investor:DeclareFunctions()
 end
 
 function modifier_skill_magic_investor:GetModifierSpellAmplify_Percentage()
-	return self.bonus * 0.5
+	return self.bonus * 0.75
 end
 
 function modifier_skill_magic_investor:OnTooltip()
-	return self:GetStackCount() * 0.5
+	return self:GetStackCount() * 0.75
 end

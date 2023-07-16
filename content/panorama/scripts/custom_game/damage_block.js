@@ -67,11 +67,9 @@ function CheckBattlePass()
 			UpdateAbilitiesHudDamageIncoming()
 		} else {
 			$( "#DamageAbilities" ).RemoveAndDeleteChildren()
-			var panel_book = $.CreatePanel( "Panel", $( "#DamageAbilities" ), "BattlePassTier2Only_panel" );
 			var BattlePassTier2Only = $.CreatePanel( "Label", $( "#DamageAbilities" ), "BattlePassTier2Only" );
 			BattlePassTier2Only.text = $.Localize("#BattlePassTier2Only")
 			$( "#DamageAbilitiesIncome" ).RemoveAndDeleteChildren()
-			var panel_book = $.CreatePanel( "Panel", $( "#DamageAbilitiesIncome" ), "BattlePassTier2Only_panel" );
 			var BattlePassTier2Only = $.CreatePanel( "Label", $( "#DamageAbilitiesIncome" ), "BattlePassTier2Only" );
 			BattlePassTier2Only.text = $.Localize("#BattlePassTier2Only")
 			$( "#DamageRoundHistoryHeadLabel" ).style.visibility = "collapse"
@@ -104,10 +102,7 @@ function UpdateAbilitiesHudDamage() {
 		}
 	}
 
-	if (current_sub_tab == "DamageAbilities")
-	{
-		$("#DamageRoundHistoryHeadLabel").text = $.Localize("#DamageRoundHistoryHeadLabel_maximum") + ": " + maximum_damage.toFixed(0)
-	}
+    maximum_damage = Number(maximum_damage)
 
 	if (table_units) {
 		if (Object.keys(table_units).length > 0) {
@@ -119,7 +114,7 @@ function UpdateAbilitiesHudDamage() {
 						$( "#DamageAbilities" ).MoveChildAfter( $( "#DamageAbilities" ).FindChildTraverse("unit_damage_" + table_units[i].name), $( "#DamageAbilities" ).GetChild(i-1) );
 					}
 					$( "#DamageAbilities" ).FindChildTraverse("unit_damage_" + table_units[i].name).FindChildTraverse("DamageLine").style['width'] = percent.toFixed(0) +'%';
-					var damage_text = CheckStringDamage(table_units[i].damage) + " " + "( " + percent.toFixed(0) + "% )"
+					var damage_text = CheckStringDamage(table_units[i].damage) + " <font color='gray'>" + "( " + percent.toFixed(0) + "% ) </font >"
 					$( "#DamageAbilities" ).FindChildTraverse("unit_damage_" + table_units[i].name).FindChildTraverse("DamageUnitLabel").text = String(damage_text)
 				} else {
 					CreateNewAbility(table_units[i], $( "#DamageAbilities" ))
@@ -127,7 +122,13 @@ function UpdateAbilitiesHudDamage() {
 			}
 		}
 	}
-	$.Schedule(1/144, UpdateAbilitiesHudDamage)
+    
+	$.Schedule(1, UpdateAbilitiesHudDamage)
+
+    if (current_sub_tab == "DamageAbilities")
+	{
+		$("#DamageRoundHistoryHeadLabel").text = $.Localize("#DamageRoundHistoryHeadLabel_maximum") + ": " + maximum_damage.toFixed(0)
+	}
 }
 
 function UpdateAbilitiesHudDamageIncoming() {
@@ -140,11 +141,8 @@ function UpdateAbilitiesHudDamageIncoming() {
 			}
 		}
 	}
-
-	if (current_sub_tab == "DamageAbilitiesIncome")
-	{
-		$("#DamageRoundHistoryHeadLabel").text = $.Localize("#DamageRoundHistoryHeadLabel_maximum") + ": " + maximum_damage.toFixed(0)
-	}
+    
+    maximum_damage = Number(maximum_damage)
 
 	if (table_units) {
 		if (Object.keys(table_units).length > 0) {
@@ -156,7 +154,7 @@ function UpdateAbilitiesHudDamageIncoming() {
 						$( "#DamageAbilitiesIncome" ).MoveChildAfter( $( "#DamageAbilitiesIncome" ).FindChildTraverse("unit_damage_" + table_units[i].name), $( "#DamageAbilitiesIncome" ).GetChild(i-1) );
 					}
 					$( "#DamageAbilitiesIncome" ).FindChildTraverse("unit_damage_" + table_units[i].name).FindChildTraverse("DamageLine").style['width'] = percent.toFixed(0) +'%';
-					var damage_text = CheckStringDamage(table_units[i].damage) + " " + "( " + percent.toFixed(0) + "% )"
+					var damage_text = CheckStringDamage(table_units[i].damage) + " <font color='gray'>" + "( " + percent.toFixed(0) + "% ) </font >"
 					$( "#DamageAbilitiesIncome" ).FindChildTraverse("unit_damage_" + table_units[i].name).FindChildTraverse("DamageUnitLabel").text = String(damage_text)
 				} else {
 					CreateNewAbility(table_units[i], $( "#DamageAbilitiesIncome" ))
@@ -164,7 +162,12 @@ function UpdateAbilitiesHudDamageIncoming() {
 			}
 		}
 	}
-	$.Schedule(1/144, UpdateAbilitiesHudDamageIncoming)
+	$.Schedule(1, UpdateAbilitiesHudDamageIncoming)
+
+    if (current_sub_tab == "DamageAbilitiesIncome")
+	{
+		$("#DamageRoundHistoryHeadLabel").text = $.Localize("#DamageRoundHistoryHeadLabel_maximum") + ": " + maximum_damage.toFixed(0)
+	}
 }
 
 function compareFunc( a, b)
@@ -183,10 +186,10 @@ function compareFunc( a, b)
 	}
 };
 
-function CreateNewAbility(table, general) {
+function CreateNewAbility(table, general) 
+{
 	var UnitDamagePanel = $.CreatePanel( "Panel", general, "unit_damage_"+table.name );
 	UnitDamagePanel.AddClass( "UnitDamagePanel" );
-
 
 	if (table.type == "item" )
 	{
@@ -220,6 +223,7 @@ function CreateNewAbility(table, general) {
 	UnitDamageInfoPanel.AddClass( "UnitDamageInfoPanel" );
 
 	var DamageUnitLabel = $.CreatePanel( "Label", UnitDamageInfoPanel, "DamageUnitLabel" );
+	DamageUnitLabel.html = true
 	DamageUnitLabel.text = CheckStringDamage(table.damage)
 
 	var DamageLineBG = $.CreatePanel( "Panel", UnitDamageInfoPanel, "DamageLineBG" );
@@ -233,14 +237,14 @@ function CreateNewAbility(table, general) {
 
 	if (table.damage_type == 1 )
 	{
-		DamageLineStart.style.backgroundColor = "#ae2f28"
-		DamageLine.style.backgroundColor = "#ae2f28"
+		DamageLineStart.style.backgroundColor = "#FF4444"
+		DamageLine.style.backgroundColor = "#FF4444"
 	} else if (table.damage_type == 2 ) {
-		DamageLineStart.style.backgroundColor = "#5b93d1"
-		DamageLine.style.backgroundColor = "#5b93d1"
+		DamageLineStart.style.backgroundColor = "#44A5FF"
+		DamageLine.style.backgroundColor = "#44A5FF"
 	} else if (table.damage_type == 4 ) {
-		DamageLineStart.style.backgroundColor = "#d8ae53"
-		DamageLine.style.backgroundColor = "#d8ae53"
+		DamageLineStart.style.backgroundColor = "#FFCB44"
+		DamageLine.style.backgroundColor = "#FFCB44"
 	} else {
 		DamageLineStart.style.backgroundColor = "white"
 		DamageLine.style.backgroundColor = "white"

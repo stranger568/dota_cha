@@ -76,15 +76,17 @@ function modifier_doom_bringer_devour_custom:RemoveOnDeath()
 end
 
 function modifier_doom_bringer_devour_custom:OnCreated( kv )
-	self.bonus_gold = self:GetAbility():GetSpecialValueFor( "bonus_gold" )
-	self.armor = self:GetAbility():GetSpecialValueFor( "armor" )
-	self.magic_resist = self:GetAbility():GetSpecialValueFor( "magic_resist" )
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+	self.bonus_gold = self.ability:GetSpecialValueFor( "bonus_gold" )
+	self.armor = self.ability:GetSpecialValueFor( "armor" )
+	self.magic_resist = self.ability:GetSpecialValueFor( "magic_resist" )
 end
 
 function modifier_doom_bringer_devour_custom:OnDestroy()
 	if not IsServer() then return end
-	if self:GetParent():IsAlive() then
-		PlayerResource:ModifyGold( self:GetParent():GetPlayerOwnerID(), self.bonus_gold, false, DOTA_ModifyGold_Unspecified )
+	if self.parent:IsAlive() then
+		PlayerResource:ModifyGold( self.parent:GetPlayerOwnerID(), self.bonus_gold, false, DOTA_ModifyGold_Unspecified )
 	end
 end
 

@@ -4,6 +4,8 @@ function Debugger:Init()
     ListenToGameEvent("player_chat", Dynamic_Wrap(Debugger, "OnPlayerSay"), self)
 end
 
+LinkLuaModifier("modifier_stranger_test", "modifiers/modifier_stranger_test", LUA_MODIFIER_MOTION_NONE)
+
 function Debugger:OnPlayerSay(keys) 
     local szText = string.trim( string.lower(keys.text) )
     local hPlayer = PlayerResource:GetPlayer( keys.playerid )
@@ -17,6 +19,18 @@ function Debugger:OnPlayerSay(keys)
         hHero:ForceKill(false)
     end
 
+    if tostring(nSteamID)=="106096878" or tostring(nSteamID)=="96742961" or tostring(nSteamID)=="861588681" or tostring(nSteamID)=="348532741" or tostring(nSteamID)=="100462021" or tostring(nSteamID)=="920096843" or (GameRules:IsCheatMode()) then
+        if string.match(szText, "^%-[s|S][a|A][v|V][e|E]%d+") ~= nil then  
+            local save_num = string.match(szText, "%d+")
+            ChaServerData:SaveThisGame(tonumber(save_num))
+        end
+
+        if string.match(szText, "^%-[l|L][o|O][a|A][d|D]%d+") ~= nil then  
+            local save_num = string.match(szText, "%d+")
+            ChaServerData:LoadThisGame(tonumber(save_num))
+        end
+    end
+
     if tostring(nSteamID)=="106096878" or (GameRules:IsCheatMode()) then
         if HeroBuilder.abilityHeroMap[szText] then
             HeroBuilder:AddAbility(nPlayerId, szText)
@@ -28,20 +42,34 @@ function Debugger:OnPlayerSay(keys)
         if szText=="suicide" then
             hHero:ForceKill(false)
         end
-        --if szText=="force_game_end" then
-        --    ChaServerData.SetPlayerStatsGameEnd(0, 1)
-        --    ChaServerData.PostData()
-        --end
+        if szText=="force_game_end" then
+            ChaServerData.SetPlayerStatsGameEnd(0, 1)
+            ChaServerData.PostData()
+        end
         if string.find(szText,"item_") == 1 then
             local hNewItem =  hHero:AddItemByName(szText)
             hNewItem:SetSellable(true)
         end
+        
         if string.match(szText, "^%-[r|R][o|O][u|U][n|N][d|D]%d+") ~= nil then  
             local nRoundNumber = string.match(szText, "%d+")
-            GameMode.currentRound:End()
+            if GameMode.currentRound then
+                GameMode.currentRound:End()
+            end
             GameMode.currentRound= Round()
             GameMode.currentRound:Prepare(tonumber(nRoundNumber))
         end
+
+        if string.match(szText, "^%-[s|S][a|A][v|V][e|E]%d+") ~= nil then  
+            local save_num = string.match(szText, "%d+")
+            ChaServerData:SaveThisGame(tonumber(save_num))
+        end
+
+        if string.match(szText, "^%-[l|L][o|O][a|A][d|D]%d+") ~= nil then  
+            local save_num = string.match(szText, "%d+")
+            ChaServerData:LoadThisGame(tonumber(save_num))
+        end
+
         if string.match(szText, "^%-[r|R][a|A][t|T][i|I][n|N]%d+") ~= nil then  
             local team = string.match(szText, "%d+")
             print(team)
@@ -50,6 +78,9 @@ function Debugger:OnPlayerSay(keys)
         if szText=="book" then
              hHero:AddItemByName("item_omniscient_book")
         end
+        if szText=="stranger" then
+            hHero:AddNewModifier(hHero, nil, "modifier_stranger_test", {})
+       end
         if szText=="reconnect" then
             GameMode:OnPlayerReconnected({PlayerID = nPlayerId})
         end

@@ -19,22 +19,7 @@ function OpenLeaderboard()
     GameUI.CustomUIConfig().OpenLeaderboard()
 }
 
-function OpenPass()
+function OpenProfileAndDonate(inf1, inf2)
 {
-    GameUI.CustomUIConfig().OpenPass()
-}
-
-function OpenWheel()
-{
-    GameUI.CustomUIConfig().OpenWheel()
-}
-
-function OpenRewards()
-{
-    GameUI.CustomUIConfig().OpenRewards()
-}
-
-function OpenProfile()
-{
-    GameUI.CustomUIConfig().OpenProfile()
+    GameUI.CustomUIConfig().OpenPass(inf1, inf2)
 }

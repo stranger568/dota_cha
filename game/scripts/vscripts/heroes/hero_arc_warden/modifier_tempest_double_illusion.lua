@@ -43,7 +43,6 @@ end
 
 function modifier_tempest_double_illusion:DeclareFunctions()
 	return {
-		--MODIFIER_EVENT_ON_TAKEDAMAGE, -- OnTakeDamage
 		MODIFIER_PROPERTY_LIFETIME_FRACTION, -- GetUnitLifetimeFraction
 		MODIFIER_PROPERTY_SUPER_ILLUSION,
 		MODIFIER_PROPERTY_ILLUSION_LABEL,

@@ -77,7 +77,7 @@ function gold_roshan_clap:OnSpellStart()
 	local particle = ParticleManager:CreateParticle("particles/neutral_fx/roshan_slam.vpcf", PATTACH_WORLDORIGIN, self:GetCaster())
 	ParticleManager:SetParticleControl(particle, 0, self:GetCaster():GetAbsOrigin())
 	ParticleManager:SetParticleControl(particle, 1, Vector(self:GetSpecialValueFor("radius"), self:GetSpecialValueFor("radius"), self:GetSpecialValueFor("radius")))
-
+    ParticleManager:ReleaseParticleIndex(particle)
 	self:GetCaster():EmitSound("Roshan.Slam")
 
     for _,enemy in pairs(enemies) do
@@ -108,3 +108,12 @@ end
 function modifier_gold_roshan_clap:GetModifierAttackSpeedBonus_Constant()
 	return self.slow_2
 end
+
+roshan_phys_immune = class({})
+function roshan_phys_immune:GetIntrinsicModifierName()
+    return "modifier_roshan_phys_immune"
+end
+modifier_roshan_phys_immune = class({})
+function modifier_roshan_phys_immune:IsHidden() return true end
+function modifier_roshan_phys_immune:IsPurgable() return false end
+function modifier_roshan_phys_immune:IsPurgeException() return false end

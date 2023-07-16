@@ -19,12 +19,13 @@ function modifier_stranger_think:OnCreated()
 	self.attacks = 0
 	self.cast_portal = false
 	self.current_portal = "red"
-	self:StartIntervalThink(0.1)
+    self.parent = self:GetParent()
+	self:StartIntervalThink(0.5)
 end
 
 function modifier_stranger_think:TakeDamageScriptModifier(params)
 	if not IsServer() then return end
-	if params.unit ~= self:GetParent() then return end
+	if params.unit ~= self.parent then return end
 	
 	if self.think_to_portal then return end
 	if self.cast_portal then return end
@@ -37,7 +38,7 @@ function modifier_stranger_think:TakeDamageScriptModifier(params)
 		return
 	end
 
-	self:GetParent():MoveToPosition(self:GetParent():GetAbsOrigin() + RandomVector(200))
+	self.parent:MoveToPosition(self.parent:GetAbsOrigin() + RandomVector(200))
 end
 
 function modifier_stranger_think:OnIntervalThink()
@@ -51,36 +52,36 @@ function modifier_stranger_think:OnIntervalThink()
 	local distance_red = 0
 
 	if portal_blue then
-		distance_blue = (self:GetParent():GetAbsOrigin() - portal_blue:GetAbsOrigin()):Length2D()
+		distance_blue = (self.parent:GetAbsOrigin() - portal_blue:GetAbsOrigin()):Length2D()
 	end
 	
 	if portal_red then
-		distance_red = (self:GetParent():GetAbsOrigin() - portal_red:GetAbsOrigin()):Length2D()
+		distance_red = (self.parent:GetAbsOrigin() - portal_red:GetAbsOrigin()):Length2D()
 	end
 
 	if self.current_portal == "red" then
-		self:GetParent():MoveToPosition(portal_red:GetAbsOrigin())
+		self.parent:MoveToPosition(portal_red:GetAbsOrigin())
 		if distance_red <= 550 then
 			self.cast_portal = true
-	        self:GetParent():Interrupt() 
-	        self:GetParent():Stop()
-	        self:GetParent():AddAbility("portal_base_custom")
-	        local ability = self:GetParent():FindAbilityByName("portal_base_custom")
+	        self.parent:Interrupt() 
+	        self.parent:Stop()
+	        self.parent:AddAbility("portal_base_custom")
+	        local ability = self.parent:FindAbilityByName("portal_base_custom")
 	        ability:SetLevel(1)
 	        ability.portal = "npc_dota_teleport_base_custom_red"
-	        self:GetParent():CastAbilityNoTarget(ability, -1)
+	        self.parent:CastAbilityNoTarget(ability, -1)
 		end
 	else
-		self:GetParent():MoveToPosition(portal_blue:GetAbsOrigin())
+		self.parent:MoveToPosition(portal_blue:GetAbsOrigin())
 		if distance_blue <= 550 then
 			self.cast_portal = true
-			self:GetParent():Interrupt() 
-            self:GetParent():Stop()
-            self:GetParent():AddAbility("portal_base_custom")
-            local ability = self:GetParent():FindAbilityByName("portal_base_custom")
+			self.parent:Interrupt() 
+            self.parent:Stop()
+            self.parent:AddAbility("portal_base_custom")
+            local ability = self.parent:FindAbilityByName("portal_base_custom")
             ability:SetLevel(1)
             ability.portal = "npc_dota_teleport_base_custom_blue"
-            self:GetParent():CastAbilityNoTarget(ability, -1)
+            self.parent:CastAbilityNoTarget(ability, -1)
 		end
 	end
 end

@@ -100,11 +100,7 @@ modifier_lion_finger_of_death_custom_buff = class({})
 
 function modifier_lion_finger_of_death_custom_buff:IsHidden() return true end
 function modifier_lion_finger_of_death_custom_buff:IsPurgable() return false end
-function modifier_lion_finger_of_death_custom_buff:DeclareFunctions()
-	return {
-		--MODIFIER_EVENT_ON_DEATH
-	}
-end
+
 function modifier_lion_finger_of_death_custom_buff:OnDeathEvent(params)
 	if params.unit ~= self:GetParent() then return end
 

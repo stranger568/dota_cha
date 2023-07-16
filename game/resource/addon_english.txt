@@ -5,8 +5,6 @@
    {
       "addon_game_name"                                                             "CUSTOM HERO ARENA"
 
-      "best_tournament_mans"                                                        "Лучшие топ-8 рейтинга до начала турнира проходят в полуфинал ARENA CUP!"
-
       //=================================================================================================================
       // Название команд
       //=================================================================================================================
@@ -85,6 +83,29 @@
       //=================================================================================================================
       // Пропуск
       //=================================================================================================================
+
+      "button_shop"                              "Shop"
+      "button_bp"                                "BattlePass"
+      "button_profile"                           "Profile"
+      "button_rewards"                           "Rewards"
+      "how_to_you"                               "What will you get?"
+      "bp_inf_1"                                  "Purchase"
+      "bp_inf_2"                                  "Gratitude"
+      "bp_inf_3"                                  "Thank you for purchasing the Battle Pass, this way you support the developer, increase the speed of the release of patches and their quality."
+      "bp_inf_4"                                  "Activation Information"
+      "bp_inf_5"                                  "The Battle Pass will take effect after re-entering customization."
+      "bp_inf_6"                                  "If, after re-entering the custom, the pass did not activate - hit the face of the penguin inside the game."
+      "bp_inf_7"                                  "Choose the duration of the Battle Pass"
+
+      "bp_reward_inf1"                              "Ability to block 3 abilities and 2 heroes"
+      "bp_reward_inf2"                              "A chance to praise a player"
+      "bp_reward_inf3"                              "Pack of unique voice phrases for the wheel"
+      "bp_reward_inf4"                              "Ability to pause 2 times per game"
+      "bp_reward_inf5"                              "A unique portrait of the hero and a beautiful golden nickname"
+      "bp_reward_inf6"                              "Access to statistics of incoming and outgoing damage"
+      "bp_reward_inf7"                              "Unique Twitch Emoticon Pack"
+      "bp_reward_inf8"                              "x2 increase in Arena Coin reward per game"
+      "bp_reward_inf9"                              "Limit of received Arena Coins per day - 200 pieces"
 
       "cha_Pass"                                                                    "Pass"
       "cha_battlepass"                                                              "Battle Pass"
@@ -166,12 +187,13 @@
       "reward_button_received"                                                      "Received"
       "reward_button_closed"                                                        "Not available"
       "reward_error_has_received"                                                   "Have you received an award today"
-      "reward_battlepass"                                                           "Level 2 pass for 3 days"          
+      "reward_battlepass"                                                           "Боевой Пропуск на 3 дня"          
       "reward_arena_coin_30"                                                        "30 Arena Coins"              
       "reward_arena_coin_50"                                                        "50 Arena Coins"              
       "reward_arena_coin_70"                                                        "70 Arena Coins"              
       "reward_arena_coin_100"                                                       "100 Arena Coins"   
       "reward_arena_coin_150"                                                       "150 Arena Coins"
+      "reward_arena_coin_200"                                                       "200 Arena Coins"
       "reward_sound_6"                                                              "[Sound] Lakad matatag"
       "reward_sound_12"                                                             "[Sound] Парни шо мы надрафтили" 
       "reward_donate_coin_50"                                                       "50 Donate Coins"       
@@ -187,11 +209,19 @@
       "customize_profile_settings"                                                  "Customize"
       "calibrate_settings"                                                          "Recalibration"
       "level_reward"                                                                "For each new level you get 20 Arena Coins and 3 Donate Coins"
+      "recalib_info"                                                                "Нужен билет рекалибровки 1 шт."
+      "day_quests"                                                                  "Ежедневные задания"
 
       "cha_chat_wheel_Settings"                                                     "Chat wheel settings"
       "chatwheel_CHA_null"                                                          "Empty"
       "chatwheel_cha_select"                                                        "Select sounds"
       "CHAPass_sound_1"                                                             "Sounds"   
+
+      "yes" "Yes"
+      "no"  "No"
+      "CalibratingComfirmed"                                                        "Are you sure you want to start recalibration"
+      "width_ability_select"                                                        "Small Ability Selection Window"
+      "width_ability_select_hint"                                                   "Ability selection window becomes smaller in width and larger in height"
 
       "customize_nickname"                                                          "Nickname color"
       "customize_nickname_white"                                                    "White"
@@ -225,11 +255,22 @@
       "RecalAccept"                                                                 "Reset rating"
       "ticket_count"                                                                "Count of recalibration tickets: "
       "bp_error_no_ticket"                                                          "No tickets"
+      "RecalAccept"                                                                 "Reset rating"
+      "ticket_count"                                                                "Number of recalibration tickets: "
+      "bp_error_no_ticket"                                                          "No tickets"
+
+      "customize_on"                                                                "Select"
+      "customize_active"                                                            "Selected"
+      "customize_lock"                                                              "Not available"
+
+      "bp_time_rem"                                                                 "Remaining valid: "
+      "bp_time_day"                                                                 "days"
                               
       //=================================================================================================================
       // Отедльные текста в панораме
       //=================================================================================================================
 
+      "BetBegins"                                                                   "Place your bets !"
       "Ready"                                                                       "Ready"
       "AbilityRelearnCloseSelection_Label"                                          "Close"
       "AbilityRelearnSelection_Description"                                         "Abandon and get book back"
@@ -268,7 +309,7 @@
       "AbilitySelection_Close_Description"                                          "Pick a skill at random"
       "AbilitySelectorTitle_1"                                                      "Select "
       "AbilitySelectorTitle_2"                                                      " skill"
-
+      "duel_level"                                                                  "- level"
       "MaxRound"                                                                    "Max. Round"
       "TimeCost"                                                                    "Time"
       "Score"                                                                       "Rating"
@@ -371,6 +412,10 @@
       "AbilitySelection_Hide_Description"                                           "Temporarily close ability selection."
       "already_have_this_ability"                                                   "You already have this ability!"
       "player_has_this_ability"                                                     "This player already has this ability!"
+
+      "next_wave_timer"                                                             "Next wave through "
+      "end_wave_timer"                                                              "Time to Berserk "
+      "berserk_wave_timer"                                                          "Creep boost "
        
       //=================================================================================================================
       // Таблица урона
@@ -445,19 +490,56 @@
       "sounds_112" "Смех папича"
       "sounds_113" "Чего блять"
       "sounds_114" "Я просто похлопаю"
-      "sounds_115"     "Ass we can"
-      "sounds_116"     "Boy next door"
-      "sounds_117"     "Do you like what you see"
-      "sounds_118"     "Dungeon Master"
-      "sounds_119"     "Fisting is 300$"
-      "sounds_120"     "Fuck you"
-      "sounds_121"     "Fucking slaves"
-      "sounds_122"     "Gachimuchi aAA"
-      "sounds_123"     "Its so fucking deep"
-      "sounds_124"     "Oh shit im sorry"
-      "sounds_125"     "Stick your finger in my ass"
-      "sounds_126"     "without further interruption lets celebrate and suck some dick"
-
+      "sounds_115" "Ass we can"
+      "sounds_116" "Boy next door"
+      "sounds_117" "Do you like what you see"
+      "sounds_118" "Dungeon Master"
+      "sounds_119" "Fisting is 300$"
+      "sounds_120" "Fuck you"
+      "sounds_121" "Fucking slaves"
+      "sounds_122" "Gachimuchi aAA"
+      "sounds_123" "Its so fucking deep"
+      "sounds_124" "Oh shit im sorry"
+      "sounds_125" "Stick your finger in my ass"
+      "sounds_126" "without further interruption lets celebrate and suck some dick"
+      "sounds_127" "Дауби Дауби"
+      "sounds_128" "Это ГГ"
+      "sounds_129"                                                                  "Anta Baka"
+      "sounds_130"                                                                  "Just do it"
+      "sounds_131"                                                                  "Pan paka pan"
+      "sounds_132"                                                                  "Mission complete"
+      "sounds_133"                                                                  "Tuturu"
+      "sounds_134"                                                                  "Welcome to the club buddy"
+      "sounds_135"                                                                  "Беги сука, беги!"
+      "sounds_136"                                                                  "Все нормально, все хорошо, сейчас будем драться"
+      "sounds_137"                                                                  "Деревня дураков"
+      "sounds_138"                                                                  "Не твой уровень, дорогой"
+      "sounds_139"                                                                  "Обычно люди соображают быстрее"
+      "sounds_140"                                                                  "Отдайте мне мои деньги"
+      "sounds_141"                                                                  "Поцелуйчик"
+      "sounds_142"                                                                  "Ты меня бесишь"
+      "sounds_143"                                                                  "Ты меня уважаешь?"
+      "sounds_144"                                                                  "Шизофрения, как и было сказано"
+      "sounds_145"                                                                  "MUDA MUDA MUDA"
+      "sounds_146"                                                                  "Omae Wa Mou Shindeiru, Nani"
+      "sounds_147"                                                                  "Yametekudasai"
+      "sounds_148"                                                                  "Вы кто такие? Я вас не звал"
+      "sounds_149"                                                                  "Ля ты крыса"
+      "sounds_150"                                                                  "Мама неси полотенце"
+      "sounds_151"                                                                  "Мне что-то подсказывает, что нас наебали"
+      "sounds_152"                                                                  "Сказочный долбоеб"
+      "sounds_153"                                                                  "Сосалити"
+      "sounds_154"                                                                  "WOOOOOOOOOOOOOW"
+      "sounds_155"                                                                  "Крыса радуется, крысе тоже радостно"
+      "sounds_156"                                                                  "Посмотрим как ты будешь дефать пачки"
+      "sounds_157"                                                                  "Почему ты не жмешь спел то блять?"
+      "sounds_158"                                                                  "Слыш, я счас убью всех!"
+      "sounds_159"                                                                  "Я считал себя везучим"
+      "sounds_160"                                                                  "Сестер задеваешь"
+      "sounds_161"                                                                  "Бархатные тяги"
+      "sounds_162"                                                                  "Есть пробитие"
+      "sounds_163"                                                                  "Рот ебал нахуй"
+      "sounds_163"                                                                  "Блять..."
 
       "item_0"        "+50 Arena Coin"
       "item_1"        "[Sound] Absolutely Perfect"
@@ -574,18 +656,56 @@
       "item_112"      "[Sound] Смех папича"
       "item_113"      "[Sound] Чего блять"
       "item_114"      "[Sound] Я просто похлопаю"
-      "item_115"     "[Sound] Ass we can"
-      "item_116"     "[Sound] Boy next door"
-      "item_117"     "[Sound] Do you like what you see"
-      "item_118"     "[Sound] Dungeon Master"
-      "item_119"     "[Sound] Fisting is 300$"
-      "item_120"     "[Sound] Fuck you"
-      "item_121"     "[Sound] Fucking slaves"
-      "item_122"     "[Sound] Gachimuchi aAA"
-      "item_123"     "[Sound] Its so fucking deep"
-      "item_124"     "[Sound] Oh shit im sorry"
-      "item_125"     "[Sound] Stick your finger in my ass"
-      "item_126"     "[Sound] without further interruption lets celebrate and suck some dick"
+      "item_115"      "[Sound] Ass we can"
+      "item_116"      "[Sound] Boy next door"
+      "item_117"      "[Sound] Do you like what you see"
+      "item_118"      "[Sound] Dungeon Master"
+      "item_119"      "[Sound] Fisting is 300$"
+      "item_120"      "[Sound] Fuck you"
+      "item_121"      "[Sound] Fucking slaves"
+      "item_122"      "[Sound] Gachimuchi aAA"
+      "item_123"      "[Sound] Its so fucking deep"
+      "item_124"      "[Sound] Oh shit im sorry"
+      "item_125"      "[Sound] Stick your finger in my ass"
+      "item_126"      "[Sound] without further interruption lets celebrate and suck some dick"
+      "item_127"      "[Sound] Дауби Дауби"
+      "item_128"      "[Sound] Это ГГ"
+      "item_129"                                                                    "Anta Baka"
+      "item_130"                                                                    "Just do it"
+      "item_131"                                                                    "Pan paka pan"
+      "item_132"                                                                    "Mission complete"
+      "item_133"                                                                    "Tuturu"
+      "item_134"                                                                    "Welcome to the club buddy"
+      "item_135"                                                                    "Беги сука, беги!"
+      "item_136"                                                                    "Все нормально, все хорошо, сейчас будем драться"
+      "item_137"                                                                    "Деревня дураков"
+      "item_138"                                                                    "Не твой уровень, дорогой"
+      "item_139"                                                                    "Обычно люди соображают быстрее"
+      "item_140"                                                                    "Отдайте мне мои деньги"
+      "item_141"                                                                    "Поцелуйчик"
+      "item_142"                                                                    "Ты меня бесишь"
+      "item_143"                                                                    "Ты меня уважаешь?"
+      "item_144"                                                                    "Шизофрения, как и было сказано"
+      "item_145"                                                                    "MUDA MUDA MUDA"
+      "item_146"                                                                    "Omae Wa Mou Shindeiru, Nani"
+      "item_147"                                                                    "Yametekudasai"
+      "item_148"                                                                    "Вы кто такие? Я вас не звал"
+      "item_149"                                                                    "Ля ты крыса"
+      "item_150"                                                                    "Мама неси полотенце"
+      "item_151"                                                                    "Мне что-то подсказывает, что нас наебали"
+      "item_152"                                                                    "Сказочный долбоеб"
+      "item_153"                                                                    "Сосалити"
+      "item_154"                                                                    "WOOOOOOOOOOOOOW"
+      "item_155"                                                                    "Крыса радуется, крысе тоже радостно"
+      "item_156"                                                                    "Посмотрим как ты будешь дефать пачки"
+      "item_157"                                                                    "Почему ты не жмешь спел то блять?"
+      "item_158"                                                                    "Слыш, я счас убью всех!"
+      "item_159"                                                                    "Я считал себя везучим"
+      "item_160"                                                                    "Сестер задеваешь"
+      "item_161"                                                                    "Бархатные тяги"
+      "item_162"                                                                    "Есть пробитие"
+      "item_163"                                                                    "Рот ебал нахуй"
+      "item_163"                                                                  "Блять..."
 
       //=================================================================================================================
       // Задания
@@ -704,7 +824,7 @@
       "skill_ultimate_strength_desc"                                                "+15 All Stats"
 
       "skill_amplification"                                                         "Amplification"
-      "skill_amplification_desc"                                                    "+7% Spell Amplification"
+      "skill_amplification_desc"                                                    "+7% Spell Amplification and reduce mana reduction 7%"
 
       "skill_armorless"                                                             "Armorless"
       "skill_armorless_desc"                                                        "Enemies within 800 radius lose 7 armor"
@@ -725,10 +845,10 @@
       "skill_dodger_desc"                                                           "+25% evasion"
 
       "skill_armored"                                                               "Armored"
-      "skill_armored_desc"                                                          "+10 armor"
+      "skill_armored_desc"                                                          "+15 armor"
 
       "skill_splash"                                                                "Cleave"
-      "skill_splash_desc"                                                           "+40% Cleave attack"
+      "skill_splash_desc"                                                           "+30% Cleave attack"
 
       "skill_golden_warrior"                                                        "Golden Warrior"
       "skill_golden_warrior_desc"                                                   "+70% Gold Gain from Creeps. Increases gold from Hand of Midas by 2 times"
@@ -740,10 +860,10 @@
       "skill_veteran_desc"                                                          "+100% experience"
 
       "skill_benefiter"                                                             "Benefiter"
-      "skill_benefiter_desc"                                                        "+25% to gold from dividends and returns 15% of gold after a lost bet"
+      "skill_benefiter_desc"                                                        "+35% to gold from dividends and returns 15% of gold after a lost bet"
 
       "skill_gambler"                                                               "Gambler"
-      "skill_gambler_desc"                                                          "+20% to gold from bets and returns 15% of gold after a lost bet"
+      "skill_gambler_desc"                                                          "+15% to gold from bets and returns 10% of gold after a lost bet"
 
       "skill_head_hunter"                                                           "Head Hunter"
       "skill_head_hunter_desc"                                                      "x4 gold from kill Heroes"
@@ -758,7 +878,7 @@
       "skill_goldstealer_desc"                                                      "Attacking an enemy steals (35 + your level) gold, 3.5s cooldown."
 
       "skill_deposit"                                                               "Deposit"
-      "skill_deposit_desc"                                                          "Every 5 rounds you get 20% gold of your current gold in stash (Maximum limit 20k gold in stash)"
+      "skill_deposit_desc"                                                          "Every 5 rounds you get 25% gold of your current gold in stash (Maximum limit 20k gold in stash)"
 
       "skill_investment"                                                            "Investment"
       "skill_investment_desc"                                                       "Every 5 rounds you get 3% gold of your networth (Maximum limit 200k networth)"
@@ -776,7 +896,7 @@
       "skill_armor_investor_desc"                                                   "+1 armor for every 300 gold in your stash (no more than 20k gold in the stash)"
 
       "skill_magic_investor"                                                        "Magic Investor"
-      "skill_magic_investor_desc"                                                   "+0.5% spell damage per 500 gold in your stash (limit no more than 20k gold in your stash)"
+      "skill_magic_investor_desc"                                                   "+0.75% spell damage per 500 gold in your stash (limit no more than 20k gold in your stash)"
 
       "skill_teachers_gift"                                                         "Teachers Gift"
       "skill_teachers_gift_desc"                                                     "+75 Non-Primary Attributes"
@@ -857,13 +977,13 @@
       "skill_statist_desc"                                                          "+1.25 attribute gain per level"
 
       "skill_overbuffed"                                                            "Overbuffed"
-      "skill_overbuffed_desc"                                                       "+0.5% damage per point of intellect from Sky Staff/Force of Star and +0.25% from Torture Pipe 1/2"
+      "skill_overbuffed_desc"                                                       "+0.75% damage per point of intellect from Sky Staff/Force of Star and +0.4% from Torture Pipe 1/2"
 
       "skill_eternalist"                                                            "Eternalist"
       "skill_eternalist_desc"                                                       "+90% Eternal Battle Fury and Eternal Beadies Boomstick Damage"
 
       "skill_linkens_sphere"                                                        "Linkens Sphere"
-      "skill_linkens_sphere_desc"                                                   "Blocks any directional spell with a 17 second cooldown"
+      "skill_linkens_sphere_desc"                                                   "Blocks any directional spell with a 13 second cooldown"
 
       "skill_master_chifu"                                                          "Master Chifu"
       "skill_master_chifu_desc"                                                     "Every attack has 35% chance to deal 250% critical damage"
@@ -878,7 +998,7 @@
       "skill_overcharge_desc"                                                       "+15% cooldown for abilities and items"
 
       "skill_double_trouble"                                                        "Double Trouble"
-      "skill_double_trouble_desc"                                                   "35% that any outgoing ability will deal x1.5 damage"
+      "skill_double_trouble_desc"                                                   "50% that any outgoing ability will deal x1.5 damage"
 
       "skill_cashback"                                                              "Cashback"
       "skill_cashback_desc"                                                         "Cashback 50% of the cost of the summoned creep when knocking out an aegis from an enemy hero, 100% on final death"
@@ -896,7 +1016,7 @@
       "skill_radioactive_desc"                                                      "Radioactive aura with 120 damage in 600 radius and an additional 130 in 300 radius"
 
       "skill_pierce"                                                                "Pierce Master"
-      "skill_pierce_desc"                                                           "45% chance to ignore target's armor when attacking"
+      "skill_pierce_desc"                                                           "30% chance to ignore target's armor when attacking"
 
       "skill_enervation"                                                            "Enervation"
       "skill_enervation_desc"                                                       "Reduces the cast range bonus of enemies within 1500 radius by 40%."
@@ -911,13 +1031,13 @@
       "skill_overclocking_desc"                                                     "For every 100 units traveled, outgoing damage is increased by 1%, up to a maximum of 30%."
 
       "skill_fearful"                                                               "Fearful"
-      "skill_fearful_desc"                                                          "Enemies within 500 radius take 20% more damage"
+      "skill_fearful_desc"                                                          "Enemies within 500 radius take 30% more damage"
 
       "skill_last_chance"                                                           "Last Chance"
       "skill_last_chance_desc"                                                      "When fatal damage is taken, a strong dispel is applied and you go into the astral  for 5 seconds with 1 hp, where you are immune to damage and effects and can move at 50% speed, after this time you recover 50% of your max health (Cooldown 180 sec.) Not working in duel !"
 
       "skill_berserker"                                                             "Berserker"
-      "skill_berserker_desc"                                                        "Outgoing damage increased by 35%, but damage taken is 15% more"
+      "skill_berserker_desc"                                                        "Outgoing damage increased by 40%, but damage taken is 15% more"
 
       //=================================================================================================================
       // Rounds
@@ -1192,6 +1312,7 @@
       "DOTA_Tooltip_ability_item_butterfly_2_bonus_attack_speed"        "+$attack"    
       "DOTA_Tooltip_ability_item_butterfly_2_bonus_damage"        "+$damage"
       "DOTA_Tooltip_ability_item_butterfly_2_bonus_movespeed"           "+$move_speed"  
+      "DOTA_Tooltip_ability_item_butterfly_2_bonus_universal_evasion"                 "%ШАНС УНИВЕРС. УКЛОНЕНИЯ" 
 
       "DOTA_Tooltip_Ability_item_bfury_2"       "Battle Fury 2"
       "DOTA_Tooltip_Ability_item_recipe_bfury_2"          "Battle Fury 2 Recipe"
@@ -1282,9 +1403,9 @@
       "DOTA_Tooltip_ability_item_spell_book_empty_lua_Description"            "<h1>Consume:Record</h1>Record one spell in to it, it will save level and cooldown information."
       "DOTA_Tooltip_ability_item_spell_book_lua"                              "Spell Scroll"
       "DOTA_Tooltip_ability_item_spell_book_lua_Description"                  "<h1>Consume:Fetch</h1>Read it the Scroll, learn the spell in it."
-      "save_spell_book"                                                       "Save into a spell Scroll(150 gold)"
+      "save_spell_book"                                                       "Save into a spell Scroll<b><font color='#FFE815'>( 150 gold )</font></b>"
       "DOTA_Tooltip_ability_item_relearn_book_lua"                            "Book of Retraining"
-      "DOTA_Tooltip_ability_item_relearn_book_lua_Description"                "<h1>Consume:Retraining</h1>Choose a ability to unlearn and draw a new one."
+      "DOTA_Tooltip_ability_item_relearn_book_lua_Description"                "<h1>Consume:Retraining</h1>Choose a ability to unlearn and draw a new one.\n<b><font color='red'>By pressing CTRL when buying, automatically uses the book (if you are in the radius of the store)</font></b>"
 
       "DOTA_Tooltip_ability_item_swap_essence"                "Primal Essence"
       "DOTA_Tooltip_ability_item_swap_essence_Description"    "<h1>Consume：Primal Swap</h1>Only for 2x6 Map<br>Swap an ability with your teammate."
@@ -2768,13 +2889,14 @@
       "DOTA_Tooltip_ability_special_bonus_unique_chen_11"                     "Penitence deals 250 damage and becomes AOE with a radius of 500"
 
       "DOTA_Tooltip_ability_chen_hand_of_god_custom"                                      "Hand of God (Heroic)"
-      "DOTA_Tooltip_ability_chen_hand_of_god_custom_Description"                          "Heals all allied heroes on the map as well as all units under Chen's control. A large heal is applied at first and a slow heal over %hot_duration% sec. is applied for afterwards."
+      "DOTA_Tooltip_ability_chen_hand_of_god_custom_Description"                          "Heals all allied heroes on the map as well as all units under Chen's control and gives magic immune. A large heal is applied at first and a slow heal over %hot_duration% sec. is applied for afterwards."
       "DOTA_Tooltip_ability_chen_hand_of_god_custom_Lore"                                 "Using the mental link with his thralls, Chen calls down restoration and well-being to those who share his fanaticism."
       "DOTA_Tooltip_ability_chen_hand_of_god_custom_Note0"                                "Heals invisible and invulnerable units."
       "DOTA_Tooltip_ability_chen_hand_of_god_custom_heal_amount"                          "%INITIAL HEAL:"
       "DOTA_Tooltip_ability_chen_hand_of_god_custom_heal_per_second"                      "%HEAL PER SECOND:"
+      "DOTA_Tooltip_ability_chen_hand_of_god_custom_status_resistance"                    "%MAGIC. RESISTANCE:"
       "DOTA_Tooltip_ability_special_bonus_unique_chen_2"                                  "+30%/+5% to initial and periodic heal of Hand of God"
-
+      
       "DOTA_Tooltip_modifier_chen_hand_of_god_custom"                                     "Hand of God"
       "DOTA_Tooltip_modifier_chen_hand_of_god_custom_Description"                         "Heals 5%%% of health per second."
 
@@ -4139,6 +4261,7 @@
     "DOTA_Tooltip_ability_wisp_overcharge_custom_hp_regen"                                  "%ВОССТАНОВЛЕНИЕ ОТ МАКС. ЗДОРОВЬЯ:"
     "DOTA_Tooltip_ability_wisp_overcharge_custom_duration"                                  "ДЛИТЕЛЬНОСТЬ:"
     "DOTA_Tooltip_ability_wisp_overcharge_custom_damage_pct"                                "%ДОП. УРОН ОТ МАКС. ЗДОРОВЬЯ ЦЕЛИ:"
+    "DOTA_Tooltip_ability_wisp_overcharge_custom_lifesteal"                                 "%ВАМПИРИЗМ:"
 
     "DOTA_Tooltip_ability_night_stalker_hunter_in_the_night_custom"                                 "Hunter in the Night (Heroic)"
     "DOTA_Tooltip_ability_night_stalker_hunter_in_the_night_custom_Description"                     "Способность дает бонус к скорости передвижения и скорости атаки в любое время суток"
@@ -4371,7 +4494,7 @@
     "skill_retraining_desc"                                                                 "Каждые 5 раундов дает вам книгу переобучения. Если вы не входите в топ 3 лучших"
 
     "skill_outsiders"                                                                       "Outsiders"
-    "skill_outsiders_desc"                                                                  "Последние 3 места по нетворсу получают дополнительно +100 золота за убийство крипа"
+    "skill_outsiders_desc"                                                                  "Последние 4 места по нетворсу получают дополнительно +100 золота за убийство крипа"
 
     "skill_true_strike"                                                                     "True Strike"
     "skill_true_strike_desc"                                                                "80% игнорировать уклонение цели"
@@ -4386,7 +4509,7 @@
     "skill_rearm_desc"                                                                      "25% шанс что использованная способность сбросит перезарядку, ультимативная способность - 15% шанс"
 
     "skill_fervor"                                                                          "Fervor"
-    "skill_fervor_desc"                                                                     "Каждая атака увеличивает ваш исходящий урон на 2.5% (максимум 12 стаков). При смене цели атаки, все стаки сбрасываются"
+    "skill_fervor_desc"                                                                     "Каждая атака увеличивает ваш исходящий урон на 3.5% (максимум 12 стаков). При смене цели атаки, все стаки сбрасываются"
 
     "skill_block_shield"                                                                    "Block Shield"
     "skill_block_shield_desc"                                                               "Блокирует 25% всего входящего урона"
@@ -4404,38 +4527,83 @@
     "DOTA_Tooltip_ability_stranger_think"                                                   "Избивай меня"
     "DOTA_Tooltip_ability_stranger_think_Description"                                       "Если что-то сломалось или слишком сильные лаги, то выбей из меня мозги за плохую работу !"
 
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom"                                                "Frost Arrows"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Description"                                    "Добавляет к атакам героя замораживающий эффект, замедляющий передвижение цели на %duration% сек. и наносящий дополнительный урон."
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_scepter_description"                       "Способность накладывает на врага переохлаждение. Каждый такой эффект уменьшает восстановление здоровья и увеличивает урон от этой способности. Если цель умрёт под действием переохлаждения, из неё во всех врагов вокруг разлетятся осколки, которые наносят магический урон за каждый эффект и замедляют жертв."
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_regen_reduction_pct_per_stack" "%УМЕНЬШЕНИЕ ВОССТ. ЗДОРОВЬЯ ЗА ЭФФЕКТ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_bonus_damage_per_stack"        "БОНУС К ДОП. УРОНУ ЗА ЭФФЕКТ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_stack_duration"                                  "ДЛИТЕЛЬНОСТЬ ЭФФЕКТА:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_radius"                        "РАДИУС РАЗЛЁТА ОСКОЛКОВ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_damage_per_stack"  "УРОН ОСКОЛКОВ ЗА ЭФФЕКТ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_move_slow_pct"           "%ЗАМЕДЛЕНИЕ ПЕРЕДВИЖЕНИЯ ОТ ОСКОЛКОВ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_slow_duration"           "ДЛИТЕЛЬНОСТЬ ЗАМЕДЛЕНИЯ ОТ ОСКОЛКОВ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_max_stacks"                    "МАКСИМУМ ЭФФЕКТОВ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Lore"                                      "Покрытые льдом стрелы беззвучно пронзают воздух, насквозь промораживая врагов."
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Note0"                                     "Каждое попадание обновляет отсчёт до окончания замедления."
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_frost_arrows_movement_speed"         "%ЗАМЕДЛЕНИЕ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_damage"            "ДОП. УРОН:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_percent_damage"            "%УРОН ОТ ТЕКУЩЕГО ЗДОРОВЬЯ:"
-      "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_frost_arrows_abilityduration"  "ДЛИТЕЛЬНОСТЬ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom"                                                "Frost Arrows"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Description"                                    "Добавляет к атакам героя замораживающий эффект, замедляющий передвижение цели на %duration% сек. и наносящий дополнительный урон."
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_scepter_description"                       "Способность накладывает на врага переохлаждение. Каждый такой эффект уменьшает восстановление здоровья и увеличивает урон от этой способности. Если цель умрёт под действием переохлаждения, из неё во всех врагов вокруг разлетятся осколки, которые наносят магический урон за каждый эффект и замедляют жертв."
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_regen_reduction_pct_per_stack" "%УМЕНЬШЕНИЕ ВОССТ. ЗДОРОВЬЯ ЗА ЭФФЕКТ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_bonus_damage_per_stack"        "БОНУС К ДОП. УРОНУ ЗА ЭФФЕКТ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_stack_duration"                                  "ДЛИТЕЛЬНОСТЬ ЭФФЕКТА:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_radius"                        "РАДИУС РАЗЛЁТА ОСКОЛКОВ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_damage_per_stack"  "УРОН ОСКОЛКОВ ЗА ЭФФЕКТ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_move_slow_pct"           "%ЗАМЕДЛЕНИЕ ПЕРЕДВИЖЕНИЯ ОТ ОСКОЛКОВ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_burst_slow_duration"           "ДЛИТЕЛЬНОСТЬ ЗАМЕДЛЕНИЯ ОТ ОСКОЛКОВ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_max_stacks"                    "МАКСИМУМ ЭФФЕКТОВ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Lore"                                      "Покрытые льдом стрелы беззвучно пронзают воздух, насквозь промораживая врагов."
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Note0"                                     "Каждое попадание обновляет отсчёт до окончания замедления."
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_frost_arrows_movement_speed"         "%ЗАМЕДЛЕНИЕ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_damage"            "ДОП. УРОН:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_percent_damage"            "%УРОН ОТ ТЕКУЩЕГО ЗДОРОВЬЯ:"
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_frost_arrows_abilityduration"  "ДЛИТЕЛЬНОСТЬ:"
 
-      "DOTA_Tooltip_modifier_drow_ranger_frost_arrows_custom_debuff"            "Hypothermia"
-      "DOTA_Tooltip_modifier_drow_ranger_frost_arrows_custom_debuff_Description"            "Healing, lifesteal, spell lifesteal, and health regeneration reduced by %dMODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE%%%."
+    "DOTA_Tooltip_modifier_drow_ranger_frost_arrows_custom_debuff"            "Hypothermia"
+    "DOTA_Tooltip_modifier_drow_ranger_frost_arrows_custom_debuff_Description"            "Healing, lifesteal, spell lifesteal, and health regeneration reduced by %dMODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE%%%."
 
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom"                                       "Static Storm"
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_Description"                     "Создаёт статический шторм, наносящий урон и запрещающий применять способности всем вражеским существам в указанной области. Урон увеличивается со временем действия способности."
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_Lore"                                  "Летний друудский шквал может пережить только уроженец народа Оглоди."
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_radius"                          "РАДИУС:"
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_damage_max"                      "МАКС. УРОН В СЕКУНДУ:"
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_duration"                              "ДЛИТЕЛЬНОСТЬ:"
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_pulses"                          "РАЗРЯДОВ:"
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_duration_scepter"                "ДЛИТЕЛЬНОСТЬ СО СКИПЕТРОМ:"
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_pulses_scepter"                  "РАЗРЯДОВ СО СКИПЕТРОМ:"
-      "DOTA_Tooltip_ability_disruptor_static_storm_custom_scepter_description"       "Запрещает врагам использовать предметы."
-      "DOTA_Tooltip_modifier_disruptor_static_storm_custom"                          "Static Storm"
-      "DOTA_Tooltip_modifier_disruptor_static_storm_custom_Description"        "Не может применять способности"
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom"                                       "Static Storm"
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_Description"                     "Создаёт статический шторм, наносящий урон и запрещающий применять способности всем вражеским существам в указанной области. Урон увеличивается со временем действия способности."
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_Lore"                                  "Летний друудский шквал может пережить только уроженец народа Оглоди."
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_radius"                          "РАДИУС:"
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_damage_max"                      "МАКС. УРОН В СЕКУНДУ:"
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_duration"                              "ДЛИТЕЛЬНОСТЬ:"
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_pulses"                          "РАЗРЯДОВ:"
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_duration_scepter"                "ДЛИТЕЛЬНОСТЬ СО СКИПЕТРОМ:"
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_pulses_scepter"                  "РАЗРЯДОВ СО СКИПЕТРОМ:"
+    "DOTA_Tooltip_ability_disruptor_static_storm_custom_scepter_description"       "Запрещает врагам использовать предметы."
+    "DOTA_Tooltip_modifier_disruptor_static_storm_custom"                          "Static Storm"
+    "DOTA_Tooltip_modifier_disruptor_static_storm_custom_Description"        "Не может применять способности"
+
+    "DOTA_Tooltip_ability_spectre_dispersion_custom"                                    "Dispersion"
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_shard_description"                  "Позволяет активировать эту способность, чтобы увеличить отражаемый урон на %activation_bonus_pct%%%. Длительность: %activation_duration% сек. Перезарядка: %activation_cooldown% сек. Расход маны: %activation_manacost%."
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_Description"                        "Урон, нанесённый владельцу способности, отражается на его врагов, не нанося ему повреждений. Эффект ослабевает с расстоянием."
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_Lore"                               "Сложная задача стоит перед противниками Меркуриал — убить тень мечом и магией."
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_Note0"                              "Отражаемый урон не наносится владельцу способности."
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_Note1"                              "Иллюзии не обладают этой способностью."
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_Note2"                              "Отражённый урон возвращается несниженным и имеет тот же тип, что и нанесённый."
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_damage_reflection_pct"              "%ОТРАЖАЕМЫЙ УРОН:"
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_min_radius"                         "МИН. РАДИУС:"
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_max_radius"                         "МАКС. РАДИУС:"
+    "DOTA_Tooltip_ability_spectre_dispersion_custom_ability_note"                       "Урон откладывается на 0.5 секунд и наносится всем атакующим противникам одновременно"
+
+    "DOTA_Tooltip_modifier_spectre_dispersion_custom_active"                            "Dispersion"
+
+    "DOTA_Tooltip_modifier_skill_fervor"                 "Fervor"
+    "DOTA_Tooltip_modifier_skill_fervor_description"     "Исходящий урон увеличен на %dMODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE%%%"
+
+    "ban_duel_info_1"                                     "322 Запрещено"
+    "ban_duel_info_2"                                     "Запрещено нарочно поддаваться друг другу с целью джекпота или перелива денег другим игрокам. Данные действия наказуемы, репорты отправляйте в наш дискорд-канал"
+
+    "DOTA_Tooltip_Ability_item_tier1_token_custom"                                "Жетон 1 разряда"
+    "DOTA_Tooltip_Ability_item_tier2_token_custom"                                "Жетон 2 разряда"
+    "DOTA_Tooltip_Ability_item_tier3_token_custom"                                "Жетон 3 разряда"
+    "DOTA_Tooltip_Ability_item_tier4_token_custom"                                "Жетон 4 разряда"
+    "DOTA_Tooltip_Ability_item_tier5_token_custom"                                "Жетон 5 разряда"
+    "DOTA_Tooltip_Ability_item_tier5_token_roshan_custom"                         "Рошан-Жетон 5 разряда"
+
+    "DOTA_Tooltip_ability_item_tier1_token_custom_Description"					"Активируйте, чтобы выбрать нейтральный предмет 1 разряда. Полученный предмет нельзя передать."
+	"DOTA_Tooltip_ability_item_tier2_token_custom_Description"					"Активируйте, чтобы выбрать нейтральный предмет 2 разряда. Полученный предмет нельзя передать."
+	"DOTA_Tooltip_ability_item_tier3_token_custom_Description"					"Активируйте, чтобы выбрать нейтральный предмет 3 разряда. Полученный предмет нельзя передать."
+	"DOTA_Tooltip_ability_item_tier4_token_custom_Description"					"Активируйте, чтобы выбрать нейтральный предмет 4 разряда. Полученный предмет нельзя передать."
+	"DOTA_Tooltip_ability_item_tier5_token_custom_Description"					"Активируйте, чтобы выбрать нейтральный предмет 5 разряда. Полученный предмет нельзя передать."
+    "DOTA_Tooltip_ability_item_tier5_token_roshan_custom_Description"			    "Активируйте, чтобы выбрать нейтральный предмет 5 разряда. Полученный предмет нельзя передать. Нельзя использовать данный жетон, пока не используете основной жетон 5 разряда.\nЕсли основной жетон нельзя достать из общего тайника, то выложите этот жетон на пол, и тогда можно достать основной жетон с общего тайника"
+
+    "neutralitemsrandom"  "Выберите нейтральный предмет"
+
+    "DOTA_Tooltip_Ability_item_giants_ring_custom"		                        "Giant's Ring"
+    "DOTA_Tooltip_ability_item_giants_ring_custom_Description"						"<h1>Пассивное: Giant's Foot</h1>Дарует беспрепятственное передвижение. Враги под владельцем каждую секунду получают урон в размере %pct_str_damage_per_second%%% от его силы."
+	"DOTA_Tooltip_ability_item_giants_ring_custom_Lore"						        "Ценное приобретение довольно непримечательного правителя Эльзе, который отрёкся от своего престола и исчез."
+	"DOTA_Tooltip_ability_item_giants_ring_custom_bonus_strength"					"+$str"
+	"DOTA_Tooltip_ability_item_giants_ring_custom_movement_speed"					"+$move_speed"
+	"DOTA_Tooltip_ability_item_giants_ring_custom_model_scale"						"%+к размеру модели"
+
+    "wrong_item" "Это чужой предмет"
 } 
 }

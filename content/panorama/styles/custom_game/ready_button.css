@@ -1,61 +1,24 @@
-.ReadyButtonRoot{
-
-  height: 70px;
-  flow-children: down;
-  align: left top;
-  margin-top: 65px;
-  margin-left: 295px;
+.ReadyButtonNew
+{
+    width: 70px;
+    height: 25px;
+    background-color: gradient(radial, 50% 0%, 0% 0%, 70% 100%, from(#7DB437), to(#44611F)));
+    border-radius: 4px;
+    text-align: center;
+    visibility: collapse;
+    margin-left: 10px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
 }
 
- #ReadyButton{
+.ReadyButtonNew:hover
+{
+    box-shadow: 0 0 1px 0px rgba(0, 200, 0, 0.5);
+}
 
-  width: 60px;
-  height: 25px;
-  background-color: gradient( linear, 0% 0%, 0% 100%, from( #60862d ), to( #3d5f1c ) );
-  border: 1px solid black;
-  align: left top;
-  border-radius: 4px;
-  text-align: center;
-  visibility: collapse;
-  font-size: 14px;
-  color: white;
-  padding-top: 2px;
-  font-family: Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU;
- }
-
-
- #ReadyButton:hover{
-
-  box-shadow: inset 0 0 5px rgba(0, 200, 0, 0.5);
- }
-
- .AutoReadyText{
-  font-size: 18px;
-  margin-left: 5px;
-  margin-top: 0px;
-  margin-bottom: -1px;
-  text-shadow: 0px 0px 8px 2.0 rgba(250, 0, 0, 1);
-  color: rgb(240, 240, 0);
- }
- #AuroReadyCheck{
-  margin-top: 4px;
-  margin-left: -1px;
-  visibility: collapse;
- }
- #AuroReadyCheck:selected Label{
-  color: rgb(240, 240, 0);
- }
- #AuroReadyCheck:hover Label{
-  color: rgb(240, 240, 0);
-  text-shadow: 0px 0px 8px 2.0 rgba(222, 0, 0, 1);
- }
- #AuroReadyCheck:selected .TickBox{
-  background-color: rgba(222, 0, 0, 1);
-  border-color: rgb(255, 183, 0);
-  border-width: 2px;
-  box-shadow: rgb(255, 204, 0) -4px -4px 2px 8px;
- }
- #AuroReadyCheck .TickBox{
-  width: 15px;
-  height: 15px;
+.ReadyTextNew {
+    align: center center;
+    font-size: 12px;
+    font-family: 'Radiance';
+    color: #FFFFFF;
+    text-shadow: 0px 0px 2px 2 #000000;
 }

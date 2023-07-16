@@ -46,7 +46,7 @@ function ThinkCameraPosition()
     let camPosition = GameUI.GetCameraLookAtPosition();
     let map = Game.GetMapInfo().map_display_name
 
-    if (map == "1x8" || map == "1x8_pve") 
+    if (map == "1x8" || map == "1x8_pve" || map == "tournament_1x8") 
     {
 	    let center_arena = 	[0,0,0]
 
@@ -258,6 +258,15 @@ function player_unpause_chat( data )
 		}
 	})
 }
+
+GameEvents.Subscribe("immediate_purchase:key_check", (event) => {
+	GameEvents.SendCustomGameEventToServer("immediate_purchase:response", {
+		result: GameUI.IsControlDown(),
+		item: event.item,
+		has_stack: event.has_stack,
+		item_name: event.item_name,
+	});
+});
 
 (function() {
 

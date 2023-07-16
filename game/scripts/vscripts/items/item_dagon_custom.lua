@@ -149,6 +149,7 @@ function modifier_item_dagon_custom_break:GetEffectName() return "particles/item
 
 function modifier_item_dagon_custom_break:OnCreated(table)
     if not IsServer() then return end
+    if not self:GetParent():IsHero() then return end
     self.particle = ParticleManager:CreateParticle("particles/generic_gameplay/generic_break.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent())
     ParticleManager:SetParticleControl(self.particle, 1, self:GetParent():GetAbsOrigin())
     self:AddParticle(self.particle, false, false, -1, false, false)

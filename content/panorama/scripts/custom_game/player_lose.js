@@ -36,7 +36,7 @@ function DotaMindScoreChanged()
 	    	$("#DotaMindInner3").AddClass("Green")
 	    }
 
-        if (player_data_main.calibrating_games[5] > 0)
+        if (player_data_main.calibrating_games[6] > 0)
         {
            $("#DotaMindInner4").text = "( "+$.Localize("#dota_mind_calibrating")+" )";
         }

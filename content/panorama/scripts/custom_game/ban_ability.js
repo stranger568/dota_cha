@@ -14,13 +14,13 @@ var groupKV=
         "slark","medusa","terrorblade","arc_warden"],
   
   int_1:["crystal_maiden","puck","storm_spirit","zuus","lina","shadow_shaman","tinker","furion","enchantress","jakiro","silencer","ogre_magi",
-        "rubick","disruptor","keeper_of_the_light","skywrath_mage","oracle"], 
+	  "rubick", "disruptor", "witch_doctor", "keeper_of_the_light","skywrath_mage","oracle"], 
   
-  int_2:["lich","lion","witch_doctor","necrolyte","warlock","queenofpain","death_prophet","pugna","leshrac","muerta",
+  int_2:["lich","lion","necrolyte","warlock","queenofpain","death_prophet","pugna","leshrac","muerta",
         "ancient_apparition","invoker","obsidian_destroyer","shadow_demon","grimstroke"], 
 
-  universal_1:["dark_seer","beastmaster","chen","vengefulspirit","dazzle","void_spirit","winter_wyvern","marci","enigma","dark_willow","rattletrap","brewmaster","wisp","windrunner","visage"], 
-  universal_2:["venomancer","lone_druid","techies","mirana","magnataur","pangolier","snapfire","nyx_assassin","shredder","phoenix","abaddon","lycan","bane","batrider","broodmother"],   
+	universal_1: ["dark_seer", "beastmaster", "chen", "vengefulspirit", "dazzle", "void_spirit", "winter_wyvern", "marci", "enigma", "dark_willow", "rattletrap", "brewmaster", "wisp", "windrunner", "visage", "venomancer",], 
+  universal_2:["lone_druid","techies","mirana","magnataur","pangolier","snapfire","nyx_assassin","shredder","phoenix","abaddon","lycan","bane","batrider","broodmother"],   
 }
 
 
@@ -42,6 +42,7 @@ var recentBannedAbilities = null;
 var recentBannedHeroes = null;
 var abilityTimeLeft = 0
 var heroTimeLeft = 0
+var timer_close_right = -1
   
 var table_player = CustomNetTables.GetTableValue("ban_count", String(Players.GetLocalPlayer()))
 
@@ -53,8 +54,9 @@ if (table_player)
 }
 
 CustomNetTables.SubscribeNetTableListener( "ban_count", Updateban_table );
-
-function Updateban_table(table, key, data ) {
+ 
+function Updateban_table(table, key, data ) 
+{
 	if (table == "ban_count") 
 	{
 		if (key == Players.GetLocalPlayer()) 
@@ -63,6 +65,19 @@ function Updateban_table(table, key, data ) {
 			heroTimeLeft = (data.ban_count_hero || 0)
 			$("#PanelBanHeroes").style.opacity = "1"
 		}
+	}
+}
+
+function UpdateBanPanelStart()
+{
+	let ban_count = CustomNetTables.GetTableValue("ban_count", String(Players.GetLocalPlayer()))
+	if (ban_count && (ban_count.ban_count_ability || 0) > 0)
+	{
+		$("#PanelBanHeroes").style.opacity = "1"
+	}
+	if (ban_count == null)
+	{
+		$.Schedule(1 , UpdateBanPanelStart);
 	}
 }
 
@@ -122,6 +137,7 @@ function OpenBanPanel()
 		{
 			GameUI.CustomUIConfig().CloseTeamList()
 		}
+		StartTimerTeamList()
 	} else {
 		$("#DonateImage").style.opacity = "0"
 		$("#MainBlock").AddClass("Hidden")
@@ -131,11 +147,28 @@ function OpenBanPanel()
 			abilityTimeLeft = table_player.ban_count_ability
 			heroTimeLeft = table_player.ban_count_hero
 		}
+		if (timer_close_right != -1) 
+		{
+			$.CancelScheduled(timer_close_right)
+			timer_close_right = -1
+		}
 		if (GameUI.CustomUIConfig().OpenTeamList)
 		{
 			GameUI.CustomUIConfig().OpenTeamList()
 		}
 	}
+}
+
+function StartTimerTeamList()
+{
+	if (GameUI.CustomUIConfig().CloseTeamList) 
+	{
+		GameUI.CustomUIConfig().CloseTeamList()
+	}
+    if (Game.GetState() == DOTA_GameState.DOTA_GAMERULES_STATE_WAIT_FOR_PLAYERS_TO_LOAD || Game.GetState() ==  DOTA_GameState.DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP)
+    {
+        timer_close_right = $.Schedule(0.01, StartTimerTeamList);
+    }
 }
  
 // Создание героев
@@ -543,13 +576,13 @@ function UpdateRecentBannedHeroList(heroes) {
 			heroButton.heroName = rep_heroName;
 
 			if (!heroImage) {
-				heroImage = $.CreatePanel("DOTAHeroImage", heroButton, heroImageId);
+				heroImage = $.CreatePanelWithProperties(`DOTAHeroImage`, heroButton, heroImageId, { scaling: "stretch-to-cover-preserve-aspect", heroname: String(rep_heroName), tabindex: "auto", heroimagestyle: "portrait" });
 				heroImage.SetHasClass("hBlock", true);
 				heroImage.SetHasClass("vBlock", true);
-				heroImage.data = {
+				heroImage.data = 
+				{
 					heroname: rep_heroName,
 				}
-				heroImage.heroname = rep_heroName;
 			}
 			else
 			{
@@ -738,5 +771,6 @@ function ClosePlayers(data)
     GameEvents.Subscribe( "UpdatebanHero", UpdatebanHero );
     GameEvents.Subscribe( "UpdatebanAbility", UpdatebanAbility );
     GameEvents.Subscribe( "ClosePlayers", ClosePlayers );
+    UpdateBanPanelStart();
 	Update_Heroes_Table();
 })();

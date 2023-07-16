@@ -156,10 +156,6 @@ function modifier_duel_buff:OnIntervalThink()
 	      	return
 	    end
  	 end
-
-  	if (self:GetParent():GetAbsOrigin() - self.target:GetAbsOrigin()):Length2D() > self:GetAbility():GetSpecialValueFor("victory_range") then 
-      	self:Destroy()
-  	end
 end
 
 function modifier_duel_buff:OnDestroy()

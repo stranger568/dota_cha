@@ -115,7 +115,10 @@ function banned_this_game_information(data)
     let notification = $.CreatePanel('Panel', $.GetContextPanel(), '');
     notification.AddClass("notification_banned")
 
-    let notification_close = $.CreatePanel('Panel', notification, '');
+    let panel_info_and_crest = $.CreatePanel('Panel', notification, '');
+    panel_info_and_crest.AddClass("panel_info_and_crest")
+
+    let notification_close = $.CreatePanel('Panel', panel_info_and_crest, '');
     notification_close.AddClass("notification_close")
 
     notification_close.SetPanelEvent("onactivate", function() 
@@ -123,7 +126,7 @@ function banned_this_game_information(data)
         notification.DeleteAsync(0);
     });
 
-    let notification_label = $.CreatePanel('Label', notification, '');
+    let notification_label = $.CreatePanel('Label', panel_info_and_crest, '');
     notification_label.AddClass("notification_label_banned")
     notification_label.text = $.Localize("#banned_in_this_game")
 

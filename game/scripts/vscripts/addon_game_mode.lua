@@ -41,6 +41,7 @@ require( "extra_creature" ) -- Спавн мобов с книг
 require( "utils/keyvalues" )
 require( "utils/error_tracking")
 require( "utils/event_driver")
+require( "item")
 
 ------ Данные--------------------------------------------------------------------------------------
 
@@ -162,7 +163,7 @@ function GameMode:InitGameMode()
     ListenToGameEvent("npc_spawned", Dynamic_Wrap(GameMode, "OnNPCSpawned"), self)
     ListenToGameEvent( "dota_item_picked_up", Dynamic_Wrap( self, "OnItemPickUp"), self )
     ListenToGameEvent('player_connect_full', Dynamic_Wrap(GameMode, 'OnConnectFull'), self)
-
+    
     CustomGameEventManager:RegisterListener("HeroIconClicked", Dynamic_Wrap(GameMode, 'HeroIconClicked'))
     CustomGameEventManager:RegisterListener("ToggleAutoDuel", Dynamic_Wrap(GameMode, 'ToggleAutoDuel'))
     CustomGameEventManager:RegisterListener("ToggleAutoCreep", Dynamic_Wrap(GameMode, 'ToggleAutoCreep'))
@@ -179,6 +180,7 @@ function GameMode:InitGameMode()
     GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(GameMode, "OrderFilter"), self)
     GameRules:GetGameModeEntity():SetModifierGainedFilter(Dynamic_Wrap(GameMode, "ModifierGainedFilter"), self)
     GameRules:GetGameModeEntity():SetModifyGoldFilter(Dynamic_Wrap(GameMode, "ModifyGoldFilter"), self)
+    GameRules:GetGameModeEntity():SetItemAddedToInventoryFilter(Dynamic_Wrap(item_filter_check, "ItemAddedToInventoryFilter"), item_filter_check)
     GameRules:GetGameModeEntity():SetBuybackEnabled(false)
     GameRules:SetTreeRegrowTime(60)
 
@@ -270,7 +272,7 @@ function GameMode:SpawnCreators()
             local origin = npc_unit_top1_spawn:GetAbsOrigin()
             local top_unit_one = CreateUnitByName( "npc_unit_top1", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
             top_unit_one:SetForwardVector((Vector(0,0,0) - top_unit_one:GetAbsOrigin()):Normalized())
-            top_unit_one:AddNewModifier( top_unit_one, nil, "modifier_creator_statue", {id = "444746023"} )
+            top_unit_one:AddNewModifier( top_unit_one, nil, "modifier_creator_statue", {id = "96742961"} )
             top_unit_one:SetAbsOrigin(top_unit_one:GetAbsOrigin() + (Vector(0,0,60)))
         end 
     end)
@@ -280,7 +282,7 @@ function GameMode:SpawnCreators()
             local origin = npc_unit_top2_spawn:GetAbsOrigin()
             local top_unit_two = CreateUnitByName( "npc_unit_top2", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
             top_unit_two:SetForwardVector((Vector(0,0,0) - top_unit_two:GetAbsOrigin()):Normalized())
-            top_unit_two:AddNewModifier( top_unit_two, nil, "modifier_creator_statue", {id = "1155253013"} )
+            top_unit_two:AddNewModifier( top_unit_two, nil, "modifier_creator_statue", {id = "1100978077"} )
             top_unit_two:SetAbsOrigin(top_unit_two:GetAbsOrigin() + (Vector(0,0,40)))
         end
     end)
@@ -290,8 +292,38 @@ function GameMode:SpawnCreators()
             local origin = npc_unit_top3_spawn:GetAbsOrigin()
             local top_unit_three = CreateUnitByName( "npc_unit_top3", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
             top_unit_three:SetForwardVector((Vector(0,0,0) - top_unit_three:GetAbsOrigin()):Normalized())
-            top_unit_three:AddNewModifier( top_unit_three, nil, "modifier_creator_statue", {id = "376804643"} )
+            top_unit_three:AddNewModifier( top_unit_three, nil, "modifier_creator_statue", {id = "370749891"} )
             top_unit_three:SetAbsOrigin(top_unit_three:GetAbsOrigin() + (Vector(0,0,20)))
+        end
+    end)
+    Timers:CreateTimer(1.5, function()
+        local npc_unit_top3_spawn = Entities:FindByName(nil, "spawn_top4")
+        if npc_unit_top3_spawn then
+            local origin = npc_unit_top3_spawn:GetAbsOrigin()
+            local top_unit_four = CreateUnitByName( "npc_unit_top4", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
+            top_unit_four:SetForwardVector((Vector(0,0,0) - top_unit_four:GetAbsOrigin()):Normalized())
+            top_unit_four:AddNewModifier( top_unit_four, nil, "modifier_creator_statue", {id = "1100978077"} )
+            top_unit_four:SetAbsOrigin(top_unit_four:GetAbsOrigin() + (Vector(0,0,20)))
+        end
+    end)
+    Timers:CreateTimer(1.5, function()
+        local npc_unit_top3_spawn = Entities:FindByName(nil, "spawn_top5")
+        if npc_unit_top3_spawn then
+            local origin = npc_unit_top3_spawn:GetAbsOrigin()
+            local top_unit_five = CreateUnitByName( "npc_unit_top5", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
+            top_unit_five:SetForwardVector((Vector(0,0,0) - top_unit_five:GetAbsOrigin()):Normalized())
+            top_unit_five:AddNewModifier( top_unit_five, nil, "modifier_creator_statue", {id = "370749891"} )
+            top_unit_five:SetAbsOrigin(top_unit_five:GetAbsOrigin() + (Vector(0,0,20)))
+        end
+    end)
+    Timers:CreateTimer(1.5, function()
+        local npc_unit_top3_spawn = Entities:FindByName(nil, "spawn_top6")
+        if npc_unit_top3_spawn then
+            local origin = npc_unit_top3_spawn:GetAbsOrigin()
+            local top_unit_six = CreateUnitByName( "npc_unit_top6", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
+            top_unit_six:SetForwardVector((Vector(0,0,0) - top_unit_six:GetAbsOrigin()):Normalized())
+            top_unit_six:AddNewModifier( top_unit_six, nil, "modifier_creator_statue", {id = "335437141"} )
+            top_unit_six:SetAbsOrigin(top_unit_six:GetAbsOrigin() + (Vector(0,0,20)))
         end
     end)
 end
@@ -544,9 +576,11 @@ function GameMode:OnGameRulesStateChange()
                                 if GameMode.autoCreepMap==nil then
                                     GameMode.autoCreepMap = {}
                                 end
-                                GameMode.autoCreepMap[nPlayerNumber]=false                         
-                                table.insert(GameMode.vTeamPlayerMap[hHero:GetTeamNumber()], nPlayerNumber)
-                                if true~=GameMode.vAliveTeam[hHero:GetTeamNumber()] then
+                                GameMode.autoCreepMap[nPlayerNumber]=false   
+                                if hHero:GetTeamNumber() ~= DOTA_TEAM_CUSTOM_7 then                      
+                                    table.insert(GameMode.vTeamPlayerMap[hHero:GetTeamNumber()], nPlayerNumber)
+                                end
+                                if true~=GameMode.vAliveTeam[hHero:GetTeamNumber()] and hHero:GetTeamNumber() ~= DOTA_TEAM_CUSTOM_7 then
                                     GameMode.vAliveTeam[hHero:GetTeamNumber()] =true
                                     GameMode.nRank = GameMode.nRank + 1
                                     GameMode.nValidTeamNumber = GameMode.nValidTeamNumber + 1
@@ -555,7 +589,9 @@ function GameMode:OnGameRulesStateChange()
                                 CustomNetTables:SetTableValue("pvp_record", tostring(nPlayerNumber), {win=0,lose=0,total_bet_reward=0})
                                 Timers:CreateTimer(RandomFloat(0, 0.2), function()
                                     if not hHero.bInited then
-                                        HeroBuilder:InitPlayerHero(hHero)
+                                        if hHero:GetTeamNumber() ~= DOTA_TEAM_CUSTOM_7 then
+                                            HeroBuilder:InitPlayerHero(hHero)
+                                        end
                                     end                               
                                 end)
                                 if PlayerResource:GetPartyID(nPlayerNumber) and tostring(PlayerResource:GetPartyID(nPlayerNumber))~="0" then
@@ -604,9 +640,11 @@ function GameMode:OnGameRulesStateChange()
                for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS do
                     local hPlayer = PlayerResource:GetPlayer(nPlayerID)
                     if hPlayer then
-                        HeroBuilder:ShowRandomHeroSelection(nPlayerID)
-                        if retryTimes<12 then
-                            CustomGameEventManager:Send_ServerToPlayer(hPlayer,"InitFeedback",{})
+                        if PlayerResource:GetTeam(nPlayerID) ~= DOTA_TEAM_CUSTOM_7 then
+                            HeroBuilder:ShowRandomHeroSelection(nPlayerID)
+                            if retryTimes<12 then
+                                CustomGameEventManager:Send_ServerToPlayer(hPlayer,"InitFeedback",{})
+                            end
                         end
                     end
                end
@@ -674,24 +712,33 @@ function GameMode:AsyncSpawn()
     end
 end
 
-function GameMode:StartGame()
+function GameMode:StartGame(save)
     Notifications:BottomToAll({ text = "#best_tournament_mans", duration = 3, style = { color = "Red" }})
     CreateModifierThinker(nil, nil, "modifier_abilities_optimization_thinker", {}, Vector(0,0,0), DOTA_TEAM_NEUTRALS, false)
     GameRules:GetGameModeEntity():SetThink( spawn_creeps_timer, "spawn_creeps_timer", 0 )
     HeroBuilder:RunAbilitySoundPrecache()
     GameRules.nGameStartTime = GameRules:GetGameTime()
-    GameMode.currentRound = Round()
-    GameMode.currentRound:Prepare(1)
+
+    --if IsInToolsMode() then return end
+
+    if GameMode.LoadRound ~= nil then
+        GameMode.currentRound = Round()
+        GameMode.currentRound:Prepare(GameMode.LoadRound, 120)
+    else
+        GameMode.currentRound = Round()
+        GameMode.currentRound:Prepare(1)
+    end
 
     -- Запускает проверку на аганим и проверку на дальность от арены
     Util:InitHeroFence()
-    Timers:CreateTimer(FrameTime(), function()
+
+    Timers:CreateTimer(0.1, function()
         HeroBuilder:FixAttackCapability()
         HeroBuilder:ProcessScepterOwners()
-        return FrameTime()
+        return 0.1
     end)
          
-    Timers:CreateTimer(2, function()
+    Timers:CreateTimer(5, function()
         for nTeamNumber,bAlive in pairs(GameMode.vAliveTeam) do
             local bTeamAbandon = true
             for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nTeamNumber]) do
@@ -710,7 +757,7 @@ function GameMode:StartGame()
                 GameRules.teamAbandonMap[nTeamNumber] = true
             end
         end
-        return 2
+        return 5
     end)
 end
 
@@ -762,6 +809,10 @@ function GameMode:SetTeam()
         local wayPoint = Entities:FindByName(nil, "center_"..nTeamNumber)
         GameMode.vTeamLocationMap[nTeamNumber] = wayPoint:GetOrigin()
         ExtraCreature.teamCreatureMap[nTeamNumber] = {}
+    end
+
+    if GetMapName() == "tournament_1x8" then
+        GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_7, 1 )
     end
 end
 
@@ -1118,13 +1169,19 @@ function GameMode:GetAllTeamInfo()
     return nMaxTeamNumber,nMaxPerTeam
 end
 
+LinkLuaModifier("modifier_hero_spectator", "modifiers/modifier_hero_spectator", LUA_MODIFIER_MOTION_NONE)
+
 function GameMode:OnNPCSpawned(keys)
     local hSpawnedUnit = EntIndexToHScript(keys.entindex)
     if hSpawnedUnit then
-        Timers:CreateTimer(0.1, function()
-            Illusion:InitIllusion(hSpawnedUnit)
-        end)
+        if hSpawnedUnit and hSpawnedUnit:IsHero() then
+            Timers:CreateTimer(0.1, function()
+                hSpawnedUnit:RemoveModifierByName("modifier_fountain_invulnerability")
+                Illusion:InitIllusion(hSpawnedUnit)
+            end)
+        end
         hSpawnedUnit:RemoveModifierByName("modifier_fountain_invulnerability")
+
         local hOwner = hSpawnedUnit:GetOwner()
         if hOwner and hOwner.HasModifier and hOwner:HasModifier("modifier_hero_refreshing") then
             if hSpawnedUnit and hSpawnedUnit:GetUnitName()=="npc_dota_phoenix_sun" then
@@ -1134,15 +1191,23 @@ function GameMode:OnNPCSpawned(keys)
                 hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_hero_refreshing", {})
             end
         end
+
         if hSpawnedUnit and hSpawnedUnit:IsRealHero() and hSpawnedUnit.inmassive == nil then
-            GameMode.HeroesPlayersList[hSpawnedUnit:GetPlayerID()] = hSpawnedUnit
+            if hSpawnedUnit:GetTeamNumber() ~= DOTA_TEAM_CUSTOM_7 then
+                GameMode.HeroesPlayersList[hSpawnedUnit:GetPlayerID()] = hSpawnedUnit
+            else
+                hSpawnedUnit:AddNewModifier(hSpawnedUnit, nil, "modifier_hero_spectator", {})
+            end
             hSpawnedUnit.inmassive = true
         end
+
         if IsInToolsMode() then
-            if hSpawnedUnit:IsRealHero() then
+            if hSpawnedUnit:IsRealHero() and hSpawnedUnit:GetTeamNumber() ~= DOTA_TEAM_CUSTOM_7 then
                 Timers:CreateTimer(RandomFloat(0, 0.2), function()
                     if not hSpawnedUnit.bInited then
-                        HeroBuilder:InitPlayerHero(hSpawnedUnit)
+                        if hSpawnedUnit:GetTeamNumber() ~= DOTA_TEAM_CUSTOM_7 then
+                            HeroBuilder:InitPlayerHero(hSpawnedUnit)
+                        end
                     end                               
                 end)
                 if GameMode.autoDuelMap==nil then
@@ -1163,6 +1228,7 @@ function GameMode:OnNPCSpawned(keys)
                 CustomNetTables:SetTableValue("pvp_record", tostring(hSpawnedUnit:GetPlayerOwnerID()), {win=0,lose=0,total_bet_reward=0})
             end
         end
+        
         if hSpawnedUnit and not hSpawnedUnit:IsNull() and hSpawnedUnit.GetUnitName and  hSpawnedUnit:GetUnitName() and not hSpawnedUnit:IsIllusion() and not hSpawnedUnit:IsTempestDouble() and not hSpawnedUnit:HasModifier("modifier_arc_warden_tempest_double_lua") then
             if hSpawnedUnit:IsSummoned() or Summon.efficiency[hSpawnedUnit:GetUnitName()] then
                 local flWaitTime = 0
@@ -1258,9 +1324,15 @@ function GameMode:OnConnectFull(data)
     if player_index == nil then
         return
     end
+
     local hPlayer = PlayerResource:GetPlayer(data.PlayerID)
     if hPlayer then
         CustomGameEventManager:Send_ServerToPlayer(hPlayer,"loading_screen_event",{})
     end
+
+    if GetMapName() == "tournament_1x8" then
+        ChaServerData:RegisterPlayerSiteInfoTournament(data.PlayerID)
+    end
+
     ChaServerData:RegisterPlayerSiteInfo(data.PlayerID)
 end

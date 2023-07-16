@@ -1,13 +1,14 @@
-<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 		<include src="s2r://panorama/styles/custom_game/setting.vcss_c" />
+		<include src="s2r://panorama/styles/custom_game/keybinds.vcss_c"/>
 	</styles>
 	<scripts>
 		<include src="s2r://panorama/scripts/custom_game/util.vjs_c" />
 		<include src="s2r://panorama/scripts/custom_game/security.vjs_c" />
 		<include src="s2r://panorama/scripts/custom_game/setting.vjs_c" />
+		<include src="s2r://panorama/scripts/custom_game/keybinds.vjs_c" />
 	</scripts>
 	<snippets>
 		<snippet name="AbilityOrderAbility">
@@ -18,20 +19,19 @@
 				<Label id="AbilityName" text="" />
 				<Panel id="ButtonPanel">
 					<Button id="ButtonLeft" />
+                    <Button id="LockedAbility" class="LockedAbilityLockRed" />
 					<Button id="ButtonRight" />
 				</Panel>
 			</Panel>
 		</snippet>
 		<snippet name="AbilityBannedAbility">
 			<Panel class="AbilityBannedRoot">
-				
 				<Panel class="AbilityBannedContainer">
 					<Panel>
 						<DOTAAbilityImage id="AbilityBannedImage">
 							<Panel class="AbilityBannedBackGround" />
 						</DOTAAbilityImage>
 					</Panel>
-					<Label id="AbilityBannedName" text="" />
 				</Panel>
 			</Panel>
 		</snippet>
@@ -45,20 +45,43 @@
 				</Panel>
 			</Panel>
 		</snippet>
+		<snippet name="KeyRegister">
+			<Panel class="CustomKeybind">
+				<DOTASettingsKeyBinder id="CustomBinder" class="HeroAbilityBindAbilityButton" />
+			</Panel>
+		</snippet>
+		<snippet name="CustomKeyRegister">
+			<Panel class="CustomKeybindContainer">
+				<Panel class="CustomKeybind" acceptinput="true">
+					<Button id="CustomBinder" class="CustomKeybinder" acceptinput="true">
+						<Label id="title" text="" />
+						<Panel id="BindingLabels">
+							<Panel id="BindingLabelsContainer">
+								<Label id="mod" class="BindingRowButton" text="" />
+								<Label id="value" class="BindingRowButton" text="" />
+							</Panel>
+							<Button id="BindingClose" />
+						</Panel>
+					</Button>
+				</Panel>
+				<Label id="CustomKeybindTitle" text="Camera" />
+			</Panel>
+		</snippet>
 	</snippets>
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel id="page_setting" class="AbilityOrderPanelRoot">
-				<Panel class="Close" onactivate="CloseAbilityOrder();"/>
 				<Panel class="MainSettingsContainer"> 
 					<Panel class="SettingLeft">
-						<Panel id="BarrageSetting">
+						<Panel class="SettingsHeader">
 							<Label id="BarrageSettingTitle" text="#UISettingTitle" />
-							<Panel class="SectionHeaderLine" />
+						</Panel>
+						<Panel id="BarrageSetting">
 							<Panel class="SettingsSliderLabels LeftRightFlow">
 								<Label class="SliderTitle" text="#SetBarrageOpacity" />
 								<Label id="SliderValue" class="SliderValue" text="" />
 							</Panel>
 							<Slider id="BarrageOpacitySlider" direction="horizontal" class="HorizontalSlider" min="0" max="100" onvaluechanged="ChangeBarrageOpacity();" />
+
 							<Panel id="UICheckBoxes">
 								<Panel id="UIContainer">
 									<ToggleButton class="Checkbox" id="CheckLeftAbilitySelect" onactivate="ToggleLeftAbilitySelect(false)" />
@@ -68,11 +91,14 @@
 									<ToggleButton class="Checkbox" id="CheckEffectAbilitySelect" onactivate="TogglEffectAbilitySelect(false)" />
 									<Label class="CameraLabel" id="TextEffectAbilitySelect" text="#effect_ability_select" onmouseover="DOTAShowTextTooltip(#effect_ability_select_hint)" onmouseout="DOTAHideTextTooltip()" onactivate="TogglEffectAbilitySelect(true)" />
 								</Panel>
+								<Panel id="UIContainer3">
+									<ToggleButton class="Checkbox" id="CheckWidthAbilitySelect" onactivate="TogglWidthAbilitySelect(false)" />
+									<Label class="CameraLabel" id="TextWidthAbilitySelect" text="#width_ability_select" onmouseover="DOTAShowTextTooltip(#width_ability_select_hint)" onmouseout="DOTAHideTextTooltip()" onactivate="TogglWidthAbilitySelect(true)" />
+								</Panel>
 							</Panel>
 						</Panel>
 						<Panel id="CameraSetting">
 							<Label id="CameraSettingTitle" text="#CameraSettingTitle" />
-							<Panel class="SectionHeaderLine" />
 							<Panel id="CameraCheckBoxes">
 								<Panel id="DuelCameraContainer">
 									<ToggleButton class="Checkbox" id="CheckAutoDuel" onactivate="ToggleAutoDuel(false)" />
@@ -84,35 +110,57 @@
 								</Panel>
 							</Panel>
 						</Panel>
+
+						<Panel id="BanAbilityPanel">
+							<Label id="BanAbilityTitle" text="#BanAbilityTitle" />
+							<Panel id="BanAbilityContainer" />
+						</Panel>
+
+						<Panel id="BanHeroPanel">
+							<Label id="BanHeroTitle" text="#BanHeroTitle" />
+							<Panel id="BanHeroContainer" />
+						</Panel>
+
+						<Panel class="AbilityOrderPanel" id="AbilityOrderPanel">
+							<Label id="AbilityOrderTitle" text="#AbilityOrderTitle" />
+							<Label id="AbilityOrderSubTitle" text="#AbilityOrderSubTitle" />
+							<Panel id="AbilityOrderAbilityBody" />
+						</Panel>
 					</Panel>
 					<Panel class="SettingRight">
+						<Panel class="SettingsHeader">
+							<Label id="BarrageSettingTitle" text="#custom_keybindings" />
+							<Panel class="Close_new" onactivate="CloseAbilityOrder();"/>
+						</Panel>
+						<Panel id="SettingsKeybindsList">
+
+						</Panel>
+						<Label class="TitleInfo" text="#cha_PlayerInfo" />
 						<Panel class="ButtonWithGuide" onactivate="GameUI.CustomUIConfig().OpenGuide();">
-							<Panel class="GuideImage" />
 							<Label class="GuideName" text="#guide_settings" />
 						</Panel>
 						<Panel class="ButtonWithGuide" onactivate="GameUI.CustomUIConfig().OpenSkills();">
-							<Panel class="GuideImage" />
 							<Label class="GuideName" text="#skills_settings" />
 						</Panel>
+						<Label class="TitleInfo" text="#cha_other" />
+						<Panel class="ButtonWithGuide" id="recalib" onactivate="open_recalibrating()">
+							<Label class="GuideName" text="#calibrate_settings" />
+						</Panel>
+						<Label class="CalibrateInfo" text="#recalib_info" />
+						<Label class="CalibrateInfo" id="CalibrateCount" text="#ticket_count" />
 					</Panel>
 				</Panel>
-
-				<Panel id="BanAbilityPanel">
-					<Label id="BanAbilityTitle" text="#BanAbilityTitle" />
-					<Panel class="SectionHeaderLine" />
-					<Panel id="BanAbilityContainer" />
+		</Panel>
+		<Panel class="CalibratingComfirmed" id="CalibratingComfirmed">
+			<Label class="CalibratingComfirmedLabel" text="#CalibratingComfirmed" />
+			<Panel style="flow-children:right;">
+				<Panel class="ButtonCalibStart" onactivate="recalibrating_start()">
+					<Label class="GuideName" text="#yes" />
 				</Panel>
-				<Panel id="BanHeroPanel">
-					<Label id="BanHeroTitle" text="#BanHeroTitle" />
-					<Panel class="SectionHeaderLine" />
-					<Panel id="BanHeroContainer" />
+				<Panel class="ButtonCalibEnd" onactivate="CloseRecalib()">
+					<Label class="GuideName_Red" text="#no" />
 				</Panel>
-				<Panel class="AbilityOrderPanel" id="AbilityOrderPanel">
-					<Label id="AbilityOrderTitle" text="#AbilityOrderTitle" />
-					<Label id="AbilityOrderSubTitle" text="#AbilityOrderSubTitle" />
-					<Panel class="SectionHeaderLine" />
-					<Panel id="AbilityOrderAbilityBody" />
-				</Panel>
+			</Panel>
 		</Panel>
 	</Panel>
 </root>

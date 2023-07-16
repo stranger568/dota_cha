@@ -164,6 +164,10 @@ function Spawner:GetTeamPlaceBonusGold(teamcheck, round_number)
                 return 15 + 100 + bonus
             end
             return 15 + bonus
+        elseif dataList[4] and dataList[4].team == teamcheck then
+            if dataList[3].modifier_skill_outsiders then
+                return 100
+            end
         end
     end
 

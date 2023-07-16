@@ -22,10 +22,16 @@ function modifier_item_desolator_2_custom:DeclareFunctions()
 	}
 end
 
+function modifier_item_desolator_2_custom:OnCreated()
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.bonus_damage = self.ability:GetSpecialValueFor("bonus_damage")
+    self.corruption_duration = self.ability:GetSpecialValueFor("corruption_duration")
+    self.arrow_count = self.ability:GetSpecialValueFor("arrow_count")
+end
+
 function modifier_item_desolator_2_custom:GetModifierPreAttack_BonusDamage()
-    if self:GetAbility() then
-        return self:GetAbility():GetSpecialValueFor("bonus_damage")
-    end
+    return self.bonus_damage
 end
 
 function modifier_item_desolator_2_custom:GetModifierProjectileName()
@@ -34,45 +40,42 @@ end
 
 function modifier_item_desolator_2_custom:AttackModifier(params)
     if not IsServer() then return end
-    if params.attacker ~= self:GetParent() then return end
+    if params.attacker ~= self.parent then return end
     if params.target:IsWard() then return end
-    if self:GetParent():FindAllModifiersByName("modifier_item_desolator_2_custom")[1] ~= self then return end
-    if self:GetParent():IsIllusion() then return end
+    if self.parent:FindAllModifiersByName("modifier_item_desolator_2_custom")[1] ~= self then return end
+    if self.parent:IsIllusion() then return end
     params.target:EmitSound("Item_Desolator.Target")
 end
 
 function modifier_item_desolator_2_custom:AttackLandedModifier(params)
     if not IsServer() then return end
-    if params.attacker ~= self:GetParent() then return end
+    if params.attacker ~= self.parent then return end
     if params.target:IsWard() then return end
-    if self:GetParent():FindAllModifiersByName("modifier_item_desolator_2_custom")[1] ~= self then return end
-    if self:GetParent():IsIllusion() then return end
-    params.target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_desolator_2_buff", {duration = self:GetAbility():GetSpecialValueFor("corruption_duration")})
+    if self.parent:FindAllModifiersByName("modifier_item_desolator_2_custom")[1] ~= self then return end
+    if self.parent:IsIllusion() then return end
+    params.target:AddNewModifier(self.parent, self.ability, "modifier_desolator_2_buff", {duration = self.corruption_duration})
     params.target:EmitSound("Item_Desolator.Target")
 end
 
 function modifier_item_desolator_2_custom:AttackModifier(params)
 	if not IsServer() then return end
-	if params.attacker ~= self:GetParent() then return end
+	if params.attacker ~= self.parent then return end
 	if params.attacker:IsIllusion() then return end
-	if params.target == self:GetParent() then return end
-	if not self:GetAbility():IsFullyCastable() then return end
-	if self:GetParent():PassivesDisabled() then return end
+	if params.target == self.parent then return end
+	if not self.ability:IsFullyCastable() then return end
+	if self.parent:PassivesDisabled() then return end
 	if params.no_attack_cooldown then return end
-
-	local enemies = FindUnitsInRadius( self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, self:GetParent():Script_GetAttackRange() + 100, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_CLOSEST, false )
+	local enemies = FindUnitsInRadius( self.parent:GetTeamNumber(), self.parent:GetAbsOrigin(), nil, self.parent:Script_GetAttackRange() + 100, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_CLOSEST, false )
 	local attacks = 0
-
 	for i, enemy in pairs(enemies) do
-		if attacks >= self:GetAbility():GetSpecialValueFor("arrow_count") then break end
+		if attacks >= self.arrow_count then break end
 		attacks = attacks + 1
 		Timers:CreateTimer(0.07 * i, function()
 			if enemy and not enemy:IsNull() and enemy:IsAlive() and not enemy:IsAttackImmune() and not enemy:IsInvulnerable() then
-				self:GetParent():PerformAttack(enemy, true, true, true, false, true, false, false) 
+				self.parent:PerformAttack(enemy, true, true, true, false, true, false, false) 
 			end
 		end)
 	end
-
-	self:GetAbility():UseResources(false, false, false, true)
+	self.ability:UseResources(false, false, false, true)
 end
 

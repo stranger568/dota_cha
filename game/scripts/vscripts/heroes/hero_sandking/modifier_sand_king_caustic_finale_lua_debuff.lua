@@ -41,7 +41,6 @@ end
 -- Modifier Effects
 function modifier_sand_king_caustic_finale_lua_debuff:DeclareFunctions()
 	local funcs = {
-		--MODIFIER_EVENT_ON_DEATH,
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE
 	}
 

@@ -23,7 +23,8 @@ function lycan_shapeshift_custom:OnToggle()
 end
 
 function lycan_shapeshift_custom:GetManaCost(level)
-	if self:GetCaster():HasScepter() then 
+	if self:GetCaster():HasScepter() then
+        if IsClient() then return 15 end
 		return 0
 	end
 	return self.BaseClass.GetManaCost(self,level)
@@ -57,19 +58,28 @@ function modifier_lycan_shapeshift_custom_fly:IsPurgeException() return false en
 
 function modifier_lycan_shapeshift_custom_fly:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(0.1)
+    self.parent = self:GetParent()
+	self:StartIntervalThink(0.5)
 end
 
 function modifier_lycan_shapeshift_custom_fly:OnIntervalThink()
 	if not IsServer() then return end
-	if self:GetParent():HasModifier("modifier_lycan_shapeshift_transform") then return end
-	if not self:GetParent():HasModifier("modifier_lycan_shapeshift_custom") then
+	if self.parent:HasModifier("modifier_lycan_shapeshift_transform") then return end
+    self.parent:SpendMana(15*0.5, self:GetAbility())
+    if self.parent:GetMana() <= 14 then
+        self.parent:RemoveModifierByName("modifier_undying_flesh_golem")
+        return
+    end
+	if not self.parent:HasModifier("modifier_lycan_shapeshift_custom") then
 		self:Destroy()
 	end
+    if not self.parent:HasScepter() then
+        self.parent:RemoveModifierByName("modifier_lycan_shapeshift_custom")
+    end
 end
 
 function modifier_lycan_shapeshift_custom_fly:CheckState()
-	if not self:GetCaster():HasScepter() then return end
+	if not self.parent:HasScepter() then return end
 	return 
 	{
 		[MODIFIER_STATE_FLYING] = true
@@ -94,18 +104,12 @@ function modifier_lycan_shapeshift_custom:GetModifierModelChange()
     return "models/heroes/lycan/lycan_wolf.vmdl"
 end
 
-function modifier_lycan_shapeshift_custom:GetEffectName()
-    return "particles/units/heroes/hero_lycan/lycan_shapeshift_buff.vpcf"
-end
-
-function modifier_lycan_shapeshift_custom:GetEffectAttachType()
-    return PATTACH_ABSORIGIN_FOLLOW
-end
-
 function modifier_lycan_shapeshift_custom:OnCreated()
-    self.crit_chance = self:GetAbility():GetSpecialValueFor("crit_chance")
-    self.crit_damage = self:GetAbility():GetSpecialValueFor("crit_multiplier")
-    self.health_bonus = self:GetAbility():GetSpecialValueFor("health_bonus")
+    self.ability = self:GetAbility()
+    self.caster = self:GetCaster()
+    self.crit_chance = self.ability:GetSpecialValueFor("crit_chance")
+    self.crit_damage = self.ability:GetSpecialValueFor("crit_multiplier")
+    self.health_bonus = self.ability:GetSpecialValueFor("health_bonus")
 end
 
 function modifier_lycan_shapeshift_custom:GetModifierHealthBonus()
@@ -134,13 +138,19 @@ function modifier_lycan_shapeshift_custom:GetModifierAura() return "modifier_lyc
 
 function modifier_lycan_shapeshift_custom:GetAuraEntityReject(hTarget)
     if not IsServer() then return end
-    if hTarget == self:GetCaster() or hTarget:GetOwner() == self:GetCaster() then
+    if hTarget == self.caster or hTarget:GetOwner() == self.caster then
         return false
     end
     return true
 end
 
 modifier_lycan_shapeshift_custom_speed = class({})
+
+function modifier_lycan_shapeshift_custom_speed:OnCreated()
+    self.ability = self:GetAbility()
+    self.speed = self.ability:GetSpecialValueFor("speed")
+    self.bonus_night_vision = self.ability:GetSpecialValueFor("bonus_night_vision")
+end
 
 function modifier_lycan_shapeshift_custom_speed:DeclareFunctions()
     local funcs = 
@@ -153,11 +163,11 @@ function modifier_lycan_shapeshift_custom_speed:DeclareFunctions()
 end
 
 function modifier_lycan_shapeshift_custom_speed:GetModifierMoveSpeedOverride()
-    return self:GetAbility():GetSpecialValueFor("speed")
+    return self.speed
 end
 
 function modifier_lycan_shapeshift_custom_speed:GetBonusNightVision()
-    return self:GetAbility():GetSpecialValueFor("bonus_night_vision")
+    return self.bonus_night_vision
 end
 
 function modifier_lycan_shapeshift_custom_speed:CheckState()
@@ -172,10 +182,3 @@ function modifier_lycan_shapeshift_custom_speed:IsHidden()
 end
 
 function modifier_lycan_shapeshift_custom_speed:IsPurgable() return false end
-
-function modifier_lycan_shapeshift_custom_speed:OnCreated()
-    if IsServer() then
-        self.particle = ParticleManager:CreateParticle("particles/units/heroes/hero_lycan/lycan_shapeshift_buff.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-        self:AddParticle(self.particle, false, false, -1, false, false)
-    end
-end

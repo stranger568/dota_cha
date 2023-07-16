@@ -1,10 +1,8 @@
 modifier_loser_curse = class({})
 
-
 function modifier_loser_curse:GetTexture()
 	return "doom_bringer_doom"
 end
-
 
 function modifier_loser_curse:IsHidden()
 	return false
@@ -22,11 +20,14 @@ function modifier_loser_curse:IsPermanent()
 	return true
 end
 
+function modifier_loser_curse:OnCreated()
+    self.parent = self:GetParent()
+end
 
 function modifier_loser_curse:DeclareFunctions()
-    local funcs = {
+    local funcs = 
+    {
        MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE,
-       MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
        MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
        MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
        MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
@@ -34,44 +35,30 @@ function modifier_loser_curse:DeclareFunctions()
 	return funcs
 end
 
-
 function modifier_loser_curse:GetModifierIncomingDamage_Percentage(params)
-	if true==self:GetParent().bJoiningPvp then
+	if self.parent.bJoiningPvp then
 		return 0
-	else
-		return 20*self:GetStackCount()
-	end
-end
-
-
-function modifier_loser_curse:GetModifierTotalDamageOutgoing_Percentage(params)
-	if true==self:GetParent().bJoiningPvp then
-		 return 0
-    else
-         return -20*self:GetStackCount()
     end
+	return 20 * self:GetStackCount()
 end
 
 function modifier_loser_curse:GetModifierBonusStats_Strength(params)
-	if true==self:GetParent().bJoiningPvp then
-		 return 0
-    else
-         return -0.1*self:GetStackCount()*self:GetParent():GetBaseStrength()
+	if self.parent.bJoiningPvp then
+		return 0
     end
+    return -0.1 * self:GetStackCount() * self.parent:GetBaseStrength()
 end
 
 function modifier_loser_curse:GetModifierBonusStats_Agility(params)
-	if true==self:GetParent().bJoiningPvp then
-		 return 0
-    else
-         return -0.1*self:GetStackCount()*self:GetParent():GetBaseAgility()
+	if self.parent.bJoiningPvp then
+		return 0
     end
+    return -0.1 * self:GetStackCount() * self.parent:GetBaseAgility()
 end
 
 function modifier_loser_curse:GetModifierBonusStats_Intellect(params)
-	if true==self:GetParent().bJoiningPvp then
-		 return 0
-    else
-         return -0.1*self:GetStackCount()*self:GetParent():GetBaseIntellect()
+	if self.parent.bJoiningPvp then
+		return 0
     end
+    return -0.1 * self:GetStackCount() * self.parent:GetBaseIntellect()
 end

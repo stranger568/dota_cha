@@ -76,7 +76,7 @@
   "muerta" {
   "1"    "muerta_dead_shot"
   "2"    "muerta_the_calling"
-  "3"    "muerta_gunslinger"
+  //"3"    "muerta_gunslinger"
   "4"    "muerta_pierce_the_veil"
   }
   "morphling" {
@@ -154,7 +154,7 @@
   }
   "huskar" {
   //"1"    "huskar_inner_vitality"
-  "2"    "huskar_burning_spear"
+  //"2"    "huskar_burning_spear"
   "3"    "frostivus2018_huskar_burning_spear"
   "4"    "huskar_inner_fire"
   "5"    "huskar_berserkers_blood"
@@ -493,7 +493,7 @@
   "2"    "viper_nethertoxin_custom"
   "3"    "viper_corrosive_skin"
   "4"    "viper_viper_strike_custom"
-  "5"    "viper_viper_strike"
+  //"5"    "viper_viper_strike"
   }
   "bane" {
   "bane_nightmare" {"bane_nightmare_end" "0"}
@@ -585,7 +585,7 @@
   }
   "clinkz" {
   "1"    "clinkz_strafe"
-  "2"    "clinkz_searing_arrows"
+  //"2"    "clinkz_searing_arrows"
   "3"    "frostivus2018_clinkz_searing_arrows"
   "4"    "clinkz_wind_walk"
   "5"    "frostivus2018_clinkz_wind_walk"
@@ -608,7 +608,7 @@
   "spectre_haunt" {"spectre_reality" "0"}
   "1"    "spectre_spectral_dagger"
   "2"    "spectre_desolate"
-  "3"    "spectre_dispersion"
+  "3"    "spectre_dispersion_custom"
   "4"    "spectre_haunt"
   }
   "meepo" {
@@ -645,7 +645,7 @@
   "1"    "pugna_nether_blast"
   "2"    "pugna_decrepify"
   //"3"    "pugna_nether_ward"
-  "4"    "pugna_life_drain"
+  //"4"    "pugna_life_drain"
   "5"    "pugna_ward_winter_2018"
   "6"    "pugna_life_drain_custom"
   }
@@ -771,7 +771,7 @@
   "2"    "dark_willow_shadow_realm"
   "3"    "dark_willow_cursed_crown"
   //自动学会恐吓技能
-  "4"    "dark_willow_bedlam"
+  //"4"    "dark_willow_bedlam"
   "5"    "frostivus2018_dark_willow_bedlam"
   }
   "grimstroke" {

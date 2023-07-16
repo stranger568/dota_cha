@@ -43,14 +43,14 @@ function modifier_item_kaya_3_lua:OnCreated()
 	     if hCaster:HasModifier("modifier_item_kaya_3_lua") then
 	        local hAbility = hCaster:FindModifierByName("modifier_item_kaya_3_lua"):GetAbility()
 	        if self:GetParent():HasModifier("modifier_skill_overbuffed") then
-	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.5
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.75
 	        else
 	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
 	        end
 	     elseif hCaster:HasModifier("modifier_item_kaya_2_lua") then
 	        local hAbility = hCaster:FindModifierByName("modifier_item_kaya_2_lua"):GetAbility()
 	        if self:GetParent():HasModifier("modifier_skill_overbuffed") then
-	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.5
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.75
 	        else
 	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
 	        end
@@ -73,14 +73,14 @@ function modifier_item_kaya_3_lua:OnDestroy()
 	     if hCaster:HasModifier("modifier_item_kaya_3_lua") then
 	        local hAbility = hCaster:FindModifierByName("modifier_item_kaya_3_lua"):GetAbility()
 	        if self:GetParent():HasModifier("modifier_skill_overbuffed") then
-	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.5
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.75
 	        else
 	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
 	        end
 	     elseif hCaster:HasModifier("modifier_item_kaya_2_lua") then
 	        local hAbility = hCaster:FindModifierByName("modifier_item_kaya_2_lua"):GetAbility()
 	        if self:GetParent():HasModifier("modifier_skill_overbuffed") then
-	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.5
+	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify") + 0.75
 	        else
 	        	hCaster.flSP = hAbility:GetSpecialValueFor("spell_amplify")
 	        end

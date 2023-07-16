@@ -41,18 +41,21 @@ function modifier_enigma_malefice_custom:IsPurgable()
 end
 
 function modifier_enigma_malefice_custom:OnCreated( kv )
-	local tick_rate = self:GetAbility():GetSpecialValueFor( "tick_rate" )
-	local damage = self:GetAbility():GetSpecialValueFor( "damage" )
-	self.stun = self:GetAbility():GetSpecialValueFor( "stun_duration" )
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.caster = self:GetCaster()
+	local tick_rate = self.ability:GetSpecialValueFor( "tick_rate" )
+	local damage = self.ability:GetSpecialValueFor( "damage" )
+	self.stun = self.ability:GetSpecialValueFor( "stun_duration" )
 	self.eid = kv.eid
 	if IsServer() then
 		self.damageTable = 
 		{
-			victim = self:GetParent(),
-			attacker = self:GetCaster(),
+			victim = self.parent,
+			attacker = self.caster,
 			damage = damage,
-			damage_type = self:GetAbility():GetAbilityDamageType(),
-			ability = self:GetAbility(),
+			damage_type = self.ability:GetAbilityDamageType(),
+			ability = self.ability,
 		}
 		self:StartIntervalThink( tick_rate )
 		self:OnIntervalThink()
@@ -65,16 +68,16 @@ end
 
 function modifier_enigma_malefice_custom:OnIntervalThink()
 	if not IsServer() then return end
-	self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_stunned", { duration = self.stun } )
+	self.parent:AddNewModifier( self.caster, self.ability, "modifier_stunned", { duration = self.stun } )
 	ApplyDamage( self.damageTable )
-	EmitSoundOn( "Hero_Enigma.MaleficeTick", self:GetParent() )
-	if tonumber(self.eid) == 1 and self:GetCaster():HasShard() then
-		local eidolon = CreateUnitByName("npc_dota_dire_eidolon", self:GetParent():GetAbsOrigin() + RandomVector(150), true, self:GetCaster(), self:GetCaster(), self:GetCaster():GetTeamNumber())
+	EmitSoundOn( "Hero_Enigma.MaleficeTick", self.parent )
+	if tonumber(self.eid) == 1 and self.caster:HasShard() then
+		local eidolon = CreateUnitByName("npc_dota_dire_eidolon", self.parent:GetAbsOrigin() + RandomVector(150), true, self.caster, self.caster, self.caster:GetTeamNumber())
 		if eidolon then
-			eidolon:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_kill", {duration = 40})
-			eidolon:AddNewModifier(self:GetCaster(), self, "modifier_demonic_conversion", {duration = 40})
-			eidolon:SetOwner(self:GetCaster())
-			eidolon:SetControllableByPlayer(self:GetCaster():GetPlayerID(), true)
+			eidolon:AddNewModifier(self.caster, self.ability, "modifier_kill", {duration = 40})
+			eidolon:AddNewModifier(self.caster, self, "modifier_demonic_conversion", {duration = 40})
+			eidolon:SetOwner(self.caster)
+			eidolon:SetControllableByPlayer(self.caster:GetPlayerID(), true)
 			FindClearSpaceForUnit(eidolon, eidolon:GetAbsOrigin(), true)
 		end
 	end

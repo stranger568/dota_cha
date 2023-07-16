@@ -1,37 +1,25 @@
 modifier_ogreseal_flop = class({})
 
---------------------------------------------------------------------------------
-
 local OGRE_MINIMUM_HEIGHT_ABOVE_LOWEST = 150
 local OGRE_MINIMUM_HEIGHT_ABOVE_HIGHEST = 33
 local OGRE_ACCELERATION_Z = 1250
 local OGRE_MAX_HORIZONTAL_ACCELERATION = 800
 
---------------------------------------------------------------------------------
-
 function modifier_ogreseal_flop:IsStunDebuff()
 	return true
 end
-
---------------------------------------------------------------------------------
 
 function modifier_ogreseal_flop:IsHidden()
 	return true
 end
 
---------------------------------------------------------------------------------
-
 function modifier_ogreseal_flop:IsPurgable()
 	return false
 end
 
---------------------------------------------------------------------------------
-
 function modifier_ogreseal_flop:RemoveOnDeath()
 	return false
 end
-
---------------------------------------------------------------------------------
 
 function modifier_ogreseal_flop:OnCreated( kv )
 	if IsServer() then

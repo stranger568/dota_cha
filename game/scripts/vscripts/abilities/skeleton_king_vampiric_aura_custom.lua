@@ -58,6 +58,8 @@ function modifier_skeleton_king_vampiric_aura_custom:DeclareFunctions()
 end
 
 function modifier_skeleton_king_vampiric_aura_custom:OnCreated(params)
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
 	self:SetStackCount(0)
 	self.creeps_killed = 0
 	self.creeps_killed_to_charge = 2
@@ -65,14 +67,14 @@ end
 
 function modifier_skeleton_king_vampiric_aura_custom:OnTakeDamage(params)
 	if not IsServer() then return end
-	if self:GetParent() ~= params.attacker then return end
-	if self:GetParent() == params.unit then return end
+	if self.parent ~= params.attacker then return end
+	if self.parent == params.unit then return end
 	if params.unit:IsBuilding() then return end
-	self.heal = self:GetAbility():GetSpecialValueFor("vampiric_aura") / 100
+	self.heal = self.ability:GetSpecialValueFor("vampiric_aura") / 100
 	self.heal = self.heal
 	if params.inflictor == nil then 
 		local heal = params.damage*self.heal
-		self:GetParent():Heal(heal, self:GetAbility())
+		self.parent:Heal(heal, self.ability)
 	end
 end 
 
@@ -84,9 +86,11 @@ function modifier_skeleton_king_vampiric_aura_custom_skeleton_ai:IsPurgable() re
 
 function modifier_skeleton_king_vampiric_aura_custom_skeleton_ai:OnCreated(table)
 	if not IsServer() then return end
-	self:GetParent():SetBaseMaxHealth(self:GetAbility():GetSpecialValueFor("skeleton_health_tooltip"))
-	self:GetParent():SetMaxHealth(self:GetAbility():GetSpecialValueFor("skeleton_health_tooltip"))
-	self:GetParent():SetHealth(self:GetParent():GetMaxHealth())
+    self.parent = self:GetParent()
+    self.ability = self:GetAbility()
+	self.parent:SetBaseMaxHealth(self.ability:GetSpecialValueFor("skeleton_health_tooltip"))
+	self.parent:SetMaxHealth(self.ability:GetSpecialValueFor("skeleton_health_tooltip"))
+	self.parent:SetHealth(self.parent:GetMaxHealth())
 end
 
 modifier_skelet_reincarnation = class({})
@@ -107,24 +111,30 @@ function modifier_skelet_reincarnation:DeclareFunctions()
     return funcs
 end
 
+function modifier_skelet_reincarnation:OnCreated()
+    self.ability = self:GetAbility()
+    self.parent = self:GetParent()
+    self.caster = self:GetCaster()
+end
+
 function modifier_skelet_reincarnation:OnDeath( params )
     if not IsServer() then return end
     if params.attacker == nil then return end
-    if params.unit ~= self:GetParent() then return end
-    if params.attacker == self:GetParent() then return end
- 	local point = self:GetParent():GetAbsOrigin()
-  	local team = self:GetParent():GetTeamNumber()
-  	local caster = self:GetCaster()
-	local ability = self:GetAbility()
+    if params.unit ~= self.parent then return end
+    if params.attacker == self.parent then return end
+ 	local point = self.parent:GetAbsOrigin()
+  	local team = self.parent:GetTeamNumber()
+  	local caster = self.caster
+	local ability = self.ability
 	local duration = 0
-	local modifier_kill = self:GetParent():FindModifierByName("modifier_skeleton_king_vampiric_aura_custom_skeleton_ai")
+	local modifier_kill = self.parent:FindModifierByName("modifier_skeleton_king_vampiric_aura_custom_skeleton_ai")
 	local delay_reincarnation = 3
 
 	if modifier_kill then
 		duration = modifier_kill:GetRemainingTime()
 	end
 
-	local name = self:GetParent():GetUnitName()
+	local name = self.parent:GetUnitName()
 
 	Timers:CreateTimer(delay_reincarnation, function()
 		if caster ~= nil and not caster:IsNull() then 

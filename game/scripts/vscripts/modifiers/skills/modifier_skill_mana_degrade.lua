@@ -22,7 +22,7 @@ function modifier_skill_mana_degrade:GetModifierProcAttack_BonusDamage_Physical(
 	if target:GetMaxMana() == 0 then return end
 	if target:IsMagicImmune() then return end
 	if self:GetParent():IsIllusion() then return end
-	if self:GetParent():IsCustomHasDebuffImmune() then return end
+	if target:IsCustomHasDebuffImmune() then return end
 	local reduce_mana_full = 50 + (target:GetMaxMana() / 100 * 2)
 	local mana_burn =  math.min( target:GetMana(), reduce_mana_full )
 	target:Script_ReduceMana(mana_burn, self:GetAbility()) 

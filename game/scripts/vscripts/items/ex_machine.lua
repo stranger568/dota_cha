@@ -44,6 +44,7 @@ function item_ex_machina_custom:OnSpellStart()
 
     local particle = ParticleManager:CreateParticle("particles/items2_fx/refresher.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster())
     ParticleManager:SetParticleControlEnt(particle, 0, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_hitloc", self:GetCaster():GetAbsOrigin(), true)
+    ParticleManager:ReleaseParticleIndex(particle)
 end
 
 modifier_item_ex_machina_custom = class({})
@@ -55,7 +56,11 @@ function modifier_item_ex_machina_custom:DeclareFunctions()
         MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
     }
 end
+function modifier_item_ex_machina_custom:OnCreated()
+    self.ability = self:GetAbility()
+    self.bonus_armor = self.ability:GetSpecialValueFor("bonus_armor")
+end
 
 function modifier_item_ex_machina_custom:GetModifierPhysicalArmorBonus()
-    return self:GetAbility():GetSpecialValueFor("bonus_armor")
+    return self.bonus_armor
 end

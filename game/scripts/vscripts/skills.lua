@@ -160,7 +160,6 @@ function Skills:CreateRandomSkillsForPlayer(nPlayerID, tier, double)
     if not hHero then return end
     local hPlayer = PlayerResource:GetPlayer(nPlayerID)
     if not hPlayer then return end
-    print(hHero.selected_skill)
     if hHero.selected_skill == true then return end
 
     local tier_skills = table.deepcopy(Skills_table[tier])

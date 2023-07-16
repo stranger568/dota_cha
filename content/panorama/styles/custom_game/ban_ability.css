@@ -27,9 +27,6 @@
     position: 0 0px 0;
     width: 100%;
     height: 100%;
-    border-top: 0px solid #333;
-    border-bottom: 0px solid #333;
-    background-color: #181818;
     overflow: clip;
     z-index: 150;
     animation-name: links-and-more-button-focus;
@@ -42,6 +39,8 @@
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
     flow-children: down;
+    border: 1px solid #263424;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.95);  
 }
 
 .wrapper {
@@ -321,6 +320,11 @@
     visibility: collapse;
 }
 
+.Opacity 
+{
+    opacity: 0;
+}
+
 Button:enabled DOTAAbilityImage:hover {
     box-shadow: inset #ffffff80 2px 2px 0px 4px;
     color: #FFF;
@@ -370,37 +374,41 @@ Button:enabled DOTAAbilityImage:hover {
     flow-children: down;
 }
 
-
-
-
-
-
-
-#Abilities {
-    width: 450px;
+#Abilities 
+{
     flow-children: right-wrap;
+    horizontal-align: center;
+    margin-top: 10px;
 }
 
 #Abilities RadioButton {
-    width: 65px;
-    height: 65px;
-    margin-left: 15px;
+    width: 55px;
+    height: 55px;
+    margin-right: 15px;
     margin-bottom: 2px;
+    border: 1px solid white;
+    border-brush: gradient(radial, 0% 0%, 2% 10%, 100% 100%, from(rgba(178, 255, 141, 1)), to(rgba(164, 255, 121, 0.02)));
+}
+
+#Abilities RadioButton:hover {
+    box-shadow: #ffffff80 0px 0px 1px 1px;
 }
 
 #Abilities RadioButton:selected {
-    box-shadow: inset #66ff6650 2px 2px 4px 4px;
+    box-shadow: inset #00ff00 0px 0px 2px 1px;
 }
 
-#RecentBannedAbilities {
-    height: 90px;
+#RecentBannedAbilities 
+{
+    horizontal-align: center;
+    margin-bottom: 20px;
     flow-children: right;
 }
 
 #RecentBannedAbilities RadioButton {
-    width: 65px;
-    height: 65px;
-    margin-left: 15px;
+    width: 55px;
+    height: 55px;
+    margin-right: 15px;
 }
 
 #RecentBannedAbilities RadioButton:selected {
@@ -410,45 +418,54 @@ Button:enabled DOTAAbilityImage:hover {
 #OperatePanel 
 {
     flow-children: down;
-    margin-top: 25px;
     horizontal-align: center;
-    width: 530px;
+    width: 100%;
+    margin-top: 2%;
+    height: 234px;
 }
 
 .OperatePanelRight
 {
-    flow-children: right;
+    flow-children: down;
     horizontal-align: center;
-    width: 100%;
 }
 
-#BanButton {
+#BanButton 
+{
     height: 50px;
     width: 250px;
-    background-color: gradient(linear, 0% 0%, 0% 100%, from(#5Aa15E), to(#87d69533));
-    background-image: url("s2r://");
-    background-size: 328px 50px;
     margin-top: 10px;
+    background-color: gradient(linear, 10% 100%, 0% 0%, from(rgba(255, 11, 11, 0.502)), color-stop(0.5, rgba(255, 102, 102, 0.55)), to(rgba(255, 134, 134, 0.5175)));
+    box-shadow: 0px 0px 10px rgba(14, 0, 0, 0.952);
+    transition-property: transform, brightness;
+    transition-duration: 0.3s;
+    border: 1px solid rgba(232, 97, 97, 1);
 }
 
-#BanButton:disabled {
+#BanButton:disabled 
+{
     background-color: gradient(linear, 0% 0%, 0% 100%, from(#5A615Ecc), to(#879695cc));
     box-shadow: none;
 }
 
 #BanButtonLabel {
-    width: 100%;
-    font-size: 30px;
-    text-align: center;
     vertical-align: center;
-    text-overflow: shrink;
     color: white;
+    font-size: 18px;
+    font-weight: bold;
+    horizontal-align: center;
+    text-shadow: 0px 0px 4px 3 rgba(206, 74, 74, 0.45);
+    text-transform: uppercase;
+    text-align: center;
 }
 
-#HeroImage {
-    margin-top: 3px;
-    width: 110px;
-    height: 60px;
+#HeroImage 
+{
+    height: 84px;
+    width: 84px;
+    border: 1px solid white;
+    border-brush: gradient(radial, 0% 0%, 2% 10%, 100% 100%, from(rgba(178, 255, 141, 1)), to(rgba(164, 255, 121, 0.02)));
+    horizontal-align: center;
 }
 
 #ButtonPanel {
@@ -527,17 +544,23 @@ Button:enabled DOTAAbilityImage:hover {
     font-size: 25px;
 }
 
-#TimeLeftLabel {
+#TimeLeftLabel 
+{
     margin-top: 3px;
     width: 100%;
     text-align: center;
+    color: white;
+    font-family: 'Radiance';
+    font-weight: semi-bold;
 }
 
-.Green {
+.Green 
+{
     color: green;
 }
 
-.Red {
+.Red 
+{
     color: red;
 }
 
@@ -551,15 +574,29 @@ Button:enabled DOTAAbilityImage:hover {
 
 #RecentBannedAbilitiesLabel 
 {
-    font-size: 28px;
-    horizontal-align: left;
+    font-family: 'Radiance';
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #DADADA;
+    text-shadow: 1px 2px 4px 3 rgba(0, 0, 0, 0.25);
+    horizontal-align: center;
+    vertical-align: center;
+    text-transform: uppercase;
+}
+
+.RecentHeader
+{
+    width: 100%;
+    height: 30px;
+    background-color: rgba(187, 255, 134, 0.15);
 }
 
 #RecentBannedAbilitiesContainer 
 {
     flow-children: down;
-    horizontal-align: left;
-    margin-left: 20px;
+    horizontal-align: center;
+    width: 100%;
 }
 
 #OmniscientMain .Hidden {
@@ -675,8 +712,14 @@ Button:enabled DOTAAbilityImage:hover {
     saturation: 0;
 }
 
-#HeroImageRadioButton:selected {
-    box-shadow: inset #66ff6650 2px 2px 4px 4px;
+#HeroImageRadioButton
+{
+    horizontal-align: center;
+}
+
+#HeroImageRadioButton:selected 
+{
+    box-shadow: inset #00ff00 0px 0px 2px 1px;
 }
 
 #HeroImageRadioButton:disabled {
@@ -684,18 +727,18 @@ Button:enabled DOTAAbilityImage:hover {
 }
 
 #RecentBannedHeroes {
-    height: 100px;
+    horizontal-align: center;
     flow-children: right;
 }
 
 #RecentBannedHeroes RadioButton {
-    width: 70px;
-    height: 38px;
-    margin-left: 15px;
+    width: 55px;
+    height: 55px;
+    margin-right: 15px;
 }
 
 #RecentBannedHeroes RadioButton:selected {
-    box-shadow: inset #66ff6650 2px 2px 4px 4px;
+    box-shadow: inset #00ff00 0px 0px 2px 1px;
 }
 
 #RecentBannedHeroes RadioButton:disabled {
@@ -704,6 +747,8 @@ Button:enabled DOTAAbilityImage:hover {
 
 #RecentBannedContainer 
 {
+    width: 100%;
+    margin-top: 10px;
     flow-children: down;
 }
 
@@ -735,7 +780,7 @@ Button:enabled DOTAAbilityImage:hover {
 
 .hBlock 
 {
-    width: 430px;
+    width: 488px;
 }
 
 #RowNameContainer 
@@ -797,30 +842,27 @@ RadioButton > .RadioBox
 
 .DonateImage
 {
-    horizontal-align: right;
-    background-image: url("file://{images}/custom_game/bp_ban.png");
-    background-size: 100%;
-    width: 520px;
-    height: 260px;
+    horizontal-align: center;
     z-index: 155;
-    vertical-align: bottom;
     opacity: 0;
+    margin-top: 20px;
 }
 
 .Morebanwithbnp
 {
-    width: 200px;
     vertical-align: center;
-    horizontal-align: right;
-    margin-right: 35px;
     color: white;
-    text-shadow: 0px 0px 4px 2.0 #ffffff10;
-    font-size: 25px;
+    font-size: 14px;
     font-weight: bold;
+    horizontal-align: center;
+    text-transform: uppercase;
 }
 
 .bp
 {
-    width: 100%;
-    margin-top: 10px;
+    horizontal-align: center;
+    margin-top: 50px;
+    width: 400px;
+    
 }
+

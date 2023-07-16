@@ -12,28 +12,28 @@
 	<Panel style="width:100%;height:100%;" hittest="false">
 		<Panel hittest="false" id="QuestMain">
 			<Panel hittest="false" id="QuestPanel">
-				<Panel class="RoundPanel" id="RoundPanel">
-					
-				</Panel>
+				<Panel class="WaveInfoDuration">
+					<Label class="WaveInfoDurationCurrentState" id="WaveInfoDurationCurrentState" text="" />
+					<Label class="RoundTime" id="RoundTime" text="0:00" />
+				</Panel> 
 				<Panel class="RoundInfo">
 					<Panel class="RoundInfoNameAndAbilities">
+						<Panel class="RoundPanel" id="RoundPanel" />
 						<Label class="RoundLabel" id="RoundLabel" text="-" />
 						<Label class="RoundName" id="RoundName" text="" />
-						<Panel class="AbilitiesRound" id="AbilitiesRound">
+						<Panel class="AbilitiesRound" id="AbilitiesRound" />
+					</Panel>
+					<Panel class="LinePanelAndReadyButton">
+						<Panel class="LinePanel">
+							<Panel class="LinePanelBG" />
+							<Panel class="LinePanelActive" id="LinePanelActive" />
+						</Panel>
+						<Panel class="ReadyButtonNew" id="ReadyButtonNew" onactivate="PlayerReady();">
+							<Label class="ReadyTextNew" text="#Ready" />
 						</Panel>
 					</Panel>
-					<Panel class="LinePanel">
-						<Panel class="LinePanelBG" />
-						<Panel class="LinePanelActive" id="LinePanelActive" />
-						<Label class="RoundTime" id="RoundTime" text="0:00" />
-					</Panel>
+					<Label class="KillsInfo" id="KillsInfo" text="Убито 0/6" />
 				</Panel>
-			</Panel>
-
-
-
-			<Panel class="ReadyButtonRoot" hittest="false">
-				<Label id="ReadyButton" class="ReadyText" text="#Ready" onactivate="PlayerReady()" />
 			</Panel>
 		</Panel>
 	</Panel>

@@ -30,7 +30,6 @@ function modifier_invoker_forge_spirit_lua:DeclareFunctions()
         MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
         MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
         MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
---        MODIFIER_EVENT_ON_ATTACK_LANDED
     }
 
     return funcs

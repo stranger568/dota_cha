@@ -8,7 +8,7 @@
 	</styles>
 
 	<Panel hittest="false" style="width:100%;height:100%;">
-		<Panel id="PlayersTipHistory" class="PlayersTipHistory">
+		<Panel id="PlayersTipHistory" hittest="false" class="PlayersTipHistory">
 
 		</Panel>
 	</Panel>

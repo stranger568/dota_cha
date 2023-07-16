@@ -38,14 +38,12 @@ function modifier_creator_statue:OnCreated(params)
 	if not IsServer() then return end
 	if params.id ~= nil then
 		self.id = tonumber(params.id)
-		self:GetParent().panel_wd = WorldPanels:CreateWorldPanelForAll({ layout = "file://{resources}/layout/custom_game/overlord/top_player.xml", entity = self:GetParent(), entityHeight = 200, data = {id = self.id}})
-		self:StartIntervalThink(1)
 	end
+    self:StartIntervalThink(2)
 end
 
 function modifier_creator_statue:OnIntervalThink()
 	if not IsServer() then return end
-	if self:GetParent().panel_wd ~= nil then
-		self:GetParent().panel_wd:SetData({id = self.id})
-	end
+    self:GetParent().panel_wd = WorldPanels:CreateWorldPanelForAll({ layout = "file://{resources}/layout/custom_game/overlord/top_player.xml", entity = self:GetParent(), entityHeight = 200, data = {id = self.id}})
+    self:StartIntervalThink(-1)
 end

@@ -26,7 +26,6 @@ function modifier_slark_essence_shift_lua:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_PROCATTACK_FEEDBACK,
 		MODIFIER_EVENT_ON_MODIFIER_ADDED,
-		--MODIFIER_EVENT_ON_DEATH,
 	}
 	return funcs
 end

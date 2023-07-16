@@ -1,140 +1,140 @@
-#QuestMain
-{
-    horizontal-align:left;
+#QuestMain {
+    horizontal-align: left;
     width: 450px;
-    height: 100px;
-    margin-left: 10px;
-    margin-top: 70px;
+    margin-top: 6%;
 }
 
-#QuestPanel
-{
-    flow-children: right;
+#QuestPanel {
+    flow-children: down;
     opacity: 0;
 }
 
-.RoundPanel
-{
-    width: 80px;
-    height: 80px;
-    //border-radius: 15px;
-    //background-color: #121216;
-    //border-top: 1px solid #99999905;
-    //border-left: 1px solid #99999905;
-    //border-right: 1px solid #00000060;
-    //border-bottom: 1px solid #00000060;
+.WaveInfoDuration {
+    width: 319px;
+    height: 29px;
+    background-color: gradient(linear, 0% 0%, 100% 0%, from(rgba(0, 0, 0, 0.25)), to(rgba(0, 0, 0, 0)));
+    flow-children: right;
 }
 
-.RoundLabel
-{
-    align: center center;
-    color: white;
-    font-weight: bold;
+.WaveInfoDurationCurrentState {
     font-size: 16px;
-    margin-left: 5px;
-    text-shadow: 0px 0px 3px 3.0 black;
-}
-
-.LinePanel
-{
-    border-bottom-right-radius: 8px;
-    border-top-right-radius: 8px;
+    color: rgba(255, 255, 255, 0.75);
+    text-shadow: 0px 0px 2px 2 #000000;
     vertical-align: center;
-    width: 280px;
-    height: 30px;
-    background-color: #121216;
-    border-top: 1px solid #99999905;
-    border-left: 1px solid #99999905;
-    border-right: 1px solid #00000060;
-    border-bottom: 1px solid #00000060;
+    margin-left: 5px;
+    font-weight: semi-bold;
+    font-family: 'Radiance';
 }
 
-.RoundTime
-{
-    align: center center;
-    color: white;
-    font-family: Reaver;
-    font-size: 14px;
-    text-shadow: 0px 0px 3px 3.0 black;
+.RoundTime {
+    color: #FFFFFF;
+    text-shadow: 0px 0px 2px 2 #000000;
+    font-weight: semi-bold;
+    font-family: 'Radiance';
+    font-size: 18px;
+    vertical-align: center;
+    margin-left: 6px;
 }
 
-.LinePanelBG
-{
+.RoundInfo {
+    flow-children: down;
+}
+
+.RoundInfoNameAndAbilities {
+    flow-children: right;
+    height: 47px;
+    background-color: gradient(linear, 0% 0%, 100% 0%,
+            from(rgba(142, 214, 135, 0.5)),
+            to(rgba(56, 105, 52, 0)));
+}
+
+.RoundPanel {
+    width: 128px;
+    height: 47px;
+    background-image: url("file://{images}/custom_game/creep_inf.png");
+    background-size: 100%;
+    opacity-mask: url("file://{images}/custom_game/rounds/opacity.png");
+}
+
+.RoundLabel {
+    font-size: 24px;
+    color: #FFFFFF;
+    vertical-align: center;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px 2 #000000;
+    margin-right: 4px;
+}
+
+.RoundName {
+    font-size: 22px;
+    color: #FFFFFF;
+    vertical-align: center;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px 2 #000000;
+    margin-right: 4px;
+}
+
+.AbilitiesRound {
+    flow-children: right;
+    vertical-align: center;
+    margin-left: 10px;
+}
+
+.RoundAbility {
+    vertical-align: center;
+    height: 25px;
+    margin: 1px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+}
+
+.LinePanelAndReadyButton {
+    flow-children: right;
+    margin-top: 5px;
+}
+
+.LinePanel {
+    vertical-align: top;
+    width: 257px;
+    height: 10px;
+    margin-left: 5px;
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.LinePanelBG {
     width: 100%;
     height: 100%;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    vertical-align: center;
-    background-color: #121216;
-    border-top: 1px solid #99999905;
-    border-left: 1px solid #99999905;
-    border-right: 1px solid #00000060;
-    border-bottom: 1px solid #00000060;
+    border-radius: 2px;
 }
 
-.LinePanelActive
-{
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
+.LinePanelActive {
     vertical-align: center;
     width: 0%;
-    height: 80%;
-    margin-right:2px;
-    margin-left: 2px;
+    height: 100%;
+    border-radius: 2px;
+    box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.5);
 }
 
-.LinePanelActive_anim
-{
+.LinePanelActive_anim {
     transition-property: width;
     transition-duration: 0.5s;
 }
 
-.color_round
-{
-    background-color: gradient( linear, 0% 0%, 0% 100%, from( #880000 ), color-stop( .35, #880000 ), color-stop( .65, #880000aa ), to( #000000 ) );
-}
-.color_prepare
-{
-    background-color: gradient( linear, 0% 0%, 0% 100%, from( #425d25 ), color-stop( 0.2, #5BA539 ), color-stop( .5, #4D9030), to( #425d25) );
+.color_round {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#ff0000), to(#690909));
 }
 
-
-
-
-.RoundInfo
-{
-    flow-children: down;
+.color_prepare {
+    background-color: gradient(linear, 0% 0%, 0% 100%, from(#94D83D), to(#587922));
 }
 
-.RoundInfoNameAndAbilities
-{
-    flow-children: right;
-    height: 30px;
-}
-
-.RoundName
-{
-    vertical-align: center;
-    color: white;
-    font-family: Radiance;
+.KillsInfo {
     font-size: 16px;
-    width: 160px;
-    height: 17px;
-    margin-left: 5px;
-    text-shadow: 0px 0px 3px 3.0 black;
-}
-
-.AbilitiesRound
-{
-    flow-children: left;
-    width: 82px;
-}
-
-.RoundAbility
-{
+    color: #FFFFFF;
     vertical-align: center;
-    height: 25px;
-    border-radius: 4px;
-    border: 1px solid black;
-    margin: 1px;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px 2 #000000;
+    margin-left: 7px;
+    margin-top: 2px;
 }

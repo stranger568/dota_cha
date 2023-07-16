@@ -111,8 +111,16 @@ function RefreshAbilityOrder(keys) {
           {      
               var buttonLeft = parent.FindChildTraverse("ability_"+i).FindChildTraverse("ButtonLeft");
               var buttonRight = parent.FindChildTraverse("ability_"+i).FindChildTraverse("ButtonRight");
-              
-              //禁用最左边按钮
+              let ability_index = i
+              var LockedAbility = parent.FindChildTraverse("ability_"+ability_index).FindChildTraverse("LockedAbility");
+            
+              if (GameUI.CustomUIConfig().abilities_locked == null)
+              {
+                GameUI.CustomUIConfig().abilities_locked = {}
+              }
+
+              SetPanelEventLockAb(parent, LockedAbility, ability_index)
+
               if (i==1) {
                  buttonLeft.enabled=false;
               } else {
@@ -232,6 +240,28 @@ function ToggleLeftAbilitySelect(isLabel) {
 }
 
 
+function TogglWidthAbilitySelect(isLabel) {
+
+    if (isLabel) 
+    {
+        $("#CheckWidthAbilitySelect").SetSelected(!$("#CheckWidthAbilitySelect").IsSelected());
+    }
+
+    FindDotaHudElement("AbilitySelectorPanelRoot").dockWidth = $("#CheckWidthAbilitySelect").IsSelected()
+
+    if (FindDotaHudElement("AbilitySelectorPanelRoot").dockWidth) 
+    {
+        FindDotaHudElement("AbilitySelectorPanelRoot").SetHasClass("SelectorMini", true)
+    }
+    else 
+    {
+        FindDotaHudElement("AbilitySelectorPanelRoot").SetHasClass("SelectorMini", false)
+    }
+
+    UpdateSetting();
+}
+
+
 function TogglEffectAbilitySelect(isLabel) 
 {
     if (isLabel) 
@@ -266,6 +296,7 @@ function InitSetting(){
    var banAbilities = CustomNetTables.GetTableValue("hero_info", "ban_abilities")
    if (banAbilities)
    {
+      $('#BanAbilityContainer').RemoveAndDeleteChildren()
         for(var index in banAbilities) 
         {
             var panelID = "ban_ability_"+index;
@@ -276,7 +307,6 @@ function InitSetting(){
                 panel.BLoadLayoutSnippet("AbilityBannedAbility");     
             }
             panel.FindChildTraverse("AbilityBannedImage").abilityname = abilityName;
-            panel.FindChildTraverse('AbilityBannedName').text = $.Localize("#DOTA_Tooltip_ability_" + abilityName);
         };  
     }
 
@@ -300,8 +330,10 @@ function InitSetting(){
    {
        settingInited = true
        $("#CheckLeftAbilitySelect").SetSelected(String(settingData.settings_right_select)=="1");
+       $("#CheckWidthAbilitySelect").SetSelected(String(settingData.settings_width_select) == "1");
        $("#CheckEffectAbilitySelect").SetSelected(String(settingData.settings_effect_select)=="0");
        FindDotaHudElement("AbilitySelectorPanelRoot").dockRight  =$("#CheckLeftAbilitySelect").IsSelected();   
+       FindDotaHudElement("AbilitySelectorPanelRoot").dockWidth = $("#CheckWidthAbilitySelect").IsSelected();   
     }
 }
 
@@ -309,6 +341,7 @@ function UpdateSetting()
 {
     var settingData ={}
     settingData.right_ability_selection = $("#CheckLeftAbilitySelect").IsSelected()?1:0;
+    settingData.width_ability_selection = $("#CheckWidthAbilitySelect").IsSelected() ? 1 : 0;
     settingData.effect_ability_selection = $("#CheckEffectAbilitySelect").IsSelected()?0:1;
     GameEvents.SendCustomGameEventToServer("PlayerSettings", settingData);
     $("#SliderValue").text = ($("#BarrageOpacitySlider").value*100).toFixed(0) + "%";
@@ -326,4 +359,55 @@ function UpdateSetting()
     $('#CheckAutoDuel').checked = true;
     $('#CheckEffectAbilitySelect').checked = true;
     $('#CheckAutoCreep').checked = false;
+    UpdateCalibratingTicket()
 })();
+
+function UpdateCalibratingTicket() 
+{
+    let player_info = CustomNetTables.GetTableValue("cha_server_data", String(Players.GetLocalPlayer()))
+    if (player_info) {
+        $("#CalibrateCount").text = $.Localize("#ticket_count") + player_info.ticket_calibrate
+    }
+}
+
+function recalibrating_start() 
+{
+    CloseRecalib()
+    GameEvents.SendCustomGameEventToServer("rating_reset", {});
+    $.Schedule(0.5, function () 
+    {
+        UpdateCalibratingTicket()
+    })
+}
+
+function open_recalibrating()
+{
+    $("#CalibratingComfirmed").style.visibility = "visible"
+}
+function CloseRecalib() {
+    $("#CalibratingComfirmed").style.visibility = "collapse"
+}
+
+function SetPanelEventLockAb(parent, panel, ab_index)
+{
+    let ability_name = parent.FindChildTraverse("ability_"+(ab_index)).abilityname
+    panel.SetPanelEvent("onactivate", function()
+    {
+        if (GameUI.CustomUIConfig().abilities_locked[ability_name] == null || GameUI.CustomUIConfig().abilities_locked[ability_name] == false)
+        {
+            GameUI.CustomUIConfig().abilities_locked[ability_name] = true
+            panel.SetHasClass("LockedAbilityLock", true)
+        } else {
+            GameUI.CustomUIConfig().abilities_locked[ability_name] = false
+            panel.SetHasClass("LockedAbilityLock", false)
+        }
+    });
+    if (GameUI.CustomUIConfig().abilities_locked[ability_name] == null || GameUI.CustomUIConfig().abilities_locked[ability_name] == false)
+    {
+        panel.SetHasClass("LockedAbilityLock", false)
+    }
+    else
+    {
+        panel.SetHasClass("LockedAbilityLock", true)
+    }
+}

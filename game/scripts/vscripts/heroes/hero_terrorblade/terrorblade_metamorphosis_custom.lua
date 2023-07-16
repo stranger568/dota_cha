@@ -24,6 +24,7 @@ end
 
 function custom_terrorblade_metamorphosis:GetManaCost(level)
 	if self:GetCaster():HasScepter() then 
+        if IsClient() then return 15 end
 		return 0
 	end
 	return self.BaseClass.GetManaCost(self,level)
@@ -73,8 +74,6 @@ function modifier_custom_terrorblade_metamorphosis_transform:OnCreated(params)
 	if not IsServer() then return end
 	self:GetParent():StartGesture(ACT_DOTA_CAST_ABILITY_3)
 	self:GetParent():EmitSound("Hero_Terrorblade.Metamorphosis")
-	local transform_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_terrorblade/terrorblade_metamorphosis_transform.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-	ParticleManager:ReleaseParticleIndex(transform_particle)
 	self:GetParent():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_custom_terrorblade_metamorphosis_transform_aura_applier", {})
 end
 
@@ -104,9 +103,6 @@ function modifier_custom_terrorblade_metamorphosis:IsPurgable() return false end
 
 function modifier_custom_terrorblade_metamorphosis:OnCreated(table)
 	if not self:GetAbility() then self:Destroy() return end
-	self.particle_ally_fx = ParticleManager:CreateParticle("particles/units/heroes/hero_terrorblade/terrorblade_metamorphosis.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-    ParticleManager:SetParticleControl(self.particle_ally_fx, 0, self:GetParent():GetAbsOrigin())
-    self:AddParticle(self.particle_ally_fx, false, false, -1, false, false) 
 	self.bonus_range 	= self:GetAbility():GetSpecialValueFor("bonus_range")
 	self.bonus_damage	= self:GetAbility():GetSpecialValueFor("bonus_damage")
 	self.baseattack_time = self:GetAbility():GetSpecialValueFor("base_attack_time")
@@ -114,13 +110,14 @@ function modifier_custom_terrorblade_metamorphosis:OnCreated(table)
 	self.has_scepter = self:GetParent():HasScepter()
 	self.previous_attack_cability = self:GetParent():GetAttackCapability()
 	self:GetParent():SetAttackCapability(DOTA_UNIT_CAP_RANGED_ATTACK)
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.5)
 end
 
 function modifier_custom_terrorblade_metamorphosis:OnIntervalThink()
 	if not IsServer() then return end
 	if self.has_scepter then
-		if not self:GetCaster():HasScepter() then
+        self:GetCaster():SpendMana(15*0.5, self:GetAbility())
+		if not self:GetCaster():HasScepter() or self:GetCaster():GetMana() <= 14 then
 			self:Destroy()
 			self:GetAbility():ToggleAbility()
 			self:GetAbility():EndCooldown()
