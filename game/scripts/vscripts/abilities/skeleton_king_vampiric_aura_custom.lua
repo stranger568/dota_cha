@@ -93,6 +93,19 @@ function modifier_skeleton_king_vampiric_aura_custom_skeleton_ai:OnCreated(table
 	self.parent:SetHealth(self.parent:GetMaxHealth())
 end
 
+function modifier_skeleton_king_vampiric_aura_custom_skeleton_ai:DeclareFunctions()
+    return
+    {
+        MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE
+    }
+end
+
+function modifier_skeleton_king_vampiric_aura_custom_skeleton_ai:GetModifierTotalDamageOutgoing_Percentage(params)
+    if params.target and params.target:IsHero() then
+        return self:GetAbility():GetSpecialValueFor("skeleton_bonus_hero_damage")
+    end
+end
+
 modifier_skelet_reincarnation = class({})
 
 function modifier_skelet_reincarnation:IsHidden()

@@ -51,6 +51,7 @@ function modifier_duel_curse_cooldown:IsHidden() return true end
 function modifier_duel_curse_cooldown:IsDebuff() return false end
 function modifier_duel_curse_cooldown:IsPurgable() return false end
 function modifier_duel_curse_cooldown:GetAttributes() return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE end
+function modifier_duel_curse_cooldown:RemoveOnDeath() return false end
 
 function modifier_duel_curse_cooldown:OnCreated()
     if not IsServer() then return end
@@ -121,14 +122,22 @@ function modifier_duel_curse_cooldown:OnIntervalThink()
     if not IsServer() then return end
     local skeleton_king_reincarnation = self:GetParent():FindAbilityByName("skeleton_king_reincarnation")
     if skeleton_king_reincarnation then
-        if skeleton_king_reincarnation:IsCooldownReady() then
-            skeleton_king_reincarnation:StartCooldown(10)
-        end
+        skeleton_king_reincarnation:EndCooldown()
+        skeleton_king_reincarnation:StartCooldown(10)
     end
     local phoenix_supernova = self:GetParent():FindAbilityByName("phoenix_supernova")
     if phoenix_supernova then
         if phoenix_supernova:IsCooldownReady() then
+            phoenix_supernova:EndCooldown()
             phoenix_supernova:StartCooldown(10)
         end
+    end
+end
+
+function modifier_duel_curse_cooldown:OnDeathEvent(params)
+    if not IsServer() then return end
+    if params.unit ~= self:GetParent() then return end
+    if not self:GetParent():IsReincarnating() then
+        self:SetDuration(0.01, true)
     end
 end

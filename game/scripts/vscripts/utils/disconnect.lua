@@ -8,6 +8,21 @@ end
 function Chadisconnect:OnDisconnect(table)
     local id = tonumber(table.PlayerID)
     Pass:PauseDisconnectPlayer(id)
+
+    local hHero = PlayerResource:GetSelectedHeroEntity(id) 
+    if hHero and not hHero:IsNull() then
+        Timers:CreateTimer(0, function()
+            if PlayerResource:GetConnectionState(id) == nil or (PlayerResource:GetConnectionState(id) == DOTA_CONNECTION_STATE_ABANDONED or PlayerResource:GetConnectionState(id) == DOTA_CONNECTION_STATE_UNKNOWN ) or IsInToolsMode() then
+                for i=0,24 do
+                    local neutral_item = hHero:GetItemInSlot(i)
+                    if neutral_item then
+                        UTIL_Remove(neutral_item)
+                    end
+                end
+            end
+            return 0.25
+        end)
+    end
 end     
 
 function Chadisconnect:OnPlayerReconnected(keys)
@@ -67,7 +82,7 @@ function Chadisconnect:OnPlayerReconnected(keys)
                 Skills:CreateRandomSkillsForPlayer(nPlayerID, 5)
                 return nil
             end
-            if hHero.selected_skill[6] == nil and GameMode.currentRound and GameMode.currentRound.nRoundNumber > 80 then                 
+            if hHero.selected_skill[6] == nil and GameMode.currentRound and GameMode.currentRound.nRoundNumber > 70 then                 
                 Skills:CreateRandomSkillsForPlayer(nPlayerID, 5)
                 return nil
             end

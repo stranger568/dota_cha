@@ -117,26 +117,6 @@ _G.creeps_small_random =
         ["UnitNumber"] = 1,
         ["SpawnInterval"] = 0.1,
     },
-    {
-        ["UnitName"] = "npc_dota_kobold_taskmaster",
-        ["UnitNumber"] = 1,
-        ["SpawnInterval"] = 0.1,
-    },
-    {
-        ["UnitName"] = "npc_dota_fel_beast",
-        ["UnitNumber"] = 1,
-        ["SpawnInterval"] = 0.1,
-    },
-    {
-        ["UnitName"] = "npc_dota_roshling_small",
-        ["UnitNumber"] = 1,
-        ["SpawnInterval"] = 0.1,
-    },
-    {
-        ["UnitName"] = "npc_dota_satyr_soulstealer",
-        ["UnitNumber"] = 1,
-        ["SpawnInterval"] = 0.1,
-    },
 }
 
 _G.creeps_small_random_special = 
@@ -245,7 +225,7 @@ SkillRoundNumber[21]=true
 SkillRoundNumber[31]=true
 SkillRoundNumber[41]=true
 SkillRoundNumber[51]=true
-SkillRoundNumber[81]=true
+SkillRoundNumber[71]=true
 
 if IsInToolsMode() then
     abilitySelectionRoundNumber = {}
@@ -338,7 +318,7 @@ function Round:Prepare(nRoundNumber, bonus_time)
                         tier = 4
                     elseif nRoundNumber == 51 then
                         tier = 5
-                    elseif nRoundNumber == 81 then
+                    elseif nRoundNumber == 71 then
                         tier = 5
                     end
                     Skills:CreateRandomSkillsForPlayer(nPlayerID, tier)
@@ -561,6 +541,9 @@ function Round:Prepare(nRoundNumber, bonus_time)
             local big_ra = table.random_some(creeps_big_random, 1)
             creeps_random_60=table.join(creeps_random_60,big_ra)
             table.remove_item(creeps_big_random,big_ra)
+
+            local small_r = table.random_some(creeps_small_random, 1)
+            creeps_random_60=table.join(creeps_random_60,small_r)
 
             local small_ra_full = table.random_some(creeps_small_random_special, 1)
             creeps_random_60=table.join(creeps_random_60,small_ra_full)

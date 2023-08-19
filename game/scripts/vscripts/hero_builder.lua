@@ -55,7 +55,7 @@ scepterAbilities = {}
 scepterAbilities["npc_dota_hero_antimage"]={"antimage_mana_overload"}
 scepterAbilities["npc_dota_hero_kunkka"]={"kunkka_torrent_storm_custom"}
 scepterAbilities["npc_dota_hero_rattletrap"]={"rattletrap_overclocking"}
-scepterAbilities["npc_dota_hero_enchantress"]={"enchantress_bunny_hop"}
+scepterAbilities["npc_dota_hero_enchantress"]={"enchantress_little_friends"}
 scepterAbilities["npc_dota_hero_treant"]={"treant_eyes_in_the_forest"}
 scepterAbilities["npc_dota_hero_ogre_magi"]={"ogre_magi_unrefined_fireblast"}
 scepterAbilities["npc_dota_hero_earth_spirit"]={"earth_spirit_petrify"}
@@ -66,7 +66,7 @@ scepterAbilities["npc_dota_hero_shredder"]={"shredder_chakram_2_lua","shredder_c
 scepterAbilities["npc_dota_hero_tusk"]={"tusk_walrus_kick"}
 scepterAbilities["npc_dota_hero_grimstroke"]={"grimstroke_dark_portrait"}
 scepterAbilities["npc_dota_hero_zuus"]={"zuus_cloud"}
-scepterAbilities["npc_dota_hero_spectre"]={"spectre_haunt_single","spectre_reality"}
+scepterAbilities["npc_dota_hero_spectre"]={"spectre_haunt","spectre_reality"}
 scepterAbilities["npc_dota_hero_clinkz"]={"clinkz_burning_army"}
 scepterAbilities["npc_dota_hero_keeper_of_the_light"]={"keeper_of_the_light_will_o_wisp"}
 scepterAbilities["npc_dota_hero_leshrac"]={"leshrac_greater_lightning_storm"}
@@ -81,8 +81,8 @@ scepterAbilities["npc_dota_hero_beastmaster"]={"beastmaster_drums_of_slom"}
 scepterAbilities["npc_dota_hero_viper"]={"viper_nose_dive"}
 scepterAbilities["npc_dota_hero_bloodseeker"]={"bloodseeker_blood_mist_custom"}
 scepterAbilities["npc_dota_hero_oracle"]={"oracle_rain_of_destiny"}
-scepterAbilities["npc_dota_hero_centaur"]={"centaur_mount"}
-scepterAbilities["npc_dota_hero_lina"]={"lina_flame_cloak"}
+scepterAbilities["npc_dota_hero_centaur"]={"centaur_work_horse", "centaur_mount"}
+scepterAbilities["npc_dota_hero_lina"]={"lina_flame_cloak_custom"}
 scepterAbilities["npc_dota_hero_brewmaster"]={"brewmaster_primal_companion"}
 
 -- Способности с аганима которые привязаны к способности
@@ -92,7 +92,7 @@ scepterLinkAbilities["kunkka_torrent"]={"kunkka_torrent_storm_custom"}
 scepterLinkAbilities["templar_assassin_psionic_trap"]={"templar_assassin_trap_teleport"}
 scepterLinkAbilities["zuus_lightning_bolt"]={"zuus_cloud"}
 scepterLinkAbilities["lycan_shapeshift_custom"]={"lycan_wolf_bite"}
-scepterLinkAbilities["lina_laguna_blade_custom"]={"lina_flame_cloak"}
+scepterLinkAbilities["lina_laguna_blade_custom"]={"lina_flame_cloak_custom"}
 scepterLinkAbilities["juggernaut_omni_slash_custom"]={"juggernaut_swift_slash_custom"}
 scepterLinkAbilities["bloodseeker_thirst"]={"bloodseeker_blood_mist_custom"}
 scepterLinkAbilities["leshrac_pulse_nova"]={"leshrac_greater_lightning_storm"}
@@ -112,19 +112,21 @@ shardLinkAbilities["alchemist_chemical_rage"]={"alchemist_berserk_potion"}
 shardLinkAbilities["jakiro_liquid_fire_lua"]={"jakiro_liquid_ice_lua"}
 shardLinkAbilities["lich_chain_frost_custom"]={"lich_ice_spire"}
 shardLinkAbilities["shredder_whirling_death"]={"shredder_flamethrower"}
-shardLinkAbilities["tidehunter_ravage"]={"tidehunter_arm_of_the_deep_custom"}
+--shardLinkAbilities["tidehunter_ravage"]={"tidehunter_arm_of_the_deep_custom"}
 shardLinkAbilities["zuus_arc_lightning_custom"]={"zuus_lightning_hands_custom"}
 
 -- Способности с шарда которые привязаны к герою
 scepterShardAbilities = {}
+scepterShardAbilities["npc_dota_hero_crystal_maiden"]={"crystal_maiden_crystal_clone"}
 scepterShardAbilities["npc_dota_hero_drow_ranger"]={"drow_ranger_glacier"}
+scepterShardAbilities["npc_dota_hero_antimage"]={"antimage_counterspell_ally"}
 scepterShardAbilities["npc_dota_hero_alchemist"]={"alchemist_berserk_potion"}
 scepterShardAbilities["npc_dota_hero_furion"]={"furion_curse_of_the_forest"}
 scepterShardAbilities["npc_dota_hero_bristleback"]={"bristleback_hairball"}
 scepterShardAbilities["npc_dota_hero_venomancer"]={"venomancer_latent_poison"}
-scepterShardAbilities["npc_dota_hero_enchantress"]={"enchantress_little_friends"}
+scepterShardAbilities["npc_dota_hero_enchantress"]={"enchantress_bunny_hop"}
 scepterShardAbilities["npc_dota_hero_rattletrap"]={"rattletrap_jetpack"}
-scepterShardAbilities["npc_dota_hero_tidehunter"]={"tidehunter_arm_of_the_deep_custom"}
+scepterShardAbilities["npc_dota_hero_tidehunter"]={"tidehunter_dead_in_the_water"}
 scepterShardAbilities["npc_dota_hero_jakiro"]={"jakiro_liquid_ice_lua"}
 scepterShardAbilities["npc_dota_hero_kunkka"]={"kunkka_tidal_wave"}
 scepterShardAbilities["npc_dota_hero_lich"]={"lich_ice_spire"}
@@ -216,7 +218,7 @@ AbilitiesRandomChanceList_1 =
     "legion_commander_moment_of_courage",
     "life_stealer_ghoul_frenzy",
     "marci_unleash",
-    "night_stalker_darkness",
+    "night_stalker_darkness_custom",
     "slardar_amplify_damage_custom",
     "sven_gods_strength_custom",
     "tiny_grow",
@@ -239,7 +241,7 @@ AbilitiesRandomChanceList_2 =
     "alchemist_chemical_rage",
     "dragon_knight_elder_dragon_form_custom",
     "frostivus2018_huskar_burning_spear",
-    "life_stealer_feast",
+    "life_stealer_feast_custom",
     "tiny_tree_grab_lua",
     "bloodseeker_bloodrage_custom",
     "faceless_void_time_lock_custom",
@@ -1468,6 +1470,7 @@ function HeroBuilder:SpellBookAbilitySelected(keys)
 end
 
 function HeroBuilder:RunAbilitySoundPrecache()
+    print("мм хуета")
     Timers:CreateTimer(1, function()
         local sHeroName
         if HeroBuilder.pendingPrecache and #HeroBuilder.pendingPrecache > 0 then
@@ -1539,46 +1542,31 @@ function HeroBuilder:AddAbility(nPlayerID, sAbilityName, nLevel, flCoolDown)
         PrecacheItemByNameAsync(sAbilityName, function()
             if hHero and not hHero:IsNull() then          
                 local bHasInvulnerable = false
-
                 if hHero:HasModifier("modifier_hero_refreshing") then
                    bHasInvulnerable = true
                    hHero:RemoveModifierByName("modifier_hero_refreshing")
                 end
-                
-                local hNewAbility=hHero:AddAbility(sAbilityName)
-                
+                local hNewAbility = hHero:AddAbility(sAbilityName)
                 if bHasInvulnerable then
                    hHero:AddNewModifier(hHero, nil, "modifier_hero_refreshing", {})
                 end  
-                
                 if hNewAbility and (not hNewAbility:IsNull()) then
                     hNewAbility:ClearInnateModifiers()
                     hNewAbility:MarkAbilityButtonDirty()
                     hHero:CalculateStatBonus(false) 
-                    
                     if flCoolDown and flCoolDown>0 then
                        hNewAbility:StartCooldown(flCoolDown)
                     end
-
                     hNewAbility:SetRefCountsModifiers(true)
-
                     if hNewAbility:GetAbilityName() == "muerta_pierce_the_veil" then
-                      hHero:AddNewModifier(hHero, hNewAbility, "modifier_muerta_pierce_the_veil", {})
+                        hHero:AddNewModifier(hHero, hNewAbility, "modifier_muerta_pierce_the_veil", {})
                     end
-                    
                     if nLevel and nLevel>0 then
-                       hNewAbility:SetLevel(nLevel)
+                        hNewAbility:SetLevel(nLevel)
                     end
-
                     Timers:CreateTimer(0.1, function()
-                        if not hNewAbility or hNewAbility:IsNull() then
-                            return 
-                        end
-                        
-                        if hNewAbility.sRemovalTimer then
-                            return 
-                        end
-
+                        if not hNewAbility or hNewAbility:IsNull() then return end
+                        if hNewAbility.sRemovalTimer then return end
                         HeroBuilder:SetAbilityToSlot(hHero, hNewAbility)
                         HeroBuilder:AddLinkedAbilities(hHero,sAbilityName,nLevel)
                         HeroBuilder:AddScepterLinkAbilities(hHero)
@@ -1586,7 +1574,6 @@ function HeroBuilder:AddAbility(nPlayerID, sAbilityName, nLevel, flCoolDown)
                         HeroBuilder:FixShardAbilities(hHero)
                         HeroBuilder:RefreshAbilityOrder(nPlayerID)
                     end)
-
                     local sHeroOwnerName = HeroBuilder.abilityHeroMap[sAbilityName]
                     if sHeroOwnerName and not table.contains(HeroBuilder.pendingPrecache, sHeroOwnerName) and not HeroBuilder.precached[sHeroOwnerName] then
                         table.insert(HeroBuilder.pendingPrecache, sHeroOwnerName)  
@@ -1892,8 +1879,6 @@ function HeroBuilder:AcceptTeammateSwap( event )
         local sFirstName = hFirstAbility:GetAbilityName()
         local sSecondName = hSecondAbility:GetAbilityName()
 
-
-  
         local nSecondPlayerID = hSecondHero:GetPlayerOwnerID()
         if event.PlayerID ~= nSecondPlayerID and not (PlayerResource:IsFakeClient(nSecondPlayerID) or  hSecondHero.bTakenOverByBot)  then
             return
@@ -2174,7 +2159,7 @@ function HeroBuilder:AddScepterShardAbility(nHeroIndex)
 end
 
 function HeroBuilder:AddScepterAbility(hHero)
-    if hHero and  hHero:IsRealHero() and hHero:GetUnitName() then
+    if hHero and hHero:IsRealHero() and hHero:GetUnitName() then
         if scepterAbilities[hHero:GetUnitName()] then
             local abilityList = scepterAbilities[hHero:GetUnitName()]
             for i,sAbilityName in ipairs(abilityList) do
@@ -2344,6 +2329,8 @@ function HeroBuilder:SelectNeutralRewardReturn(data)
 	if data.PlayerID == nil then return end
 	local id = data.PlayerID
 	local hero = PlayerResource:GetSelectedHeroEntity(id)
+    if hero == nil then return end
+    if not hero:IsAlive() then return end
     hero.neutral_select = false
     local roshan = data.roshan
     if roshan then
@@ -2360,6 +2347,8 @@ function HeroBuilder:SelectNeutralReward(data)
 	local hero = PlayerResource:GetSelectedHeroEntity(id)
     local roshan = data.roshan
     local tier = data.tier
+    if hero == nil then return end
+    if not hero:IsAlive() then return end
 
     if roshan then
         if HeroBuilder.RewardForPlayerRoshan[id][tier][choose] == nil then return end

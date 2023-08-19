@@ -45,6 +45,14 @@ function modifier_creature_berserk:OnIntervalThink()
                     damage_table.victim = hEnemy
                     damage_table.damage_type = DAMAGE_TYPE_PURE
                     damage_table.damage = hEnemy:GetMaxHealth() * 0.005 * (self:GetStackCount()-60)
+                    local curse_ability = nil
+                    local empty_0 = hEnemy:FindAbilityByName("empty_0")
+                    if empty_0 then
+                        curse_ability = empty_0
+                    end
+                    if curse_ability then
+                        damage_table.ability = curse_ability
+                    end
                     damage_table.damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY
                     ApplyDamage(damage_table)
                 end

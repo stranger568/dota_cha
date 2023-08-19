@@ -166,7 +166,7 @@ end
 
 function arc_warden_tempest_double_lua:OnSpellStart()
 	if not IsServer() then return end
-
+    local point = self:GetCursorPosition()
 	local hCaster = self:GetCaster()
 	if not hCaster or hCaster:IsNull() then return end
 
@@ -459,6 +459,8 @@ function arc_warden_tempest_double_lua:OnSpellStart()
 	hClone:RemoveGesture(ACT_DOTA_DIE)
 
 	FindClearRandomPositionAroundUnit(hClone, hCaster, 100)
+    FindClearSpaceForUnit(hClone, point, true)
+
 	hClone:AddNewModifier(hCaster, self, "modifier_tempest_double_illusion", {duration=duration})
 	hClone:AddNewModifier(hCaster, nil, "modifier_tempest_double_talent", {})
 

@@ -1221,7 +1221,7 @@
 
     "item_hand_of_midas"
 	{
-		"AbilityCooldown"				"120"
+		"AbilityChargeRestoreTime"		"120"
 	}
 
 	"item_helm_of_the_dominator"
@@ -1841,15 +1841,16 @@
 
         // Unit Targeting
         //-------------------------------------------------------------------------------------------------------------
-        "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
-        "SpellDispellableType"          "SPELL_DISPELLABLE_NO"
+        "SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
         
         // Stats
         //-------------------------------------------------------------------------------------------------------------
         "AbilityCastPoint"              "0"
         "AbilityCooldown"               "30 25 20 15"
         "AbilityManaCost"               "50"
-        "AbilityCastAnimation"      "ACT_DOTA_CAST_ABILITY_2"
+        "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_2"
         "AbilityCastGestureSlot"        "DEFAULT"
             
         // Special
@@ -1859,6 +1860,8 @@
             "duration_day"          "4.5 5 5.5 6.0"
             "duration_night"        "4.5 5 5.5 6.0"
             "radius"                "600"
+            "dps"			        "25 30 35 40"
+			"tick_rate"	            "0.1"
         }
     }
 
@@ -2710,6 +2713,7 @@
                     "value"                 "100 200 300"
                     "DamageTypeTooltip"     "DAMAGE_TYPE_MAGICAL"
                 }
+                "slow_resistance"		"15 30 45"
         }
     }
     "obsidian_destroyer_arcane_orb"

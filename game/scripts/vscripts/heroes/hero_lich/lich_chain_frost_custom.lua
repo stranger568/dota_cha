@@ -1,4 +1,5 @@
 LinkLuaModifier("modifier_lich_chain_frost_custom_slow", "heroes/hero_lich/lich_chain_frost_custom", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_lich_chain_frost_custom_talent", "heroes/hero_lich/lich_chain_frost_custom", LUA_MODIFIER_MOTION_NONE)
 
 lich_chain_frost_custom = class({})
 
@@ -33,6 +34,10 @@ function lich_chain_frost_custom:OnSpellStart()
     local ability = self
     local target = self:GetCursorTarget()
     self:LaunchProjectile(caster, target)
+end
+
+function lich_chain_frost_custom:GetIntrinsicModifierName()
+    return "modifier_lich_chain_frost_custom_talent"
 end
 
 function lich_chain_frost_custom:LaunchProjectile(source, target)
@@ -258,4 +263,19 @@ end
 
 function modifier_lich_chain_frost_custom_slow:GetStatusEffectName()
     return "particles/status_fx/status_effect_frost_lich.vpcf"
+end
+
+modifier_lich_chain_frost_custom_talent = class({})
+function modifier_lich_chain_frost_custom_talent:IsHidden() return true end
+function modifier_lich_chain_frost_custom_talent:IsPurgable() return false end
+function modifier_lich_chain_frost_custom_talent:RemoveOnDeath() return false end
+function modifier_lich_chain_frost_custom_talent:IsPurgeException() return false end
+function modifier_lich_chain_frost_custom_talent:OnDeathEvent(params)
+    if not IsServer() then return end
+    if params.unit ~= self:GetParent() then return end
+    if not self:GetParent():HasTalent("special_bonus_unique_lich_7") then return end
+    local enemies = FindUnitsInRadius(self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, 1200, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NO_INVIS + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)
+    if #enemies > 0 then
+        self:GetAbility():LaunchProjectile(self:GetCaster(), enemies[1])
+    end
 end

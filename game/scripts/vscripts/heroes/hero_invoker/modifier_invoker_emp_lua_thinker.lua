@@ -2,8 +2,6 @@ LinkLuaModifier("modifier_emp_pull_custom", "heroes/hero_invoker/modifier_invoke
 
 modifier_invoker_emp_lua_thinker = class({})
 
---------------------------------------------------------------------------------
--- Classifications
 function modifier_invoker_emp_lua_thinker:IsHidden()
     return true
 end
@@ -12,16 +10,12 @@ function modifier_invoker_emp_lua_thinker:IsPurgable()
     return false
 end
 
---------------------------------------------------------------------------------
--- Initializations
 function modifier_invoker_emp_lua_thinker:OnCreated(kv)
     if IsServer() then
         self.burn = self:GetAbility():GetSpecialValueFor("mana_burned")
         self.radius = self:GetAbility():GetSpecialValueFor("area_of_effect")
         self.damage_pct = self:GetAbility():GetSpecialValueFor("damage_per_mana_pct") / 100
         self.restore_pct = self:GetAbility():GetSpecialValueFor("restore_per_mana_pct") / 100
-
-        -- play effects
         self:PlayEffects1()
     end
 end

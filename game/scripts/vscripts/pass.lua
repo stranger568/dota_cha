@@ -16,6 +16,9 @@ function Pass:Init()
     CustomGameEventManager:RegisterListener("PauseGame",function(_, keys)
         self:PauseGame(keys)
     end)
+    CustomGameEventManager:RegisterListener("player_set_ready_pause_lua",function(_, keys)
+        self:player_set_ready_pause_lua(keys)
+    end)
     CustomGameEventManager:RegisterListener("BattlePassBuy",function(_, keys)
         self:BattlePassBuy(keys)
     end)
@@ -296,6 +299,10 @@ function Pass:Init()
         [162] = {150, "donate"},
         [163] = {150, "donate"},
         [164] = {200, "donate"},
+
+        [165] = {500, "arena"},
+        [166] = {200, "donate"},
+        [167] = {200, "donate"},
     }
 end
 
@@ -616,6 +623,11 @@ function Pass:PauseDisconnectPlayer(id)
     end
 end
 
+function Pass:player_set_ready_pause_lua(params)
+    local id = params.PlayerID
+    CustomGameEventManager:Send_ServerToAllClients("player_set_ready_pause", {id = id})
+end
+
 function Pass:PauseGame(keys)
     if GameRules:IsGamePaused() then
         if Pass.PauseOwner ~= keys.PlayerID and Pass.PauseCooldown > 0 then
@@ -629,7 +641,7 @@ function Pass:PauseGame(keys)
         CustomGameEventManager:Send_ServerToAllClients("player_unpause_chat", {id = keys.PlayerID})
         Pass.PauseOwner = nil
     else
-        if Pass.PauseCount[keys.PlayerID] ~= nil and Pass.PauseCount[keys.PlayerID] <= 0 then
+        if (Pass.PauseCount[keys.PlayerID] ~= nil and Pass.PauseCount[keys.PlayerID] <= 0) or Pass.PauseCount[keys.PlayerID] == nil then
             local player = PlayerResource:GetPlayer(keys.PlayerID)
             if player then
                 CustomGameEventManager:Send_ServerToPlayer(player, "PauseNotification", {message="#cha_pause_count_null", time=""})
@@ -784,11 +796,16 @@ function Pass:InitPassData(playerid)
             end
             CustomNetTables:SetTableValue("ban_count", tostring(playerid), {ban_count_hero = Pass.banHeroTime[playerid], ban_count_ability = Pass.banAbilityTime[playerid]})
             CustomNetTables:SetTableValue("player_info", "pass_data_"..playerid, ChaServerData.PLAYERS_GLOBAL_INFORMATION[playerid])
-        else
+        elseif ChaServerData.PLAYERS_GLOBAL_INFORMATION[playerid] then
+            Pass.PauseCount[playerid] = 0
+            Pass.passInfo[playerid] = true
+            Pass.steamPassInfo[sSteamID] = true
             Pass.PlayerLeavePauseCooldown[playerid] = 0 
             Pass.RerollHeroCount[playerid] = 1      
-            Pass.passInfo[playerid] = false
-            CustomNetTables:SetTableValue("ban_count", tostring(playerid), {ban_count_hero = 0, ban_count_ability = 0})
+            Pass.banAbilityTime[playerid] = 2
+            Pass.banHeroTime[playerid] = 1
+            CustomNetTables:SetTableValue("ban_count", tostring(playerid), {ban_count_hero = Pass.banHeroTime[playerid], ban_count_ability = Pass.banAbilityTime[playerid]})
+            CustomNetTables:SetTableValue("player_info", "pass_data_"..playerid, ChaServerData.PLAYERS_GLOBAL_INFORMATION[playerid])
         end
     end
     local nRetryTime=1
@@ -868,7 +885,7 @@ function Pass:SelectVO(keys)
         "129", "130", "131", "132", "133", "134", "135", "136", "137", 
         "138", "139", "140", "141", "142", "143", "144", "145", "146", 
         "147", "148", "149", "150", "151", "152", "153", "154", "155", 
-        "156", "157", "158", "159", "160", "161", "162", "163", "164",
+        "156", "157", "158", "159", "160", "161", "162", "163", "164", "165", "166", "167",
     }
     local player = PlayerResource:GetPlayer(keys.PlayerID)
 
@@ -1024,6 +1041,9 @@ function Pass:SelectVO(keys)
                     [162] = "Есть пробитие",
                     [163] = "Рот ебал нахуй",
                     [164] = "Блять...",
+                    [165] = "О, я приехал",
+                    [166] = "Первый скил и третий",
+                    [167] = "Это не майнкрафт, это дота долбоеб",
                 }
 
                 local sound_name = "item_wheel_"..keys.num

@@ -1,7 +1,5 @@
 modifier_invoker_cold_snap_lua = class({})
 
---------------------------------------------------------------------------------
--- Classifications
 function modifier_invoker_cold_snap_lua:IsHidden()
 	return false
 end
@@ -18,30 +16,25 @@ function modifier_invoker_cold_snap_lua:IsPurgable()
 	return true
 end
 
---------------------------------------------------------------------------------
--- Initializations
 function modifier_invoker_cold_snap_lua:OnCreated( kv )
 	if IsServer() then
-		-- references
 		self.damage = self:GetAbility():GetSpecialValueFor( "freeze_damage" )
 		self.duration = self:GetAbility():GetSpecialValueFor( "freeze_duration")
 		self.cooldown = self:GetAbility():GetSpecialValueFor( "freeze_cooldown")
 		self.threshold = self:GetAbility():GetSpecialValueFor( "damage_trigger")
-
+        self.heal = self:GetAbility():GetSpecialValueFor("freeze_heal")
 		self.onCooldown = false
-
-		-- Start interval
 		self:Freeze()
 	end
 end
 
 function modifier_invoker_cold_snap_lua:OnRefresh( kv )
 	if IsServer() then
-		-- references
 		self.damage = self:GetAbility():GetSpecialValueFor( "freeze_damage")
 		self.duration = self:GetAbility():GetSpecialValueFor( "freeze_duration")
 		self.cooldown = self:GetAbility():GetSpecialValueFor( "freeze_cooldown")
 		self.threshold = self:GetAbility():GetSpecialValueFor( "damage_trigger")
+        self.heal = self:GetAbility():GetSpecialValueFor("freeze_heal")
 	end
 end
 
@@ -51,28 +44,24 @@ function modifier_invoker_cold_snap_lua:TakeDamageScriptModifier( params )
 		if params.damage<self.threshold then return end
 		if self.onCooldown then return end
 		self:Freeze()
-
 		self:PlayEffects( params.attacker )
 	end
 end
 
---------------------------------------------------------------------------------
--- Interval Effects
 function modifier_invoker_cold_snap_lua:OnIntervalThink()
 	self.onCooldown = false
 	self:StartIntervalThink(-1)
 end
 
---------------------------------------------------------------------------------
--- Helper functions
 function modifier_invoker_cold_snap_lua:Freeze()
 	self.onCooldown = true
 	self:GetParent():AddNewModifier(
 		self:GetCaster(), -- player source
 		self:GetAbility(), -- ability source
-		"modifier_generic_stunned_lua", -- modifier name
+		"modifier_stunned", -- modifier name
 		{ duration = self.duration } -- kv
 	)
+    self:GetCaster():Heal(self.heal, self:GetAbility())
 	ApplyDamage({victim = self:GetParent(), attacker = self:GetCaster(), damage = self.damage, damage_type = DAMAGE_TYPE_MAGICAL, ability = self:GetAbility()})
 	self:StartIntervalThink( self.cooldown )
 end

@@ -98,6 +98,7 @@ function Util:RefreshAbilityAndItem( hHero,exceptions)
         local hItem = hHero:GetItemInSlot(i)
         if hItem then
             hItem:EndCooldown()
+            hItem:RefreshCharges()
         end
     end
 
@@ -121,6 +122,7 @@ function Util:RefreshAbilityAndItem( hHero,exceptions)
             local hItem = hHero.tempest_double_hClone:GetItemInSlot(i)
             if hItem then
                 hItem:EndCooldown()
+                hItem:RefreshCharges()
             end
         end
         local hItem = hHero.tempest_double_hClone:GetItemInSlot(16)
@@ -152,6 +154,7 @@ function Util:RemoveMovemenModifier(hHero)
     hHero:RemoveModifierByName("modifier_kunkka_x_marks_the_spot")
     hHero:RemoveModifierByName("modifier_kunkka_x_marks_the_spot_thinker")
     hHero:RemoveModifierByName("modifier_riki_tricks_of_the_trade_phase")
+    hHero:RemoveModifierByName("modifier_riki_tricks_of_the_trade_custom")
     hHero:RemoveModifierByName("modifier_monkey_king_bounce_perch")
     hHero:RemoveModifierByName("modifier_void_spirit_dissimilate_phase")
     hHero:RemoveModifierByName("modifier_monkey_king_bounce_leap")
@@ -348,14 +351,17 @@ end
 
 function Util:IsReincarnationWork(hHero)
     local bSkeletonKingReincarnationWork = false
+    
     if hHero:HasAbility("skeleton_king_reincarnation") then
         local hAbility = hHero:FindAbilityByName("skeleton_king_reincarnation")
         if hAbility:GetLevel() > 0 then
-            if hAbility:GetCooldownTimeRemaining() == hAbility:GetEffectiveCooldown(hAbility:GetLevel()-1) then
+            -- Полностью готова ИЛИ текущий кулдаун == Максимальному кулдауну
+            if hAbility:GetCooldownTimeRemaining() == hAbility:GetEffectiveCooldown(hAbility:GetLevel()-1) and not hHero:HasModifier("modifier_duel_curse_cooldown") then
                 bSkeletonKingReincarnationWork = true 
             end
         end
     end
+
     local bUndyingReincarnationWork = false
     if hHero:HasModifier("modifier_special_bonus_reincarnation") then
         local hModifier = hHero:FindModifierByName("modifier_special_bonus_reincarnation")
@@ -363,10 +369,14 @@ function Util:IsReincarnationWork(hHero)
             bUndyingReincarnationWork=true
         end
     end
+
     local bmodifier_skill_second_life = false
-    if hHero:HasModifier("modifier_skill_second_life") and not hHero:HasModifier("modifier_skill_second_life_cooldown") and not hHero:HasModifier("modifier_duel_curse_cooldown") then
-        bmodifier_skill_second_life = true
+    if hHero:HasModifier("modifier_skill_second_life") then
+        if not hHero:HasModifier("modifier_duel_curse_cooldown") and not hHero:HasModifier("modifier_skill_second_life_cooldown") then
+            bmodifier_skill_second_life = true
+        end
     end
+
     return bSkeletonKingReincarnationWork or bUndyingReincarnationWork or bmodifier_skill_second_life
 end
 

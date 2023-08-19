@@ -1,13 +1,25 @@
 LinkLuaModifier( "modifier_grimstroke_spirit_walk_custom", "abilities/grimstroke_spirit_walk_custom", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_grimstroke_spirit_walk_custom_return", "abilities/grimstroke_spirit_walk_custom", LUA_MODIFIER_MOTION_NONE )
 
 grimstroke_spirit_walk_custom = class({})
+
+grimstroke_return_custom = class({})
+function grimstroke_return_custom:OnSpellStart()
+    if not IsServer() then return end
+    local modifier_grimstroke_spirit_walk_custom_return = self:GetCaster():FindModifierByName("modifier_grimstroke_spirit_walk_custom_return")
+    if modifier_grimstroke_spirit_walk_custom_return then
+        modifier_grimstroke_spirit_walk_custom_return.mod:Destroy()
+    end
+end
 
 function grimstroke_spirit_walk_custom:OnSpellStart()
 	if not IsServer() then return end
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
 	local duration = self:GetSpecialValueFor("buff_duration")
-	target:AddNewModifier( self:GetCaster(), self, "modifier_grimstroke_spirit_walk_custom", { duration = duration } )
+	local modifier_grimstroke_spirit_walk_custom = target:AddNewModifier( self:GetCaster(), self, "modifier_grimstroke_spirit_walk_custom", { duration = duration } )
+    local modifier_grimstroke_spirit_walk_custom_return = self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_grimstroke_spirit_walk_custom_return", { duration = duration } )
+    modifier_grimstroke_spirit_walk_custom_return.mod = modifier_grimstroke_spirit_walk_custom
 	self:PlayEffects()
 end
 
@@ -15,6 +27,22 @@ function grimstroke_spirit_walk_custom:PlayEffects()
 	local effect_cast = ParticleManager:CreateParticle( "particles/units/heroes/hero_grimstroke/grimstroke_cast_ink_swell.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetCaster() )
 	ParticleManager:ReleaseParticleIndex( effect_cast )
 	EmitSoundOn( "Hero_Grimstroke.InkSwell.Cast", self:GetCaster() )
+end
+
+modifier_grimstroke_spirit_walk_custom_return = class({})
+function modifier_grimstroke_spirit_walk_custom_return:IsHidden() return true end
+function modifier_grimstroke_spirit_walk_custom_return:IsPurgable() return false end
+function modifier_grimstroke_spirit_walk_custom_return:OnCreated()
+    if not IsServer() then return end
+    local grimstroke_return_custom = self:GetCaster():FindAbilityByName("grimstroke_return_custom")
+    if grimstroke_return_custom then
+        grimstroke_return_custom:SetLevel(1)
+    end
+    self:GetCaster():SwapAbilities("grimstroke_spirit_walk_custom", "grimstroke_return_custom", false, true)
+end
+function modifier_grimstroke_spirit_walk_custom_return:OnDestroy()
+    if not IsServer() then return end
+    self:GetCaster():SwapAbilities("grimstroke_return_custom", "grimstroke_spirit_walk_custom", false, true)
 end
 
 modifier_grimstroke_spirit_walk_custom = class({})
@@ -70,6 +98,7 @@ end
 
 function modifier_grimstroke_spirit_walk_custom:OnDestroy( kv )
 	if IsServer() then
+        self:GetCaster():RemoveModifierByName("modifier_grimstroke_spirit_walk_custom_return")
 		local enemies = FindUnitsInRadius( self.caster:GetTeamNumber(), self.parent:GetOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false )
 
 		local stun = self.base_stun

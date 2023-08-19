@@ -177,12 +177,12 @@ end
 function Spawner:OnEntityKilled(keys)
     local hKilledUnit = EntIndexToHScript( keys.entindex_killed )
 
-    local hKiller
+    local hKiller = nil
 
     if keys.entindex_attacker then
        hKiller = EntIndexToHScript( keys.entindex_attacker )
     end
-    
+
     if not hKilledUnit:IsHero() then
         if hKilledUnit.nSpawnerTeamNumber == self.nTeamNumber then
             local round_count = self.round.nRoundNumber
@@ -415,7 +415,7 @@ function Spawner:CreaturePowerUp(hUnit,nlevel,bonus)
     hUnit:SetMaxHealth(flMaxHealth)
     hUnit:SetHealth(flMaxHealth)
 
-    local flGoldBountyMultiple = 0.5
+    local flGoldBountyMultiple = 0.8
     local bonus_gold = 0
     if nlevel >= 10 then
         bonus_gold = bonus
@@ -458,8 +458,8 @@ function Spawner:CreaturePowerUp(hUnit,nlevel,bonus)
     local flSpeedMultiple = math.pow(1.058, nlevel)
     hUnit:SetBaseAttackTime(hUnit:GetBaseAttackTime()/flSpeedMultiple)
 
-    if nlevel>60 then
-        hUnit:SetBaseMagicalResistanceValue(hUnit:GetBaseMagicalResistanceValue()+(nlevel-60)*1)
+    if nlevel>50 then
+        hUnit:SetBaseMagicalResistanceValue(hUnit:GetBaseMagicalResistanceValue()+(nlevel-45)*1)
     end
      
     if nlevel>100 then
@@ -471,8 +471,8 @@ function Spawner:CreaturePowerUp(hUnit,nlevel,bonus)
         hAbility:SetLevel(nAbilityLevel)
     end
 
-    if nlevel>60 then
-        hUnit:SetPhysicalArmorBaseValue(hUnit:GetPhysicalArmorBaseValue()+math.floor((nlevel-60)*0.65))
+    if nlevel>50 then
+        hUnit:SetPhysicalArmorBaseValue(hUnit:GetPhysicalArmorBaseValue()+math.floor((nlevel-50)*0.65))
     end
 
     if nlevel>1 then

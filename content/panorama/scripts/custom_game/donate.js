@@ -134,6 +134,10 @@ var shop_info =
     [163, 150, "item_163", "sound", "donate"],
     [164, 200, "item_164", "sound", "donate"],
 
+    [165, 500, "item_165", "sound", "arena"],
+    [166, 200, "item_166", "sound", "donate"],
+    [167, 200, "item_167", "sound", "donate"],
+
     //Обычные смайлы
     [51, 250, "item_51", "smile__0054_1", "arena"],
     [52, 250, "item_52", "smile__0051_3Head", "arena"],

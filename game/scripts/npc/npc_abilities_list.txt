@@ -121,16 +121,16 @@
   "windrunner" {
   //"1"    "windrunner_shackleshot"
   "2"    "frostivus2018_windrunner_shackleshot"
-  "3"    "windrunner_powershot"
+  //"3"    "windrunner_powershot"
   "4"    "windrunner_windrun"
   "5"    "windrunner_focusfire"
   }
   "zuus" {
   "1"    "zuus_arc_lightning_custom"
   "2"    "zuus_lightning_bolt"
-  //"3"    "zeus_static_field_lua"
   "3"    "zuus_heavenly_jump"
   "4"    "zuus_thundergods_wrath"
+  "5"    "zuus_thundergods_vengeance_custom"
   }
   "lina" {
   "1"    "lina_dragon_slave"
@@ -196,7 +196,7 @@
   "1"    "riki_smoke_screen"
   "2"    "riki_blink_strike"
   "3"    "riki_backstab_custom"
-  "4"    "riki_tricks_of_the_trade"
+  "4"    "riki_tricks_of_the_trade_custom"
   }
   "sniper" {
   "1"    "sniper_shrapnel"
@@ -332,7 +332,7 @@
   }
   "lone_druid" {
   "lone_druid_true_form_custom" {"lone_druid_true_form_battle_cry" "0"}
-  "1"    "lone_druid_spirit_bear"
+  //"1"    "lone_druid_spirit_bear"
   "2"    "lone_druid_savage_roar"
   "3"    "lone_druid_spirit_link"
   "4"    "lone_druid_true_form_custom"
@@ -393,12 +393,13 @@
   "4"    "skywrath_mage_mystic_flare"
   }
   "oracle" {
-  "1"    "oracle_fortunes_end"
+  //"1"    "oracle_fortunes_end"
   "2"    "oracle_fates_edict"
   "3"    "oracle_purifying_flames"
   "4"    "oracle_false_promise_custom"
   }
   "techies" {
+    "techies_reactive_tazer" {"techies_reactive_tazer_stop" "0"}
   "1"    "techies_sticky_bomb"
   "2"    "techies_reactive_tazer"
   "3"    "techies_suicide"
@@ -443,7 +444,7 @@
   "life_stealer" {
   "life_stealer_infest" {"life_stealer_consume" "0"}
   "1"    "life_stealer_rage"
-  "2"    "life_stealer_feast"
+  "2"    "life_stealer_feast_custom"
   "3"    "life_stealer_ghoul_frenzy"
   "4"    "life_stealer_infest"
   }
@@ -541,11 +542,11 @@
   "4"    "warlock_rain_of_chaos"
   }
   "night_stalker" {
-  "night_stalker_darkness" {"night_stalker_darkness_passive" "0"}
+  "night_stalker_darkness_custom" {"night_stalker_darkness_passive" "0"}
   "1"    "night_stalker_void_custom"
   "2"    "night_stalker_crippling_fear"
   "3"    "night_stalker_hunter_in_the_night_custom"
-  "4"    "night_stalker_darkness"
+  "4"    "night_stalker_darkness_custom"
   }
   "doom_bringer" {
   "1"    "doom_bringer_devour_custom"
@@ -605,11 +606,11 @@
   "5"    "frostivus2018_weaver_geminate_attack_custom"
   }
   "spectre" {
-  "spectre_haunt" {"spectre_reality" "0"}
+  "spectre_haunt_single" {"spectre_reality" "0"}
   "1"    "spectre_spectral_dagger"
   "2"    "spectre_desolate"
   "3"    "spectre_dispersion_custom"
-  "4"    "spectre_haunt"
+  "4"    "spectre_haunt_single"
   }
   "meepo" {
   "1"    "meepo_earthbind"
@@ -775,6 +776,7 @@
   "5"    "frostivus2018_dark_willow_bedlam"
   }
   "grimstroke" {
+    "grimstroke_spirit_walk_custom" {"grimstroke_return_custom" "0"}
   "1"    "grimstroke_dark_artistry"
   "2"    "grimstroke_ink_creature_custom"
   "3"    "grimstroke_spirit_walk_custom"
@@ -812,7 +814,7 @@
   "dawnbreaker_celestial_hammer" {"dawnbreaker_converge" "0"}
   "1"    "dawnbreaker_fire_wreath"
   "2"    "dawnbreaker_celestial_hammer"
-  "3"    "dawnbreaker_luminosity_custom"
+  //"3"    "dawnbreaker_luminosity_custom"
   "4"    "dawnbreaker_solar_guardian"
   }
 

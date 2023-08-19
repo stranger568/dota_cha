@@ -95,7 +95,8 @@ function UpdateAbilitiesHudDamage() {
 	var maximum_damage = 0
 	var table_units = CustomNetTables.GetTableValue("spell_damage", Players.GetLocalPlayer());
 	if (table_units) {
-		if (Object.keys(table_units).length > 0) {
+		if (Object.keys(table_units).length > 0) 
+        {
 			for (var i = 1; i <= Object.keys(table_units).length; i++) {
 				maximum_damage = maximum_damage + table_units[i].damage
 			}
@@ -109,6 +110,7 @@ function UpdateAbilitiesHudDamage() {
 			for (var i = 1; i <= Object.keys(table_units).length; i++) {
 				if ($( "#DamageAbilities" ).FindChildTraverse("unit_damage_" + table_units[i].name)) {
 					var percent = (table_units[i].damage * 100) / (maximum_damage || 1)
+                    percent = Math.min(100, percent)
 					if ($( "#DamageAbilities" ).GetChild(i-1))
 					{
 						$( "#DamageAbilities" ).MoveChildAfter( $( "#DamageAbilities" ).FindChildTraverse("unit_damage_" + table_units[i].name), $( "#DamageAbilities" ).GetChild(i-1) );
@@ -149,6 +151,7 @@ function UpdateAbilitiesHudDamageIncoming() {
 			for (var i = 1; i <= Object.keys(table_units).length; i++) {
 				if ($( "#DamageAbilitiesIncome" ).FindChildTraverse("unit_damage_" + table_units[i].name)) {
 					var percent = (table_units[i].damage * 100) / (maximum_damage || 1)
+                    percent = Math.min(100, percent)
 					if ($( "#DamageAbilitiesIncome" ).GetChild(i-1))
 					{
 						$( "#DamageAbilitiesIncome" ).MoveChildAfter( $( "#DamageAbilitiesIncome" ).FindChildTraverse("unit_damage_" + table_units[i].name), $( "#DamageAbilitiesIncome" ).GetChild(i-1) );

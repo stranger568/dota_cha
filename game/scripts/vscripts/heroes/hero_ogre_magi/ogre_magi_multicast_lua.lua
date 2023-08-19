@@ -138,6 +138,7 @@ if IsServer() then
 		beastmaster_wild_axes = MULTICAST_TYPE_INSTANT,
 		doom_bringer_devour_custom = MULTICAST_TYPE_DIFFERENT,
 		custom_phantom_assassin_fan_of_knives = MULTICAST_TYPE_SAME,
+        frostivus2018_omniknight_purification = MULTICAST_TYPE_SAME,
 		item_refresher_custom = MULTICAST_TYPE_NONE,
 		invoker_deafening_blast_lua = MULTICAST_TYPE_DIFFERENT,
 		sandking_burrowstrike = MULTICAST_TYPE_NONE,
@@ -465,7 +466,11 @@ function CastAdditionalAbility(caster, ability, target, delay, channelData)
 
 	if skill:GetAbilityName() == "nevermore_shadowraze1_custom" or skill:GetAbilityName() == "nevermore_shadowraze2_custom" or skill:GetAbilityName() == "nevermore_shadowraze3_custom" or skill:GetAbilityName() == "doom_bringer_devour_custom" then
 		skill:OnSpellStart(true)
-	else
+    elseif skill:GetAbilityName() == "item_hand_of_midas" then
+        skill:SetCurrentCharges(skill:GetCurrentCharges() + 1)
+        skill:SetCurrentAbilityCharges(skill:GetCurrentAbilityCharges() + 1)
+        skill:OnSpellStart()
+    else
 		skill:OnSpellStart()
 	end
 	

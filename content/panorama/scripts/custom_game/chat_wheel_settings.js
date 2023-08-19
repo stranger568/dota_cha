@@ -105,6 +105,10 @@ var Items_sounds = [
     ["160", "item_160"],
     ["163", "item_163"],
     ["164", "item_164"],
+
+    ["165", "item_165"],
+    ["166", "item_166"],
+    ["167", "item_167"],
 ]
 
 GameUI.CustomUIConfig().OpenChatWheel = function ToggleChatWheelSettingsButton() {

@@ -94,6 +94,7 @@ if IsServer() then
         ["zuus_arc_lightning_custom"] = true,
         ["venomancer_noxious_plague"] = true,
         ["drow_ranger_frost_arrows_custom"] = true,
+        ["item_revenants_brooch"] = true,
     }
 
     local dot_abilities=
@@ -171,6 +172,7 @@ if IsServer() then
         ["furion_curse_of_the_forest"] = true,
         ["witch_doctor_voodoo_restoration"] = true,
         ["item_giants_ring_custom"] = true,
+        ["night_stalker_crippling_fear"] = true,
     }
 
     function modifier_spell_amplify_controller:GetModifierSpellAmplify_Percentage(params)	

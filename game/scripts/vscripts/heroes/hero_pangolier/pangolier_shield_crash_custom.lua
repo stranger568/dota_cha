@@ -109,33 +109,54 @@ modifier_pangolier_shield_crash_custom = class({})
 function modifier_pangolier_shield_crash_custom:IsPurgable() return false end
 
 function modifier_pangolier_shield_crash_custom:OnCreated( kv )
-	local stack_pct = self:GetAbility():GetSpecialValueFor( "hero_stacks" )
-	local creep_stacks = self:GetAbility():GetSpecialValueFor( "creep_stacks" )
+	local stack_pct = self:GetAbility():GetSpecialValueFor( "hero_shield" )
+	local creep_stacks = self:GetAbility():GetSpecialValueFor( "creep_shield" )
 	if not IsServer() then return end
-	self.reduction = (kv.stack * stack_pct) + math.min(kv.stack_creep * creep_stacks, 90) 
-	self:SetStackCount( self.reduction )
+    self:SetStackCount((kv.stack * stack_pct) + (kv.stack_creep * creep_stacks))
 	self:PlayEffects()
 end
 
 function modifier_pangolier_shield_crash_custom:OnRefresh( kv )
-	local stack_pct = self:GetAbility():GetSpecialValueFor( "hero_stacks" )
-	local creep_stacks = self:GetAbility():GetSpecialValueFor( "creep_stacks" )
+	local stack_pct = self:GetAbility():GetSpecialValueFor( "hero_shield" )
+	local creep_stacks = self:GetAbility():GetSpecialValueFor( "creep_shield" )
 	if not IsServer() then return end
-	local reduction = (kv.stack * stack_pct) + math.min(kv.stack_creep * creep_stacks, 90) 
-	self.reduction = math.min(self.reduction + ((kv.stack * stack_pct) + math.min(kv.stack_creep * creep_stacks, 90)), 90)
-	self:SetStackCount( self.reduction )
+	self:SetStackCount( self:GetStackCount() + ((kv.stack * stack_pct) + (kv.stack_creep * creep_stacks)))
 end
 
 function modifier_pangolier_shield_crash_custom:DeclareFunctions()
-	local funcs = 
-	{
-		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE,
-	}
-	return funcs
+    local funcs = 
+    {
+        MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK,
+        MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT,
+    }
+    return funcs
 end
 
-function modifier_pangolier_shield_crash_custom:GetModifierIncomingDamage_Percentage()
-	return -self.reduction
+function modifier_pangolier_shield_crash_custom:GetModifierTotal_ConstantBlock(kv)
+    if IsServer() then
+        local target                    = self:GetParent()
+        local original_shield_amount    = self:GetStackCount()
+        if kv.damage > 0 then
+            if kv.damage < original_shield_amount then
+                SendOverheadEventMessage(nil, OVERHEAD_ALERT_BLOCK, target, kv.damage, nil)
+                original_shield_amount = original_shield_amount - kv.damage
+                self:SetStackCount(original_shield_amount)
+                return kv.damage
+            else
+                SendOverheadEventMessage(nil, OVERHEAD_ALERT_BLOCK, target, original_shield_amount, nil)
+                if not self:IsNull() then
+                    self:Destroy()
+                end
+                return original_shield_amount
+            end
+        end
+    end
+end
+
+function modifier_pangolier_shield_crash_custom:GetModifierIncomingDamageConstant()
+    if (not IsServer()) then
+        return self:GetStackCount()
+    end
 end
 
 function modifier_pangolier_shield_crash_custom:GetStatusEffectName()

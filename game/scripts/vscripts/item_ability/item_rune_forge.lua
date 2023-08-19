@@ -25,7 +25,18 @@ function item_rune_forge:OnSpellStart()
 			    vRandomPos=hCaster:GetAbsOrigin()+RandomVector(nRandomRange)
             end
 
-			CreateRune(vRandomPos, RandomInt(0,7))
+            local runes = 
+            {
+                DOTA_RUNE_DOUBLEDAMAGE,
+                DOTA_RUNE_HASTE,
+                DOTA_RUNE_ILLUSION,
+                DOTA_RUNE_INVISIBILITY,
+                DOTA_RUNE_REGENERATION,
+                DOTA_RUNE_ARCANE,
+                DOTA_RUNE_SHIELD,
+            }
+
+			CreateRune(vRandomPos, runes[RandomInt(1, #runes)])
 
 			self:SpendCharge()
             

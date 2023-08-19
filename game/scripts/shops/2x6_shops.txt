@@ -65,7 +65,7 @@
 
 	"weapons_armor"
 	{
-		"item"		"item_quelling_blade"
+		"item"		"item_quelling_blade_custom"
 		"item"		"item_ring_of_protection"
 		"item"		"item_infused_raindrop"	
 		"item"		"item_orb_of_venom"
@@ -276,7 +276,7 @@
 	{
 		"item"		"item_tpscroll"
 		"item"		"item_magic_stick"
-		"item"		"item_quelling_blade"
+		"item"		"item_quelling_blade_custom"
 		"item"		"item_boots"
 		"item"		"item_boots_of_elves"
 		"item"		"item_belt_of_strength"
@@ -347,7 +347,7 @@
 		"item"		"item_recipe_magic_wand"
 		"item"		"item_ring_of_protection"
 		"item"		"item_stout_shield"
-		"item"		"item_quelling_blade"
+		"item"		"item_quelling_blade_custom"
 		"item"		"item_blight_stone"
 		"item"		"item_orb_of_venom"
 		"item"		"item_wind_lace"

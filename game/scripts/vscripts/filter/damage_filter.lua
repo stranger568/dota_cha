@@ -5,6 +5,21 @@ function GameMode:DamageFilter(damageTable)
     local hAttacker = EntIndexToHScript(damageTable.entindex_attacker_const)
     local hVictim = EntIndexToHScript(damageTable.entindex_victim_const)
 
+    local abilities_oneshot = 
+    {
+        ["enigma_demonic_conversion_custom"] = true,
+        ["night_stalker_hunter_in_the_night_custom"] = true,
+        ["night_stalker_darkness_passive"] = true,
+        ["doom_bringer_devour_custom"] = true,
+        ["pudge_meat_hook"] = true,
+        ["life_stealer_infest"] = true,
+        ["life_stealer_consume"] = true,
+        ["snapfire_gobble_up"] = true,
+        ["snapfire_spit_creep"] = true,
+        ["mirana_arrow"] = true,
+        ["item_hand_of_midas"] = true,
+    }
+
     -- Дополнинения к абилкам и на базе
     if damageTable.entindex_inflictor_const ~= nil then
         local hAbility = EntIndexToHScript(damageTable.entindex_inflictor_const)
@@ -39,18 +54,38 @@ function GameMode:DamageFilter(damageTable)
     end
 
     -- Курсы------------------------------------------------------------------------------------------------------
-    if hAttacker and hAttacker:HasModifier("modifier_loser_curse") then
+    if hAttacker and hAttacker:HasModifier("modifier_loser_curse") and (hAttacker.bJoiningPvp == nil or hAttacker.bJoiningPvp == false) then
+        hAbility = nil
+        if damageTable.entindex_inflictor_const ~= nil then
+            hAbility = EntIndexToHScript(damageTable.entindex_inflictor_const)
+        end
         local modifier_loser_curse = hAttacker:FindModifierByName("modifier_loser_curse")
         if modifier_loser_curse then
-            damageTable.damage = tonumber(damageTable.damage) * (1 - (0.2 * modifier_loser_curse:GetStackCount()))
+            if hAbility == nil or (hAbility ~= nil and abilities_oneshot[hAbility:GetAbilityName()] == nil) then
+                damageTable.damage = tonumber(damageTable.damage) * (1 - (0.2 * modifier_loser_curse:GetStackCount()))
+            end
         end
     end
-    if hAttacker and hAttacker:HasModifier("modifier_cha_ban") then
-        damageTable.damage = tonumber(damageTable.damage) * 0.75
+    if hAttacker and hAttacker:HasModifier("modifier_cha_ban") and (hAttacker.bJoiningPvp == nil or hAttacker.bJoiningPvp == false) then
+        hAbility = nil
+        if damageTable.entindex_inflictor_const ~= nil then
+            hAbility = EntIndexToHScript(damageTable.entindex_inflictor_const)
+        end
+        if hAbility == nil or (hAbility ~= nil and abilities_oneshot[hAbility:GetAbilityName()] == nil) then
+            damageTable.damage = tonumber(damageTable.damage) * 0.75
+        end
     end
     -------------------------------------------------------------------------------------------------------------
 
-    if hAttacker and hAttacker:IsHero() and damageTable.damage > 0 then
+
+
+
+
+
+
+
+
+    if hAttacker and hAttacker:IsHero() and damageTable.damage > 0 and GameMode.currentRound.nRoundNumber < 90 then
         local no_found = true
         local id = hAttacker:GetPlayerOwnerID()
         if ChaServerData.PLAYERS_GLOBAL_INFORMATION[id] then
@@ -88,7 +123,7 @@ function GameMode:DamageFilter(damageTable)
         end
     end
 
-    if hVictim and hVictim:IsRealHero() and damageTable.damage > 0 then
+    if hVictim and hVictim:IsRealHero() and damageTable.damage > 0 and GameMode.currentRound.nRoundNumber < 90 then
         local no_found = true
         local id = hVictim:GetPlayerOwnerID()
         if ChaServerData.PLAYERS_GLOBAL_INFORMATION[id] then
@@ -126,7 +161,7 @@ function GameMode:DamageFilter(damageTable)
         end
     end
 
-    if hAttacker and hAttacker.GetPlayerOwnerID and hAttacker:GetPlayerOwnerID() and hAttacker:GetOwner() and not hAttacker:IsHero() and damageTable.damage > 0 then
+    if hAttacker and hAttacker.GetPlayerOwnerID and hAttacker:GetPlayerOwnerID() and hAttacker:GetOwner() and not hAttacker:IsHero() and damageTable.damage > 0 and GameMode.currentRound.nRoundNumber < 90 then
         local no_found = true
         local id = hAttacker:GetPlayerOwnerID()
         if ChaServerData.PLAYERS_GLOBAL_INFORMATION[id] then

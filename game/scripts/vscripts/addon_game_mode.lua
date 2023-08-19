@@ -112,6 +112,7 @@ function GameMode:InitGameMode()
     GameRules:SetStrategyTime(7)
     GameRules:SetShowcaseTime(0)
     GameRules:SetSafeToLeave(true)
+    
 
     GameRules:SetCustomGameSetupRemainingTime(10)
     GameRules:SetCustomGameSetupTimeout(10)
@@ -145,6 +146,7 @@ function GameMode:InitGameMode()
     GameRules:GetGameModeEntity():SetFixedRespawnTime(99990000)
     GameRules:SetUseUniversalShopMode( true )
     GameRules:GetGameModeEntity():SetFogOfWarDisabled(false) 
+    GameRules:GetGameModeEntity():SetLoseGoldOnDeath(false) 
     GameRules:GetGameModeEntity():SetDaynightCycleDisabled(true) 
     GameRules:GetGameModeEntity():SetTPScrollSlotItemOverride("item_smoke_of_deceit_custom")
     GameRules:GetGameModeEntity():SetNeutralStashEnabled(true)
@@ -1031,6 +1033,12 @@ function GameMode:TeamLose(nTeamNumber)
         local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
         if hHero then
             hHero:SetGold(0, true)
+            for i=0,24 do
+                local neutral_item = hHero:GetItemInSlot(i)
+                if neutral_item then
+                    UTIL_Remove(neutral_item)
+                end
+            end
         end
     end
 

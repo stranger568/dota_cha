@@ -4,7 +4,7 @@ function item_extra_creature_ogreseal:IsRefreshable() return false end
 
 function item_extra_creature_ogreseal:OnAbilityPhaseStart()
 	if not IsServer() then return end
-	if GameMode.currentRound.nRoundNumber < 90 then 
+	if GameMode.currentRound.nRoundNumber < 80 then 
 	 	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(self:GetCaster():GetPlayerOwnerID()), "CreateIngameErrorMessage", {message = "#aviable_70_round"})
 		return false
 	end

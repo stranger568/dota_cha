@@ -42,6 +42,9 @@ function Debugger:OnPlayerSay(keys)
         if szText=="suicide" then
             hHero:ForceKill(false)
         end
+        if szText=="leave" then
+            Chadisconnect:OnDisconnect({PlayerID = nPlayerId})
+        end
         if szText=="force_game_end" then
             ChaServerData.SetPlayerStatsGameEnd(0, 1)
             ChaServerData.PostData()
@@ -120,6 +123,7 @@ function Debugger:OnPlayerSay(keys)
              end
           end
        end
+       
         if string.find(szText,"npc_dota_hero_") == 1 then
              hHero = PlayerResource:ReplaceHeroWith(nPlayerId,szText,hHero:GetGold(),0)
              HeroBuilder:InitPlayerHero(hHero)

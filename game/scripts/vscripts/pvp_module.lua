@@ -685,14 +685,14 @@ function PvpModule:EndPvp(nWinnerTeamID,nLoserTeamID)
 
 	Timers:CreateTimer({ endTime = 1, callback = function()
 		if string.find(GetMapName(),"1x8") then
-			 if GameMode.currentRound["nRoundNumber"] > 90 then
+			 if GameMode.currentRound["nRoundNumber"] > 80 then
                 PvpModule:PunishLoser(nWinnerTeamID,nLoserTeamID)
-            elseif GameMode.currentRound["nRoundNumber"] > 80 then
-                if GameMode.nRank and GameMode.nRank <= 5 then
-                    PvpModule:PunishLoser(nWinnerTeamID,nLoserTeamID)
-                end
+            --elseif GameMode.currentRound["nRoundNumber"] > 80 then
+            --    if GameMode.nRank and GameMode.nRank <= 5 then
+            --        PvpModule:PunishLoser(nWinnerTeamID,nLoserTeamID)
+            --    end
             elseif GameMode.currentRound["nRoundNumber"] > 70 then
-                if GameMode.nRank and GameMode.nRank <= 4 then
+                if GameMode.nRank and GameMode.nRank <= 5 then
                     PvpModule:PunishLoser(nWinnerTeamID,nLoserTeamID)
                 end
 			else 

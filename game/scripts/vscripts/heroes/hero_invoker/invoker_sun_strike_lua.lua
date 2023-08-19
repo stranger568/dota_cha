@@ -1,8 +1,6 @@
 invoker_sun_strike_lua = class({})
-LinkLuaModifier("modifier_invoker_sun_strike_lua_thinker", "heroes/hero_invoker/modifier_invoker_sun_strike_lua_thinker", LUA_MODIFIER_MOTION_NONE)
 
---------------------------------------------------------------------------------
--- Custom KV
+LinkLuaModifier("modifier_invoker_sun_strike_lua_thinker", "heroes/hero_invoker/modifier_invoker_sun_strike_lua_thinker", LUA_MODIFIER_MOTION_NONE)
 
 function invoker_sun_strike_lua:GetCastAnimation()
     return ACT_DOTA_CAST_SUN_STRIKE
@@ -19,16 +17,13 @@ function invoker_sun_strike_lua:GetBehavior()
     return self.BaseClass.GetBehavior(self)
 end
 
--- Commented out for Cataclysm talent when available
---------------------------------------------------------------------------------
 function invoker_sun_strike_lua:GetCooldown(level)
     if self.bCataclysm then
         return self:GetSpecialValueFor("cataclysm_cooldown")
     end
     return self.BaseClass.GetCooldown(self, level)
 end
---------------------------------------------------------------------------------
--- Ability Cast Filter
+
 function invoker_sun_strike_lua:CastFilterResultLocation(vLocation)
     self.bCataclysm = false
     return UF_SUCCESS
@@ -45,19 +40,14 @@ function invoker_sun_strike_lua:CastFilterResultTarget(hTarget)
     return UF_SUCCESS
 end
 
---------------------------------------------------------------------------------
--- Ability Start
 function invoker_sun_strike_lua:OnSpellStart()
-    -- unit identifier
-    -- get values
+    if not IsServer() then return end
     self.delay = self:GetSpecialValueFor("delay")
     self.vision_distance = self:GetSpecialValueFor("vision_distance")
     self.vision_duration = self:GetSpecialValueFor("vision_duration")
     ListModifiers(self:GetCaster())
     if self.bCataclysm then
-
         local units = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), Vector(0, 0, 0), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)
-
         if units and #units > 0 then
             local cataclysm_minimum_distance = self:GetSpecialValueFor("cataclysm_minimum_distance")
             local cataclysm_maximum_distance = self:GetSpecialValueFor("cataclysm_maximum_distance")
@@ -75,28 +65,13 @@ function invoker_sun_strike_lua:OnSpellStart()
                 self:CastSunStrikeAtPoint(pos + RandomVector(RandomFloat(cataclysm_minimum_distance, cataclysm_maximum_distance)))
             end
         end
-
     else
         self:CastSunStrikeAtPoint(self:GetCursorPosition())
     end
 end
 
-
 function invoker_sun_strike_lua:CastSunStrikeAtPoint(point)
-
     local caster = self:GetCaster()
-
-    -- create modifier thinker
-    CreateModifierThinker(
-    caster,
-    self,
-    "modifier_invoker_sun_strike_lua_thinker",
-    { duration = self.delay, cataclysm = self.bCataclysm },
-    point,
-    caster:GetTeamNumber(),
-    false
-    )
-
-    -- create vision
+    CreateModifierThinker( caster, self, "modifier_invoker_sun_strike_lua_thinker", { duration = self.delay, cataclysm = self.bCataclysm }, point, caster:GetTeamNumber(), false )
     AddFOWViewer(caster:GetTeamNumber(), point, self.vision_distance, self.vision_duration, false)
 end

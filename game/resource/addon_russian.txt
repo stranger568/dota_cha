@@ -541,7 +541,10 @@
       "sounds_161"                                                                  "Бархатные тяги"
       "sounds_162"                                                                  "Есть пробитие"
       "sounds_163"                                                                  "Рот ебал нахуй"
-      "sounds_163"                                                                  "Блять..."
+      "sounds_164"                                                                  "Блять..."
+      "sounds_165"                                                                  "О, я приехал"
+      "sounds_166"                                                                  "Первый скил и третий"
+      "sounds_167"                                                                  "Это не майнкрафт, это дота долбоеб"
 
       "item_0"                                                                      "+50 Arena Coin"
       "item_1"                                                                      "Absolutely Perfect"
@@ -707,7 +710,10 @@
       "item_161"                                                                    "Бархатные тяги"
       "item_162"                                                                    "Есть пробитие"
       "item_163"                                                                    "Рот ебал нахуй"
-      "item_164"                                                                  "Блять..."
+      "item_164"                                                                    "Блять..."
+      "item_165"                                                                    "О, я приехал"
+      "item_166"                                                                    "Первый скил и третий"
+      "item_167"                                                                    "Это не майнкрафт, это дота долбоеб"
 
       //=================================================================================================================
       // Задания
@@ -2554,6 +2560,18 @@
       "DOTA_Tooltip_ability_pangolier_shield_crash_custom_slow"                            "%ЗАМЕДЛЕНИЕ:"    
       "DOTA_Tooltip_ability_pangolier_shield_crash_custom_slow_duration"             "ДЛИТЕЛЬНОСТЬ ЗАМЕДЛЕНИЯ:"
 
+      "DOTA_Tooltip_ability_pangolier_shield_crash_custom"						"Shield Crash"
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_Description"			"Герой прыгает вперёд и бьётся спиной о землю, нанося урон всем врагам неподалёку и замедляя их. За каждого задетого противника он ненадолго получает барьер, поглощающий все виды урона.\n\nЕсли применить эту способность во время действия Rolling Thunder, движение не прекратится, а герой перепрыгнет через любые препятствия."
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_scepter_description"	"Добавляет к прыжку 2 атаки от способности Swashbuckle в четырёх направлениях."
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_Lore"					"Донтé воистину хорош именно в окружении врагов."
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_damage"				"УРОН:"
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_radius"				"РАДИУС:"
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_duration"				"ДЛИТЕЛЬНОСТЬ БАРЬЕРА:"
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_hero_shield"			"БАРЬЕР ЗА ГЕРОЯ:"	
+      "DOTA_Tooltip_ability_pangolier_shield_crash_custom_creep_shield"         "БАРЬЕР ЗА КРИПА:"  
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_slow"					"%ЗАМЕДЛЕНИЕ:"	
+	  "DOTA_Tooltip_ability_pangolier_shield_crash_custom_slow_duration"			"ДЛИТЕЛЬНОСТЬ ЗАМЕДЛЕНИЯ:"
+
       "DOTA_Tooltip_ability_pangolier_heartpiercer_custom"                                 "Heartpiercer"
       "DOTA_Tooltip_ability_pangolier_heartpiercer_custom_Description"               "Герой видит врагов насквозь, искусно пронзая шпагой их броню. Каждая атака может сбросить броню врага и замедлить цель. Эффект активируется с небольшой задержкой после срабатывания."
       "DOTA_Tooltip_ability_pangolier_heartpiercer_custom_Lore"                            "Эти глупцы не ведают, что такое настоящая броня…"
@@ -2757,9 +2775,11 @@
       "DOTA_Tooltip_ability_troll_warlord_fervor_custom_Lore"                             "Если не удалось в первый раз — бей ещё и ещё."
       "DOTA_Tooltip_ability_troll_warlord_fervor_custom_attack_speed"                     "СКОРОСТЬ АТАКИ ЗА ЭФФЕКТ:"
       "DOTA_Tooltip_ability_troll_warlord_fervor_custom_max_stacks"                       "МАКС. ЧИСЛО ЭФФЕКТОВ:"
+      "DOTA_Tooltip_ability_troll_warlord_fervor_custom_shard_description"			      "Увеличивает максимальное число эффектов на %bonus_max_stacks% и даёт владельцу шанс совершить дополнительную атаку дальнего боя по случайному врагу в радиусе атаки + %range_buffer%. Шанс дополнительной атаки: %base_chance%%% + %extra_attack_chance_per_stack%%% за эффект Fervor."
+      
       "DOTA_Tooltip_modifier_troll_warlord_fervor_custom"                                 "Fervor"
       "DOTA_Tooltip_modifier_troll_warlord_fervor_custom_Description"                     "Скорость атаки увеличена на %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%."
-
+      
       "DOTA_Tooltip_ability_troll_warlord_battle_trance_shard_description"                ""
 
       //=================================================================================================================
@@ -2881,6 +2901,8 @@
       "DOTA_Tooltip_ability_chen_penitence_custom_duration"                       "ДЛИТЕЛЬНОСТЬ:"
       "DOTA_Tooltip_ability_chen_penitence_custom_bonus_movement_speed"           "%ЗАМЕДЛЕНИЕ ПЕРЕДВИЖЕНИЯ:"
       "DOTA_Tooltip_ability_chen_penitence_custom_bonus_attack_speed"             "ДОП. СКОРОСТЬ АТАКИ:"
+      "DOTA_Tooltip_ability_chen_penitence_custom_self_attack_range_bonus"        "ДОП. ДАЛЬНОСТЬ АТАКИ:"
+
       "DOTA_Tooltip_modifier_chen_penitence_custom_buff" "Penitence"
       "DOTA_Tooltip_modifier_chen_penitence_custom_buff_Description"             "Скорость атаки увеличена на %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%."
 
@@ -2900,6 +2922,9 @@
 
       "DOTA_Tooltip_modifier_chen_hand_of_god_custom"                                     "Hand of God"
       "DOTA_Tooltip_modifier_chen_hand_of_god_custom_Description"                         "Излечивает 5%%% здоровья в секунду."
+
+      "DOTA_Tooltip_modifier_chen_hand_of_god_custom_black_king_bar"                                     "Hand of God"
+      "DOTA_Tooltip_modifier_chen_hand_of_god_custom_black_king_bar_Description"                         "Иммунитет к магии"
 
       "DOTA_Tooltip_ability_chen_holy_persuasion_custom"                    "Holy Persuasion (Heroic)"
       "DOTA_Tooltip_ability_chen_holy_persuasion_custom_Description"           "Призывает случайный набор существ.<br><br> Узнать список существ можно на ALT"
@@ -3040,6 +3065,7 @@
       "DOTA_Tooltip_ability_invoker_cold_snap_lua_freeze_duration"      "ДЛИТЕЛЬНОСТЬ ЗАМОРОЗКИ:"
       "DOTA_Tooltip_ability_invoker_cold_snap_lua_freeze_damage"        "УРОН ОТ ЗАМОРОЗКИ:"
       "DOTA_Tooltip_ability_invoker_cold_snap_lua_freeze_cooldown"      "ЧАСТОТА ЗАМОРОЗКИ:"
+      "DOTA_Tooltip_ability_invoker_cold_snap_lua_freeze_heal"						"ЛЕЧЕНИЕ ОТ ЗАМОРОЗКИ:"
       
       "DOTA_Tooltip_ability_invoker_ghost_walk_lua"                  "Ghost Walk"
       "DOTA_Tooltip_ability_invoker_ghost_walk_lua_Description"         "Герой комбинирует стихии льда и молнии, становясь невидимым. Несовместимость элементов создаёт магическое поле, замедляющее врагов, однако и сам герой замедляется"
@@ -3047,6 +3073,8 @@
       "DOTA_Tooltip_ability_invoker_ghost_walk_lua_duration"            "ДЛИТЕЛЬНОСТЬ:"
       "DOTA_Tooltip_ability_invoker_ghost_walk_lua_area_of_effect"      "РАДИУС:"
       "DOTA_Tooltip_ability_invoker_ghost_walk_lua_enemy_slow"       "%ЗАМЕДЛЕНИЕ ВРАГА:"
+      "DOTA_Tooltip_ability_invoker_ghost_walk_lua_health_regen"						"ВОССТАНОВЛЕНИЕ ЗДОРОВЬЯ:"
+	  "DOTA_Tooltip_ability_invoker_ghost_walk_lua_mana_regen"						"ВОССТАНОВЛЕНИЕ МАНЫ:"
       "DOTA_Tooltip_modifier_invoker_ghost_walk_lua_self"               "Ghost Walk"
       "DOTA_Tooltip_modifier_invoker_ghost_walk_lua_self_Description"      "Невидим, скорость передвижения изменена на %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% и замедляет ближайших врагов."
       "DOTA_Tooltip_modifier_invoker_ghost_walk_lua_enemy"           "Ghost Walk"
@@ -3340,7 +3368,7 @@
       "DOTA_Tooltip_ability_necrolyte_heartstopper_aura_lua_mana_regen"             "ВОССТАНОВЛЕНИЕ МАНЫ ЗА УБИЙСТВО:"
       "DOTA_Tooltip_ability_necrolyte_heartstopper_aura_lua_regen_duration"         "ДЛИТЕЛЬНОСТЬ ВОССТАНОВЛЕНИЯ:"
       "DOTA_Tooltip_ability_necrolyte_heartstopper_aura_lua_hero_multiplier"        "МНОЖИТЕЛЬ ВОССТАНОВЛЕНИЯ ПРИ УБИЙСТВЕ ГЕРОЯ:"
-      "DOTA_Tooltip_ability_necrolyte_heartstopper_aura_lua_scepter_description"              "Увеличивает урон от этой способности во время действия Ghost Shroud."
+      "DOTA_Tooltip_ability_necrolyte_heartstopper_aura_lua_scepter_description"			"К уменьшению здоровья добавляется 60% от текущего восстановления здоровья владельца."
       
       "DOTA_Tooltip_modifier_necrolyte_heartstopper_aura_lua_counter"            "Heartstopper Regen"
       "DOTA_Tooltip_modifier_necrolyte_heartstopper_aura_lua_counter_Description"      "Восстановление здоровья временно увеличено на %fMODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT%, а восстановление маны — на %fMODIFIER_PROPERTY_MANA_REGEN_CONSTANT%."
@@ -3673,12 +3701,13 @@
       // Zuus
       //================================================================================================================= 
       
-      "DOTA_Tooltip_ability_zuus_thundergods_vengeance"                          "Thundergod's Vengeance"
-      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_Description"                 "Поражает всех вражеских героев молнией вне зависимости от их местоположения. Способность также раскрывает невидимость вражеских существ вокруг каждого ударенного противника. Если герой врага невидим, то он не получит урона, но невидимость всё равно раскроется."
-      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_Lore"                        "Повелитель небес сокрушает всех, кто противостоит ему, независимо от того, близко или далеко они находятся."
-      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_damage"                   "УРОН:"
-      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_true_sight_radius"              "РАДИУС РАСКРЫТИЯ НЕВИДИМОСТИ:"
-      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_sight_duration"              "ДЛИТЕЛЬНОСТЬ:"
+      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_custom"                          "Thundergod's Vengeance"
+      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_custom_Description"                 "Поражает всех вражеских героев молнией вне зависимости от их местоположения. Способность также раскрывает невидимость вражеских существ вокруг каждого ударенного противника. Если герой врага невидим, то он не получит урона, но невидимость всё равно раскроется."
+      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_custom_Lore"                        "Повелитель небес сокрушает всех, кто противостоит ему, независимо от того, близко или далеко они находятся."
+      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_custom_damage"                   "УРОН:"
+      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_custom_damage_pct"                   "%УРОН ОТ МАКС. ЗДОРОВЬЯ ЦЕЛИ:"
+      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_custom_true_sight_radius"              "РАДИУС РАСКРЫТИЯ НЕВИДИМОСТИ:"
+      "DOTA_Tooltip_ability_zuus_thundergods_vengeance_custom_sight_duration"              "ДЛИТЕЛЬНОСТЬ:"
       "DOTA_Tooltip_ability_zuus_thundergods_wrath_ability_note"          "Перезарядка не сбрасывается способностью<font color='#B694FF'>Rearm</font>"
 
       "DOTA_Tooltip_ability_zuus_lightning_bolt_scepter_description"                "Добавляет способность - Nimbus"
@@ -3901,9 +3930,9 @@
       "DOTA_Tooltip_ability_item_extra_creature_explode_spider_Description"      "<h1>Используемая: Призвать</h1>Призывает в следующем раунде всем врагам - Baneling"
 
       "DOTA_Tooltip_ability_item_extra_creature_ogreseal"                        "Ogre Seal"
-      "DOTA_Tooltip_ability_item_extra_creature_ogreseal_Description"            "<h1>Используемая: Призвать</h1>Призывает в следующем раунде всем врагам - Ogre Seal. <font color='#e03e2e'>Доступен с 90 волны</font>"
+      "DOTA_Tooltip_ability_item_extra_creature_ogreseal_Description"            "<h1>Используемая: Призвать</h1>Призывает в следующем раунде всем врагам - Ogre Seal. <font color='#e03e2e'>Доступен с 80 волны</font>"
 
-      "aviable_70_round"                                                         "Доступен с 90 волны"
+      "aviable_70_round"                                                         "Доступен с 80 волны"
 
       "DOTA_Tooltip_ability_golem_anti_blademail"                               "Stone Skin"
       "DOTA_Tooltip_ability_golem_anti_blademail_Description"                   "Каменная броня возвращает полученный урон атакующему противнику."
@@ -4067,6 +4096,7 @@
       "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_skeleton_duration"                "ДЛИТЕЛЬНОСТЬ СКЕЛЕТОВ:"
       "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_skeleton_damage_tooltip"          "УРОН СКЕЛЕТА:"
       "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_skeleton_health_tooltip"          "ЗДОРОВЬЕ СКЕЛЕТА:"
+      "DOTA_Tooltip_ability_skeleton_king_vampiric_aura_custom_skeleton_bonus_hero_damage"	     "%ДОП. УРОН СКЕЛЕТОВ ПО ГЕРОЯМ:"
       "DOTA_Tooltip_ability_special_bonus_unique_wraith_king_5"                                  "х3 здоровье скелетов Vampiric Spirit"
 
       "DOTA_Tooltip_Ability_item_bag_of_gold"   "Монета"
@@ -4267,7 +4297,11 @@
     "DOTA_Tooltip_ability_sven_gods_strength_custom_Lore"                                   "Наделённый силой, сокрушившей Священный шлем, мятежный рыцарь непобедим в ближнем бою."
     "DOTA_Tooltip_ability_sven_gods_strength_custom_Note0"                                  "Дополнительный урон подсчитывается на основе базового урона и основной характеристики."
     "DOTA_Tooltip_ability_sven_gods_strength_custom_gods_strength_damage"                   "%ДОПОЛНИТЕЛЬНЫЙ УРОН:"
+    "DOTA_Tooltip_ability_sven_gods_strength_custom_bonus_slow_resistance"					"%СОПРОТИВЛЕНИЕ ЗАМЕДЛЕНИЯМ:"
     "DOTA_Tooltip_ability_sven_gods_strength_custom_scepter_description"                    "Делает способность переключаемой. Герой может проходить сквозь препятствия. Длительность способности бесконечная"
+
+    "DOTA_Tooltip_ability_grimstroke_return_custom"						"Ink Explosion"
+	"DOTA_Tooltip_ability_grimstroke_return_custom_Description"			"Активирует эффект способности Ink Swell."
 
     "DOTA_Tooltip_ability_lycan_shapeshift_custom"                                          "Shapeshift (Heroic)"
     "DOTA_Tooltip_ability_lycan_shapeshift_custom_Lore"                                     "Навеки раб своей ликантропии, Бейнхаллоу смирился с проклятием и принял свою свирепость как данное."
@@ -4509,7 +4543,7 @@
     "DOTA_Tooltip_ability_stranger_think_Description"                                       "Если что-то сломалось или слишком сильные лаги, то выбей из меня мозги за плохую работу !"
 
     "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom"                                                "Frost Arrows"
-    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Description"                                    "Добавляет к атакам героя замораживающий эффект, замедляющий передвижение цели на %duration% сек. и наносящий дополнительный урон."
+    "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_Description"                                    "Добавляет к атакам героя замораживающий эффект, замедляющий передвижение цели на %duration% сек. и наносящий дополнительный урон. Имеет шанс в %chance%%% нанести урон сквозь уклонение и базовую броню"
     "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_scepter_description"                       "Способность накладывает на врага переохлаждение. Каждый такой эффект уменьшает восстановление здоровья и увеличивает урон от этой способности. Если цель умрёт под действием переохлаждения, из неё во всех врагов вокруг разлетятся осколки, которые наносят магический урон за каждый эффект и замедляют жертв."
     "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_regen_reduction_pct_per_stack" "%УМЕНЬШЕНИЕ ВОССТ. ЗДОРОВЬЯ ЗА ЭФФЕКТ:"
     "DOTA_Tooltip_ability_drow_ranger_frost_arrows_custom_shard_bonus_damage_per_stack"        "БОНУС К ДОП. УРОНУ ЗА ЭФФЕКТ:"
@@ -4586,5 +4620,47 @@
 	"DOTA_Tooltip_ability_item_giants_ring_custom_model_scale"						"%+к размеру модели"
 
     "wrong_item" "Это чужой предмет"
+
+    "DOTA_Tooltip_ability_night_stalker_darkness_custom"									"Dark Ascension"
+	"DOTA_Tooltip_ability_night_stalker_darkness_custom_Description"						"Подавляет солнечный свет, создавая непроглядную тьму и раскрывая силы героя в полной мере. Он получает беспрепятственный обзор, полёт и дополнительный урон."
+	"DOTA_Tooltip_ability_night_stalker_darkness_custom_Lore"								"Жалкое зрелище: даже сильнейшие из воинов начинают бояться темноты."
+	"DOTA_Tooltip_ability_night_stalker_darkness_custom_duration"							"ДЛИТЕЛЬНОСТЬ:"
+	"DOTA_Tooltip_ability_night_stalker_darkness_custom_bonus_damage"						"ДОПОЛНИТЕЛЬНЫЙ УРОН:"
+
+    "DOTA_Tooltip_ability_life_stealer_feast_custom"										"Feast"
+	"DOTA_Tooltip_ability_life_stealer_feast_custom_Description"							"Добавляет к атакам героя дополнительный урон и вампиризм, зависящие от максимального здоровья противника."		
+	"DOTA_Tooltip_ability_life_stealer_feast_custom_Lore"									"После побега из темницы Деварка Н'эйкс начал питаться плотью и костьми тех, кому не посчастливилось с ним встретиться." 
+	"DOTA_Tooltip_ability_life_stealer_feast_custom_Note0"									"Не действует на Рошана."
+	"DOTA_Tooltip_ability_life_stealer_feast_custom_Note1"									"Количество восстановленного здоровья не зависит от нанесённого урона."
+	"DOTA_Tooltip_ability_life_stealer_feast_custom_Note2"									"Складывается с другими источниками вампиризма."
+	"DOTA_Tooltip_ability_life_stealer_feast_custom_hp_leech_percent"						"%ВАМПИРИЗМ ОТ МАКС. ЗДОРОВЬЯ:"
+	"DOTA_Tooltip_ability_life_stealer_feast_custom_hp_damage_percent"						"%УРОН ОТ МАКС. ЗДОРОВЬЯ:"
+
+    "DOTA_Tooltip_Ability_item_quelling_blade_custom"			                    "Quelling Blade"
+    "DOTA_Tooltip_ability_item_quelling_blade_custom_Description"					"<h1>Активное: Chop Tree</h1> Уничтожает выбранное дерево.<br><br>Дальность применения: %abilitycastrange%\n\n<h1>Пассивное: Quell</h1> Увеличивает урон от атак по существам, не являющимися героями, на %damage_bonus% для героев ближнего боя или на %damage_bonus_ranged% — для дальнего."
+	"DOTA_Tooltip_ability_item_quelling_blade_custom_Lore"							"Топор павшего гнома, позволяющий с лёгкостью продираться сквозь лес."
+	"DOTA_Tooltip_ability_item_quelling_blade_custom_Note0"						    "Эффекты от нескольких копий этого предмета не сочетаются."
+    "DOTA_Tooltip_ability_item_quelling_blade_custom_attack_range"                  "+$attack_range_melee"
+
+    "DOTA_Tooltip_ability_lina_flame_cloak_custom"									"Flame Cloak"
+	"DOTA_Tooltip_ability_lina_flame_cloak_custom_Lore"								"Врождённая защита от настырных сестёр и зубастых тварей."
+	"DOTA_Tooltip_ability_lina_flame_cloak_custom_Description"						"Дарует герою беспрепятственное передвижение. Увеличивает его урон от заклинаний и сопротивление магии. Применение даёт владельцу максимум эффектов способности Fiery Soul."
+	"DOTA_Tooltip_ability_lina_flame_cloak_custom_flame_cloak_duration"				"ДЛИТЕЛЬНОСТЬ:" 
+	"DOTA_Tooltip_ability_lina_flame_cloak_custom_spell_amp"						"%ДОП. УРОН ОТ ЗАКЛИНАНИЙ:"
+	"DOTA_Tooltip_ability_lina_flame_cloak_custom_magic_resistance"					"%СОПРОТИВЛЕНИЕ МАГИИ:"
+
+    "DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom"									"Tricks of the Trade"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_Description"						"ПРЕРЫВАЕМАЯ — герой пропадает из нашего мира и периодически атакует в спину случайного врага в области действия."
+    "DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_scepter_description"				"Увеличивает дальность применения и число атак"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_Lore"							    "Скрытный убийца считает, что в бою все средства хороши, и не стесняется бить в спину."
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_Note0"							"Способность можно прервать командой передвижения."
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_radius"							"РАДИУС:"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_attack_count"					    "ЧИСЛО АТАК:"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_damage_pct"					    "%УРОН ОТ АТАКИ:"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_agility_pct"					    "%УВЕЛИЧЕНИЕ ЛОВКОСТИ:"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_abilitychanneltime"    			"ДЛИТЕЛЬНОСТЬ:"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_scepter_cast_range"		        "ДАЛЬНОСТЬ ПРИМЕНЕНИЯ:"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_scepter_attacks"					"ЧИСЛО АТАК:"
+	"DOTA_Tooltip_ability_riki_tricks_of_the_trade_custom_scepter_targets"					"ЧИСЛО ЖЕРТВ КАЖДОЙ АТАКИ:"
 } 
 }

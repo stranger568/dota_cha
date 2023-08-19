@@ -17,11 +17,11 @@ modifier_disruptor_static_storm_custom = class({})
 
 function modifier_disruptor_static_storm_custom:OnCreated( kv )
 	if not IsServer() then return end
-	self.owner = kv.isProvidedByAura~=1
-	if not self.owner then return end
     self.ability = self:GetAbility()
     self.parent = self:GetParent()
     self.caster = self:GetCaster()
+	self.owner = kv.isProvidedByAura~=1
+	if not self.owner then return end
 	self.radius = self.ability:GetSpecialValueFor( "radius" )
 	self.pulses = self.ability:GetSpecialValueFor( "pulses" )
 	local duration = self.ability:GetSpecialValueFor( "duration" )

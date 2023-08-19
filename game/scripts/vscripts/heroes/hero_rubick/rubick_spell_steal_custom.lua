@@ -111,7 +111,7 @@ function rubick_spell_steal_custom:OnProjectileHit( target, location )
 
 	local useless = false
 	
-	for i=0, 24 do
+	for i=0, 32 do
 		local ability = self:GetCaster():GetAbilityByIndex(i)
 		if ability and ability:GetAbilityName() == self.stolenSpell.lastSpell:GetAbilityName() then
 			if ability ~= self.currentSpell then
@@ -412,7 +412,7 @@ function modifier_rubick_spell_steal_custom:OnAbilityFullyCast( params )
 			if self:GetParent():HasTalent("special_bonus_unique_rubick_6") then
 				if params.ability then
 					if params.ability == self:GetAbility().currentSpell then
-						if params.ability:GetCooldownTimeRemaining() > 0 then
+						if params.ability:GetCooldownTimeRemaining() > 0 and params.ability:GetAbilityName() ~= "puck_phase_shift_custom" then
 							if params.ability:GetCooldownTimeRemaining() - (params.ability:GetCooldown(params.ability:GetLevel() - 1) / 100 * 25) > 0 then
 								local new_cooldown = params.ability:GetCooldownTimeRemaining() - (params.ability:GetCooldown(params.ability:GetLevel() - 1) / 100 * 25)
 								params.ability:EndCooldown()
@@ -511,7 +511,7 @@ function modifier_rubick_spell_steal_custom:OnAbilityFullyCast( params )
 			"bloodseeker_blood_mist_custom",
 			"oracle_rain_of_destiny",
 			"centaur_mount",
-			"lina_flame_cloak",
+			"lina_flame_cloak_custom",
 			"brewmaster_primal_companion",
 			"alchemist_berserk_potion",
 			"furion_curse_of_the_forest",

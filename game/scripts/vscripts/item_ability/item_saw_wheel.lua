@@ -27,7 +27,7 @@ function item_saw_wheel:OnSpellStart()
             local flDamage = self:GetSpecialValueFor("damage")
             
             --如果有树，伤害并且眩晕
-            if nTreeNumber>0 and not self:GetCaster():HasFlyMovementCapability() and DOTA_UNIT_CAP_MELEE_ATTACK==self:GetCaster():GetAttackCapability() then
+            if nTreeNumber>0 and DOTA_UNIT_CAP_MELEE_ATTACK==self:GetCaster():GetAttackCapability() then
                flDamage = self:GetSpecialValueFor("damage_with_tree")
                hEnemy:AddNewModifier( self:GetCaster(), self, "modifier_stunned", { duration = self:GetSpecialValueFor("stun_with_tree") } )
             end
@@ -42,7 +42,7 @@ function item_saw_wheel:OnSpellStart()
 			})
 		end
 
-		if  not self:GetCaster():HasFlyMovementCapability() and DOTA_UNIT_CAP_MELEE_ATTACK==self:GetCaster():GetAttackCapability() then
+		if DOTA_UNIT_CAP_MELEE_ATTACK==self:GetCaster():GetAttackCapability() then
 	       GridNav:DestroyTreesAroundPoint(self:GetCaster():GetAbsOrigin(), self:GetSpecialValueFor("whirling_radius"), false)
 	    end
 	    

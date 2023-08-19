@@ -19,3 +19,31 @@ function modifier_hero_spectator:CheckState()
 		[MODIFIER_STATE_UNSELECTABLE] = true,
 	}
 end
+
+function modifier_hero_spectator:IsAura()
+    return true
+end
+
+function modifier_hero_spectator:GetAuraRadius()
+    return -1
+end
+
+function modifier_hero_spectator:GetModifierAura()
+    return "modifier_truesight"
+end
+   
+function modifier_hero_spectator:GetAuraSearchTeam()
+    return DOTA_UNIT_TARGET_TEAM_ENEMY
+end
+
+function modifier_hero_spectator:GetAuraSearchFlags()
+    return DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE
+end
+
+function modifier_hero_spectator:GetAuraSearchType()
+    return DOTA_UNIT_TARGET_ALL
+end
+
+function modifier_hero_spectator:GetAuraDuration()
+    return 0.1
+end

@@ -15,5 +15,13 @@
 				<DOTAUserName id="PauseName" steamid="" class="PauseName"/>
 			</Panel>
 		</Panel>
+
+        <Panel id="PlayersChecked" class="PlayersChecked">
+
+        </Panel>
+
+        <Panel id="ButtonPlayerReady" class="ButtonPlayerReady" onactivate="PlayerReadyPause();">
+            <Label class="ButtonPlayerReadyLabel" text="Готов" />
+        </Panel>
 	</Panel>
 </root>

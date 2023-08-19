@@ -11,6 +11,8 @@ function ItemLoot:Init()
 end
 
 function ItemLoot:DropItem(hUnit, team, hKiller, tier, round)
+    if hKiller == nil then return end
+    if not hKiller:IsAlive() then return end
     local neutral_item_name = "item_tier"..tier.."_token_custom" --ItemLoot:GetUniqueNeutralItem(tier, team)
     ItemLoot.TeamHasNeutralItems[team][round] = neutral_item_name
     local item = DropNeutralItemAtPositionForHero(neutral_item_name, hUnit:GetAbsOrigin(), hKiller, -1, true )

@@ -67,7 +67,7 @@ function modifier_lycan_shapeshift_custom_fly:OnIntervalThink()
 	if self.parent:HasModifier("modifier_lycan_shapeshift_transform") then return end
     self.parent:SpendMana(15*0.5, self:GetAbility())
     if self.parent:GetMana() <= 14 then
-        self.parent:RemoveModifierByName("modifier_undying_flesh_golem")
+        self.parent:RemoveModifierByName("modifier_lycan_shapeshift_custom")
         return
     end
 	if not self.parent:HasModifier("modifier_lycan_shapeshift_custom") then
@@ -131,7 +131,7 @@ end
 function modifier_lycan_shapeshift_custom:IsAura() return true end
 function modifier_lycan_shapeshift_custom:GetAuraDuration() return 0 end
 function modifier_lycan_shapeshift_custom:GetAuraRadius() return -1 end
-function modifier_lycan_shapeshift_custom:GetAuraSearchFlags() return DOTA_UNIT_TARGET_FLAG_PLAYER_CONTROLLED end
+function modifier_lycan_shapeshift_custom:GetAuraSearchFlags() return DOTA_UNIT_TARGET_FLAG_PLAYER_CONTROLLED + DOTA_UNIT_TARGET_FLAG_INVULNERABLE end
 function modifier_lycan_shapeshift_custom:GetAuraSearchTeam() return DOTA_UNIT_TARGET_TEAM_FRIENDLY end
 function modifier_lycan_shapeshift_custom:GetAuraSearchType() return DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC end
 function modifier_lycan_shapeshift_custom:GetModifierAura() return "modifier_lycan_shapeshift_custom_speed" end
@@ -150,13 +150,17 @@ function modifier_lycan_shapeshift_custom_speed:OnCreated()
     self.ability = self:GetAbility()
     self.speed = self.ability:GetSpecialValueFor("speed")
     self.bonus_night_vision = self.ability:GetSpecialValueFor("bonus_night_vision")
+    self.crit_chance = self.ability:GetSpecialValueFor("crit_chance")
+    self.crit_damage = self.ability:GetSpecialValueFor("crit_multiplier")
+    self.health_bonus = self.ability:GetSpecialValueFor("health_bonus")
 end
 
 function modifier_lycan_shapeshift_custom_speed:DeclareFunctions()
     local funcs = 
     {
         MODIFIER_PROPERTY_MOVESPEED_BASE_OVERRIDE,
-        MODIFIER_PROPERTY_BONUS_NIGHT_VISION
+        MODIFIER_PROPERTY_BONUS_NIGHT_VISION,
+        MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,
     }
 
     return funcs
@@ -182,3 +186,12 @@ function modifier_lycan_shapeshift_custom_speed:IsHidden()
 end
 
 function modifier_lycan_shapeshift_custom_speed:IsPurgable() return false end
+
+function modifier_lycan_shapeshift_custom_speed:GetModifierPreAttack_CriticalStrike()
+    if not IsServer() then return end         
+    if self:GetParent():HasModifier("modifier_lycan_shapeshift_custom") then return end         
+    if RollPercentage(self.crit_chance) then        
+        return self.crit_damage
+    end
+    return nil
+end

@@ -43,14 +43,13 @@ function modifier_ghost_shroud_custom_active:DeclareFunctions()
 		MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
 		MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
 		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
-		MODIFIER_PROPERTY_MP_RESTORE_AMPLIFY_PERCENTAGE 
+		MODIFIER_PROPERTY_MP_RESTORE_AMPLIFY_PERCENTAGE,
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DIRECT_MODIFICATION
 	}
 end
 
-function modifier_ghost_shroud_custom_active:GetModifierTotalDamageOutgoing_Percentage( params )
-	if params.damage_type == DAMAGE_TYPE_MAGICAL then
-		return self:GetAbility():GetSpecialValueFor("bonus_damage") * (-1)
-	end
+function modifier_ghost_shroud_custom_active:GetModifierMagicalResistanceDirectModification( params )
+	return self:GetAbility():GetSpecialValueFor("bonus_damage")
 end
 
 function modifier_ghost_shroud_custom_active:GetAbsoluteNoDamagePhysical()

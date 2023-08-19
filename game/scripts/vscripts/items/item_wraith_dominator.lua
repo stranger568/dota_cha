@@ -140,7 +140,8 @@ end
 
 function modifier_item_wraith_dominator_aura_buff:AttackLandedModifier(params)
 	if IsServer() then
-		local no_heal_target = {
+		local no_heal_target = 
+        {
 			["npc_dota_phoenix_sun"] = true,
 			["npc_dota_grimstroke_ink_creature"] = true,
 			["npc_dota_juggernaut_healing_ward"] = true,
@@ -205,7 +206,9 @@ function modifier_item_wraith_dominator_active:OnIntervalThink()
 
 	local enemies = FindUnitsInRadius( self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, 0, false )
 	for _, enemy in pairs(enemies) do
-		ApplyDamage({victim = enemy, attacker = self:GetCaster(), ability = self:GetAbility(), damage = self.damage, damage_type = DAMAGE_TYPE_MAGICAL })
+        if not enemy:HasModifier("modifier_oracle_false_promise_custom") then
+		    ApplyDamage({victim = enemy, attacker = self:GetCaster(), ability = self:GetAbility(), damage = self.damage, damage_type = DAMAGE_TYPE_MAGICAL })
+        end
 	end
 end
 

@@ -38,7 +38,7 @@ function modifier_cha_boss_drop_roshan:OnDeathEvent(params)
 		Quests_arena:QuestProgress(params.attacker:GetPlayerOwnerID(), 65, 2)
 	end
 
-	if RollPercentage(65) then
+	if RollPercentage(75) then
 		local allHeroes = HeroList:GetAllHeroes()
 		for _, hero in pairs(allHeroes) do
 	        if hero:IsRealHero() and not hero:IsIllusion() and not hero:IsTempestDouble() and not hero:HasModifier("modifier_arc_warden_tempest_double_lua") then

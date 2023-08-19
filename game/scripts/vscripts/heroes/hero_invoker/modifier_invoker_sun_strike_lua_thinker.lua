@@ -1,7 +1,5 @@
 modifier_invoker_sun_strike_lua_thinker = class({})
 
---------------------------------------------------------------------------------
--- Classifications
 function modifier_invoker_sun_strike_lua_thinker:IsHidden()
     return true
 end
@@ -10,15 +8,11 @@ function modifier_invoker_sun_strike_lua_thinker:IsPurgable()
     return false
 end
 
---------------------------------------------------------------------------------
--- Initializations
 function modifier_invoker_sun_strike_lua_thinker:OnCreated(kv)
     if IsServer() then
-        -- references
         self.damage = self:GetAbility():GetSpecialValueFor("damage")
         self.radius = self:GetAbility():GetSpecialValueFor("area_of_effect")
         if kv.cataclysm then
-            -- 毁天灭地伤害减半
             self.damage = self.damage / 2
             self:PlayEffects2()
         else

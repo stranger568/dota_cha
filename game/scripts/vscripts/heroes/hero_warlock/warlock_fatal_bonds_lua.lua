@@ -39,7 +39,13 @@ function warlock_fatal_bonds_lua:OnSpellStart()
 				target_3 = targets[3],
 				target_4 = targets[4],
 				target_5 = targets[5],
-				target_6 = targets[6]
+				target_6 = targets[6],
+                target_7 = targets[7],
+                target_8 = targets[8],
+                target_9 = targets[9],
+                target_10 = targets[10],
+                target_11 = targets[11],
+                target_12 = targets[12],
 			})
 		end
 	end
@@ -88,6 +94,12 @@ function modifier_fatal_bonds_debuff:OnCreated(keys)
 		if keys.target_4 then table.insert(self.share_targets, EntIndexToHScript(keys.target_4)) end
 		if keys.target_5 then table.insert(self.share_targets, EntIndexToHScript(keys.target_5)) end
 		if keys.target_6 then table.insert(self.share_targets, EntIndexToHScript(keys.target_6)) end
+        if keys.target_7 then table.insert(self.share_targets, EntIndexToHScript(keys.target_7)) end
+        if keys.target_8 then table.insert(self.share_targets, EntIndexToHScript(keys.target_8)) end
+        if keys.target_9 then table.insert(self.share_targets, EntIndexToHScript(keys.target_9)) end
+        if keys.target_10 then table.insert(self.share_targets, EntIndexToHScript(keys.target_10)) end
+        if keys.target_11 then table.insert(self.share_targets, EntIndexToHScript(keys.target_11)) end
+        if keys.target_12 then table.insert(self.share_targets, EntIndexToHScript(keys.target_12)) end
 
 		self:StartIntervalThink(1.0)
 		self:OnIntervalThink()

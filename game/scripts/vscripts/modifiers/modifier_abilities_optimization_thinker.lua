@@ -163,6 +163,7 @@ function modifier_abilities_optimization_thinker:OnTakeDamage(params)
         "modifier_meepo_ransack_custom",
         "modifier_item_bloodstone_2",
         "modifier_item_summoner_crown_buff_int",
+        "modifier_life_stealer_feast_custom",
     }
     
     for _, modifier_name in pairs(units_modifiers) do
@@ -294,6 +295,8 @@ function modifier_abilities_optimization_thinker:OnDeath(params)
         "modifier_sand_king_caustic_finale_lua_debuff",
         "modifier_aegis",
         "modifier_bounty_hunter_track_creep",
+        "modifier_duel_curse_cooldown",
+        "modifier_lich_chain_frost_custom_talent",
     }
 
     local attacker_modifiers = 

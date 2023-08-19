@@ -234,10 +234,10 @@ function ExtraCreatureAdded(keys) {
         Game.EmitSound(soundEventName);
     }
 
-    var particleID = Particles.CreateParticle("particles/generic_gameplay/screen_arcane_drop.vpcf", ParticleAttachment_t.PATTACH_EYES_FOLLOW, 0);
-    $.Schedule(0.5, function() {
-        Particles.DestroyParticleEffect(particleID, false);
-    });
+    //var particleID = Particles.CreateParticle("particles/generic_gameplay/screen_arcane_drop.vpcf", ParticleAttachment_t.PATTACH_EYES_FOLLOW, 0);
+    //$.Schedule(0.5, function() {
+    //    Particles.DestroyParticleEffect(particleID, false);
+    //});
 }
 
 const heroesId = {

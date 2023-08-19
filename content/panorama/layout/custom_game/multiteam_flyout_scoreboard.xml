@@ -30,6 +30,10 @@
 			</ToggleButton>
 			<Button id="MuteAllButton" onactivate="ToggleAllMute();" onmouseover="DOTAShowTextTooltip(#DOTA_MuteChat)" onmouseout="DOTAHideTextTooltip()" />
 			<Label class="MuteAllLabel" text="Mute All"/>
+            <Panel class="MuteSounds">
+                <Button id="MuteVoicesButton" class="chat_whell_button_mute" onactivate="ToggleMuteSounds();" />
+			    <Label class="MuteAllLabel" text="Mute ChatWheel"/>
+            </Panel>
 		</Panel>
 	</Panel>
 </root>

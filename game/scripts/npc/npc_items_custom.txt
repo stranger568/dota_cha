@@ -45,6 +45,61 @@
 		}
 	}
 
+    "item_recipe_bfury"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"144"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"450"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_bfury"
+		"ItemRequirements"
+		{
+			"01"						"item_broadsword;item_claymore;item_cornucopia;item_quelling_blade_custom"
+		}
+	}
+
+    "item_quelling_blade"
+	{
+        "ItemPurchasable"               "0"
+	}
+
+    "item_quelling_blade_custom"
+	{
+        "BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_quelling_blade_custom"	
+		"AbilityTextureName"			"item_quelling_blade"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE | DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityCastRange"				"350"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"4.0"
+		"Model"							"models/props_gameplay/quelling_blade.vmdl"
+		"AbilityManaCost"				"0"
+		"ItemCost"						"100"
+		"ItemShopTags"					"damage"
+		"ItemQuality"					"component"
+		"ItemAliases"					"qb;quelling blade"
+		"ShouldBeSuggested"				"1"
+		"ShouldBeInitiallySuggested"	"1"
+
+		"AbilityValues"
+		{
+			"damage_bonus"			            "8"
+            "damage_bonus_ranged"	            "4"
+            "attack_range"                      "75"
+            "quelling_range_tooltip"			"350"
+		}
+	}
+
 	"item_reroll_neutral_book"
 	{
 		"BaseClass"						"item_lua"
@@ -117,11 +172,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_agility"			"25"
-			"passive_movement_bonus"		"25"
-			"visibility_radius"		"1025"
-			"duration"				"8"
-			"bonus_movement_speed"		"20"
+			"bonus_agility"			        "20"
+			"passive_movement_bonus"		"20"
+			"visibility_radius"		        "1025"
+			"duration"				        "8"
+			"bonus_movement_speed"		    "20"
 		}
 	}
 
@@ -2761,7 +2816,7 @@
 
 		"ItemRequirements"
 		{
-			"01"						"item_quelling_blade;item_broadsword"
+			"01"						"item_quelling_blade_custom;item_broadsword"
 		}
 	}
 
@@ -4984,7 +5039,23 @@
 		"ItemPurchasable"				"0"
 		"ItemSellable"				    "0"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"TokenTier"						"5"
+		"TokenTier"						"6"
+	}
+    "item_enchanted_mango"
+	{
+		"ItemCost"						"65"
+		"ItemShopTags"					"consumable"
+		"ItemQuality"					"consumable"
+		"ItemAliases"					"enchanted mango"
+		"ItemStackable"					"1"
+		"ItemStackableMax"				"3"
+		"ItemStockMax"					"4"
+		"ItemStockInitial"				"4"
+		"ItemStockTime"					"1"
+		"ItemInitialCharges"			"1"
+		"ItemPermanent"					"0"
+		"IsTempestDoubleClonable"		"0"
+		"ShouldBeInitiallySuggested"	"1"
 	}
     
     "item_keen_optic"

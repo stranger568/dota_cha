@@ -54,9 +54,6 @@ function modifier_shadow_fiend_requiem_of_souls_lua_scepter:OnIntervalThink()
 		-- Heal
 		print("self.heal"..self.heal)
 		self:GetParent():Heal( self.heal, self:GetAbility() )
-		if self.heal > 0 then
-			self:PlayEffects()
-		end
 
 		-- remove references
 		self:Destroy()

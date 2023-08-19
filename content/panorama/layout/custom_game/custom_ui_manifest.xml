@@ -110,7 +110,11 @@
         var GridNewShopCategory = dotaHud.FindChildTraverse("GridNewShopCategory")
         var GridBasicItemsCategory = dotaHud.FindChildTraverse("GridBasicItemsCategory")
         var GridUpgradesCategory = dotaHud.FindChildTraverse("GridUpgradesCategory")
-
+        var ChatHud = dotaHud.FindChildTraverse("HudChat")
+        if ((Game.GetMapInfo().map_display_name) == "tournament_1x8")
+        {
+            ChatHud.DeleteAsync(0)     
+        }
         GridNeutralsCategory.style.overflow = "squish scroll";
         GridNewShopCategory.style.overflow = "squish scroll";
         GridBasicItemsCategory.style.overflow = "squish scroll";

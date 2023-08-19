@@ -46,6 +46,7 @@ function dazzle_good_juju_lua:OnSpellStart()
 			if  (not item.GetPurchaser) or (not item:GetPurchaser()) or item:GetPurchaser():GetPlayerOwnerID() == caster:GetPlayerOwnerID() then
 			    if not self.restricted_items[item:GetAbilityName()] then
                     item:EndCooldown()
+                    item:RefreshCharges()
 			    end
 			end	
 		end

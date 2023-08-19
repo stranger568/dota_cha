@@ -38,6 +38,24 @@ GameEvents.Subscribe("custom_chat_message", (event) => {
 	message.text = text;
 });
 
+function GetDotaHud()
+{
+	let hPanel = $.GetContextPanel();
+	while ( hPanel && hPanel.id !== 'Hud')
+	{
+        hPanel = hPanel.GetParent();
+	}
+	if (!hPanel)
+	{
+        throw new Error('Could not find Hud root from panel with id: ' + $.GetContextPanel().id);
+	}
+	return hPanel;
+}
+function FindDotaHudElement(sId)
+{
+	return GetDotaHud().FindChildTraverse(sId);
+}
+
 ThinkCameraPosition()
 var current_vision = null
 
@@ -190,6 +208,20 @@ function ThinkCameraPosition()
     }
 
     $.Schedule(1/144, ThinkCameraPosition)
+
+    let DOTAContextMenuInventoryItem = FindDotaHudElement("InventoryItemContextMenu")
+    if (DOTAContextMenuInventoryItem)
+    {
+        let Contents = DOTAContextMenuInventoryItem.FindChildTraverse("Contents")
+        if (Contents)
+        {
+            let DropAtFountain = Contents.FindChildTraverse("DropAtFountain")
+            if (DropAtFountain)
+            {
+                DropAtFountain.visible = false
+            }
+        } 
+    }
 }
 
 GameEvents.Subscribe("set_player_icon", set_player_icon);
@@ -274,5 +306,3 @@ GameEvents.Subscribe("immediate_purchase:key_check", (event) => {
     Game.AddCommand(name_bind, set_pause, "", 0);
     Game.CreateCustomKeyBind(GetGameKeybind(DOTAKeybindCommand_t.DOTA_KEYBIND_PAUSE), name_bind);
 })();
-
-

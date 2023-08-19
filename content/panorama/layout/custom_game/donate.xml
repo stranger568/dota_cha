@@ -32,14 +32,14 @@
 					<Panel class="ArenaCoinIcon" />
 					<Panel class="PanelBack">
 						<Label class="ArenaCoinLabel" id="ArenaCoinLabel" text="0" />
-						<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />
+						<!--<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />-->
 					</Panel>
 				</Panel>
 				<Panel class="DonateCoinPanel">
 					<Panel class="DonateCoinIcon" />
 					<Panel class="PanelBack">
 						<Label class="DonateCoinLabel" id="DonateCoinLabel" text="0" />
-						<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />
+						<!--<Panel class="CurrencyDonateButton"  onactivate="OpenBattlePassInfo('BuyBattlePassWindow_coinshop');" />-->
 					</Panel>
 				</Panel>
 				<Panel class="Close" onactivate="CloseWindowsBPFast();"/>

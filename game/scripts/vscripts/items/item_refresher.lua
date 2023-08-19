@@ -37,6 +37,7 @@ function item_refresher_custom:OnSpellStart()
         if item then
             if not self:NotRefresher( item ) then
                 item:EndCooldown()
+                item:RefreshCharges()
             end
         end
     end

@@ -13,7 +13,8 @@ function modifier_troll_warlord_fervor_custom:RemoveOnDeath() return false end
 function modifier_troll_warlord_fervor_custom:IsHidden() return false end
 
 function modifier_troll_warlord_fervor_custom:DeclareFunctions()
-	local funcs = {
+	local funcs = 
+    {
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT
 	}
 	return funcs
@@ -39,6 +40,14 @@ function modifier_troll_warlord_fervor_custom:AttackLandedModifier( params )
     if self.current_target == params.target then
     	if self:GetStackCount() < max_stacks then
         	self:SetStackCount(self:GetStackCount() + 1)
+        end
+    end
+
+    if self:GetCaster():HasShard() then
+        local chance = self:GetAbility():GetSpecialValueFor("base_chance") + (self:GetStackCount() * self:GetAbility():GetSpecialValueFor("extra_attack_chance_per_stack"))
+        local nearby_enemies = FindUnitsInRadius(self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, self:GetParent():Script_GetAttackRange() + self:GetAbility():GetSpecialValueFor("range_buffer"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_BUILDING, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+	    if #nearby_enemies > 0 then
+            self:GetParent():PerformAttack(nearby_enemies[RandomInt(1, #nearby_enemies)], true, true, true, false, false, false, true)
         end
     end
 

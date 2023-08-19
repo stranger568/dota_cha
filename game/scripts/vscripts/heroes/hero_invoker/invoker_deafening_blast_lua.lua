@@ -1,14 +1,12 @@
 invoker_deafening_blast_lua = class({})
+
 LinkLuaModifier("modifier_invoker_deafening_blast_lua_knockback", "heroes/hero_invoker/modifier_invoker_deafening_blast_lua_knockback", LUA_MODIFIER_MOTION_HORIZONTAL)
---------------------------------------------------------------------------------
--- Ability Start
+
 function invoker_deafening_blast_lua:OnSpellStart()
-    -- unit identifier
+    if not IsServer() then return end
     local caster = self:GetCaster()
     local point = self:GetCursorPosition()
-
     self.caster_origin = self:GetCaster():GetOrigin()
-
     self.radius_start = self:GetSpecialValueFor("radius_start")
     self.radius_end = self:GetSpecialValueFor("radius_end")
     self.speed = self:GetSpecialValueFor("travel_speed")
@@ -17,18 +15,15 @@ function invoker_deafening_blast_lua:OnSpellStart()
     self.knockback_duration = self:GetSpecialValueFor("knockback_duration")
     self.disarm_duration = self:GetSpecialValueFor("disarm_duration")
 
-
-    self.damageTable = {
-        -- victim = target,
+    self.damageTable = 
+    {
         attacker = self:GetCaster(),
         damage = self.damage,
         damage_type = self:GetAbilityDamageType(),
-        ability = self, --Optional.
+        ability = self,
     }
 
-    local sound_cast = "Hero_Invoker.DeafeningBlast"
-    -- Create Sound
-    EmitSoundOnLocationWithCaster(self.caster_origin, sound_cast, self:GetCaster())
+    EmitSoundOnLocationWithCaster(self.caster_origin, "Hero_Invoker.DeafeningBlast", self:GetCaster())
 
     self.heroes_target = {}
 
@@ -49,14 +44,12 @@ function invoker_deafening_blast_lua:GetCastAnimation()
 end
 
 function invoker_deafening_blast_lua:CastDeafeningBlast(cast_point)
-    -- Get Resources
     local particle = "particles/units/heroes/hero_invoker/invoker_deafening_blast.vpcf"
-
     local direction = cast_point - self.caster_origin
     direction.z = 0
     direction = direction:Normalized()
-
-    local deafening_blast_projectile = {
+    local deafening_blast_projectile = 
+    {
         Ability = self,
         EffectName = particle,
         vSpawnOrigin = self.caster_origin,
@@ -72,17 +65,13 @@ function invoker_deafening_blast_lua:CastDeafeningBlast(cast_point)
         vVelocity = direction * self.speed,
         fExpireTime = GameRules:GetGameTime() + 10
     }
-
     ProjectileManager:CreateLinearProjectile(deafening_blast_projectile)
 end
 
-
 function invoker_deafening_blast_lua:OnProjectileHit(hTarget, vLocation)
-    -- If no target was hit, do nothing
     if not hTarget then
         return nil
     end
-
     if self.heroes_target[hTarget:entindex()] == nil then
         self.damageTable.victim = hTarget
         ApplyDamage(self.damageTable)
@@ -90,6 +79,5 @@ function invoker_deafening_blast_lua:OnProjectileHit(hTarget, vLocation)
         hTarget:AddNewModifier(self:GetCaster(), self, "modifier_invoker_deafening_blast_knockback", { duration = self.knockback_duration })
         self.heroes_target[hTarget:entindex()] = true
     end
-
     return false
 end

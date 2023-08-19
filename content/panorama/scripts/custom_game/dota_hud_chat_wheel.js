@@ -107,6 +107,10 @@ var Items_sounds = [
     ["160", "item_160"],
     ["163", "item_163"],
     ["164", "item_164"],
+
+    ["165", "item_165"],
+    ["166", "item_166"],
+    ["167", "item_167"],
 ]
 
 var rings = new Array(
@@ -181,9 +185,9 @@ var rings = new Array(
         new Array(152, 153, 154, 155, 156, 157, 158, 159)
     ),
     new Array(//8 Sprays list 1
-        new Array("#sounds_160", "#sounds_161", "#sounds_162", "#sounds_163", "#sounds_164", "", "", ""),
-        new Array(true, true, true, true, true, false, false, false),
-        new Array(160, 161, 162, 163, 164, 0, 0, 0)
+        new Array("#sounds_160", "#sounds_161", "#sounds_162", "#sounds_163", "#sounds_164", "#sounds_165", "#sounds_166", "#sounds_167"),
+        new Array(true, true, true, true, true, true, true, true),
+        new Array(160, 161, 162, 163, 164, 165, 166, 167)
     ),
 );
 
@@ -493,6 +497,14 @@ function ChatSound( data )
 
     if (Game.IsPlayerMuted( data.player_id ) || Game.IsPlayerMutedVoice( data.player_id ) || Game.IsPlayerMutedText( data.player_id )) {
         return
+    }
+
+    if (GameUI.CustomUIConfig().MuteSoundsChatWheel != null)
+    {
+        if ((GameUI.CustomUIConfig().MuteSoundsChatWheel == true))
+        {
+            return
+        }
     }
 
     var playerInfo = Game.GetPlayerInfo( data.player_id );

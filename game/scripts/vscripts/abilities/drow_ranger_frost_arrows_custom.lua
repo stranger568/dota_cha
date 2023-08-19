@@ -1,6 +1,7 @@
 LinkLuaModifier( "modifier_drow_ranger_frost_arrows_custom", "abilities/drow_ranger_frost_arrows_custom", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_drow_ranger_frost_arrows_custom_orb", "abilities/drow_ranger_frost_arrows_custom", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_drow_ranger_frost_arrows_custom_debuff", "abilities/drow_ranger_frost_arrows_custom", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_drow_ranger_frost_arrows_custom_debuff_armor", "abilities/drow_ranger_frost_arrows_custom", LUA_MODIFIER_MOTION_NONE )
 
 drow_ranger_frost_arrows_custom = class({})
 
@@ -203,7 +204,17 @@ function modifier_drow_ranger_frost_arrows_custom_orb:OnCreated( kv )
     self.parent = self:GetParent()
 	self.ability = self:GetAbility()
 	self.cast = false
+    self.chance = self.ability:GetSpecialValueFor("chance")
 	self.records = {}
+    self.procs = true
+	self.procs_miss = true
+end
+
+function modifier_drow_ranger_frost_arrows_custom_orb:CheckState(kv)
+	return 
+	{
+		[MODIFIER_STATE_CANNOT_MISS] = self.procs_miss
+	}
 end
 
 function modifier_drow_ranger_frost_arrows_custom_orb:DeclareFunctions()
@@ -226,6 +237,12 @@ function modifier_drow_ranger_frost_arrows_custom_orb:OnAttack( params )
 	if self:ShouldLaunch( params.target ) then
 		self.ability:UseResources( true, false, false, true )
 		self.records[params.record] = true
+        self.procs = true
+	    self.procs_miss = true
+        if RollPercentage(100-self.chance) then
+            self.procs = false
+            self.procs_miss = false
+        end
 		if self.ability.OnOrbFire then self.ability:OnOrbFire( params ) end
 	end
 
@@ -234,6 +251,9 @@ end
 
 function modifier_drow_ranger_frost_arrows_custom_orb:GetModifierProcAttack_Feedback( params )
 	if self.records[params.record] then
+        if self.procs then
+            params.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_drow_ranger_frost_arrows_custom_debuff_armor", {duration = 1})
+        end
 		if self.ability.OnOrbImpact then self.ability:OnOrbImpact( params ) end
 	end
 end
@@ -335,4 +355,42 @@ function modifier_drow_ranger_frost_arrows_custom_orb:GetModifierProcAttack_Bonu
 		end
 		return self.ability:GetSpecialValueFor("damage") + bonus
 	end
+end
+
+modifier_drow_ranger_frost_arrows_custom_debuff_armor = class({})
+
+function modifier_drow_ranger_frost_arrows_custom_debuff_armor:IsHidden()
+	return true
+end
+
+function modifier_drow_ranger_frost_arrows_custom_debuff_armor:IsDebuff()
+	return true
+end
+
+function modifier_drow_ranger_frost_arrows_custom_debuff_armor:IsStunDebuff()
+	return false
+end
+
+function modifier_drow_ranger_frost_arrows_custom_debuff_armor:IsPurgable()
+	return false
+end
+
+function modifier_drow_ranger_frost_arrows_custom_debuff_armor:GetAttributes()
+	return MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE 
+end
+
+function modifier_drow_ranger_frost_arrows_custom_debuff_armor:DeclareFunctions()
+	local funcs = 
+	{
+		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BASE_PERCENTAGE,
+	}
+
+	return funcs
+end
+
+function modifier_drow_ranger_frost_arrows_custom_debuff_armor:GetModifierPhysicalArmorBase_Percentage()
+	if IsClient() then 
+		return 100 
+	end
+	return 0
 end

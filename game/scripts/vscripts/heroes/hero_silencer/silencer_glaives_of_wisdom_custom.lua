@@ -409,5 +409,6 @@ function modifier_silencer_glaives_of_wisdom_custom_debuff:DeclareFunctions()
 end
 
 function modifier_silencer_glaives_of_wisdom_custom_debuff:GetModifierBonusStats_Intellect()
+    if self:GetParent():IsCustomHasDebuffImmune() then return end
 	return self:GetStackCount() * (-1)
 end

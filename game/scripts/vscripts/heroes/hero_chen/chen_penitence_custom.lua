@@ -92,18 +92,25 @@ modifier_chen_penitence_custom_buff = class({})
 
 function modifier_chen_penitence_custom_buff:OnCreated()
 	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
+    self.self_attack_range_bonus = self:GetAbility():GetSpecialValueFor("self_attack_range_bonus")
 end
 
 function modifier_chen_penitence_custom_buff:OnRefresh()
 	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
+    self.self_attack_range_bonus = self:GetAbility():GetSpecialValueFor("self_attack_range_bonus")
 end
 
 function modifier_chen_penitence_custom_buff:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+        MODIFIER_PROPERTY_ATTACK_RANGE_BONUS
 	}
 end
 
 function modifier_chen_penitence_custom_buff:GetModifierAttackSpeedBonus_Constant()
 	return self.bonus_attack_speed
+end
+
+function modifier_chen_penitence_custom_buff:GetModifierAttackRangeBonus(params)
+    return self.self_attack_range_bonus
 end

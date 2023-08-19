@@ -109,9 +109,8 @@ function modifier_item_summoner_crown_buff_int:TakeDamageScriptModifier(params)
 	if params.unit:IsAttackImmune() then return end
 	if params.unit:IsInvulnerable() then return end
 	if params.attacker:GetUnitName() == "npc_dota_witch_doctor_death_ward" then
-		if params.original_damage == 90 or params.original_damage == 150 or params.original_damage == 210 or params.original_damage == 150 or params.original_damage == 210 or params.original_damage == 270 then
-			ApplyDamage({ victim = params.unit, attacker = params.attacker, damage = params.attacker:GetAverageTrueAttackDamage(nil) / 2, damage_type = DAMAGE_TYPE_PHYSICAL })
-			print("Дополнительный урон от тотема тычки")
+		if params.original_damage == 60 or params.original_damage == 110 or params.original_damage == 160 or params.original_damage == 120 or params.original_damage == 170 or params.original_damage == 220 then
+			ApplyDamage({ victim = params.unit, attacker = params.attacker, damage = params.attacker:GetAverageTrueAttackDamage(nil) / 2, damage_type = DAMAGE_TYPE_PURE })
 		end
 	end
 end

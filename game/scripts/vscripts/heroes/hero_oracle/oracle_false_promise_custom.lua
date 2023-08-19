@@ -1,4 +1,5 @@
 LinkLuaModifier( "modifier_oracle_false_promise_custom", "heroes/hero_oracle/oracle_false_promise_custom", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_oracle_false_promise_custom_handler", "heroes/hero_oracle/oracle_false_promise_custom", LUA_MODIFIER_MOTION_NONE )
 
 oracle_false_promise_custom = class({})
 
@@ -24,6 +25,7 @@ function oracle_false_promise_custom:ApplyFalsePromise(target)
 	target:Purge(false, true, false, true, true)
 	
 	target:AddNewModifier(self:GetCaster(), self, "modifier_oracle_false_promise_custom", {duration = self:GetSpecialValueFor("duration")})
+    target:AddNewModifier(self:GetCaster(), self, "modifier_oracle_false_promise_custom_handler", {duration = self:GetSpecialValueFor("duration")})
 end
 
 modifier_oracle_false_promise_custom = class({})
@@ -137,7 +139,7 @@ end
 
 function modifier_oracle_false_promise_custom:DeclareFunctions()
 	return {
-		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE,
+		--MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE,
 		MODIFIER_EVENT_ON_HEAL_RECEIVED,
 		MODIFIER_PROPERTY_DISABLE_HEALING,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
@@ -146,11 +148,27 @@ function modifier_oracle_false_promise_custom:DeclareFunctions()
         MODIFIER_PROPERTY_ALWAYS_AUTOATTACK_WHILE_HOLD_POSITION,
         MODIFIER_PROPERTY_INVISIBILITY_ATTACK_BEHAVIOR_EXCEPTION,
         MODIFIER_PROPERTY_PERSISTENT_INVISIBILITY,
+        MODIFIER_PROPERTY_AVOID_DAMAGE
 	}
 end
 
 function modifier_oracle_false_promise_custom:GetModifierIncomingDamage_Percentage(keys)
-	if keys.attacker and self:GetRemainingTime() >= 0 then
+	return -100
+end
+
+function modifier_oracle_false_promise_custom:OnHealReceived(keys)
+	if keys.unit == self:GetParent() and self:GetRemainingTime() >= 0 then
+		self.heal_counter = self.heal_counter + (keys.gain * 2)
+		
+		ParticleManager:SetParticleControl(self.overhead_particle, 1, Vector(self.damage_counter - self.heal_counter, 0, 0))
+		ParticleManager:SetParticleControl(self.overhead_particle, 2, Vector(self.heal_counter - self.damage_counter, 0, 0))
+		
+		--self:SetStackCount(math.abs(self.damage_counter - self.heal_counter))
+	end
+end
+
+function modifier_oracle_false_promise_custom:GetModifierAvoidDamage(keys)
+    if keys.attacker and self:GetRemainingTime() >= 0 then
 
 		self.attacked_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_attacked.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 		ParticleManager:ReleaseParticleIndex(self.attacked_particle)
@@ -172,22 +190,10 @@ function modifier_oracle_false_promise_custom:GetModifierIncomingDamage_Percenta
 
 		ParticleManager:SetParticleControl(self.overhead_particle, 1, Vector(self.damage_counter - self.heal_counter, 0, 0))
 		ParticleManager:SetParticleControl(self.overhead_particle, 2, Vector(self.heal_counter - self.damage_counter, 0, 0))
-		
+
 		--self:SetStackCount(math.abs(self.damage_counter - self.heal_counter))
 	end
-
-	return -99999999
-end
-
-function modifier_oracle_false_promise_custom:OnHealReceived(keys)
-	if keys.unit == self:GetParent() and self:GetRemainingTime() >= 0 then
-		self.heal_counter = self.heal_counter + (keys.gain * 2)
-		
-		ParticleManager:SetParticleControl(self.overhead_particle, 1, Vector(self.damage_counter - self.heal_counter, 0, 0))
-		ParticleManager:SetParticleControl(self.overhead_particle, 2, Vector(self.heal_counter - self.damage_counter, 0, 0))
-		
-		--self:SetStackCount(math.abs(self.damage_counter - self.heal_counter))
-	end
+    return 1
 end
 
 function modifier_oracle_false_promise_custom:GetDisableHealing(keys)
@@ -229,4 +235,19 @@ function modifier_oracle_false_promise_custom:GetModifierPersistentInvisibility(
 end
 function modifier_oracle_false_promise_custom:GetAlwaysAutoAttackWhileHoldPosition()
     return 1
+end
+
+modifier_oracle_false_promise_custom_handler = class({})
+function modifier_oracle_false_promise_custom_handler:IsHidden() return true end
+function modifier_oracle_false_promise_custom_handler:IsPurgable() return false end
+function modifier_oracle_false_promise_custom_handler:OnCreated()
+    if not IsServer() then return end
+    self:StartIntervalThink(0.1)
+end
+function modifier_oracle_false_promise_custom_handler:OnIntervalThink()
+    if not IsServer() then return end
+    if self:GetParent():HasModifier("modifier_phoenix_sun") or self:GetParent():HasModifier("modifier_phoenix_supernova_hiding") then
+        self:GetParent():RemoveModifierByName("modifier_oracle_false_promise_custom")
+        self:Destroy()
+    end
 end

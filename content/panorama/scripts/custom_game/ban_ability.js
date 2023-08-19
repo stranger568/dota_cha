@@ -51,6 +51,7 @@ if (table_player)
 	abilityTimeLeft = table_player.ban_count_ability
 	heroTimeLeft = table_player.ban_count_hero
 	$("#PanelBanHeroes").style.opacity = "1" 
+    $.Msg(table_player)
 }
 
 CustomNetTables.SubscribeNetTableListener( "ban_count", Updateban_table );

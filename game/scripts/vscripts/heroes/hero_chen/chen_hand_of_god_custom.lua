@@ -1,4 +1,5 @@
 LinkLuaModifier("modifier_chen_hand_of_god_custom", "heroes/hero_chen/chen_hand_of_god_custom", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_chen_hand_of_god_custom_black_king_bar", "heroes/hero_chen/chen_hand_of_god_custom", LUA_MODIFIER_MOTION_NONE)
 
 chen_hand_of_god_custom = class({})
 
@@ -13,6 +14,7 @@ function chen_hand_of_god_custom:OnSpellStart()
 		local heal = health * heal_amount
 		unit:Heal(heal, self)
 		unit:AddNewModifier(self:GetCaster(), self, "modifier_chen_hand_of_god_custom", {duration = hot_duration})
+        unit:AddNewModifier(self:GetCaster(), self, "modifier_chen_hand_of_god_custom_black_king_bar", {duration = hot_duration})
 		if self:GetCaster():HasTalent("special_bonus_unique_chen_12") then
 			unit:Purge(false, true, false, true, false)
 		end
@@ -45,14 +47,17 @@ function modifier_chen_hand_of_god_custom:OnIntervalThink()
 	self:GetParent():Heal(heal, self:GetAbility())
 end
 
-function modifier_chen_hand_of_god_custom:DeclareFunctions()
+modifier_chen_hand_of_god_custom_black_king_bar = class({})
+function modifier_chen_hand_of_god_custom_black_king_bar:IsPurgable() return false end
+function modifier_chen_hand_of_god_custom_black_king_bar:IsPurgeException() return false end
+function modifier_chen_hand_of_god_custom_black_king_bar:DeclareFunctions()
 	return
 	{
         MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
         MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
 	}
 end
-function modifier_chen_hand_of_god_custom:GetModifierIncomingDamage_Percentage(params)
+function modifier_chen_hand_of_god_custom_black_king_bar:GetModifierIncomingDamage_Percentage(params)
 	if not IsServer() then return end
 	if not params.attacker then return end
 	if not params.inflictor then return end
@@ -69,17 +74,17 @@ function modifier_chen_hand_of_god_custom:GetModifierIncomingDamage_Percentage(p
    		end
 	end
 end
-function modifier_chen_hand_of_god_custom:GetModifierMagicalResistanceBonus()
+function modifier_chen_hand_of_god_custom_black_king_bar:GetModifierMagicalResistanceBonus()
 	if not IsClient() then return end
 	return 80
 end
-function modifier_chen_hand_of_god_custom:CheckState()
+function modifier_chen_hand_of_god_custom_black_king_bar:CheckState()
  	return 
  	{
  		[MODIFIER_STATE_DEBUFF_IMMUNE] = true
 	}
 end
 
-function modifier_chen_hand_of_god_custom:GetEffectName()
+function modifier_chen_hand_of_god_custom_black_king_bar:GetEffectName()
     return "particles/items_fx/black_king_bar_avatar.vpcf"
 end

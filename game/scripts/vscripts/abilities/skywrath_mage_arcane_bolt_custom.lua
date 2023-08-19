@@ -45,55 +45,28 @@ function skywrath_mage_arcane_bolt_custom:OnSpellStart(new_target)
 		ProjectileManager:CreateTrackingProjectile(info)
 	end
 
-	if self:GetCaster():HasScepter() and new_target == nil then
-		local scepter_radius = self:GetSpecialValueFor( "scepter_radius" )
-			
-		local enemies = FindUnitsInRadius( caster:GetTeamNumber(), cursor_target:GetOrigin(), nil, scepter_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
-			
-		local target_2 = nil
+    if new_target ~= nil then return end
 
-		for _,enemy in pairs(enemies) do
-			if enemy~=cursor_target and enemy:IsHero() then
-				target_2 = enemy
+    local new_targets = 0
+    if self:GetCaster():HasScepter() then
+        new_targets = new_targets + 2
+    end
+    if self:GetCaster():HasTalent("special_bonus_unique_skywrath_2") then
+        new_targets = new_targets + 1
+    end
+    local scepter_radius = self:GetSpecialValueFor( "scepter_radius" )
+    if self:GetCaster():HasScepter() then
+        print("lol")
+		local enemies = FindUnitsInRadius( caster:GetTeamNumber(), caster:GetOrigin(), nil, 700, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
+        print(#enemies)
+		for _, enemy in pairs(enemies) do
+			if enemy ~= cursor_target then
+				self:OnSpellStart(enemy)
+				new_targets = new_targets - 1
+			end
+			if new_targets <= 0 then
 				break
 			end
-		end
-
-		if not target_2 then
-			target_2 = enemies[1]
-			if target_2==cursor_target then
-				target_2 = enemies[2]
-			end
-		end
-
-		if target_2 and target_2:IsAlive() then
-			self:OnSpellStart(target_2)
-		end
-	end
-
-	if self:GetCaster():HasTalent("special_bonus_unique_skywrath_2") and new_target == nil then
-		local scepter_radius = self:GetSpecialValueFor( "scepter_radius" )
-			
-		local enemies = FindUnitsInRadius( caster:GetTeamNumber(), cursor_target:GetOrigin(), nil, scepter_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
-			
-		local target_2 = nil
-
-		for _,enemy in pairs(enemies) do
-			if enemy~=cursor_target and enemy:IsHero() then
-				target_2 = enemy
-				break
-			end
-		end
-
-		if not target_2 then
-			target_2 = enemies[1]
-			if target_2==cursor_target then
-				target_2 = enemies[2]
-			end
-		end
-
-		if target_2 and target_2:IsAlive() then
-			self:OnSpellStart(target_2)
 		end
 	end
 

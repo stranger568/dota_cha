@@ -37,30 +37,19 @@ function modifier_necrolyte_heartstopper_aura_lua_effect:OnDestroy()
 end
 
 function modifier_necrolyte_heartstopper_aura_lua_effect:OnIntervalThink()
-   
-    if not self:GetAbility() or self:GetAbility():IsNull() then 
-        return 
+    if not IsServer() then return end
+    if not self:GetAbility() or self:GetAbility():IsNull() then  return  end
+    local aura_damage = self:GetAbility():GetSpecialValueFor("aura_damage")
+    local end_damage =  self:GetParent():GetMaxHealth() / 100 * aura_damage 
+    if self:GetCaster():HasScepter() then
+        end_damage = end_damage + self:GetCaster():GetHealthRegen()
     end
-
-    self.aura_damage = self:GetAbility():GetSpecialValueFor("aura_damage")
-    local talent = self:GetCaster():FindAbilityByName("special_bonus_unique_necrophos_2")
-    if talent and talent:GetLevel() > 0 then
-       self.aura_damage = self.aura_damage + talent:GetSpecialValueFor("value")
-    end
-    --A帐效果
-    if self:GetCaster():HasScepter() and self:GetCaster():HasModifier("modifier_ghost_shroud_custom_active") then
-       self.aura_damage = self.aura_damage*2
-    end
-    --print("self.aura_damage"..self.aura_damage)
-
-    self.aura_damage = self.aura_damage / 500
-
     local damage_table = {}
     damage_table.attacker = self:GetCaster()
     damage_table.victim = self:GetParent()
     damage_table.damage_type = DAMAGE_TYPE_MAGICAL
     damage_table.ability = self:GetAbility()
-    damage_table.damage = self:GetParent():GetMaxHealth() * self.aura_damage
+    damage_table.damage = end_damage * 0.2
     damage_table.damage_flags = DOTA_DAMAGE_FLAG_HPLOSS
     ApplyDamage(damage_table)
 end

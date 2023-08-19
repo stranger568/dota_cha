@@ -71,6 +71,12 @@ function ToggleAllMute() {
 	})
 }
 
+function ToggleMuteSounds()
+{
+    $("#MuteVoicesButton").SetHasClass("muted_chat_wheel", !$("#MuteVoicesButton").BHasClass("muted_chat_wheel"))
+    GameUI.CustomUIConfig().MuteSoundsChatWheel = $("#MuteVoicesButton").BHasClass("muted_chat_wheel")
+}
+
 (function()
 {
 	if ( ScoreboardUpdater_InitializeScoreboard === null ) { $.Msg( "WARNING: This file requires shared_scoreboard_updater.js to be included." ); }

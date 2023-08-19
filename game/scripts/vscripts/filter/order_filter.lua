@@ -8,6 +8,9 @@ function GameMode:OrderFilter(orderTable)
 	local orderType = orderTable["order_type"]
 
     if unit and unit:IsHero() and nPlayerID and nPlayerID ~= -1 then
+        if (orderType == DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN) then
+            return false
+        end
         if (orderType == DOTA_UNIT_ORDER_PICKUP_ITEM or orderType == DOTA_UNIT_ORDER_ATTACK_TARGET ) and orderTable.queue == 0 then
             if nPlayerID and target and target.nItemTeamNumber then
                 if target.nItemTeamNumber ~= PlayerResource:GetTeam(nPlayerID) then

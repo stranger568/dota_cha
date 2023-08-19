@@ -21,7 +21,8 @@ function sven_gods_strength_custom:OnToggle()
 end
 
 function sven_gods_strength_custom:GetManaCost(level)
-	if self:GetCaster():HasScepter() then 
+	if self:GetCaster():HasScepter() then
+        if IsClient() then return 15 end
 		return 0
 	end
 	return self.BaseClass.GetManaCost(self,level)
@@ -29,7 +30,6 @@ end
 
 function sven_gods_strength_custom:GetCooldown(iLevel)
 	if self:GetCaster():HasScepter() then
-        if IsClient() then return 15 end
 		return 0
 	end
 	return self.BaseClass.GetCooldown(self, iLevel) 
@@ -63,7 +63,7 @@ function modifier_sven_gods_strength_custom_fly:OnIntervalThink()
 	if not IsServer() then return end
     self.caster:SpendMana(15*0.5, self:GetAbility())
     if self.caster:GetMana() <= 14 then
-        self.caster:RemoveModifierByName("modifier_undying_flesh_golem")
+        self.caster:RemoveModifierByName("modifier_sven_gods_strength")
         return
     end
 	if not self.caster:HasModifier("modifier_sven_gods_strength") then

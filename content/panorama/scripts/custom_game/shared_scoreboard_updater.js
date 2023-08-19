@@ -130,13 +130,17 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		
 		if (tip_cooldown_label)
 		{
-			if (GameUI.IsAltDown() && (playerId != Game.GetLocalPlayerID()) ) {
-				if (!playerPanel.BHasClass("player_connection_abandoned") && !playerPanel.BHasClass("player_connection_failed") && !playerPanel.BHasClass("player_connection_disconnected"))
-				{
-					playerPanel.SetHasClass( "alt_health_check", true );
-				} else {
-					playerPanel.SetHasClass( "alt_health_check", false );
-				}
+			if (GameUI.IsAltDown() && (playerId != Game.GetLocalPlayerID()) ) 
+            {
+                if ((Game.GetMapInfo().map_display_name) != "tournament_1x8")
+                {
+                    if (!playerPanel.BHasClass("player_connection_abandoned") && !playerPanel.BHasClass("player_connection_failed") && !playerPanel.BHasClass("player_connection_disconnected"))
+                    {
+                        playerPanel.SetHasClass( "alt_health_check", true );
+                    } else {
+                        playerPanel.SetHasClass( "alt_health_check", false );
+                    }
+                }
 			} else {
 				playerPanel.SetHasClass( "alt_health_check", false );
 			}  

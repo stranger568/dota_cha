@@ -157,7 +157,7 @@ function modifier_grimstroke_ink_creature_custom_thinker:OnCreated( kv )
 		self.latch_offset = self:GetAbility():GetSpecialValueFor( "latched_unit_offset" )
 		self.latch_duration = self:GetAbility():GetSpecialValueFor( "latch_duration" )
 		self.tick_interval = self:GetAbility():GetSpecialValueFor( "tick_interval" )
-		local tick_damage = self:GetAbility():GetSpecialValueFor( "damage_per_tick" )
+		local tick_damage = self:GetAbility():GetSpecialValueFor( "damage_per_second" )
 		self.pop_damage = self:GetAbility():GetSpecialValueFor( "pop_damage" )
 		self.return_projectile = "particles/units/heroes/hero_grimstroke/grimstroke_phantom_return.vpcf"
 		self.health = self:GetAbility():GetSpecialValueFor( "destroy_attacks" )
@@ -255,6 +255,12 @@ function modifier_grimstroke_ink_creature_custom_thinker:CheckState()
 end
 
 function modifier_grimstroke_ink_creature_custom_thinker:OnIntervalThink()
+    if not IsServer() then return end
+    if not self:GetAbility() then
+        self:GetParent():Destroy()
+        return
+    end
+    print(self.damageTable)
 	ApplyDamage( self.damageTable )
 	EmitSoundOn( "Hero_Grimstroke.InkCreature.Attack", self:GetParent() )
 end

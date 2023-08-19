@@ -17,6 +17,8 @@ end
 
 function modifier_skill_last_chance:GetMinHealth()
 	if self:GetParent():IsIllusion() then return end
+    if not self:GetParent():IsAlive() then return end
+    if self:GetParent():IsReincarnating() then return end
 	if self:GetParent():HasModifier("modifier_duel_curse_cooldown") then return end
 	if self:GetParent():HasModifier("modifier_skill_last_chance_cooldown") then return end
 	return 1
@@ -25,15 +27,15 @@ end
 function modifier_skill_last_chance:TakeDamageScriptModifier(params)
 	if not IsServer() then return end
 	if params.unit ~= self:GetParent() then return end
+    if not self:GetParent():IsAlive() then return end
+    if self:GetParent():IsReincarnating() then return end
 	if self:GetParent():GetHealth() > 1 then return end
 	if self:GetParent():HasModifier("modifier_skill_last_chance_buff") then return end
 	if self:GetParent():HasModifier("modifier_skill_last_chance_cooldown") then return end
 	if self:GetParent():HasModifier("modifier_abaddon_borrowed_time_custom_buff") then return end
 	if self:GetParent():HasModifier("modifier_oracle_false_promise_custom") then return end
-	if self:GetParent():IsInvulnerable() then return end
 	if self:GetParent():HasModifier("modifier_dazzle_shallow_grave") then return end
 	if self:GetParent():HasModifier("modifier_duel_curse_cooldown") then return end
-	
 	self:GetParent():EmitSound("Item.Brooch.Cast")
 	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_skill_last_chance_buff", {duration = 5})
 	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_skill_last_chance_cooldown", {duration = 180})

@@ -24,6 +24,7 @@ var unremovableAbilitiesBonus = {
     "rubick_spell_steal_custom" : true,
     "rubick_empty1" : true,
     "rubick_empty2" : true,
+    "oracle_fortunes_end" : true,
 };
 
 var AbilitiesFullReact = 

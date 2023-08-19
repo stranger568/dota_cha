@@ -1,7 +1,5 @@
 modifier_invoker_tornado_lua = class({})
 
---------------------------------------------------------------------------------
--- Classifications
 function modifier_invoker_tornado_lua:IsHidden()
     return false
 end
@@ -38,35 +36,21 @@ function modifier_invoker_tornado_lua:GetEffectAttachType()
 	return PATTACH_ABSORIGIN_FOLLOW
 end
 
---------------------------------------------------------------------------------
--- Initializations
 function modifier_invoker_tornado_lua:OnCreated(kv)
     self:StartIntervalThink(FrameTime())
     local sound_lift = "Hero_Invoker.Tornado.Target"
     EmitSoundOn(sound_lift, self:GetParent())
     if IsServer() then
-       
     	self:GetParent():Purge(true, false, false, false, false)
-
         local delay = 1
-
         self:GetParent():StartGesture(ACT_DOTA_FLAIL)
         self.angle = self:GetParent():GetAngles()
         self.abs = self:GetParent():GetAbsOrigin()
         self.cyc_pos = self:GetParent():GetAbsOrigin()
-
-        -- self.pfx_name = "particles/units/heroes/hero_invoker/invoker_tornado_child.vpcf"
-        -- self.pfx = ParticleManager:CreateParticle(self.pfx_name, PATTACH_CUSTOMORIGIN, self:GetParent())
-        -- ParticleManager:SetParticleControl(self.pfx, 0, self.abs)
     end
 end
 
-function modifier_invoker_tornado_lua:OnRefresh(kv)
-
-end
-
 function modifier_invoker_tornado_lua:OnIntervalThink()
-    -- Remove force if conflicting
     if not self:CheckMotionControllers() then
         self:Destroy()
         return
@@ -79,15 +63,11 @@ function modifier_invoker_tornado_lua:OnDestroy()
     StopSoundOn(sound_lift, self:GetParent())
     if not IsServer() then return end
     local sound_land = "Hero_Invoker.Tornado.LandDamage"
-
     EmitSoundOn(sound_land, self:GetParent())
-
     self:GetParent():FadeGesture(ACT_DOTA_FLAIL)
     self:GetParent():SetAbsOrigin(self.abs)
     ResolveNPCPositions(self:GetParent():GetAbsOrigin(), 128)
     self:GetParent():SetAngles(self.angle[1], self.angle[2], self.angle[3])
-
-    --damage enemy
     if self:GetCaster() and self:GetAbility() then
 	    local damageTable = { victim = self:GetParent(),
 	    attacker = self:GetCaster(),
@@ -98,11 +78,9 @@ function modifier_invoker_tornado_lua:OnDestroy()
 	end
 end
 
---------------------------------------------------------------------------------
--- Graphics & Animations
-
 function modifier_invoker_tornado_lua:CheckState()
-    local state =    {
+    local state =    
+    {
         [MODIFIER_STATE_STUNNED] = true,
         [MODIFIER_STATE_INVULNERABLE] = true,
         [MODIFIER_STATE_NO_HEALTH_BAR] = true,
@@ -113,11 +91,9 @@ end
 
 function modifier_invoker_tornado_lua:HorizontalMotion(unit, time)
     if not IsServer() then return end
-    -- Change the Face Angle
     local angle = self:GetParent():GetAngles()
     local new_angle = RotateOrientation(angle, QAngle(0, 20, 0))
     self:GetParent():SetAngles(new_angle[1], new_angle[2], new_angle[3])
-    -- Change the height at the first and last 0.3 sec
     if self:GetElapsedTime() <= 0.3 then
         self.cyc_pos.z = self.cyc_pos.z + 50
         self:GetParent():SetAbsOrigin(self.cyc_pos)
@@ -133,19 +109,15 @@ function modifier_invoker_tornado_lua:HorizontalMotion(unit, time)
     end
 end
 
-
 function modifier_invoker_tornado_lua:CheckMotionControllers()
-    
     if not IsServer() then
        return 
     end
-
 	local parent = self:GetParent()
 	local modifier_priority = self:GetMotionControllerPriority()
 	local is_motion_controller = false
 	local motion_controller_priority
 	local found_modifier_handler
-
 	local non_motion_controllers =
 	{"modifier_brewmaster_storm_cyclone",
 	 "modifier_dark_seer_vacuum",

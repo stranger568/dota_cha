@@ -75,6 +75,7 @@ if IsServer() then
 		item_diffusal_style = MULTICAST_TYPE_NONE,
 		rubick_spell_steal_custom = MULTICAST_TYPE_NONE,
 		item_refresher_arena = MULTICAST_TYPE_NONE,
+        frostivus2018_omniknight_purification = MULTICAST_TYPE_SAME,
 		item_refresher_core = MULTICAST_TYPE_NONE,
 		abyssal_underlord_firestorm_custom = MULTICAST_TYPE_NONE,
         grimstroke_spirit_walk_custom = MULTICAST_TYPE_NONE,
@@ -406,7 +407,11 @@ function CastAdditionalAbility(caster, ability, target, delay, channelData)
 
 	if skill:GetAbilityName() == "nevermore_shadowraze1_custom" or skill:GetAbilityName() == "nevermore_shadowraze2_custom" or skill:GetAbilityName() == "nevermore_shadowraze3_custom" or skill:GetAbilityName() == "doom_bringer_devour_custom" then
 		skill:OnSpellStart(true)
-	else
+    elseif skill:GetAbilityName() == "item_hand_of_midas" then
+        skill:SetCurrentCharges(skill:GetCurrentCharges() + 1)
+        skill:SetCurrentAbilityCharges(skill:GetCurrentAbilityCharges() + 1)
+        skill:OnSpellStart()
+    else
 		skill:OnSpellStart()
 	end
 
