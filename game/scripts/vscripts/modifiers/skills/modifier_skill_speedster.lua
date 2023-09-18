@@ -14,5 +14,5 @@ function modifier_skill_speedster:DeclareFunctions()
 end
 
 function modifier_skill_speedster:GetModifierAttackSpeedBonus_Constant()
-	return 40
+	return 60
 end

@@ -211,7 +211,12 @@ function modifier_pugna_life_drain_custom:OnIntervalThink()
 
 			local actual_damage = ApplyDamage(damageTable)
 			local missing_health = self.caster:GetMaxHealth() - self.caster:GetHealth()
-			self.caster:Heal(actual_damage, self.caster)
+
+            if actual_damage <= 0 then
+                actual_damage = damage
+            end
+
+			self.caster:Heal(actual_damage, self.ability)
 
 			if missing_health < actual_damage then
 				local recover_mana = actual_damage - missing_health

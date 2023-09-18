@@ -77,6 +77,7 @@ modifier_dazzle_good_juju_lua.restricted_abilities = {
 	["tusk_walrus_punch"] = true,
 	["frostivus2018_huskar_burning_spear"] = true,
 	["frostivus2018_clinkz_searing_arrows"] = true,
+    ["puck_phase_shift_custom"] = true,
 }
 
 function modifier_dazzle_good_juju_lua:IsHidden() return true end

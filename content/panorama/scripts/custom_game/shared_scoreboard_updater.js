@@ -210,7 +210,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
        
 		       if (rank_info && rank_info.mmr && rank_info.games)
 		       {     
-		            if (rank_info.calibrating_games[6] > 0)
+		            if (rank_info.calibrating_games[7] > 0)
 		            {
 		               PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + "rank0" + '.png")';
 		               PlayerRank.style.backgroundSize = "100%" 
@@ -219,11 +219,11 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		            {
 		            	//if (pass_info_local && (pass_info_local.pass_level_1_days > 0 || pass_info_local.pass_level_2_days > 0 || pass_info_local.pass_level_3_days > 0))
 		            	//{
-			               if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[6] || 2500) >= 5420)
+			               if ( (rank_info.rating_number_in_top != 0 && rank_info.rating_number_in_top != "0" && rank_info.rating_number_in_top <= 10) && (rank_info.mmr[7] || 2500) >= 5420)
 					       {
 					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
 					       } else {
-					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[6] || 2500) + '.png")';
+					              PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info.mmr[7] || 2500) + '.png")';
 					       }
 			               PlayerRank.style.backgroundSize = "100%" 
 			            //} else {
@@ -471,9 +471,9 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		 		change_rate = "+ " + change_rate
 		 	}
 		    RatingsContainer.FindChildTraverse("PlayerRating").text = player_data.original_rating + " " + String( change_rate )
-		    if (player_data_main.calibrating_games[6] > 0)
+		    if (player_data_main.calibrating_games[7] > 0)
 		    {
-		       RatingsContainer.FindChildTraverse("PlayerRating").text = $.Localize("#dota_mind_calibrating") + " (" + player_data_main.calibrating_games[6] + ")";
+		       RatingsContainer.FindChildTraverse("PlayerRating").text = $.Localize("#dota_mind_calibrating") + " (" + player_data_main.calibrating_games[7] + ")";
 		    }
 		}
     }
@@ -897,17 +897,17 @@ function ChangeBorderPlayer(panel, frame_id, player_id)
 				if ( teamColor )
 				{
 					$.Msg(teamColor)
-					$.CreatePanelWithProperties("DOTAParticleScenePanel", HeroPortrait, "RevengeTargetFrame", { style: "width:100%;height:100%;"+ "wash-color:"+teamColor, particleName: "particles/donate/gold_icon_white", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
+					$.CreatePanel("DOTAParticleScenePanel", HeroPortrait, "RevengeTargetFrame", { style: "width:100%;height:100%;"+ "wash-color:"+teamColor, particleName: "particles/donate/gold_icon_white", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
 				}
 			}
 		}
 		else if (frame_id == 2)
 		{
-			$.CreatePanelWithProperties("DOTAParticleScenePanel", HeroPortrait, "RevengeTargetFrame", { style: "width:100%;height:100%;", particleName: "particles/donate/gold_icon_bp_rainbow.vpcf", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
+			$.CreatePanel("DOTAParticleScenePanel", HeroPortrait, "RevengeTargetFrame", { style: "width:100%;height:100%;", particleName: "particles/donate/gold_icon_bp_rainbow.vpcf", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
 		}
 		else if (frame_id == 3)
 		{
-			$.CreatePanelWithProperties("DOTAParticleScenePanel", HeroPortrait, "RevengeTargetFrame", { style: "width:100%;height:100%;", particleName: "particles/donate/gold_icon_bp_3.vpcf", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
+			$.CreatePanel("DOTAParticleScenePanel", HeroPortrait, "RevengeTargetFrame", { style: "width:100%;height:100%;", particleName: "particles/donate/gold_icon_bp_3.vpcf", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
 		}
 	}
 	var playerPortraitFlyout = panel.FindChildInLayoutFile( "Hero" );
@@ -924,17 +924,17 @@ function ChangeBorderPlayer(panel, frame_id, player_id)
 				var teamColor = GameUI.CustomUIConfig().team_colors[ Players.GetTeam( Number(player_id) ) ];
 				if ( teamColor )
 				{
-					$.CreatePanelWithProperties("DOTAParticleScenePanel", playerPortraitFlyout, "RevengeTargetFrame", { style: "width:100%;height:100%;" + "wash-color:"+teamColor, particleName: "particles/donate/gold_icon_white", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
+					$.CreatePanel("DOTAParticleScenePanel", playerPortraitFlyout, "RevengeTargetFrame", { style: "width:100%;height:100%;" + "wash-color:"+teamColor, particleName: "particles/donate/gold_icon_white", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
 				}
 			}
 		}
 		else if (frame_id == 2)
 		{
-			$.CreatePanelWithProperties("DOTAParticleScenePanel", playerPortraitFlyout, "RevengeTargetFrame", { style: "width:100%;height:100%;", particleName: "particles/donate/gold_icon_bp_rainbow.vpcf", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
+			$.CreatePanel("DOTAParticleScenePanel", playerPortraitFlyout, "RevengeTargetFrame", { style: "width:100%;height:100%;", particleName: "particles/donate/gold_icon_bp_rainbow.vpcf", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
 		}
 		else if (frame_id == 3)
 		{
-			$.CreatePanelWithProperties("DOTAParticleScenePanel", playerPortraitFlyout, "RevengeTargetFrame", { style: "width:100%;height:100%;", particleName: "particles/donate/gold_icon_bp_3.vpcf", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
+			$.CreatePanel("DOTAParticleScenePanel", playerPortraitFlyout, "RevengeTargetFrame", { style: "width:100%;height:100%;", particleName: "particles/donate/gold_icon_bp_3.vpcf", particleonly:"true", startActive:"true", cameraOrigin:"0 0 165", lookAt:"0 0 0",  fov:"55", squarePixels:"true" });
 		}
 	}
 }

@@ -14,13 +14,13 @@ function modifier_item_giants_ring_custom:IsPurgeException() return false end
 function modifier_item_giants_ring_custom:RemoveOnDeath() return false end
 
 function modifier_item_giants_ring_custom:OnCreated(table)
-    if not IsServer() then return end
     self.parent = self:GetParent()
     self.ability = self:GetAbility()
+    self.movement_speed = self.ability:GetSpecialValueFor("movement_speed")
+    if not IsServer() then return end
     self.damage_radius = self.ability:GetSpecialValueFor("damage_radius")
     self.pct_str_damage_per_second = self.ability:GetSpecialValueFor("pct_str_damage_per_second") / 100
     self.bonus_strength = self.ability:GetSpecialValueFor("bonus_strength")
-    self.movement_speed = self.ability:GetSpecialValueFor("movement_speed")
     self.model_scale = self.ability:GetSpecialValueFor("model_scale") 
     self:StartIntervalThink(0.5)
 end

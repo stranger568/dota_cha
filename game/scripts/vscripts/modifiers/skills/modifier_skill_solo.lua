@@ -8,13 +8,16 @@ function modifier_skill_solo:AllowIllusionDuplicate() return true end
 
 function modifier_skill_solo:OnCreated()
 	if not IsServer() then return end
-	self.bonus_gold_min = 322 / 60
 	self:StartIntervalThink(1)
 end
 
 function modifier_skill_solo:OnIntervalThink()
 	if not IsServer() then return end
 	if self:GetParent():IsRealHero() then
-		self:GetParent():ModifyGold(math.ceil(self.bonus_gold_min), true, DOTA_ModifyXP_Outpost)
+        local gold = 322 / 60
+        if GameMode.currentRound and GameMode.currentRound.nRoundNumber > 90 then
+            gold = 640 / 60
+        end
+		self:GetParent():ModifyGold(math.ceil(gold), true, DOTA_ModifyXP_Outpost)
 	end
 end

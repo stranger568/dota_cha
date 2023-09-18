@@ -40,6 +40,7 @@ function modifier_abilities_optimization_thinker:OnAbilityFullyCast( params )
     {
         "modifier_oracle_false_promise_custom",
         "modifier_skill_rearm",
+        "modifier_skill_acceleration",
     }
 
     for _, modifier_name in pairs(modifiers) do
@@ -49,6 +50,8 @@ function modifier_abilities_optimization_thinker:OnAbilityFullyCast( params )
         end
     end
 end
+
+LinkLuaModifier("modifier_windrunner_focus_fire_debuff", "modifiers/modifier_windrunner_focus_fire_debuff", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_abilities_optimization_thinker:OnAbilityExecuted( params )
 	if not IsServer() then return end
@@ -73,6 +76,12 @@ function modifier_abilities_optimization_thinker:OnAbilityExecuted( params )
 
     local ability_name = params.ability:GetAbilityName()
 
+    if ability_name == "windrunner_focusfire" then
+        if params.target then
+            params.target:AddNewModifier(unit, nil, "modifier_windrunner_focus_fire_debuff", {})
+        end
+    end
+
 	if ability_name == "warlock_rain_of_chaos" then
 	    for _, warlock_gl in pairs(FindUnitsInRadius(unit:GetTeamNumber(), unit:GetAbsOrigin(), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_PLAYER_CONTROLLED + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)) do
 	        if warlock_gl:GetUnitName() == "npc_dota_warlock_golem" and warlock_gl:GetOwner() == unit then
@@ -88,6 +97,12 @@ function modifier_abilities_optimization_thinker:OnAbilityExecuted( params )
 	       	end
 	    end
 	end
+    
+    if ability_name == "beastmaster_call_of_the_wild_boar" then
+        if unit:HasTalent("special_bonus_unique_cha_beastmaster") then
+            params.ability:OnSpellStart()
+        end
+    end
 
     local unit_id = params.unit:GetPlayerOwnerID()
 
@@ -153,6 +168,8 @@ function modifier_abilities_optimization_thinker:OnTakeDamage(params)
         "modifier_tempest_double_illusion",
         "modifier_invoker_cold_snap_lua",
         "modifier_fatal_bonds_debuff",
+        "modifier_skill_protection",
+        "modifier_skill_magic_shroud",
     }
 
     local attacker_modifiers = 
@@ -164,6 +181,8 @@ function modifier_abilities_optimization_thinker:OnTakeDamage(params)
         "modifier_item_bloodstone_2",
         "modifier_item_summoner_crown_buff_int",
         "modifier_life_stealer_feast_custom",
+        "modifier_keeper_of_the_light_spirit_form_custom",
+        "modifier_skill_disarmer",
     }
     
     for _, modifier_name in pairs(units_modifiers) do
@@ -192,6 +211,7 @@ function modifier_abilities_optimization_thinker:OnAttackLanded(params)
         "modifier_skill_requite",
         "modifier_skill_craggy_man",
         "modifier_axe_counter_helix_lua",
+        "modifier_skill_intimidation",
     }
 
     local attacker_modifiers = 
@@ -231,6 +251,10 @@ function modifier_abilities_optimization_thinker:OnAttackLanded(params)
         "modifier_item_wraith_dominator_aura_buff",
         "modifier_bounty_hunter_jinada_custom_crit",
         "modifier_silencer_glaives_of_wisdom_custom",
+        "modifier_vengefulspirit_magic_missile_custom_passive",
+        "modifier_skill_dracarys",
+        "modifier_skill_corrosive",
+        "modifier_skill_breaker",
     }
 
     for _, modifier_name in pairs(target_modifiers) do
@@ -308,6 +332,9 @@ function modifier_abilities_optimization_thinker:OnDeath(params)
         "modifier_alchemist_goblins_greed_custom",
         "modifier_item_bloodstone_2",
         "modifier_item_hellmask",
+        "modifier_bloodseeker_blood_mist_custom",
+        "modifier_skill_creephater",
+        "modifier_underlord_atrophy_buff_custom",
     }
 
     for _, modifier_name in pairs(target_modifiers) do
@@ -315,6 +342,17 @@ function modifier_abilities_optimization_thinker:OnDeath(params)
 		if modifier then
 			modifier:OnDeathEvent( params )
 		end
+    end
+
+    if attacker:HasModifier("modifier_windrunner_focusfire") and target:HasModifier("modifier_windrunner_focus_fire_debuff") and attacker:HasTalent("special_bonus_unique_windranger_2") then
+        local windrunner_focusfire = attacker:FindAbilityByName("windrunner_focusfire")
+        if windrunner_focusfire then
+            local cooldown = windrunner_focusfire:GetCooldownTimeRemaining()
+            windrunner_focusfire:EndCooldown()
+            if cooldown - 18 > 0 then
+                windrunner_focusfire:StartCooldown(cooldown - 18)
+            end
+        end
     end
 
     for _, modifier_name in pairs(attacker_modifiers) do

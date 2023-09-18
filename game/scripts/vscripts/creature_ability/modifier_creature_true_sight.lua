@@ -1,10 +1,8 @@
 modifier_creature_true_sight = class({})
 
-
 function modifier_creature_true_sight:GetTexture()
 	return "item_gem"
 end
-
 
 function modifier_creature_true_sight:IsHidden()
 	return true
@@ -21,7 +19,6 @@ end
 function modifier_creature_true_sight:GetEffectName()
     return "particles/econ/wards/f2p/f2p_ward/f2p_ward_true_sight_ambient.vpcf"
 end
-
 
 function modifier_creature_true_sight:OnCreated( kv )
 	if IsServer() then

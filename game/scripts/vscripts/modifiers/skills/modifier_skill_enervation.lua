@@ -60,6 +60,7 @@ function modifier_skill_enervation_debuff:GetModifierAttackRangeBonus()
 end
 
 function modifier_skill_enervation_debuff:GetModifierCastRangeBonusStacking(params)
+    if not self:GetParent():IsHero() then return end
 	if params.ability then
 		if params.ability.GetCastRange then
 			local new = params.ability:GetCastRange(params.ability:GetCaster():GetAbsOrigin(), params.ability:GetCaster()) + self:GetParent():GetCastRangeBonus()

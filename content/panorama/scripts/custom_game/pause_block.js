@@ -84,7 +84,7 @@ function InitPlayers()
         let playerInfo = Game.GetPlayerInfo(players[i]);
         if (playerInfo) 
         {
-            $.CreatePanelWithProperties("DOTAAvatarImage", player_panel, "avatar_panel", { style: "width:100%;height:100%;vertical-align:center;", steamid: playerInfo.player_steamid });
+            $.CreatePanel("DOTAAvatarImage", player_panel, "avatar_panel", { style: "width:100%;height:100%;vertical-align:center;", steamid: playerInfo.player_steamid });
         }
     }
 }

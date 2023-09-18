@@ -23,8 +23,25 @@ function modifier_sniper_take_aim_custom:IsPurgable()
 	return false
 end
 
+function modifier_sniper_take_aim_custom:RemoveOnDeath() return false end
+
 function modifier_sniper_take_aim_custom:OnCreated( kv )
 	self.bonus_attack_range = self:GetAbility():GetSpecialValueFor( "bonus_attack_range" )
+    if not IsServer() then return end
+    self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_sniper_headshot", {})
+    self:StartIntervalThink(1)
+end
+
+function modifier_sniper_take_aim_custom:OnIntervalThink()
+    if not IsServer() then return end
+    if not self:GetParent():HasModifier("modifier_sniper_headshot") then
+        self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_sniper_headshot", {})
+    end
+end
+
+function modifier_sniper_take_aim_custom:OnDestroy()
+    if not IsServer() then return end
+    self:GetParent():RemoveModifierByName("modifier_sniper_headshot")
 end
 
 function modifier_sniper_take_aim_custom:OnRefresh( kv )

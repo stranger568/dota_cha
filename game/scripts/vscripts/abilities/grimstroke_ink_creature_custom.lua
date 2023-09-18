@@ -234,7 +234,14 @@ function modifier_grimstroke_ink_creature_custom_thinker:OnAttacked( params )
 	else
 		self.health = math.max(self.health - 1, 0)
 	end
-	self:GetParent():SetHealth( self.health/self.max_health * self:GetParent():GetMaxHealth() )
+
+    local new_health = self.health/self.max_health * self:GetParent():GetMaxHealth()
+    if math.floor(new_health) > 0 then
+	    self:GetParent():SetHealth( math.floor(new_health) )
+    else
+        self:GetParent():Kill(self:GetAbility(), params.attacker)
+    end
+    
 	self:PlayEffects2()
 end
 
@@ -257,6 +264,14 @@ end
 function modifier_grimstroke_ink_creature_custom_thinker:OnIntervalThink()
     if not IsServer() then return end
     if not self:GetAbility() then
+        self:GetParent():Destroy()
+        return
+    end
+    if self.target:IsNull() then
+        self:GetParent():Destroy()
+        return
+    end
+    if not self.target:IsAlive() then
         self:GetParent():Destroy()
         return
     end

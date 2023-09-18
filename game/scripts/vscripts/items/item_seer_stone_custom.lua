@@ -28,7 +28,7 @@ end
 modifier_item_seer_stone_custom = class({})
 
 function modifier_item_seer_stone_custom:IsPurgable() return false end
-function modifier_item_seer_stone_custom:IsHidden() return false end
+function modifier_item_seer_stone_custom:IsHidden() return true end
 
 function modifier_item_seer_stone_custom:DeclareFunctions()
 	return {

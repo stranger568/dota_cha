@@ -16,6 +16,9 @@ end
 function modifier_skill_double_trouble:GetModifierTotalDamageOutgoing_Percentage(params)
     if params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then 
         if RollPercentage(50) then
+            local particle = ParticleManager:CreateParticle("particles/double_trouble_effect.vpcf", PATTACH_ABSORIGIN, params.target)
+			ParticleManager:SetParticleControl(particle, 1, params.target:GetAbsOrigin())
+			ParticleManager:ReleaseParticleIndex(particle)
             SendOverheadEventMessage(nil, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE, params.target, params.original_damage * 1.5, nil)
             return 50
         end

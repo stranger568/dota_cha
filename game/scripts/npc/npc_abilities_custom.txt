@@ -554,18 +554,6 @@
         "AbilityCooldown"               "15"
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     "sniper_take_aim_custom"
     {
         "BaseClass"                     "ability_lua"
@@ -594,6 +582,20 @@
             "bonus_attack_range_active"             "200"
             "slow"                                  "45 40 35 30"
             "headshot_chance"                       "100"
+
+            "damage"
+			{
+				"value"	"20 50 80 110"
+				"special_bonus_unique_sniper_headshot_damage"	"+30"
+			}
+			"proc_chance"					"40"
+			"knockback_distance"
+			{
+				"value"					"10"
+				"special_bonus_unique_sniper_3"			"+25"
+			}
+			"slow_target"			"-100"
+			"slow_duration"					"0.5"
         }
     }
 
@@ -618,17 +620,17 @@
             "empower_duration"
             {
                 "value"                             "35"
-                "LinkedSpecialBonus"                "special_bonus_unique_magnus_4"
+                "special_bonus_unique_magnus_4"	"+10"
             }
             "bonus_damage_pct"
             {
                 "value"                             "12 20 28 36"
-                "LinkedSpecialBonus"                "special_bonus_unique_magnus_2"
+                "special_bonus_unique_magnus_2"	    "+50"
             }
             "cleave_damage_pct"
             {
                 "value"                             "10 20 30 40"
-                "LinkedSpecialBonus"                "special_bonus_unique_magnus_2"
+                "special_bonus_unique_magnus_2"	        "+50"
             }
             "cleave_starting_width"         "150"
             "cleave_ending_width"           "360"
@@ -1275,8 +1277,16 @@
             }
             "transformation_time"   "0.35"
             "base_attack_time"      "1.5"
-            "bonus_range"           "340 360 380 400"
-            "tooltip_attack_range"          "490 510 530 550"
+            "bonus_range"           
+            {
+                "value"                                     "340 360 380 400"
+                "special_bonus_unique_cha_terrorblade"		"+300"
+            }
+            "tooltip_attack_range"          
+            {
+                "value"                                     "490 510 530 550"
+                "special_bonus_unique_cha_terrorblade"		"+300"
+            }
             "bonus_damage"          "30 40 50 60"
             "speed_loss"                "0"
             "metamorph_aura_tooltip"                "1200"
@@ -1309,7 +1319,11 @@
             "duration"              "36"
             "bonus_gold"            "3"
             "bonus_bonus_gold"      "3"
-            "bonus_gold_cap"        "15 18 21 24"
+            "bonus_gold_cap"
+            {
+                "value"                               "15 18 21 24"
+                "special_bonus_unique_cha_alchemist"  "+12"
+            }
             "bounty_multiplier"     "1.5 2.0 2.5 3.0"
             "damage"
             {
@@ -2143,8 +2157,7 @@
             }
             "aoe_radius"              
             {
-                "value"                                 "0"
-                "special_bonus_unique_treant_7"           "+400"
+                "value"                                 "400"
             }
             "radius"                        "650"
             "duration"                      "5.0"
@@ -2828,28 +2841,20 @@
         
         // Special  
         //-------------------------------------------------------------------------------------------------------------
-        "AbilitySpecial"
+        "AbilityValues"
         {
-            "01"
+            "delay"                 "0.25"
+            "arrow_count"               "3 6 9 12"
+            "bonus_range"               "230"
+            "tooltip_attack"
             {
-                "var_type"              "FIELD_FLOAT"
-                "delay"                 "0.25"
-            }
-            "02"
-            {
-                "var_type"              "FIELD_INTEGER"
-                "tooltip_attack"         "1"
+                "value"                 "1"
                 "LinkedSpecialBonus"    "special_bonus_unique_weaver_5"
             }
-            "03"
-            {   
-                "var_type"                  "FIELD_INTEGER"
-                "arrow_count"               "3 6 9 12"
-            }
-            "04"
-            {   
-                "var_type"                  "FIELD_INTEGER"
-                "bonus_range"               "230"
+            "bonus_damage"
+            {
+                "value"                             "15 30 45 60"
+                "special_bonus_unique_weaver_2"     "+90"
             }
         }       
         "AbilityCastAnimation"      "ACT_DOTA_CAST_ABILITY_3"
@@ -4826,7 +4831,8 @@
                 "value"         "400 500 600 700"
             }
             "spirit_hp"             
-            {   "value"         "300 500 700 900"
+            {   
+                "value"         "300 500 700 900"
             }
             "spirit_duration"
             {
@@ -5871,6 +5877,11 @@
                 "value"                     "40 70 100 130"
                 "LinkedSpecialBonus"        "special_bonus_unique_monkey_king_2"
                 "CalculateSpellDamageTooltip"   "0"
+            }
+            "attack_speed"
+            {
+                "value"                 "0"
+                "special_bonus_unique_cha_monkey_king"  "+100"
             }
             "lifesteal"                 "25 40 55 70"
             "max_duration"              "35"
@@ -6950,6 +6961,7 @@
 			{
 				"value" "375"
 				"affected_by_aoe_increase"	"1"
+                "special_bonus_unique_cha_tidehunter"			"+100"
 			}
             "talent_cooldown"               "1"
             "shard_attack_damage_bonus"         "90"
@@ -7636,64 +7648,27 @@
         "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_4"
         "AbilityCooldown"               "8.0 8.0 8.0"
         "AbilityManaCost"               "80 140 200"
-        "AbilitySpecial"
+        "AbilityValues"
         {
-            "01"
+            "speed"                 "900.0"
+            "radius"                "200"
+            "pass_damage"           
             {
-                "var_type"              "FIELD_FLOAT"
-                "speed"                 "900.0"
+                "value"                                 "110 155 200"
+                "special_bonus_unique_cha_timbersaw"    "+75"
             }
-            "02"
+            "damage_per_second"     
             {
-                "var_type"              "FIELD_INTEGER"
-                "radius"                "200"
+                "value"                                 "50 75 100"
+                "special_bonus_unique_cha_timbersaw"    "+35"
             }
-            "03"
-            {
-                "var_type"              "FIELD_INTEGER"
-                "pass_damage"           "110 155 200"
-            }
-            "04"
-            {
-                "var_type"              "FIELD_INTEGER"
-                "damage_per_second"     "50 75 100"
-            }
-            "05"
-            {
-                "var_type"              "FIELD_INTEGER"
-                "slow"                  "5"
-            }
-            "06"
-            {
-                "var_type"              "FIELD_FLOAT"
-                "damage_interval"       "0.5"
-            }
-            "07"
-            {
-                "var_type"              "FIELD_FLOAT"
-                "break_distance"        "2000.0"
-            }
-            "08"
-            {
-                "var_type"              "FIELD_FLOAT"
-                "mana_per_second"       "16 23 30"
-            }
-            "09"
-            {
-                "var_type"              "FIELD_FLOAT"
-                "pass_slow_duration"    "0.5"
-            }
-            "10"
-            {
-                "var_type"              "FIELD_INTEGER"
-                "slow_health_percentage"    "5"
-            }
-            "11"
-            {
-                "var_type"              "FIELD_FLOAT"
-                "castpoint_scepter"     "0.1"
-                "RequiresScepter"   "1"
-            }           
+            "slow"                  "5"
+            "damage_interval"       "0.5"
+            "break_distance"        "2000.0"
+            "mana_per_second"       "16 23 30"
+            "pass_slow_duration"    "0.5"
+            "slow_health_percentage"    "5"
+            "castpoint_scepter"     "0.1"           
         }
     }
 
@@ -8214,7 +8189,7 @@
             "hits"                      
             {
                 "value"                 "6"
-                "special_bonus_unique_naga_siren_5" -1
+                "special_bonus_unique_naga_siren_5" "-1"
             }
             "armor_reduction"           
             {   
@@ -8585,10 +8560,18 @@
         //-------------------------------------------------------------------------------------------------------------
         "AbilityValues"
         {
-            "hp_cost_per_second"    "2"
-            "radius"                "450"
-            "movement_slow"         "30"
-            "thirst_bonus_pct"      "50"
+           "hp_cost_per_second"	
+			{
+				"value"				"2"
+				"DamageTypeTooltip"		"DAMAGE_TYPE_MAGICAL"
+			}
+			"radius"				
+			{
+				"value"		"450"
+				"affected_by_aoe_increase"	"1"
+			}   
+			"movement_slow"			"30"
+			"thirst_bonus_pct"		"50"
         }
     }
 
@@ -9024,8 +9007,8 @@
         {
             "AbilityCooldown"               
             {
-                "value"             "16 14 12 10"
-                "special_bonus_unique_omniknight_3"     "-6"
+                "value"             "10 8 6 4"
+                "special_bonus_unique_omniknight_3"     "-2.5"
             }
             "base_damage"   
             {
@@ -9599,6 +9582,20 @@
             {
                 "value"         "5"
             }
+            "AbilityCharges"		
+			{
+				"value"	"0"
+				"special_bonus_unique_cha_night_stalker"	"+2"
+			}
+			"AbilityCooldown"				
+			{
+				"value"			 "11 10 9 8"
+				"special_bonus_unique_cha_night_stalker"	"=0"
+			}
+			"AbilityChargeRestoreTime"		
+			{
+				"value"			                            "11 10 9 8"
+			}
         }
     }
     "riki_backstab_custom"
@@ -10095,7 +10092,6 @@
         "AbilityCastPoint"              "0.0"
         "AbilityCastRange"              "800"
         "AbilityCastAnimation"          "ACT_DOTA_OVERRIDE_ABILITY_3"
-        "AbilityCooldown"               "24 20 16 12"
         "AbilityDuration"               "6"
         "AbilityManaCost"               "50 65 80 95"
 
@@ -10114,6 +10110,11 @@
             "armor_reduction_per_attack"    "0.5"
             "armor_duration"                "5.0"
             "duration"                      "6"
+            "AbilityCooldown"
+            {
+                "value"                                 "24 20 16 12"
+                "special_bonus_unique_cha_snapfire"     "-5"
+            }
         }
     }
     "wisp_overcharge_custom"
@@ -10263,8 +10264,13 @@
             "crit_chance"           
             {
                 "value"         "40"
+                "special_bonus_unique_cha_lycan_2"      "+20"
             }
-            "crit_multiplier"       "160 190 220"
+            "crit_multiplier"       
+            {
+                "value"                                 "160 190 220"
+                "special_bonus_unique_cha_lycan"        "+50"
+            }
             "health_bonus"      "200 300 400"
         }
     }
@@ -10555,4 +10561,83 @@
 			"second_strike_damage_percent"		"50"
 		}
 	}
+
+    "vengefulspirit_magic_missile_custom"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/vengefulspirit_magic_missile_custom"
+		"AbilityTextureName"			"vengefulspirit_magic_missile"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+        "AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+        "HasShardUpgrade"               "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12 11 10 9"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90 95 100 105"
+
+		"AbilityValues"
+		{
+			"magic_missile_speed"	"1350"
+			"magic_missile_stun"	"1.4 1.5 1.6 1.7"
+			"magic_missile_damage"
+			{
+				"value"	"90 180 270 360"
+				"special_bonus_unique_vengeful_spirit_1"	"+200"
+			}
+			"AbilityCastRange"
+			{
+				"value"						"650"
+				"special_bonus_unique_vengeful_spirit_missile_castrange"				"+125"
+			}
+		}
+	}
+
+    "keeper_of_the_light_spirit_form_custom"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/keeper_of_the_light_spirit_form_custom"
+		"AbilityTextureName"			"keeper_of_the_light_spirit_form"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_KeeperOfTheLight.SpiritForm"
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"85"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 125 175"		
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.35"	// Attacks are primarily about the damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"					"40.0 40.0 40.0"
+            "movement_speed"			"15 20 25" 
+            "cast_range"			    "125 250 375" 
+            "illuminate_heal"			"50 60 70" 
+            "cooldown_percent"          "10"
+            "spell_lifesteal"           "30"
+		}
+    }
 }

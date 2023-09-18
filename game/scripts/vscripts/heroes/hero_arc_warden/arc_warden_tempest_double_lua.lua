@@ -191,8 +191,8 @@ function arc_warden_tempest_double_lua:OnSpellStart()
 
 	--先复活
 	hClone:RespawnHero(false, false)
-	hClone:SetHealth(hCaster:GetHealth())
-	hClone:SetMana(hCaster:GetMana())
+	hClone:SetHealth(hCaster:GetMaxHealth())
+	hClone:SetMana(hCaster:GetMaxMana())
 	hClone:SetBaseAgility(hCaster:GetBaseAgility())
 	hClone:SetBaseStrength(hCaster:GetBaseStrength())
 	hClone:SetBaseIntellect(hCaster:GetBaseIntellect())

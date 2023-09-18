@@ -29,16 +29,7 @@ function CDOTA_BaseNPC:FindTalentValue(talent_name, key)
 end
 
 function CDOTA_BaseNPC:IsCustomHasDebuffImmune()
-    for _, mod in pairs(self:FindAllModifiers()) do
-        local tables = {}
-        mod:CheckStateToTable(tables)
-        for state_name, mod_table in pairs(tables) do
-            if tostring(state_name) == tostring(MODIFIER_STATE_DEBUFF_IMMUNE) then
-                return true
-            end
-        end
-    end
-    return false
+    return self:IsDebuffImmune()
 end
 
 function CDOTA_BaseNPC:GetTalentValue(talent_name)

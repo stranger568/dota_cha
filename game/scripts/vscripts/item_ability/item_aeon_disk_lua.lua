@@ -59,6 +59,7 @@ function modifier_item_aeon_disk_lua:GetModifierTotal_ConstantBlock(keys)
 				return 
 			end
 		end
+        if parent:HasModifier("modifier_oracle_false_promise_custom") then return end
 		self.ability:UseResources(true, false, true, true)
 		parent:EmitSound("DOTA_Item.ComboBreaker")
 		parent:Purge(false, true, false, true, true)

@@ -144,7 +144,7 @@ function banned_this_game_information(data)
     }
     for (var f = 1; f <= Object.keys(data.heroes).length; f++) 
     {
-        var HeroImage = $.CreatePanelWithProperties(`DOTAHeroImage`, notification_banned_heroes, "", {scaling: "stretch-to-cover-preserve-aspect", heroname : String(data.heroes[f]), tabindex : "auto", class: "HeroImageBanned", heroimagestyle : "portrait"});
+        var HeroImage = $.CreatePanel(`DOTAHeroImage`, notification_banned_heroes, "", {scaling: "stretch-to-cover-preserve-aspect", heroname : String(data.heroes[f]), tabindex : "auto", class: "HeroImageBanned", heroimagestyle : "portrait"});
     }
     notification.DeleteAsync(30);
 }

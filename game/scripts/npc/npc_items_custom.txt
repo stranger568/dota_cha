@@ -129,7 +129,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemSellable"				    "1"
-        "ItemCost"						"3000"
+        "ItemCost"						"6000"
 		"ItemIsNeutralDrop"				"1"
 		"ItemPurchasable"				"0"
 		"AbilityCooldown"				"4"
@@ -2154,8 +2154,11 @@
 	}
 
 	// 力量之书
-	"item_book_of_strength"
+	"item_book_of_strength_custom"
 	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/item_attribute_books"
+        "AbilityTextureName"            "item_book_of_strength"
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
@@ -2190,8 +2193,11 @@
 	}
 
 	// 敏捷之书
-	"item_book_of_agility"
+	"item_book_of_agility_custom"
 	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/item_attribute_books"
+        "AbilityTextureName"            "item_book_of_agility"
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
@@ -2226,8 +2232,11 @@
 	}
 
 	// 智力之书
-	"item_book_of_intelligence"
+	"item_book_of_intelligence_custom"
 	{
+        "BaseClass"                     "item_lua"      
+        "ScriptFile"                    "items/item_attribute_books"
+        "AbilityTextureName"            "item_book_of_intelligence"
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
@@ -3460,11 +3469,12 @@
 		"ItemPurchasable"				"1"
 		"ItemStackable"					"0"
 		"ItemShareability"				"ITEM_NOT_SHAREABLE"
+        "ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemPermanent"					"0"
 
 		"AbilityValues"
 		{
-			"base_attack_time_reduction"	   "23"
+			"base_attack_time_reduction"	   "35"
 			"passive_attack_speed"				"290"
 		}
 	}

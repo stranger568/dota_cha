@@ -108,11 +108,18 @@ function modifier_item_summoner_crown_buff_int:TakeDamageScriptModifier(params)
 	if params.attacker ~= self:GetParent() then return end
 	if params.unit:IsAttackImmune() then return end
 	if params.unit:IsInvulnerable() then return end
-	if params.attacker:GetUnitName() == "npc_dota_witch_doctor_death_ward" then
-		if params.original_damage == 60 or params.original_damage == 110 or params.original_damage == 160 or params.original_damage == 120 or params.original_damage == 170 or params.original_damage == 220 then
-			ApplyDamage({ victim = params.unit, attacker = params.attacker, damage = params.attacker:GetAverageTrueAttackDamage(nil) / 2, damage_type = DAMAGE_TYPE_PURE })
-		end
-	end
+	--if params.attacker:GetUnitName() == "npc_dota_witch_doctor_death_ward" then
+    --    if params.attacker:GetOwner() ~= nil then
+    --        local witch_doctor_death_ward = params.attacker:GetOwner():FindAbilityByName("witch_doctor_death_ward")
+    --        if witch_doctor_death_ward then
+    --            print(params.original_damage, witch_doctor_death_ward:GetSpecialValueFor("damage"))
+    --            if params.original_damage == witch_doctor_death_ward:GetSpecialValueFor("damage") then
+    --                print("aka")
+    --                ApplyDamage({ victim = params.unit, attacker = params.attacker, damage = params.attacker:GetAverageTrueAttackDamage(nil) / 2, damage_type = DAMAGE_TYPE_PURE })
+    --            end
+    --        end
+    --    end
+	--end
 end
 
 modifier_item_summoner_crown_model_size = class({})

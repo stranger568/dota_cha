@@ -3,7 +3,7 @@ LinkLuaModifier("modifier_skill_armor_investor", "modifiers/skills/modifier_skil
 
 modifier_skill_warrior_investor = class({})
 
-function modifier_skill_warrior_investor:IsHidden() return false end
+function modifier_skill_warrior_investor:IsHidden() return true end
 function modifier_skill_warrior_investor:IsPurgable() return false end
 function modifier_skill_warrior_investor:IsPurgeException() return false end
 function modifier_skill_warrior_investor:RemoveOnDeath() return false end

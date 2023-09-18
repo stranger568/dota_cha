@@ -126,8 +126,8 @@ function CreatePlayer(id, rating, panel, number, time, round)
     var AvatarNicknamePanel = $.CreatePanel("Panel", Line, "");
     AvatarNicknamePanel.AddClass("AvatarNicknamePanel");
 
-    $.CreatePanelWithProperties("DOTAAvatarImage", AvatarNicknamePanel, "AvatarLeaderboard", { style: "width:28px;height:28px;vertical-align:center;", accountid: id });
-    $.CreatePanelWithProperties("DOTAUserName", AvatarNicknamePanel, "NickLeaderboard", { class:"DOTAUserNameCustom", style: "vertical-align:center;margin-left:10px;height: 20px;", accountid: id });
+    $.CreatePanel("DOTAAvatarImage", AvatarNicknamePanel, "AvatarLeaderboard", { style: "width:28px;height:28px;vertical-align:center;", accountid: id });
+    $.CreatePanel("DOTAUserName", AvatarNicknamePanel, "NickLeaderboard", { class:"DOTAUserNameCustom", style: "vertical-align:center;margin-left:10px;height: 20px;", accountid: id });
 
     var Rating = $.CreatePanel("Label", Line, "");
     Rating.AddClass("RatingLabel");
@@ -159,8 +159,8 @@ function CreatePlayerPve(id, rating, panel, number, time, round)
     var AvatarNicknamePanel = $.CreatePanel("Panel", Line, "");
     AvatarNicknamePanel.AddClass("AvatarNicknamePanel_pve");
 
-    $.CreatePanelWithProperties("DOTAAvatarImage", AvatarNicknamePanel, "AvatarLeaderboard_pve", { style: "width:40px;height:40px;vertical-align:center;", accountid: id });
-    $.CreatePanelWithProperties("DOTAUserName", AvatarNicknamePanel, "AvatarLeaderboard_pve", { style: "vertical-align:center;margin-left:25px;height: 20px;", accountid: id });
+    $.CreatePanel("DOTAAvatarImage", AvatarNicknamePanel, "AvatarLeaderboard_pve", { style: "width:40px;height:40px;vertical-align:center;", accountid: id });
+    $.CreatePanel("DOTAUserName", AvatarNicknamePanel, "AvatarLeaderboard_pve", { style: "vertical-align:center;margin-left:25px;height: 20px;", accountid: id });
 
     var Rating = $.CreatePanel("Label", Line, "");
     Rating.AddClass("RatingLabel_pve");

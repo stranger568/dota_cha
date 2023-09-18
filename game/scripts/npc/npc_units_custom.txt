@@ -149,7 +149,7 @@
 	"npc_unit_top1"
 	{
 		"BaseClass"					"npc_dota_creature"	
-		"Model"						"models/items/wraith_king/arcana/wraith_king_arcana.vmdl"	
+		"Model"						"models/heroes/earth_spirit/earth_spirit.vmdl"	
 		"ModelScale"				"0.8"
 		"Level"						"1"	
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
@@ -167,13 +167,11 @@
 		{
 			"AttachWearables"
 			{
-				"Wearable1" { "ItemDef" "13569" }
-				"Wearable2" { "ItemDef" "13743" }
-				"Wearable3" { "ItemDef" "13473" }
-				"Wearable4" { "ItemDef" "13456" }
-				"Wearable5" { "ItemDef" "13571" }
-				"Wearable5" { "ItemDef" "13571" }
-				"Wearable6" { "ItemDef" "13760" }
+				"Wearable1" { "ItemDef" "6003" }
+				"Wearable2" { "ItemDef" "6002" }
+				"Wearable3" { "ItemDef" "6004" }
+				"Wearable4" { "ItemDef" "6005" }
+				"Wearable5" { "ItemDef" "6006" }
 			}
 		}
 	}
@@ -181,7 +179,7 @@
 	"npc_unit_top2"
 	{
 		"BaseClass"					"npc_dota_creature"	
-		"Model"						"models/heroes/terrorblade/terrorblade_arcana.vmdl"	
+		"Model"						"models/items/pudge/arcana/pudge_arcana_base.vmdl"	
 		"ModelScale"				"0.8"
 		"Level"						"1"	
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
@@ -199,10 +197,11 @@
 		{
 			"AttachWearables"
 			{
-				"Wearable1" { "ItemDef" "307" }
-				"Wearable2" { "ItemDef" "5957" }
-				"Wearable3" { "ItemDef" "9750" }
-				"Wearable4" { "ItemDef" "26445" }
+				"Wearable1" { "ItemDef" "13788" }
+				"Wearable2" { "ItemDef" "9231" }
+				"Wearable3" { "ItemDef" "17637" }
+				"Wearable4" { "ItemDef" "7756" }
+				"Wearable5" { "ItemDef" "6226" }
 			}
 		}
 	}
@@ -210,7 +209,7 @@
 	"npc_unit_top3"
 	{
 		"BaseClass"					"npc_dota_creature"	
-		"Model"						"models/heroes/shadow_fiend/shadow_fiend_arcana.vmdl"	
+		"Model"						"models/heroes/phantom_assassin/phantom_assassin.vmdl"	
 		"ModelScale"				"0.8"
 		"Level"						"1"	
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
@@ -228,9 +227,11 @@
 		{
 			"AttachWearables"
 			{
-				"Wearable1" { "ItemDef" "8259" }
-				"Wearable2" { "ItemDef" "6996" }
-				"Wearable3" { "ItemDef" "9020" }
+				"Wearable1" { "ItemDef" "7247" }
+				"Wearable2" { "ItemDef" "19177" }
+				"Wearable3" { "ItemDef" "19178" }
+				"Wearable4" { "ItemDef" "9757" }
+				"Wearable5" { "ItemDef" "22268" }
 			}
 		}
 	}

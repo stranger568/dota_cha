@@ -14,5 +14,5 @@ function modifier_skill_damage_dealer:DeclareFunctions()
 end
 
 function modifier_skill_damage_dealer:GetModifierPreAttack_BonusDamage()
-	return 60
+	return 85
 end

@@ -80,6 +80,7 @@ function Debugger:OnPlayerSay(keys)
         end
         if szText=="book" then
              hHero:AddItemByName("item_omniscient_book")
+             print(hHero:IsDebuffImmune())
         end
         if szText=="stranger" then
             hHero:AddNewModifier(hHero, nil, "modifier_stranger_test", {})

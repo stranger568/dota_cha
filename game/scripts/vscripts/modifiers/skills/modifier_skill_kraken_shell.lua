@@ -27,7 +27,7 @@ function modifier_skill_kraken_shell:OnTakeDamage( params )
 	if self:GetStackCount() >= 1000 then
 		self:GetParent():Purge(false, true, false, true, true)
 		self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_skill_kraken_shell_buff", {duration = 5})
-		self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_skill_kraken_shell_buff_cooldown", {duration = 15})
+		self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_skill_kraken_shell_buff_cooldown", {duration = 12})
 	end
 end
 

@@ -46,7 +46,7 @@ function night_stalker_hunter_in_the_night_custom:OnSpellStart()
 end
 
 modifier_night_stalker_hunter_in_the_night_custom = class({})
-
+function modifier_night_stalker_hunter_in_the_night_custom:IsHidden() return true end
 function modifier_night_stalker_hunter_in_the_night_custom:IsPurgable() return false end
 function modifier_night_stalker_hunter_in_the_night_custom:IsPurgeException() return false end
 function modifier_night_stalker_hunter_in_the_night_custom:RemoveOnDeath() return false end

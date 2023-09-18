@@ -196,12 +196,12 @@ function ShowPvpBet(data)
 
         var rank_info_duel = CustomNetTables.GetTableValue("cha_server_data", String(playerId));
         if (rank_info_duel) {
-            HeroInfoRatingLabel.text = $.Localize("#score") + ": " + (rank_info_duel.mmr[6] || 0) + "  " + $.Localize("#games_duel") + ": " + (rank_info_duel.games[6] || 0);
+            HeroInfoRatingLabel.text = $.Localize("#score") + ": " + (rank_info_duel.mmr[7] || 0) + "  " + $.Localize("#games_duel") + ": " + (rank_info_duel.games[7] || 0);
 
-            if ((rank_info_duel.rating_number_in_top != 0 && rank_info_duel.rating_number_in_top != "0" && rank_info_duel.rating_number_in_top <= 10) && (rank_info_duel.mmr[6] || 2500) >= 5420) {
+            if ((rank_info_duel.rating_number_in_top != 0 && rank_info_duel.rating_number_in_top != "0" && rank_info_duel.rating_number_in_top <= 10) && (rank_info_duel.mmr[7] || 2500) >= 5420) {
                 HeroRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
             } else {
-                HeroRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info_duel.mmr[6] || 0) + '.png")';
+                HeroRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(rank_info_duel.mmr[7] || 0) + '.png")';
             }
 
             HeroRank.style.backgroundSize = "100%"

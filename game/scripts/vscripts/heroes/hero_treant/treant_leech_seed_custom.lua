@@ -12,7 +12,7 @@ function treant_leech_seed_custom:OnSpellStart()
 	local radius = self:GetSpecialValueFor("aoe_radius")
 	self:GetCaster():EmitSound("Hero_Treant.LeechSeed.Cast")
 
-	if self:GetCaster():HasTalent("special_bonus_unique_treant_7") then
+	if true then
 		local targets = FindUnitsInRadius( self:GetCaster():GetTeamNumber(), target:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false )
 		for _,enemy in pairs(targets) do
 			self:CastAbility(enemy)

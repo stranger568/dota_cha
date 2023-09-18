@@ -29,7 +29,7 @@ function modifier_skill_last_chance:TakeDamageScriptModifier(params)
 	if params.unit ~= self:GetParent() then return end
     if not self:GetParent():IsAlive() then return end
     if self:GetParent():IsReincarnating() then return end
-	if self:GetParent():GetHealth() > 1 then return end
+	if self:GetParent():GetHealthPercent() > 0.5 then return end
 	if self:GetParent():HasModifier("modifier_skill_last_chance_buff") then return end
 	if self:GetParent():HasModifier("modifier_skill_last_chance_cooldown") then return end
 	if self:GetParent():HasModifier("modifier_abaddon_borrowed_time_custom_buff") then return end

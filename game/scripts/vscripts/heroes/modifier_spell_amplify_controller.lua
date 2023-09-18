@@ -173,6 +173,8 @@ if IsServer() then
         ["witch_doctor_voodoo_restoration"] = true,
         ["item_giants_ring_custom"] = true,
         ["night_stalker_crippling_fear"] = true,
+        ["ember_spirit_fire_remnant"] = true,
+        ["pudge_dismember"] = true,
     }
 
     function modifier_spell_amplify_controller:GetModifierSpellAmplify_Percentage(params)	

@@ -76,6 +76,12 @@ function UpdateHeroHudBuffs()
         }
     }
 
+    let AbilitySelectorPanelRoot = FindDotaHudElement("AbilitySelectorPanelRoot")
+    if (AbilitySelectorPanelRoot)
+    {
+        AbilitySelectorPanelRoot.SetHasClass("WideChoice", HasModifier(hero, "modifier_skill_wide_choice") != false)
+    }
+
     $.Schedule(0.1, UpdateHeroHudBuffs)
 }
 
@@ -116,4 +122,23 @@ function SetShowText(panel, text)
     panel.SetPanelEvent('onmouseout', function() {
         $.DispatchEvent('DOTAHideTextTooltip', panel);
     });       
+}
+ 
+function GetDotaHud()
+{
+	let hPanel = $.GetContextPanel();
+	while ( hPanel && hPanel.id !== 'Hud')
+	{
+        hPanel = hPanel.GetParent();
+	}
+	if (!hPanel)
+	{
+        throw new Error('Could not find Hud root from panel with id: ' + $.GetContextPanel().id);
+	}
+	return hPanel;
+}
+
+function FindDotaHudElement(sId)
+{
+	return GetDotaHud().FindChildTraverse(sId);
 }

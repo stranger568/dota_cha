@@ -1,6 +1,6 @@
 gyrocopter_flak_cannon_lua = class({})
 LinkLuaModifier("modifier_gyrocopter_flak_cannon_lua", "heroes/hero_gyrocopter/gyrocopter_flak_cannon_lua", LUA_MODIFIER_MOTION_NONE)
-
+LinkLuaModifier("modifier_gyrocopter_flak_cannon_lua_scepter", "heroes/hero_gyrocopter/gyrocopter_flak_cannon_lua", LUA_MODIFIER_MOTION_NONE)
 
 function gyrocopter_flak_cannon_lua:GetAOERadius()
 	return self:GetSpecialValueFor("radius")
@@ -10,6 +10,11 @@ function gyrocopter_flak_cannon_lua:GetCooldown(level)
     return self.BaseClass.GetCooldown(self, level)
 end
 
+function gyrocopter_flak_cannon_lua:GetIntrinsicModifierName()
+    if self:GetCaster():GetUnitName() ~= "npc_dota_hero_gyrocopter" then
+        return "modifier_gyrocopter_flak_cannon_lua_scepter"
+    end
+end
 
 function gyrocopter_flak_cannon_lua:OnSpellStart( ... )
 	if not IsServer() then return end
@@ -172,15 +177,21 @@ function modifier_gyrocopter_flak_cannon_lua_scepter:OnIntervalThink()
 		FIND_FARTHEST,
 		false
 	)
-   --攻击最远敌人
-	if #enemies>0 then
-		local hEnemy = enemies[1]
-		if not hEnemy or hEnemy:IsNull() then return end
-		if hEnemy:IsAttackImmune() or hEnemy:IsInvulnerable() then return end
-		if not hEnemy:IsAlive() then return end
-		hParent:PerformAttack(hEnemy, true, true, true, false, true, false, false)
-	end
 
+    local attack_count = 1
+    if self:GetParent():HasModifier("modifier_gyrocopter_flak_cannon_lua") then
+        attack_count = 2
+    end
+
+    for _, enemy in pairs(enemies) do
+        if enemy and not enemy:IsAttackImmune() and not enemy:IsInvulnerable() and enemy:IsAlive() then
+            hParent:PerformAttack(hEnemy, true, true, true, false, true, false, false)
+            attack_count = attack_count - 1
+            if attack_count <= 0 then
+                break
+            end
+        end
+    end
 end
 
 

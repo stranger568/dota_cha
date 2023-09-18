@@ -255,6 +255,13 @@ DOTASettingsCheckbox .TickBox {
     horizontal-align: center;
 }
 
+.SelectorMini.WideChoice .AbilitySelectorPanel {
+    margin-top: 10%;
+    width: 572px;
+    height: 270px;
+    horizontal-align: center;
+}
+
 .SelectorMini #AbilitySelectButtonPanel {
     margin-top: 56%;
 }
@@ -284,6 +291,12 @@ DOTASettingsCheckbox .TickBox {
 .AbilitySelectorPanelRootSide #AbilitySelectButtonPanel {
     width: 340px;
     margin-top: 55%;
+    padding: 10px;
+}
+
+.AbilitySelectorPanelRootSide.WideChoice #AbilitySelectButtonPanel {
+    width: 340px;
+    margin-top: 64%;
     padding: 10px;
 }
 

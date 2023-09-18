@@ -63,11 +63,20 @@ function Spawner:Init(nTeamNumber,round)
                     end
                 end
 
+                if sUnitName == "npc_dota_ogreseal" then
+                    hUnit:SetMaxMana(500)
+                    hUnit:SetMana(500)
+                end
+
                 self:CreaturePowerUp(hUnit,round.nRoundNumber-1,bonus)
 
                 if nTrueSightNumber< nTotalTrueSightNumber then
                     self:AddTrueSightForUnit(hUnit)
                     nTrueSightNumber = nTrueSightNumber+1
+                end
+
+                if round.nRoundNumber > 60 then
+                    self:AddTrueSightForUnit(hUnit)
                 end
 
                 hUnit.nSpawnerTeamNumber = nTeamNumber
@@ -90,6 +99,7 @@ function Spawner:Init(nTeamNumber,round)
                     local bonus = self:GetTeamPlaceBonusGold(nTeamNumber, round.nRoundNumber)
                     self:CreaturePowerUp(hUnit,round.nRoundNumber-1,bonus)
                     hUnit.nSpawnerTeamNumber = nTeamNumber
+                    hUnit.buy_creep = true
                     self.nExtraCreatureNumber = self.nExtraCreatureNumber + 1
                     table.insert(self.vCurrentCreeps, hUnit)
                     for _,nPlayerID in ipairs(GameMode.vTeamPlayerMap[nCreatureMapTeamNumber]) do
@@ -352,6 +362,10 @@ function Spawner:Finish()
                 modifier_skill_deposit:IncrementStackCount()
             end
         end
+        local modifier_skill_experience_is_gold = hHero:FindModifierByName("modifier_skill_experience_is_gold")
+        if modifier_skill_experience_is_gold then
+            modifier_skill_experience_is_gold:RoundEnd()
+        end
         if hHero:HasModifier('modifier_skill_investment') then
             local modifier_skill_investment = hHero:FindModifierByName("modifier_skill_investment")
             if modifier_skill_investment then
@@ -415,7 +429,11 @@ function Spawner:CreaturePowerUp(hUnit,nlevel,bonus)
     hUnit:SetMaxHealth(flMaxHealth)
     hUnit:SetHealth(flMaxHealth)
 
-    local flGoldBountyMultiple = 0.8
+    local flGoldBountyMultiple = 0.9
+    if GetMapName() == "1x8_old" then
+        flGoldBountyMultiple = 0.5
+    end
+
     local bonus_gold = 0
     if nlevel >= 10 then
         bonus_gold = bonus

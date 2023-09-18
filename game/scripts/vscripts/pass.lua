@@ -274,7 +274,6 @@ function Pass:Init()
         [38] = {100, "donate"},
         [39] = {100, "donate"},
         [40] = {100, "donate"},
-        [112] = {100, "donate"},
         [111] = {100, "donate"},
         [119] = {100, "donate"},
         [122] = {100, "donate"},

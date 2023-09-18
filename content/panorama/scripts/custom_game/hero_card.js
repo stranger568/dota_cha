@@ -38,7 +38,7 @@ function ShowRandomHeroSelection(keys)
             last_abil.DeleteAsync(0)
         }
 
-        $.CreatePanelWithProperties("DOTAScenePanel", panel.FindChildTraverse("CardImage"), "hero_model", { style: "width:100%;height:100%;", drawbackground: true, unit:heroName, particleonly:"false", renderdeferred:"false", antialias:"true", renderwaterreflections:"true" });
+        $.CreatePanel("DOTAScenePanel", panel.FindChildTraverse("CardImage"), "hero_model", { style: "width:100%;height:100%;", drawbackground: true, unit:heroName, particleonly:"false", renderdeferred:"false", antialias:"true", renderwaterreflections:"true" });
 
         let talents = $.CreatePanel("Panel", panel, "talents_p");
         talents.AddClass("talents_block")

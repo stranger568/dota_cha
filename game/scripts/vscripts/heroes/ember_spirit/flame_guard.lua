@@ -67,6 +67,7 @@ function modifier_ember_spirit_flame_guard_custom:DeclareFunctions()
 	return 
 	{
 		MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK,
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS
 	}
 end
 
@@ -95,3 +96,9 @@ function modifier_ember_spirit_flame_guard_custom:GetModifierTotal_ConstantBlock
         return i
     end
 end
+
+function modifier_ember_spirit_flame_guard_custom:GetModifierMagicalResistanceBonus()
+    if not self:GetCaster():HasTalent("special_bonus_unique_cha_ember_spirit") then return end
+    return 50
+end
+

@@ -28,7 +28,7 @@ end
 function modifier_skill_damage_investor:OnIntervalThink()
 	if not IsServer() then return end
 	self:SendBuffRefreshToClients()
-	local gold = math.min(20000, self:GetParent():GetGold())
+	local gold = self:GetParent():GetGold() --math.min(20000, self:GetParent():GetGold())
 	self.bonus = gold / 25
 	self:SetStackCount(self.bonus)
 	self:SendBuffRefreshToClients()

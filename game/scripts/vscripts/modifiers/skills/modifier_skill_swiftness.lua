@@ -15,13 +15,9 @@ end
 
 function modifier_skill_swiftness:OnIntervalThink()
 	if not IsServer() then return end
-	if self:GetParent():HasModifier("modifier_item_dark_moon_shard") then
-		self:GetParent():RemoveModifierByName("modifier_skill_swiftness_buff")
-	else
-		if not self:GetParent():HasModifier("modifier_skill_swiftness_buff") then
-			self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_skill_swiftness_buff", {})
-		end
-	end
+    if not self:GetParent():HasModifier("modifier_skill_swiftness_buff") then
+        self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_skill_swiftness_buff", {})
+    end
 end
 
 modifier_skill_swiftness_buff = class({})
@@ -34,11 +30,7 @@ function modifier_skill_swiftness_buff:AllowIllusionDuplicate() return true end
 
 function modifier_skill_swiftness_buff:OnCreated()
 	local flBaseAttackTime = self:GetParent():GetBaseAttackTime()
-    if self:GetParent():HasModifier('modifier_item_dark_moon_shard') then
-    	self.flBaseAttackTime = (flBaseAttackTime* (100-23)/100) - 0.2
-    else
-    	self.flBaseAttackTime = flBaseAttackTime - 0.2
-    end
+    self.flBaseAttackTime = flBaseAttackTime - 0.2
 end
 
 function modifier_skill_swiftness_buff:DeclareFunctions()

@@ -38,7 +38,7 @@ function modifier_skill_ceremonius_debuff:GetTexture()
   	return "modifier_skill_ceremonius"
 end
 
-function modifier_skill_ceremonius_debuff:IsHidden() return false end
+function modifier_skill_ceremonius_debuff:IsHidden() return true end
 function modifier_skill_ceremonius_debuff:IsPurgable() return false end
 function modifier_skill_ceremonius_debuff:IsDebuff() return true end
 

@@ -20,7 +20,7 @@ end
 
 modifier_item_essence_of_speed = class({})
 
-function modifier_item_essence_of_speed:IsHidden() return false end
+function modifier_item_essence_of_speed:IsHidden() return true end
 function modifier_item_essence_of_speed:IsPurgable() return false end
 function modifier_item_essence_of_speed:GetTexture() return "essence_speed" end
 function modifier_item_essence_of_speed:AllowIllusionDuplicate() return true end

@@ -95,7 +95,7 @@
   "4"    "phantom_lancer_juxtapose_custom"
   }
   "vengefulspirit" {
-  "1"    "vengefulspirit_magic_missile"
+  "1"    "vengefulspirit_magic_missile_custom"
   "2"    "vengefulspirit_wave_of_terror"
   "3"    "vengefulspirit_command_aura"
   "4"    "vengefulspirit_nether_swap"
@@ -169,11 +169,11 @@
   "5"    "alchemist_corrosive_weaponry"
   }
   "brewmaster" {
+    "brewmaster_drunken_brawler" {"brewmaster_cinder_brew" "0"}
   "1"    "brewmaster_thunder_clap"
   "2"    "brewmaster_drunken_haze"
-  "3"    "brewmaster_cinder_brew"
-  "4"    "brewmaster_drunken_brawler"
-  "5"    "brewmaster_primal_split"
+  "3"    "brewmaster_drunken_brawler"
+  "4"    "brewmaster_primal_split"
   }
   "treant" {
   "1"    "treant_natures_grasp"
@@ -200,7 +200,7 @@
   }
   "sniper" {
   "1"    "sniper_shrapnel"
-  "2"    "sniper_headshot"
+  //"2"    "sniper_headshot"
   "3"    "sniper_take_aim_custom"
   "4"    "sniper_assassinate_custom"
   }
@@ -384,7 +384,7 @@
   "1"    "keeper_of_the_light_illuminate"
   "2"    "keeper_of_the_light_radiant_bind_custom"
   "3"    "keeper_of_the_light_chakra_magic"
-  "4"    "keeper_of_the_light_spirit_form"
+  "4"    "keeper_of_the_light_spirit_form_custom"
   }
   "skywrath_mage" {
   "1"    "skywrath_mage_arcane_bolt_custom"
@@ -451,7 +451,7 @@
   "bloodseeker" {
   "1"    "bloodseeker_bloodrage_custom"
   "2"    "bloodseeker_blood_bath"
-  //"3"    "bloodseeker_thirst"
+  "3"    "bloodseeker_thirst"
   "4"    "bloodseeker_rupture"
   }
   "nevermore" {

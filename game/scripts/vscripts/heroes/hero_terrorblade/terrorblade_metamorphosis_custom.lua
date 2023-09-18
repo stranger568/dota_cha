@@ -100,6 +100,7 @@ end
 modifier_custom_terrorblade_metamorphosis = class({})
 
 function modifier_custom_terrorblade_metamorphosis:IsPurgable() return false end
+function modifier_custom_terrorblade_metamorphosis:IsHidden() return true end
 
 function modifier_custom_terrorblade_metamorphosis:OnCreated(table)
 	if not self:GetAbility() then self:Destroy() return end

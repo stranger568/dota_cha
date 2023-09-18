@@ -711,6 +711,16 @@ function PvpModule:EndPvp(nWinnerTeamID,nLoserTeamID)
 		end
 	end})
 
+    local bet_full_gold = 0
+
+    for _, data in pairs(PvpModule.betMap) do
+        for __, data_n in pairs(data) do
+            bet_full_gold = bet_full_gold + data_n.nValue
+        end
+    end
+
+    PvpModule:GiveBonusRake(bet_full_gold)
+
 	for _,data in ipairs(PvpModule.betMap[nWinnerTeamID]) do
 		if data and data.nPlayerId  and data.flRatio then
 			local nPlayerId = data.nPlayerId
@@ -751,6 +761,21 @@ function PvpModule:EndPvp(nWinnerTeamID,nLoserTeamID)
 	CustomGameEventManager:Send_ServerToAllClients("CloseTopInfo",{} );
 	PvpModule:RecordWinner(nWinnerTeamID)
 	PvpModule:RecordLoser(nLoserTeamID)
+end
+
+function PvpModule:GiveBonusRake(bet_full_gold)
+    for team = 0, 24 do
+        for i=1,PlayerResource:GetPlayerCountForTeam(team) do
+            local nPlayerID = PlayerResource:GetNthPlayerIDOnTeam(team, i)
+            local hero =  PlayerResource:GetSelectedHeroEntity(nPlayerID)
+            if hero and (not hero:IsNull()) then
+                if hero:HasModifier("modifier_skill_rake") then
+                    PlayerResource:ModifyGold(nPlayerID, bet_full_gold / 100 * 7, true, DOTA_ModifyGold_GameTick)
+                    GameMode:UpdatePlayerGold(nPlayerID)
+                end
+            end
+        end
+    end
 end
 
 function PvpModule:EndSinglePvp(nWinnerID,nLoserID)

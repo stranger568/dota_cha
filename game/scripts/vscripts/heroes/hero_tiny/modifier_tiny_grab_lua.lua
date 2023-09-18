@@ -2,6 +2,7 @@ modifier_tiny_grab_lua = class({})
 
 function modifier_tiny_grab_lua:IsPurgable() return false end
 function modifier_tiny_grab_lua:RemoveOnDeath() return true end
+function modifier_tiny_grab_lua:IsHidden() return true end
 
 function modifier_tiny_grab_lua:OnCreated()
 	local ability = self:GetAbility()

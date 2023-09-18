@@ -32,6 +32,7 @@ function item_reroll_neutral_book:OnSpellStart()
 				UTIL_Remove(neutral_item)
 				local caster = self:GetCaster()
 				item:SpendCharge()
+                HeroBuilder.NeutralsHasRandomed[caster:GetPlayerOwnerID()][neutral_item_name[1]] = true
                 local neutralItem = CreateItem(neutral_item_name[1], caster, caster)
                 caster:AddItem(neutralItem)
                 neutralItem:SetPurchaseTime(0)

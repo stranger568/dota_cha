@@ -23,7 +23,7 @@ function modifier_item_gem_shard:IsAura()
 end
 
 function modifier_item_gem_shard:IsHidden()
-    return false
+    return true
 end
 
 function modifier_item_gem_shard:IsPurgable()

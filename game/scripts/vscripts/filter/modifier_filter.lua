@@ -1,6 +1,7 @@
 LinkLuaModifier( "modifier_faceless_void_time_lock_custom_scepter", "heroes/hero_void/faceless_void_time_lock_custom", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_necrophos_scythe_creep", "heroes/modifier_necrophos_scythe_creep", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_bounty_hunter_track_creep", "heroes/modifier_bounty_hunter_track_creep", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_item_moon_shard_buff_custom", "modifiers/modifier_item_moon_shard_buff_custom", LUA_MODIFIER_MOTION_NONE )
 
 function GameMode:ModifierGainedFilter(keys)
     if keys and keys.name_const and (keys.name_const == "modifier_item_ultimate_scepter" or keys.name_const == "modifier_item_ultimate_scepter_consumed") then
@@ -15,6 +16,17 @@ function GameMode:ModifierGainedFilter(keys)
         local hHero = EntIndexToHScript(keys.entindex_parent_const)
         HeroBuilder:AddShardLinkAbilities(hHero)
         HeroBuilder:AddScepterShardAbility(keys.entindex_parent_const)
+    end
+    
+    if keys and keys.name_const and keys.name_const == "modifier_item_moon_shard_consumed" then
+        local hUnit = EntIndexToHScript(keys.entindex_parent_const)
+        local hModifier = hUnit:FindModifierByName("modifier_item_moon_shard_consumed")
+        if hModifier then
+            hUnit:AddNewModifier(hUnit, nil, "modifier_item_moon_shard_buff_custom", {})
+            if hModifier then
+                hModifier:Destroy()
+            end
+        end
     end
 
     if keys and keys.name_const and keys.name_const == "modifier_skywrath_mage_shard" then

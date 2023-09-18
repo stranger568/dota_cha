@@ -9,7 +9,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_skeleton"
-					"UnitNumber"			"15"
+					"UnitNumber"			"10"
 					"SpawnInterval"			"0.3"
 				}
 			}
@@ -19,13 +19,13 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_kobold"
-					"UnitNumber"			"6"
+					"UnitNumber"			"4"
 					"SpawnInterval"			"0.5"
 				}
 				"2"
 				{
 					"UnitName"				"npc_dota_kobold_tunneler"
-					"UnitNumber"			"3"
+					"UnitNumber"			"2"
 					"SpawnInterval"			"0.5"
 				}
 				"3"
@@ -42,7 +42,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_forest_troll_berserker"
-					"UnitNumber"			"5"
+					"UnitNumber"			"4"
 					"SpawnInterval"			"0.3"
 				}
 				"2"
@@ -76,7 +76,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_gnoll_assassin"
-					"UnitNumber"			"7"
+					"UnitNumber"			"5"
 					"SpawnInterval"			"0.4"
 				}
 			}
@@ -87,7 +87,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_fel_beast"
-					"UnitNumber"			"5"
+					"UnitNumber"			"4"
 					"SpawnInterval"			"0.5"
 				}
 				"2"
@@ -104,7 +104,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_harpy_scout"
-					"UnitNumber"			"5"
+					"UnitNumber"			"4"
 					"SpawnInterval"			"0.5"
 				}
 				"2"
@@ -120,7 +120,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_crocodilian"
-					"UnitNumber"			"7"
+					"UnitNumber"			"5"
 					"SpawnInterval"			"0.4"
 				}
 				"2"
@@ -136,7 +136,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_chameleon"
-					"UnitNumber"			"7"
+					"UnitNumber"			"5"
 					"SpawnInterval"			"0.4"
 				}
 				"2"
@@ -152,7 +152,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_greevil"
-					"UnitNumber"			"15"
+					"UnitNumber"			"10"
 					"SpawnInterval"			"0.2"
 				}
 			}
@@ -165,7 +165,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_centaur_outrunner"
-				"UnitNumber"			"5"
+				"UnitNumber"			"3"
 				"SpawnInterval"			"0.5"
 			}
 			"2"
@@ -181,7 +181,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_giant_wolf"
-				"UnitNumber"			"5"
+				"UnitNumber"			"3"
 				"SpawnInterval"			"0.5"
 			}
 			"2"
@@ -197,7 +197,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_satyr_trickster"
-				"UnitNumber"			"6"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.5"
 			}
 			"2"
@@ -213,7 +213,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_ogre_mauler"
-				"UnitNumber"			"7"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.4"
 			}
 			"2"
@@ -229,7 +229,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_mud_golem"
-				"UnitNumber"			"7"
+				"UnitNumber"			"5"
 				"SpawnInterval"			"0.3"
 			}
 		}
@@ -258,7 +258,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_satyr_trickster"
-					"UnitNumber"			"3"
+					"UnitNumber"			"2"
 					"SpawnInterval"			"0.5"
 				}
 				"2"
@@ -296,7 +296,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_wildkin"
-					"UnitNumber"			"5"
+					"UnitNumber"			"3"
 					"SpawnInterval"			"0.4"
 				}
 				"2"
@@ -312,7 +312,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_dark_troll"
-					"UnitNumber"			"5"
+					"UnitNumber"			"3"
 					"SpawnInterval"			"0.4"
 				}
 				"2"
@@ -328,7 +328,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_ogreseal"
-					"UnitNumber"			"6"
+					"UnitNumber"			"4"
 					"SpawnInterval"			"0.4"
 				}
 				"2"
@@ -344,7 +344,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_ogre_mauler"
-					"UnitNumber"			"6"
+					"UnitNumber"			"4"
 					"SpawnInterval"			"0.4"
 				}
 				"2"
@@ -360,7 +360,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_explode_spider"
-					"UnitNumber"			"11"
+					"UnitNumber"			"7"
 					"SpawnInterval"			"0.3"
 				}
 		   }
@@ -369,7 +369,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_elf_wolf"
-					"UnitNumber"			"10"
+					"UnitNumber"			"7"
 					"SpawnInterval"			"0.3"
 				}
 		   }
@@ -378,7 +378,7 @@
 				"1"
 				{
 					"UnitName"				"npc_dota_warpine_cone_custom"
-					"UnitNumber"			"10"
+					"UnitNumber"			"7"
 					"SpawnInterval"			"0.3"
 				}
 		   }
@@ -391,7 +391,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_roshling_small"
-				"UnitNumber"			"5"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.3"
 			}
 			"2"
@@ -406,7 +406,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_black_drake"
-				"UnitNumber"			"5"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.4"
 			}
 			"2"
@@ -422,7 +422,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_rock_golem"
-				"UnitNumber"			"5"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.4"
 			}
 			"2"
@@ -438,7 +438,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_small_thunder_lizard"
-				"UnitNumber"			"5"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.4"
 			}
 			"2"
@@ -454,7 +454,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_prowler_acolyte"
-				"UnitNumber"			"5"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.4"
 			}
 			"2"
@@ -470,7 +470,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_frostbitten_mage"
-				"UnitNumber"			"6"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.4"
 			}
 			"2"
@@ -486,7 +486,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_spider_melee"
-				"UnitNumber"			"5"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.4"
 			}
 			"2"
@@ -508,7 +508,7 @@
 			"2"
 			{
 				"UnitName"				"npc_dota_siltbreaker_blue"
-				"UnitNumber"			"5"
+				"UnitNumber"			"4"
 				"SpawnInterval"			"0.5"
 			}
 	    }
@@ -519,7 +519,7 @@
 			"1"
 			{
 				"UnitName"				"npc_dota_timber_spider"
-				"UnitNumber"			"10"
+				"UnitNumber"			"7"
 				"SpawnInterval"			"0.4"
 			}
 	    }

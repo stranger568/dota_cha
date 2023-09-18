@@ -77,6 +77,22 @@ function GameMode:DamageFilter(damageTable)
     end
     -------------------------------------------------------------------------------------------------------------
 
+    ----- Уникальный урон ваншот способности --------
+
+    if true then
+        if damageTable.entindex_inflictor_const ~= nil then
+            local hAbility = EntIndexToHScript(damageTable.entindex_inflictor_const)
+            if hAbility ~= nil and abilities_oneshot[hAbility:GetAbilityName()] ~= nil then
+                if GameMode.currentRound and GameMode.currentRound.nRoundNumber > 80 then
+                    if RollPercentage(30) and hVictim:GetHealth() > hVictim:GetMaxHealth() * 0.51 then
+                        damageTable.damage = hVictim:GetMaxHealth() * 0.51
+                    end
+                end
+            end
+        end
+    end
+
+    -------------------------------------------------
 
 
 
@@ -85,7 +101,7 @@ function GameMode:DamageFilter(damageTable)
 
 
 
-    if hAttacker and hAttacker:IsHero() and damageTable.damage > 0 and GameMode.currentRound.nRoundNumber < 90 then
+    if hAttacker and hAttacker:IsHero() and damageTable.damage > 0 and GameMode.currentRound and GameMode.currentRound.nRoundNumber < 90 then
         local no_found = true
         local id = hAttacker:GetPlayerOwnerID()
         if ChaServerData.PLAYERS_GLOBAL_INFORMATION[id] then
@@ -123,7 +139,7 @@ function GameMode:DamageFilter(damageTable)
         end
     end
 
-    if hVictim and hVictim:IsRealHero() and damageTable.damage > 0 and GameMode.currentRound.nRoundNumber < 90 then
+    if hVictim and hVictim:IsRealHero() and damageTable.damage > 0 and GameMode.currentRound and GameMode.currentRound.nRoundNumber < 90 then
         local no_found = true
         local id = hVictim:GetPlayerOwnerID()
         if ChaServerData.PLAYERS_GLOBAL_INFORMATION[id] then

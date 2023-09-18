@@ -16,6 +16,11 @@ _G.Skills_table =
 		{"modifier_skill_splash", "skill_splash", "tier1/Splash"},
 		{"modifier_skill_masters_gift", "skill_masters_gift", "tier1/masters_gift"},
 		{"modifier_skill_magic_resist", "skill_magic_resist", "tier1/magic_resist"},
+        {"modifier_skill_recovery", "skill_recovery", "tier1/skill_recovery"},
+        {"modifier_skill_dracarys", "skill_dracarys", "tier1/skill_dracarys"},
+        {"modifier_skill_acceleration", "skill_acceleration", "tier1/skill_acceleration"},
+        {"modifier_skill_protection", "skill_protection", "tier1/skill_protection"},
+        {"modifier_skill_corrosive", "skill_corrosive", "tier1/skill_corrosive"},
 	},
 	[2] = 
 	{
@@ -35,6 +40,8 @@ _G.Skills_table =
 		{"modifier_skill_magic_investor", "skill_magic_investor", "tier2/Magic_Investor"},
 		{"modifier_skill_retraining", "skill_retraining", "tier2/retraining"},
 		{"modifier_skill_outsiders", "skill_outsiders", "tier2/outsiders"},
+        {"modifier_skill_pilferer", "skill_pilferer", "tier2/skill_pilferer"},
+        {"modifier_skill_rake", "skill_rake", "tier2/skill_rake"},
 	},
 	[3] = 
 	{
@@ -56,6 +63,10 @@ _G.Skills_table =
 		{"modifier_skill_master_chifu", "skill_master_chifu", "tier5/Master_Chifu"},
 		{"modifier_skill_true_strike", "skill_true_strike", "tier3/true_strike"},
 		{"modifier_skill_kraken_shell", "skill_kraken_shell", "tier3/kraken_shell"},
+        {"modifier_skill_disarmer", "skill_disarmer", "tier3/skill_disarmer"},
+        {"modifier_skill_breaker", "skill_breaker", "tier3/skill_breaker"},
+        {"modifier_skill_magic_shroud", "skill_magic_shroud", "tier3/skill_magic_shroud"},
+        {"modifier_skill_intimidation", "skill_intimidation", "tier3/skill_intimidation"},
 	},
 	[4] = 
 	{
@@ -72,6 +83,12 @@ _G.Skills_table =
 		{"modifier_skill_statist", "skill_statist", "tier4/Statist"},
 		{"modifier_skill_overbuffed", "skill_overbuffed", "tier4/Overbuffed"},
 		{"modifier_skill_eternalist", "skill_eternalist", "tier4/Eternalist"},
+        {"modifier_skill_wisdom", "skill_wisdom", "tier4/skill_wisdom"},
+        {"modifier_skill_wide_choice", "skill_wide_choice", "tier4/skill_wide_choice"},
+        {"modifier_skill_all_inclusive", "skill_all_inclusive", "tier4/skill_all_inclusive"},
+        {"modifier_skill_creephater", "skill_creephater", "tier4/skill_creephater"},
+        {"modifier_skill_experience_is_gold", "skill_experience_is_gold", "tier4/skill_experience_is_gold"},
+        {"modifier_skill_rune_forge", "skill_rune_forge", "tier4/skill_rune_forge"},
 	},
 	[5] = 
 	{
@@ -97,6 +114,11 @@ _G.Skills_table =
 		{"modifier_skill_rearm", "skill_rearm", "tier5/rearm"},
 		{"modifier_skill_fervor", "skill_fervor", "tier5/fervor"},
 		{"modifier_skill_block_shield", "skill_block_shield", "tier5/block_shield"},
+        {"modifier_skill_duelist", "skill_duelist", "tier5/skill_duelist"},
+        {"modifier_skill_purger", "skill_purger", "tier5/skill_purger"},
+        {"modifier_skill_normal_juju", "skill_normal_juju", "tier5/skill_normal_juju"},
+        {"modifier_skill_giants_aura", "skill_giants_aura", "tier5/skill_giants_aura"},
+        --{"modifier_skill_mirror_shield", "skill_mirror_shield", "tier5/skill_mirror_shield"},
 	}
 }
 
@@ -127,12 +149,21 @@ function Skills:ChooseSkill(data)
 		hero.selected_skill = false
 		hero.selected_skills[tonumber(tier)] = true
 	end
+    local ability_mod = nil
+    if data.skill then
+        if data.skill == "modifier_skill_berserker" or data.skill == "modifier_skill_breaker" or data.skill == "modifier_skill_duelist" or data.skill == "modifier_skill_fearful" or data.skill == "modifier_skill_fervor" or data.skill == "modifier_skill_overclocking" then
+            local empty_0 = hero:FindAbilityByName("empty_0")
+            if empty_0 then
+                ability_mod = empty_0
+            end
+        end
+    end
 	Timers:CreateTimer(0,function()	
 		if hero and not hero:IsAlive() then return 0.1 end
 		if hero:HasModifier(data.skill) then
 			hero:RemoveModifierByName(data.skill)
 		else
-			local modifier_talent = hero:AddNewModifier(hero, nil, data.skill, {})
+			local modifier_talent = hero:AddNewModifier(hero, ability_mod, data.skill, {})
 		end
 	end)
 end
@@ -149,13 +180,23 @@ function Skills:ChooseSkillReal(data)
 		hero.selected_skill = false
 		hero.selected_skills[tonumber(tier)] = true
 	end
+    local ability_mod = nil
+    if data.skill then
+        if data.skill == "modifier_skill_berserker" or data.skill == "modifier_skill_basher" or data.skill == "modifier_skill_breaker" or data.skill == "modifier_skill_duelist" or data.skill == "modifier_skill_fearful" or data.skill == "modifier_skill_fervor" or data.skill == "modifier_skill_overclocking" then
+            local empty_0 = hero:FindAbilityByName("empty_0")
+            if empty_0 then
+                ability_mod = empty_0
+            end
+        end
+    end
 	Timers:CreateTimer(0,function()	
 		if hero and not hero:IsAlive() then return 0.1 end
-		local modifier_talent = hero:AddNewModifier(hero, nil, data.skill, {})
+		local modifier_talent = hero:AddNewModifier(hero, ability_mod, data.skill, {})
 	end)
 end
 
 function Skills:CreateRandomSkillsForPlayer(nPlayerID, tier, double)
+    if GetMapName() == "1x8_old" then return end
     local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID) or GameMode.HeroesPlayersList[nPlayerID]
     if not hHero then return end
     local hPlayer = PlayerResource:GetPlayer(nPlayerID)
@@ -169,13 +210,19 @@ function Skills:CreateRandomSkillsForPlayer(nPlayerID, tier, double)
     	if hHero:HasModifier(info[1]) then
     		table.remove_item(tier_skills, info)
     	end
+        if hHero:HasModifier("modifier_skill_last_chance") and info[1] == "modifier_skill_second_life" then
+            table.remove_item(tier_skills, info)
+        end
+        if hHero:HasModifier("modifier_skill_second_life") and info[1] == "modifier_skill_last_chance" then
+            table.remove_item(tier_skills, info)
+        end
     end
 
     if tier == 5 then
     	Quests_arena:QuestProgress(nPlayerID, 42, 1)
-    	tier_skills_choose = table.random_some(tier_skills, 4)
+    	tier_skills_choose = table.random_some(tier_skills, 5)
     else
-    	tier_skills_choose = table.random_some(tier_skills, 4)
+    	tier_skills_choose = table.random_some(tier_skills, 5)
     end
 
     hHero.selected_skill = true

@@ -318,7 +318,6 @@ function UpdateBattlePassButton()
     let player_info = CustomNetTables.GetTableValue("cha_server_data", String(Players.GetLocalPlayer()))
     if (player_info) 
     {
-        $.Msg(player_info.pass_level_3_days)
         if (player_info.pass_level_3_days && player_info.pass_level_3_days > 0) 
         {
             $("#DurationBattlePassPrice").style.visibility = "collapse"
@@ -358,7 +357,6 @@ function RestartUpdateInfo()
 {
     if (timer_info != -1) 
     {
-        $.Msg(timer_info)
         $.CancelScheduled(timer_info)
         timer_info = -1
     }
@@ -899,21 +897,21 @@ function InitProfile()
 
 function InitRating(player_table)
 {
-    $("#PlayerRatingProfile").text = $.Localize("#Score") + " " + (player_table.mmr[6] || 0)
+    $("#PlayerRatingProfile").text = $.Localize("#Score") + " " + (player_table.mmr[7] || 0)
 
     let PlayerRank = $("#PlayerRankProfile")
-    if (player_table.calibrating_games[6] > 0) 
+    if (player_table.calibrating_games[7] > 0) 
     {
         PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + "rank0" + '.png")';
         PlayerRank.style.backgroundSize = "100%"
     }
     else 
     {
-        if ((player_table.rating_number_in_top != 0 && player_table.rating_number_in_top != "0" && player_table.rating_number_in_top <= 10) && (player_table.mmr[6] || 2500) >= 5420) 
+        if ((player_table.rating_number_in_top != 0 && player_table.rating_number_in_top != "0" && player_table.rating_number_in_top <= 10) && (player_table.mmr[7] || 2500) >= 5420) 
         {
             PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(10000) + '.png")';
         } else {
-            PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(player_table.mmr[6] || 2500) + '.png")';
+            PlayerRank.style.backgroundImage = 'url("file://{images}/custom_game/ranks/' + GetImageRank(player_table.mmr[7] || 2500) + '.png")';
         }
         PlayerRank.style.backgroundSize = "100%"
     }
@@ -1280,10 +1278,10 @@ function ChatSmile( data )
     }
 
     let player_color_style = "font-size:18px;font-weight:bold;text-shadow: 1px 1.5px 0px 2 black;color:" + color
-    let ChatPanelSound = $.CreatePanelWithProperties("Panel", LinesPanel, "", { style:"margin-left:37px;flow-children: right;width:100%;" });
-    let HeroIcon = $.CreatePanelWithProperties("Image", ChatPanelSound, "", { src:`${hero_icon}`, style:"width:40px;height:23px;margin-right:4px;border:1px solid black;" }); 
-    let LabelPlayer = $.CreatePanelWithProperties("Label", ChatPanelSound, "", { text:`${player_name}` + ":", style:`${player_color_style}` });
-    let LabelSound = $.CreatePanelWithProperties("Image", ChatPanelSound, "", { class:"SmileIcon", style:"width:35px;height:35px;", src:`${smile_icon}` }); 
+    let ChatPanelSound = $.CreatePanel("Panel", LinesPanel, "", { style:"margin-left:37px;flow-children: right;width:100%;" });
+    let HeroIcon = $.CreatePanel("Image", ChatPanelSound, "", { src:`${hero_icon}`, style:"width:40px;height:23px;margin-right:4px;border:1px solid black;" }); 
+    let LabelPlayer = $.CreatePanel("Label", ChatPanelSound, "", { text:`${player_name}` + ":", style:`${player_color_style}` });
+    let LabelSound = $.CreatePanel("Image", ChatPanelSound, "", { class:"SmileIcon", style:"width:35px;height:35px;", src:`${smile_icon}` }); 
 
     $.Schedule( 7, function(){
         if (ChatPanelSound) {

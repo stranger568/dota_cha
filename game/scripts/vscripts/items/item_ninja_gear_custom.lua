@@ -1,5 +1,6 @@
 LinkLuaModifier("modifier_ninja_gear_custom", "items/item_ninja_gear_custom", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_ninja_gear_custom_passive", "items/item_ninja_gear_custom", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_smoke_of_deceit_hookah_master_immunity", "items/smoke", LUA_MODIFIER_MOTION_NONE)
 
 item_ninja_gear_custom = class({})
 
@@ -51,6 +52,9 @@ function modifier_ninja_gear_custom:GetTexture() return "item_ninja_gear" end
 
 function modifier_ninja_gear_custom:OnCreated(args)
     if not IsServer() then return end
+    if self:GetParent():HasModifier("modifier_skill_hookah_master") then
+        self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_smoke_of_deceit_hookah_master_immunity", {})
+    end
     self.radius = 1200
     self.parent = self:GetParent()
     self:StartIntervalThink(FrameTime())
@@ -63,6 +67,11 @@ function modifier_ninja_gear_custom:OnIntervalThink()
     self.parent:RemoveModifierByName("modifier_item_dustofappearance")
     local area = FindUnitsInRadius( self.parent:GetTeam(), self.parent:GetAbsOrigin(), nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS, FIND_ANY_ORDER, false )
     if area[1] then self:Destroy() end
+end
+
+function modifier_ninja_gear_custom:OnDestroy()
+    if not IsServer() then return end
+    self:GetParent():RemoveModifierByName("modifier_smoke_of_deceit_hookah_master_immunity")
 end
 
 function modifier_ninja_gear_custom:CheckState()

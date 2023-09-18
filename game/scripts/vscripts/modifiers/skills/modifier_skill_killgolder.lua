@@ -13,5 +13,5 @@ function modifier_skill_killgolder:OnDeathEvent(params)
 	if params.unit:IsHero() then return end
 
 	local gold = self:GetParent():GetLevel()
-	self:GetParent():ModifyGold(gold, true, 0)
+	self:GetParent():ModifyGold(gold*1.3, true, 0)
 end

@@ -1,5 +1,6 @@
 LinkLuaModifier("modifier_bloodseeker_blood_mist_custom", "heroes/hero_bloodseeker/bloodseeker_blood_mist_custom", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier("modifier_bloodseeker_blood_mist_custom_slow", "heroes/hero_bloodseeker/bloodseeker_blood_mist_custom", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier("modifier_bloodseeker_blood_mist_custom_shield", "heroes/hero_bloodseeker/bloodseeker_blood_mist_custom", LUA_MODIFIER_MOTION_NONE )
 
 bloodseeker_blood_mist_custom = class({})
 
@@ -33,11 +34,12 @@ function modifier_bloodseeker_blood_mist_custom:OnCreated()
     self.hp_cost_per_second = self.ability:GetSpecialValueFor("hp_cost_per_second")
 	if not IsServer() then return end
 	self:StartIntervalThink(1)
+    self:SetStackCount(0)
 	self.radius = self.ability:GetSpecialValueFor("radius")
-	--local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_bloodseeker/bloodseeker_scepter_blood_mist_aoe.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-	--ParticleManager:SetParticleControl(particle, 0, self:GetParent():GetAbsOrigin())
-	--ParticleManager:SetParticleControl(particle, 1, Vector(radius, radius, radius))
-	--self:AddParticle(particle, false, false, -1, false, false)
+	local particle = ParticleManager:CreateParticle("particles/bloodmist_custom_particle.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
+	ParticleManager:SetParticleControl(particle, 0, self:GetParent():GetAbsOrigin())
+	ParticleManager:SetParticleControl(particle, 1, Vector(self.radius, 0, 0))
+	self:AddParticle(particle, false, false, -1, false, false)
 end
 
 function modifier_bloodseeker_blood_mist_custom:OnIntervalThink()
@@ -63,6 +65,25 @@ function modifier_bloodseeker_blood_mist_custom:SelfDamage()
     ApplyDamage(damage_table)
 end
 
+function modifier_bloodseeker_blood_mist_custom:OnDeathEvent(params)
+	if not IsServer() then return end
+    if params.attacker ~= self:GetParent() then return end
+end
+
+function modifier_bloodseeker_blood_mist_custom:OnHealReceived(keys)
+	if keys.unit == self:GetParent() then
+        if self:GetParent():GetHealthPercent() >= 100 then
+            if not self:GetParent():HasModifier("modifier_hero_refreshing") then
+                local health = keys.gain
+                local modifier_bloodseeker_blood_mist_custom_shield = self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_bloodseeker_blood_mist_custom_shield", {})
+                if modifier_bloodseeker_blood_mist_custom_shield then
+                    modifier_bloodseeker_blood_mist_custom_shield:SetStackCount( math.min(modifier_bloodseeker_blood_mist_custom_shield:GetStackCount() + health, self:GetCaster():GetMaxHealth()*2 ))
+                end
+            end
+        end
+	end
+end
+
 function modifier_bloodseeker_blood_mist_custom:EnemyDamage()
 	if not IsServer() then return end
 	local radius = self.radius
@@ -78,6 +99,14 @@ function modifier_bloodseeker_blood_mist_custom:EnemyDamage()
 	    damage_table.damage = damage
 	    ApplyDamage(damage_table)
 	end
+end
+
+function modifier_bloodseeker_blood_mist_custom:DeclareFunctions()
+    local funcs = 
+    {
+        MODIFIER_EVENT_ON_HEAL_RECEIVED
+    }
+    return funcs
 end
 
 function modifier_bloodseeker_blood_mist_custom:GetAuraRadius()
@@ -118,4 +147,56 @@ end
 
 function modifier_bloodseeker_blood_mist_custom_slow:GetModifierMoveSpeedBonus_Percentage()
     return self:GetAbility():GetSpecialValueFor( "movement_slow" ) * -1
+end
+
+modifier_bloodseeker_blood_mist_custom_shield = class({})
+function modifier_bloodseeker_blood_mist_custom_shield:IsHidden() return true end
+function modifier_bloodseeker_blood_mist_custom_shield:IsPurgable() return false end
+function modifier_bloodseeker_blood_mist_custom_shield:IsPurgeException() return false end
+
+function modifier_bloodseeker_blood_mist_custom_shield:OnCreated()
+    if not IsServer() then return end
+    self:StartIntervalThink(FrameTime())
+end
+
+function modifier_bloodseeker_blood_mist_custom_shield:OnIntervalThink()
+	if not IsServer() then return end
+    local shield = self:GetStackCount()
+    local shield_minus = (shield / 100 * 2) * FrameTime()
+    self:SetStackCount(math.max(0, self:GetStackCount() - shield_minus))
+end
+
+function modifier_bloodseeker_blood_mist_custom_shield:DeclareFunctions()
+    local funcs = 
+    {
+        MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK,
+        MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT,
+    }
+    return funcs
+end
+
+function modifier_bloodseeker_blood_mist_custom_shield:GetModifierTotal_ConstantBlock(kv)
+    if IsServer() then
+        local target                    = self:GetParent()
+        local original_shield_amount    = self:GetStackCount()
+        if kv.damage > 0 then
+            if kv.damage < original_shield_amount then
+                SendOverheadEventMessage(nil, OVERHEAD_ALERT_BLOCK, target, kv.damage, nil)
+                original_shield_amount = original_shield_amount - kv.damage
+                self:SetStackCount(original_shield_amount)
+                return kv.damage
+            else
+                self:SetStackCount(0)
+                SendOverheadEventMessage(nil, OVERHEAD_ALERT_BLOCK, target, original_shield_amount, nil)
+                self:Destroy()
+                return original_shield_amount
+            end
+        end
+    end
+end
+
+function modifier_bloodseeker_blood_mist_custom_shield:GetModifierIncomingDamageConstant()
+    if (not IsServer()) then
+        return self:GetStackCount()
+    end
 end

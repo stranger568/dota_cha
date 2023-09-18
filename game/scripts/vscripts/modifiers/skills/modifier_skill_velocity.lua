@@ -15,6 +15,13 @@ function modifier_skill_velocity:DeclareFunctions()
     return funcs
 end
 
+function modifier_skill_velocity:CheckState()
+    return
+    {
+        [MODIFIER_STATE_NO_UNIT_COLLISION] = true,
+    }
+end
+
 function modifier_skill_velocity:GetModifierMoveSpeedBonus_Constant()
     return 75
 end

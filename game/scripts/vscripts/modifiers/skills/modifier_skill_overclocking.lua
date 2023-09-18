@@ -1,3 +1,5 @@
+LinkLuaModifier("modifier_skill_overclocking_debuff", "modifiers/skills/modifier_skill_overclocking", LUA_MODIFIER_MOTION_NONE)
+
 modifier_skill_overclocking = class({})
 function modifier_skill_overclocking:GetTexture() return "modifier_skill_overclocking" end
 function modifier_skill_overclocking:IsHidden() return false end
@@ -24,13 +26,44 @@ function modifier_skill_overclocking:OnIntervalThink()
 	self.origin = self:GetParent():GetAbsOrigin()
 end
 
-function modifier_skill_overclocking:DeclareFunctions()
-	return {
-		MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
+function modifier_skill_overclocking:IsAura() return true end
+
+function modifier_skill_overclocking:GetAuraSearchType()
+	return DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC
+end
+
+function modifier_skill_overclocking:GetAuraSearchTeam()
+	return DOTA_UNIT_TARGET_TEAM_ENEMY
+end
+
+function modifier_skill_overclocking:GetModifierAura()
+	return "modifier_skill_overclocking_debuff"
+end
+
+function modifier_skill_overclocking:GetAuraRadius()
+	return 1500
+end
+
+function modifier_skill_overclocking:GetAuraDuration()
+	return 1
+end
+
+modifier_skill_overclocking_debuff = class({})
+
+function modifier_skill_overclocking_debuff:IsDebuff() return true end
+function modifier_skill_overclocking_debuff:IsPurgable() return false end
+function modifier_skill_overclocking_debuff:GetTexture() return "modifier_skill_overclocking" end
+
+function modifier_skill_overclocking_debuff:DeclareFunctions()
+	return 
+	{
+		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
 	}
 end
 
-function modifier_skill_overclocking:GetModifierTotalDamageOutgoing_Percentage()
-	local damage_bonus = self:GetStackCount()
-	return math.max(damage_bonus, 0)
+function modifier_skill_overclocking_debuff:GetModifierIncomingDamage_Percentage(params)
+    if self:GetParent():IsDebuffImmune() then
+        return math.max(self:GetCaster():GetModifierStackCount("modifier_skill_overclocking", self:GetCaster()), 0) / 2
+    end
+	return math.max(self:GetCaster():GetModifierStackCount("modifier_skill_overclocking", self:GetCaster()), 0)
 end

@@ -32,7 +32,7 @@ function modifier_skill_zoo_director_buff:DeclareFunctions()
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_EXTRA_HEALTH_PERCENTAGE,
 		MODIFIER_PROPERTY_STATUS_RESISTANCE,
-		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DIRECT_MODIFICATION,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_TOTAL_PERCENTAGE,
 	}
 	return funcs
@@ -57,7 +57,7 @@ function modifier_skill_zoo_director_buff:GetModifierStatusResistance()
 	return 15
 end
 
-function modifier_skill_zoo_director_buff:GetModifierMagicalResistanceBonus()
+function modifier_skill_zoo_director_buff:GetModifierMagicalResistanceDirectModification()
 	return 15
 end
 

@@ -30,7 +30,8 @@ function modifier_item_wraith_dominator:IsPurgable() return false end
 function modifier_item_wraith_dominator:GetAttributes() return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_MULTIPLE + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE end
 
 function modifier_item_wraith_dominator:DeclareFunctions()
-	local funcs = {
+	local funcs = 
+    {
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
@@ -94,6 +95,7 @@ end
 
 modifier_item_wraith_dominator_aura_buff = class({})
 
+function modifier_item_wraith_dominator_aura_buff:IsHidden() return true end
 function modifier_item_wraith_dominator_aura_buff:IsPurgable() return false end
 
 function modifier_item_wraith_dominator_aura_buff:OnCreated()
@@ -183,7 +185,7 @@ end
 modifier_item_wraith_dominator_active = class({})
 
 function modifier_item_wraith_dominator_active:IsPurgable() return false end
-
+function modifier_item_wraith_dominator_active:IsHidden() return true end
 function modifier_item_wraith_dominator_active:OnCreated()
 	self.radius = self:GetAbility():GetSpecialValueFor("pact_aura_radius")
 	self.damage = self:GetAbility():GetSpecialValueFor("damage_penalty_aura")
@@ -245,7 +247,7 @@ function modifier_item_wraith_dominator_active:GetAuraEntityReject(target)
 end
 
 modifier_item_wraith_dominator_active_debuff = class({})
-
+function modifier_item_wraith_dominator_active_debuff:IsHidden() return true end
 function modifier_item_wraith_dominator_active_debuff:IsPurgable() return false end
 
 function modifier_item_wraith_dominator_active_debuff:OnCreated()
@@ -264,7 +266,7 @@ function modifier_item_wraith_dominator_active_debuff:GetModifierTotalDamageOutg
 end
 
 modifier_item_wraith_dominator_active_damage = class({})
-
+function modifier_item_wraith_dominator_active_damage:IsHidden() return true end
 function modifier_item_wraith_dominator_active_damage:IsPurgable() return false end
 
 function modifier_item_wraith_dominator_active_damage:OnCreated()
@@ -298,7 +300,7 @@ function modifier_item_wraith_dominator_active_damage:GetAuraDuration()
 end
 
 modifier_item_wraith_dominator_active_buff = class({})
-
+function modifier_item_wraith_dominator_active_buff:IsHidden() return true end
 function modifier_item_wraith_dominator_active_buff:OnCreated()
 	self.bonus_damage_aura_active = self:GetAbility():GetSpecialValueFor("bonus_damage_aura_active")
 end

@@ -5,7 +5,7 @@ GameEvents.Subscribe("custom_chat_message", (event) => {
 	let text = BASE_MESSAGE_INDENT;
 
 	const chatLinesPanel = FindDotaHudElement("ChatLinesPanel");
-	const message = $.CreatePanelWithProperties("Label", chatLinesPanel, "", {
+	const message = $.CreatePanel("Label", chatLinesPanel, "", {
 		class: "ChatLine",
 		html: "true",
 		selectionpos: "auto",
@@ -26,9 +26,9 @@ GameEvents.Subscribe("custom_chat_message", (event) => {
 		text += event.isTeam ? `[${$.Localize("#DOTA_ChatCommand_GameAllies_Name")}] ` : NON_BREAKING_SPACE;
 		text += `<font color='${localTeamColor}'>${playerInfo.player_name}</font>: `;
 
-		$.CreatePanelWithProperties("Panel", message, "", { class: "HeroBadge", selectionpos: "auto" });
+		$.CreatePanel("Panel", message, "", { class: "HeroBadge", selectionpos: "auto" });
 
-		const heroIcon = $.CreatePanelWithProperties("Image", message, "", { class: "HeroIcon", selectionpos: "auto" });
+		const heroIcon = $.CreatePanel("Image", message, "", { class: "HeroIcon", selectionpos: "auto" });
 		heroIcon.SetImage("file://{images}/heroes/" + playerInfo.player_selected_hero + ".png");
 	} else {
 		text += event.isTeam ? `[${$.Localize("#DOTA_ChatCommand_GameAllies_Name")}] ` : NON_BREAKING_SPACE;
@@ -64,7 +64,7 @@ function ThinkCameraPosition()
     let camPosition = GameUI.GetCameraLookAtPosition();
     let map = Game.GetMapInfo().map_display_name
 
-    if (map == "1x8" || map == "1x8_pve" || map == "tournament_1x8") 
+    if (map == "1x8" || map == "1x8_pve" || map == "tournament_1x8" || map == "1x8_old") 
     {
 	    let center_arena = 	[0,0,0]
 
@@ -281,8 +281,8 @@ function player_unpause_chat( data )
 	}
 
 	let player_color_style = "font-size:18px;font-weight:bold;text-shadow: 1px 1.5px 0px 2 black;color:" + color
-	let ChatPanelSound = $.CreatePanelWithProperties("Panel", LinesPanel, "", { style:"margin-left:37px;flow-children: right;width:100%;" });
-	let LabelSound = $.CreatePanelWithProperties("Label", ChatPanelSound, "", { text:`${hero_name}`, style:"font-size:18px;font-weight:bold;text-shadow: 1px 1.5px 0px 2 black;color:white;" });
+	let ChatPanelSound = $.CreatePanel("Panel", LinesPanel, "", { style:"margin-left:37px;flow-children: right;width:100%;" });
+	let LabelSound = $.CreatePanel("Label", ChatPanelSound, "", { text:`${hero_name}`, style:"font-size:18px;font-weight:bold;text-shadow: 1px 1.5px 0px 2 black;color:white;" });
 
 	$.Schedule( 7, function(){
 		if (ChatPanelSound) {

@@ -5,7 +5,7 @@ magnataur_empower_custom = class({})
 function magnataur_empower_custom:OnSpellStart()
 	if not IsServer() then return end
 	local target = self:GetCursorTarget()
-	local duration = self:GetSpecialValueFor( "empower_duration" ) + self:GetCaster():FindTalentValue("special_bonus_unique_magnus_4")
+	local duration = self:GetSpecialValueFor( "empower_duration" )
 	target:AddNewModifier( self:GetCaster(), self, "modifier_magnataur_empower_custom", { duration = duration } )
 	self:GetCaster():EmitSound("Hero_Magnataur.Empower.Cast")
 	target:EmitSound("Hero_Magnataur.Empower.Target")
@@ -20,8 +20,8 @@ end
 function modifier_magnataur_empower_custom:OnCreated( kv )
 	self.ability = self:GetAbility()
 
-	self.damage = self:GetAbility():GetSpecialValueFor( "bonus_damage_pct" ) + self:GetCaster():FindTalentValue("special_bonus_unique_magnus_2")
-	self.cleave = self:GetAbility():GetSpecialValueFor( "cleave_damage_pct" ) + self:GetCaster():FindTalentValue("special_bonus_unique_magnus_2")
+	self.damage = self:GetAbility():GetSpecialValueFor( "bonus_damage_pct" )
+	self.cleave = self:GetAbility():GetSpecialValueFor( "cleave_damage_pct" )
 	self.self_multiplier = self:GetAbility():GetSpecialValueFor( "self_multiplier" )
 
 	self.radius_start = self:GetAbility():GetSpecialValueFor( "cleave_starting_width" )

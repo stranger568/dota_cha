@@ -28,7 +28,7 @@ end
 function modifier_skill_armor_investor:OnIntervalThink()
 	if not IsServer() then return end
 	self:SendBuffRefreshToClients()
-	local gold = math.min(20000, self:GetParent():GetGold())
+	local gold = self:GetParent():GetGold() --math.min(20000, self:GetParent():GetGold())
 	self.bonus = gold / 300
 	self:SetStackCount(self.bonus)
 	self:SendBuffRefreshToClients()

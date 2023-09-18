@@ -111,4 +111,114 @@
 	{
 		"Ability17"		"special_bonus_all_stats_50"
 	}
+    "npc_dota_hero_void_spirit"
+	{
+		"Ability14"		"special_bonus_spell_amplify_18"
+	}
+    "npc_dota_hero_kunkka"
+	{
+		"Ability11"		"special_bonus_status_resistance_10"
+	}
+    "npc_dota_hero_techies"
+	{
+		"Ability17"		"special_bonus_attack_speed_250"
+	}
+    "npc_dota_hero_hoodwink"
+	{
+		"Ability16"		"special_bonus_base_attack_rate_unique_03"
+	}
+    "npc_dota_hero_clinkz"
+	{
+		"Ability16"		"special_bonus_base_attack_rate_unique_02"
+	}
+    "npc_dota_hero_magnataur"
+	{
+		"Ability15"		"special_bonus_base_attack_rate_unique_02"
+	}
+    "npc_dota_hero_templar_assassin"
+	{
+		"Ability15"		"special_bonus_attack_range_300"
+	}
+    "npc_dota_hero_meepo"
+	{
+		"Ability14"		"special_bonus_truestrike"
+        "Ability16"		"special_bonus_all_stats_25"
+	}
+    "npc_dota_hero_treant"
+	{
+		"Ability17"		"special_bonus_cooldown_reduction_15"
+	}
+    "npc_dota_hero_primal_beast"
+	{
+		"Ability17"				"special_bonus_spell_lifesteal_50"
+	}
+    "npc_dota_hero_chaos_knight"
+	{
+		"Ability17"				"special_bonus_attack_speed_150"
+	}
+    "npc_dota_hero_morphling"
+	{
+		"Ability17"		        "special_bonus_attack_range_100"
+	}
+    "npc_dota_hero_vengefulspirit"
+	{
+		"Ability15"		"special_bonus_unique_cha_vengeful_spirit"
+	}
+    "npc_dota_hero_shredder"
+	{
+		"Ability16"		"special_bonus_unique_cha_timbersaw"
+	}
+    "npc_dota_hero_snapfire"
+	{
+		"Ability16"		"special_bonus_unique_cha_snapfire"
+	}
+    "npc_dota_hero_beastmaster"
+	{
+		"Ability16"		"special_bonus_unique_cha_beastmaster"
+	}
+    "npc_dota_hero_lycan"
+	{
+		"Ability13"		"special_bonus_unique_cha_lycan"
+        "Ability14"		"special_bonus_unique_cha_lycan_2"
+	}
+    "npc_dota_hero_monkey_king"
+	{
+		"Ability17"		"special_bonus_unique_cha_monkey_king"
+	}
+    "npc_dota_hero_tidehunter"
+	{
+		"Ability14"		"special_bonus_unique_cha_tidehunter"
+	}
+    "npc_dota_hero_alchemist"
+	{
+		"Ability13"		"special_bonus_unique_cha_alchemist"
+	}
+    "npc_dota_hero_centaur"
+	{
+		"Ability16"		"special_bonus_unique_cha_centaur"
+	}
+    "npc_dota_hero_night_stalker"
+	{
+		"Ability17"		"special_bonus_unique_cha_night_stalker"
+	}
+    "npc_dota_hero_ember_spirit"
+	{
+		"Ability17"		"special_bonus_unique_cha_ember_spirit"
+	}
+    "npc_dota_hero_luna"
+	{
+		"Ability16"		"special_bonus_unique_cha_luna"
+	}
+    "npc_dota_hero_terrorblade"
+	{
+		"Ability17"		"special_bonus_unique_cha_terrorblade"
+	}
+    "npc_dota_hero_viper"
+	{
+		"Ability17"		"special_bonus_unique_cha_viper"
+	}
+    "npc_dota_hero_abyssal_underlord"
+	{
+		"Ability17"		"special_bonus_unique_cha_underlord"
+	}
 }

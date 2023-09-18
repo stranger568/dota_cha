@@ -51,7 +51,6 @@ if (table_player)
 	abilityTimeLeft = table_player.ban_count_ability
 	heroTimeLeft = table_player.ban_count_hero
 	$("#PanelBanHeroes").style.opacity = "1" 
-    $.Msg(table_player)
 }
 
 CustomNetTables.SubscribeNetTableListener( "ban_count", Updateban_table );
@@ -577,7 +576,7 @@ function UpdateRecentBannedHeroList(heroes) {
 			heroButton.heroName = rep_heroName;
 
 			if (!heroImage) {
-				heroImage = $.CreatePanelWithProperties(`DOTAHeroImage`, heroButton, heroImageId, { scaling: "stretch-to-cover-preserve-aspect", heroname: String(rep_heroName), tabindex: "auto", heroimagestyle: "portrait" });
+				heroImage = $.CreatePanel(`DOTAHeroImage`, heroButton, heroImageId, { scaling: "stretch-to-cover-preserve-aspect", heroname: String(rep_heroName), tabindex: "auto", heroimagestyle: "portrait" });
 				heroImage.SetHasClass("hBlock", true);
 				heroImage.SetHasClass("vBlock", true);
 				heroImage.data = 

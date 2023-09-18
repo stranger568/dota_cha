@@ -1,4 +1,5 @@
 LinkLuaModifier("modifier_smoke_of_deceit_cha_custom", "items/smoke", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_smoke_of_deceit_hookah_master_immunity", "items/smoke", LUA_MODIFIER_MOTION_NONE)
 
 item_smoke_of_deceit_custom = class({})
 
@@ -38,23 +39,23 @@ function item_smoke_of_deceit_custom:OnSpellStart()
 end
 
 modifier_smoke_of_deceit_cha_custom = class({})
-
 function modifier_smoke_of_deceit_cha_custom:IsPurgable() return false end
-
 function modifier_smoke_of_deceit_cha_custom:GetPriority() return MODIFIER_PRIORITY_SUPER_ULTRA end
-
 function modifier_smoke_of_deceit_cha_custom:HeroEffectPriority() return MODIFIER_PRIORITY_SUPER_ULTRA end
-
-
 function modifier_smoke_of_deceit_cha_custom:GetTexture() return "item_smoke_of_deceit" end
-
-
-
 
 function modifier_smoke_of_deceit_cha_custom:OnCreated(args)
     if not IsServer() then return end
+    if self:GetParent():HasModifier("modifier_skill_hookah_master") then
+        self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_smoke_of_deceit_hookah_master_immunity", {})
+    end
     self.radius = 1200
     self:StartIntervalThink(FrameTime())
+end
+
+function modifier_smoke_of_deceit_cha_custom:OnDestroy()
+    if not IsServer() then return end
+    self:GetParent():RemoveModifierByName("modifier_smoke_of_deceit_hookah_master_immunity")
 end
 
 function modifier_smoke_of_deceit_cha_custom:OnIntervalThink()
@@ -115,4 +116,47 @@ end
 function modifier_smoke_of_deceit_cha_custom:GetModifierTotalDamageOutgoing_Percentage()
     if not self:GetParent():HasModifier("modifier_skill_hookah_master") then return end
     return 20
+end
+
+modifier_smoke_of_deceit_hookah_master_immunity = class({})
+function modifier_smoke_of_deceit_hookah_master_immunity:IsHidden() return true end
+function modifier_smoke_of_deceit_hookah_master_immunity:IsPurgable() return false end
+function modifier_smoke_of_deceit_hookah_master_immunity:IsPurgeException() return false end
+function modifier_smoke_of_deceit_hookah_master_immunity:DeclareFunctions()
+	return
+	{
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+        MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
+	}
+end
+function modifier_smoke_of_deceit_hookah_master_immunity:GetModifierIncomingDamage_Percentage(params)
+	if not IsServer() then return end
+	if not params.attacker then return end
+	if not params.inflictor then return end
+	if bit.band(params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION) == DOTA_DAMAGE_FLAG_REFLECTION then 
+		return -100 
+	end
+	local behavior = params.inflictor:GetAbilityTargetFlags()
+	if bit.band(behavior, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES) == 0 then
+    	if params.damage_type == DAMAGE_TYPE_MAGICAL then 
+        	return -80
+    	end
+    	if params.damage_type == DAMAGE_TYPE_PURE then 
+        	return -100
+   		end
+	end
+end
+function modifier_smoke_of_deceit_hookah_master_immunity:GetModifierMagicalResistanceBonus()
+	if not IsClient() then return end
+	return 80
+end
+function modifier_smoke_of_deceit_hookah_master_immunity:CheckState()
+ 	return 
+ 	{
+ 		[MODIFIER_STATE_DEBUFF_IMMUNE] = true
+	}
+end
+
+function modifier_smoke_of_deceit_hookah_master_immunity:GetEffectName()
+    return "particles/items_fx/black_king_bar_avatar.vpcf"
 end

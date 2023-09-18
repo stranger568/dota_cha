@@ -38,7 +38,14 @@ function modifier_cha_boss_drop_roshan:OnDeathEvent(params)
 		Quests_arena:QuestProgress(params.attacker:GetPlayerOwnerID(), 65, 2)
 	end
 
-	if RollPercentage(75) then
+    local chance = 75
+    if params.attacker:HasModifier("modifier_skill_all_inclusive") then
+        chance = 100
+    end
+
+    if not GetMapName() == "1x8_old" then return end
+
+	if RollPercentage(chance) then
 		local allHeroes = HeroList:GetAllHeroes()
 		for _, hero in pairs(allHeroes) do
 	        if hero:IsRealHero() and not hero:IsIllusion() and not hero:IsTempestDouble() and not hero:HasModifier("modifier_arc_warden_tempest_double_lua") then
@@ -93,6 +100,8 @@ function modifier_cha_boss_drop_nian:OnDeathEvent(params)
 	if self.kill_20_sec then
 		Quests_arena:QuestProgress(params.attacker:GetPlayerOwnerID(), 65, 2)
 	end
+    
+    if not GetMapName() == "1x8_old" then return end
 
 	if self.round_count and self.nian_count then
 		local allHeroes = HeroList:GetAllHeroes()

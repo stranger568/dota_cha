@@ -69,6 +69,7 @@ modifier_terrorblade_reflection_creep_damage_lua = class({})
 function modifier_terrorblade_reflection_creep_damage_lua:IsHidden() return true end
 function modifier_terrorblade_reflection_creep_damage_lua:IsDebuff() return true end
 function modifier_terrorblade_reflection_creep_damage_lua:IsPurgable() return false end
+function modifier_terrorblade_reflection_creep_damage_lua:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
 
 if not IsServer() then return end
 

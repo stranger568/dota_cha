@@ -80,25 +80,27 @@ end
 function modifier_oracle_false_promise_custom:OnDestroy()
 	if not IsServer() then return end
 
-	local brewmaster_primal_split = self:GetParent():FindAbilityByName("brewmaster_primal_split")
+    if self.invis_modifier and not self.invis_modifier:IsNull() then
+		self.invis_modifier:Destroy()
+	end
+
+    local brewmaster_primal_split = self:GetParent():FindAbilityByName("brewmaster_primal_split")
     if brewmaster_primal_split then
         brewmaster_primal_split:SetActivated(true)
     end
 
+    if self:GetParent():HasModifier("modifier_hero_refreshing") then return end
+    if self:GetParent():HasModifier("modifier_duel_teleporting") then return end
+
 	if self.damage_counter < self.heal_counter then
 		self:GetParent():EmitSound("Hero_Oracle.FalsePromise.Healed")
-
 		self.end_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_heal.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 		ParticleManager:ReleaseParticleIndex(self.end_particle)
-
 		local heal = self.heal_counter - self.damage_counter
-
 		if heal > self:GetParent():GetMaxHealth() then
-			heal = self:GetParent():GetMaxHealth() - self:GetParent():GetHealth()
+			heal = self:GetParent():GetMaxHealth()
 		end
-		
-		self:GetParent():Heal(heal, self:GetCaster())
-		
+		self:GetParent():Heal(heal, self:GetAbility())
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self:GetParent(), heal, nil)
 	else
 		self:GetParent():EmitSound("Hero_Oracle.FalsePromise.Damaged")
@@ -131,10 +133,6 @@ function modifier_oracle_false_promise_custom:OnDestroy()
 
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE, self:GetParent(), self.damage_counter, nil)
 	end
-
-	if self.invis_modifier and not self.invis_modifier:IsNull() then
-		self.invis_modifier:Destroy()
-	end
 end
 
 function modifier_oracle_false_promise_custom:DeclareFunctions()
@@ -148,7 +146,7 @@ function modifier_oracle_false_promise_custom:DeclareFunctions()
         MODIFIER_PROPERTY_ALWAYS_AUTOATTACK_WHILE_HOLD_POSITION,
         MODIFIER_PROPERTY_INVISIBILITY_ATTACK_BEHAVIOR_EXCEPTION,
         MODIFIER_PROPERTY_PERSISTENT_INVISIBILITY,
-        MODIFIER_PROPERTY_AVOID_DAMAGE
+        MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK
 	}
 end
 
@@ -159,41 +157,33 @@ end
 function modifier_oracle_false_promise_custom:OnHealReceived(keys)
 	if keys.unit == self:GetParent() and self:GetRemainingTime() >= 0 then
 		self.heal_counter = self.heal_counter + (keys.gain * 2)
-		
+        print("Хил", keys.gain)
 		ParticleManager:SetParticleControl(self.overhead_particle, 1, Vector(self.damage_counter - self.heal_counter, 0, 0))
 		ParticleManager:SetParticleControl(self.overhead_particle, 2, Vector(self.heal_counter - self.damage_counter, 0, 0))
-		
-		--self:SetStackCount(math.abs(self.damage_counter - self.heal_counter))
 	end
 end
 
-function modifier_oracle_false_promise_custom:GetModifierAvoidDamage(keys)
-    if keys.attacker and self:GetRemainingTime() >= 0 then
-
-		self.attacked_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_attacked.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-		ParticleManager:ReleaseParticleIndex(self.attacked_particle)
-	
-		local damage_flags = keys.damage_flags
-	
-		self.damage_instances[self.instance_counter] = 
+function modifier_oracle_false_promise_custom:GetModifierTotal_ConstantBlock(params)
+    if not IsServer() then return end
+    if params.attacker and self:GetRemainingTime() >= 0 then
+        local attacked_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_attacked.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
+		ParticleManager:ReleaseParticleIndex(attacked_particle)
+        local damage_flags = params.damage_flags
+        self.damage_instances[self.instance_counter] = 
 		{
-			victim			= self:GetParent(),
-			damage			= keys.damage,
-			damage_type		= DAMAGE_TYPE_PURE,
-			damage_flags	= damage_flags + DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_HPLOSS,
-			attacker		= keys.attacker,
-			ability			= self:GetAbility()
+			victim = self:GetParent(),
+			damage = params.damage,
+			damage_type = DAMAGE_TYPE_PURE,
+			damage_flags = damage_flags + DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_HPLOSS,
+			attacker = params.attacker,
+			ability = self:GetAbility()
 		}
-		
-		self.instance_counter = self.instance_counter + 1
-		self.damage_counter = self.damage_counter + keys.damage
-
-		ParticleManager:SetParticleControl(self.overhead_particle, 1, Vector(self.damage_counter - self.heal_counter, 0, 0))
+        self.instance_counter = self.instance_counter + 1
+		self.damage_counter = self.damage_counter + params.damage
+        ParticleManager:SetParticleControl(self.overhead_particle, 1, Vector(self.damage_counter - self.heal_counter, 0, 0))
 		ParticleManager:SetParticleControl(self.overhead_particle, 2, Vector(self.heal_counter - self.damage_counter, 0, 0))
-
-		--self:SetStackCount(math.abs(self.damage_counter - self.heal_counter))
-	end
-    return 1
+        return params.damage
+    end
 end
 
 function modifier_oracle_false_promise_custom:GetDisableHealing(keys)

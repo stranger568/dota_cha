@@ -146,6 +146,7 @@
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/omniscient_book.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/neutral_reward.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/skill_block.vxml_c" />
+        <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/buffs_block.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/pause_block.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="s2r://panorama/layout/custom_game/player_lose.vxml_c" />
         <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" />
@@ -157,5 +158,7 @@
         <CustomUIElement type="FlyoutScoreboard" layoutfile="s2r://panorama/layout/custom_game/multiteam_flyout_scoreboard.vxml_c" />
         <CustomUIElement type="HudTopBar" layoutfile="s2r://panorama/layout/custom_game/multiteam_top_scoreboard.vxml_c" />
         <CustomUIElement type="EndScreen" layoutfile="s2r://panorama/layout/custom_game/multiteam_end_screen.vxml_c" />
+
+        <Image style="opacity:0;" src="file://{resources}/images/custom_game/buffs/modifier_item_moon_shard_buff_custom.png" />
 	</Panel>
 </root>

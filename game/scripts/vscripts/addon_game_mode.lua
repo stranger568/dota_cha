@@ -226,10 +226,21 @@ function GameMode:OnItemPickUp( event )
         if GameMode.currentRound.nRoundNumber > 10 then
             gold = math.min(1000, 300 + (math.floor(GameMode.currentRound.nRoundNumber / 10) * 100) )
         end
+        if owner:HasModifier("modifier_skill_pilferer") then
+            gold = gold * 4
+        end
         PlayerResource:ModifyGold( owner:GetPlayerID(), gold, true, 0 )
         SendOverheadEventMessage( owner, OVERHEAD_ALERT_GOLD, owner, gold, nil )
         UTIL_Remove( item )
     end 
+end
+
+function GameMode:AddItemWhiteList()
+    --local items_dota = LoadKeyValues("scripts/npc/items.txt")
+    --local items_custom = LoadKeyValues("scripts/npc/npc_items_custom.txt")
+    --for item_name, data in pairs(items_custom) do
+    --    
+    --end
 end
 
 function FixPosition()
@@ -255,10 +266,20 @@ end
 function GameMode:BountyRunePickupFilter( data )
     local hero = PlayerResource:GetSelectedHeroEntity(data.player_id_const)
     if hero then
+        local bounty_gold = data["gold_bounty"]
+        local skill_gold = 0
+
+        if hero:HasModifier("modifier_skill_pilferer") then
+            skill_gold = bounty_gold *  3
+        end
+
         local alchemist = hero:FindAbilityByName("alchemist_goblins_greed_custom")
         if alchemist and alchemist:GetLevel() > 0 then
             data["gold_bounty"] = data["gold_bounty"] * alchemist:GetSpecialValueFor("bounty_multiplier")
         end
+
+        data["gold_bounty"] = data["gold_bounty"] + skill_gold
+
         Quests_arena:QuestProgress(hero:GetPlayerOwnerID(), 24, 1)
     end
     return true
@@ -274,7 +295,7 @@ function GameMode:SpawnCreators()
             local origin = npc_unit_top1_spawn:GetAbsOrigin()
             local top_unit_one = CreateUnitByName( "npc_unit_top1", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
             top_unit_one:SetForwardVector((Vector(0,0,0) - top_unit_one:GetAbsOrigin()):Normalized())
-            top_unit_one:AddNewModifier( top_unit_one, nil, "modifier_creator_statue", {id = "96742961"} )
+            top_unit_one:AddNewModifier( top_unit_one, nil, "modifier_creator_statue", {id = "1155253013"} )
             top_unit_one:SetAbsOrigin(top_unit_one:GetAbsOrigin() + (Vector(0,0,60)))
         end 
     end)
@@ -284,7 +305,7 @@ function GameMode:SpawnCreators()
             local origin = npc_unit_top2_spawn:GetAbsOrigin()
             local top_unit_two = CreateUnitByName( "npc_unit_top2", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
             top_unit_two:SetForwardVector((Vector(0,0,0) - top_unit_two:GetAbsOrigin()):Normalized())
-            top_unit_two:AddNewModifier( top_unit_two, nil, "modifier_creator_statue", {id = "1100978077"} )
+            top_unit_two:AddNewModifier( top_unit_two, nil, "modifier_creator_statue", {id = "1363253438"} )
             top_unit_two:SetAbsOrigin(top_unit_two:GetAbsOrigin() + (Vector(0,0,40)))
         end
     end)
@@ -294,7 +315,7 @@ function GameMode:SpawnCreators()
             local origin = npc_unit_top3_spawn:GetAbsOrigin()
             local top_unit_three = CreateUnitByName( "npc_unit_top3", origin, false, nil, nil, DOTA_TEAM_NEUTRALS )
             top_unit_three:SetForwardVector((Vector(0,0,0) - top_unit_three:GetAbsOrigin()):Normalized())
-            top_unit_three:AddNewModifier( top_unit_three, nil, "modifier_creator_statue", {id = "370749891"} )
+            top_unit_three:AddNewModifier( top_unit_three, nil, "modifier_creator_statue", {id = "96742961"} )
             top_unit_three:SetAbsOrigin(top_unit_three:GetAbsOrigin() + (Vector(0,0,20)))
         end
     end)
@@ -402,6 +423,9 @@ function GameMode:ReadRoundConfigurations()
     end
 
     local roundsKV =LoadKeyValues("scripts/kv/rounds.txt")
+    if GetMapName() == "1x8_old" then
+        roundsKV =LoadKeyValues("scripts/kv/rounds_old.txt")
+    end
     local units_txt =LoadKeyValues("scripts/npc/npc_units_custom.txt")
 
     for sPhase, phaseData in pairs(roundsKV) do
@@ -450,20 +474,22 @@ function GameMode:ReadRoundConfigurations()
         end
     end
 
-    for phase, rounds in pairs(GameMode.vRoundList) do
-        if phase >= 6 then
-            local has_randomcreeps = false
-            for id, name in pairs(rounds) do
-                if name == "Round_RandomCreeps" then
-                    has_randomcreeps = true
-                end
-            end
-            if not has_randomcreeps then
+    if GetMapName() ~= "1x8_old" then
+        for phase, rounds in pairs(GameMode.vRoundList) do
+            if phase >= 6 then
+                local has_randomcreeps = false
                 for id, name in pairs(rounds) do
-                    if name ~= "Round_Roshan" and name ~= "Round_Nian" then
-                        if not has_randomcreeps then
-                            GameMode.vRoundList[phase][id] = "Round_RandomCreeps"
-                            has_randomcreeps = true
+                    if name == "Round_RandomCreeps" then
+                        has_randomcreeps = true
+                    end
+                end
+                if not has_randomcreeps then
+                    for id, name in pairs(rounds) do
+                        if name ~= "Round_Roshan" and name ~= "Round_Nian" then
+                            if not has_randomcreeps then
+                                GameMode.vRoundList[phase][id] = "Round_RandomCreeps"
+                                has_randomcreeps = true
+                            end
                         end
                     end
                 end
@@ -961,7 +987,7 @@ function GameMode:OnItemPurchased(keys)
                         end)
                         if hero.cashback_info[item_name] == false then
                             hero.cashback_info[item_name] = true
-                            local cashback = gold_item / 100 * 30
+                            local cashback = gold_item / 100 * 35
                             print("cashback 4")
                             hero:ModifyGold(cashback, true, 0)
                         end

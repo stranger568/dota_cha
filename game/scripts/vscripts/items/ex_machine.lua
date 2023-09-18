@@ -29,7 +29,14 @@ function item_ex_machina_custom:OnSpellStart()
         if item then
             if not self:NotRefresher( item ) then
                 item:EndCooldown()
-                item:RefreshCharges()
+                if item:GetAbilityName() == "item_hand_of_midas" then
+                    if item:GetCurrentAbilityCharges() < 3 and item:GetCurrentCharges() < 3 then
+                        item:SetCurrentCharges(item:GetCurrentCharges() + 1)
+                        item:SetCurrentAbilityCharges(item:GetCurrentAbilityCharges() + 1)
+                    end
+                else
+                    item:RefreshCharges()
+                end
             end
         end
     end

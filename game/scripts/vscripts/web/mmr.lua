@@ -683,15 +683,15 @@ function ChaServerData.GetMmrByTeamPlace(player_id, place)
     end
 
     --- Текущий рейтинг + средний переменная + новый рейтинг изменнный + игр в калибровке  ----------------------------------------
-    local original_rating = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].mmr[6] or 2500
+    local original_rating = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].mmr[7] or 2500
     local new_rating = original_rating
     local average_rating = 0
-    local calibrating_games = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].calibrating_games[6] or 10
+    local calibrating_games = ChaServerData.PLAYERS_GLOBAL_INFORMATION[player_id].calibrating_games[7] or 10
     ------------------------------------------------------------------------
 
     ------------ Cредний рейтинг----------------------------------------
     for id, player_info in pairs(ChaServerData.PLAYERS_GLOBAL_INFORMATION) do
-        average_rating = average_rating + (player_info.mmr[6] or 2500)
+        average_rating = average_rating + (player_info.mmr[7] or 2500)
     end
     local players_count = math.max(ChaServerData.GetPlayersCount(), 1)
     average_rating = average_rating / players_count
@@ -1304,6 +1304,9 @@ function ChaServerData:PerBanLoad(ban_list)
     local allAbilityNames = {}
 
     local abilityListKV = LoadKeyValues("scripts/npc/npc_abilities_list.txt")
+    if GetMapName() == "1x8_old" then
+        abilityListKV = LoadKeyValues("scripts/npc/npc_abilities_list_old.txt")
+    end
 
     for szHeroName, data in pairs(abilityListKV) do
         HeroBuilder.heroAbilityPool["npc_dota_hero_"..szHeroName]={}

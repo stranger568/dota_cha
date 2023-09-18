@@ -38,7 +38,7 @@ function modifier_skill_armorless_debuff:GetTexture()
   	return "modifier_skill_armorless"
 end
 
-function modifier_skill_armorless_debuff:IsHidden() return false end
+function modifier_skill_armorless_debuff:IsHidden() return true end
 function modifier_skill_armorless_debuff:IsPurgable() return false end
 function modifier_skill_armorless_debuff:IsDebuff() return true end
 

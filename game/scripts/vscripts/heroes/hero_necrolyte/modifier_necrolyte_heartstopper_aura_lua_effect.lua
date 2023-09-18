@@ -42,7 +42,11 @@ function modifier_necrolyte_heartstopper_aura_lua_effect:OnIntervalThink()
     local aura_damage = self:GetAbility():GetSpecialValueFor("aura_damage")
     local end_damage =  self:GetParent():GetMaxHealth() / 100 * aura_damage 
     if self:GetCaster():HasScepter() then
-        end_damage = end_damage + self:GetCaster():GetHealthRegen()
+        if GetMapName() == "1x8_old" then
+            end_damage = end_damage + (self:GetCaster():GetHealthRegen() * 0.2)
+        else
+            end_damage = end_damage + (self:GetCaster():GetHealthRegen() * 0.6)
+        end
     end
     local damage_table = {}
     damage_table.attacker = self:GetCaster()

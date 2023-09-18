@@ -43,10 +43,11 @@ function Summon:Init()
     Summon.efficiency["npc_dota_lycan_wolf2"] = 1.6
     Summon.efficiency["npc_dota_lycan_wolf3"] = 1.6
     Summon.efficiency["npc_dota_lycan_wolf4"] = 1.6
-    Summon.efficiency["npc_dota_beastmaster_boar_1"] = 1.8
+    Summon.efficiency["npc_dota_beastmaster_boar"] = 1.8
     Summon.efficiency["npc_dota_beastmaster_boar_2"] = 1.8
     Summon.efficiency["npc_dota_beastmaster_boar_3"] = 1.8
     Summon.efficiency["npc_dota_beastmaster_boar_4"] = 1.8
+    Summon.efficiency["npc_dota_beastmaster_hawk"] = 1.8
     Summon.efficiency["npc_dota_visage_familiar1"] = 1.2
     Summon.efficiency["npc_dota_visage_familiar2"] = 1.2
     Summon.efficiency["npc_dota_visage_familiar3"] = 1.2

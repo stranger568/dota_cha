@@ -73,7 +73,7 @@ function UpdateAbilityMask()
     if (parent.cooldown == undefined) 
     {
         parent.cooldown = 0.8
-        for (var i = 1; i <= 4; i++) 
+        for (var i = 1; i <= 5; i++) 
         {
             var panelID = "skill_"+i;
             var panel = parent.FindChildTraverse(panelID);
@@ -91,7 +91,7 @@ function UpdateAbilityMask()
     if (parent.cooldown<=0)
     {
         parent.cooldown = undefined
-        for (var i = 1; i <= 4; i++) 
+        for (var i = 1; i <= 5; i++) 
         {
             var panelID = "skill_"+i;
             var panel = parent.FindChildTraverse(panelID);
@@ -104,7 +104,7 @@ function UpdateAbilityMask()
     }
     else 
     {
-        for (var i = 1; i <= 4; i++) 
+        for (var i = 1; i <= 5; i++) 
         {
             var panelID = "skill_"+i;
             var panel = parent.FindChildTraverse(panelID);

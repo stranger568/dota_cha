@@ -164,6 +164,7 @@ function modifier_item_hellmask:AttackLandedModifier(params)
 			["npc_dota_zeus_cloud"] = true,
 			["npc_dota_rattletrap_cog"] = true,
 			["npc_dota_lich_ice_spire"] = true,
+            ["npc_dota_ignis_fatuus"] = true,
 		}
 
 		if params.attacker == self.parent then
@@ -174,6 +175,9 @@ function modifier_item_hellmask:AttackLandedModifier(params)
 			if self.parent:HasModifier("modifier_item_hellmask_active") then
 				lifesteal = self.unholy_lifesteal_total_tooltip / 100
 			end
+            if params.target:IsHero() or (not params.target:IsHero() and params.target:GetOwner() ~= nil) then
+                lifesteal = lifesteal * 0.5
+            end
 			self.parent:Heal(params.original_damage * lifesteal, nil)
 		end
 	end
@@ -248,7 +252,7 @@ function modifier_item_hellmask_buff:OnCreated()
 	self.aura_armor_ally = self.ability:GetSpecialValueFor("aura_positive_armor")
 end
 
-function modifier_item_hellmask_buff:IsHidden() return false end
+function modifier_item_hellmask_buff:IsHidden() return true end
 function modifier_item_hellmask_buff:IsPurgable() return false end
 function modifier_item_hellmask_buff:IsDebuff() return false end
 
@@ -317,7 +321,7 @@ function modifier_item_hellmask_debuff:OnCreated()
 	self.aura_armor_enemy = self.ability:GetSpecialValueFor("aura_negative_armor")
 end
 
-function modifier_item_hellmask_debuff:IsHidden() return false end
+function modifier_item_hellmask_debuff:IsHidden() return true end
 function modifier_item_hellmask_debuff:IsPurgable() return false end
 function modifier_item_hellmask_debuff:IsDebuff() return true end
 

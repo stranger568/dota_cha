@@ -45,5 +45,8 @@ end
 
 function modifier_skill_fearful_debuff:GetModifierIncomingDamage_Percentage(params)
 	if params.damage_type == DAMAGE_TYPE_PURE then return end
+    if self:GetParent():IsDebuffImmune() then
+        return 30 / 2
+    end
 	return 30
 end

@@ -209,7 +209,7 @@ function CreateSelectCosmeticsForUnit(unit) {
             let storeItemDef = bundles[k];
             let storeItemID = "StoreItem" + storeItemDef;
 
-            const storeItemPanel = $.CreatePanelWithProperties("DOTAStoreItem", bundlePanel, storeItemID, {itemdef: storeItemDef});
+            const storeItemPanel = $.CreatePanel("DOTAStoreItem", bundlePanel, storeItemID, {itemdef: storeItemDef});
             storeItemPanel.style.width = "180px";
             storeItemPanel.style.height = "200px";
             storeItemPanel.style.marginRight = "10px";
@@ -252,7 +252,7 @@ function CreateSelectCosmeticsForUnit(unit) {
         
         let uid = GetUniqueID();
     
-        const econItem = $.CreatePanelWithProperties("DOTAEconItem", econItemSlot, uid, {itemdef: equipedItemDef, itemstyle: equipedItemStyle});
+        const econItem = $.CreatePanel("DOTAEconItem", econItemSlot, uid, {itemdef: equipedItemDef, itemstyle: equipedItemStyle});
         econItem.AddClass("DisableInspect");
         econItem.SetPanelEvent("onload", () => {
             SetEconItemButtons(uid, equipedItemDef, equipedItemStyle);
@@ -265,7 +265,7 @@ function CreateSelectCosmeticsForUnit(unit) {
             let storeItemDef = slot["ItemDefs"][k];
             let storeItemID = "StoreItem" + storeItemDef;
 
-            const storeItem = $.CreatePanelWithProperties("DOTAStoreItem", delayLoadPanel, storeItemID, {itemdef: storeItemDef});
+            const storeItem = $.CreatePanel("DOTAStoreItem", delayLoadPanel, storeItemID, {itemdef: storeItemDef});
             storeItem.style.width = "180px";
             storeItem.style.height = "200px";
             storeItem.style.marginRight = "10px";
@@ -376,7 +376,7 @@ function UpdateWearable(params) {
             }
 
             let uid = GetUniqueID();
-            const EconItemPanel = $.CreatePanelWithProperties("DOTAEconItem", econItemSlot, uid, {itemdef: itemDef, itemstyle: itemStyle});
+            const EconItemPanel = $.CreatePanel("DOTAEconItem", econItemSlot, uid, {itemdef: itemDef, itemstyle: itemStyle});
             EconItemPanel.AddClass("DisableInspect");
             EconItemPanel.SetPanelEvent("onload", () => {
                 SetEconItemButtons(uid, itemDef, itemStyle);

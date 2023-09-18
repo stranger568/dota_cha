@@ -87,7 +87,7 @@ function modifier_lycan_shapeshift_custom_fly:CheckState()
 end
 
 modifier_lycan_shapeshift_custom = class({})
-
+function modifier_lycan_shapeshift_custom:IsHidden() return true end
 function modifier_lycan_shapeshift_custom:IsPurgable() return false end
 
 function modifier_lycan_shapeshift_custom:DeclareFunctions()  

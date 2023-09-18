@@ -204,11 +204,19 @@ creeps_random_60=table.join(creeps_random_60,big_ra)
 creeps_random_60=table.join(creeps_random_60,small_ra)
 
 compensateRoundNumber = {}
-compensateRoundNumber[10]=true
-compensateRoundNumber[20]=true
-compensateRoundNumber[30]=true
-compensateRoundNumber[40]=true
-compensateRoundNumber[50]=true
+
+if GetMapName() == "1x8_old" then
+    compensateRoundNumber[10]=true
+    compensateRoundNumber[20]=true
+    compensateRoundNumber[30]=true
+    compensateRoundNumber[40]=true   
+else
+    compensateRoundNumber[10]=true
+    compensateRoundNumber[20]=true
+    compensateRoundNumber[30]=true
+    compensateRoundNumber[40]=true
+    compensateRoundNumber[50]=true    
+end
 
 if IsInToolsMode() then
 
@@ -516,7 +524,7 @@ function Round:Prepare(nRoundNumber, bonus_time)
     end
 
     ---- CREEP WAVE 60 --------------------------------------------
-    if nRoundNumber == 51 then
+    if nRoundNumber == 51 and GetMapName() ~= "1x8_old" then
         self.sRoundName = "Round_RandomCreeps"
     end
     ----------------------------------------------------------------
@@ -541,9 +549,6 @@ function Round:Prepare(nRoundNumber, bonus_time)
             local big_ra = table.random_some(creeps_big_random, 1)
             creeps_random_60=table.join(creeps_random_60,big_ra)
             table.remove_item(creeps_big_random,big_ra)
-
-            local small_r = table.random_some(creeps_small_random, 1)
-            creeps_random_60=table.join(creeps_random_60,small_r)
 
             local small_ra_full = table.random_some(creeps_small_random_special, 1)
             creeps_random_60=table.join(creeps_random_60,small_ra_full)
@@ -706,7 +711,7 @@ function Round:Begin()
 
                         vCenter = PvpModule.vHomeCenter - Vector( (3-i*2)*550,0,0)
 
-                        if spawn_coin then
+                        if spawn_coin and GetMapName() ~= "1x8_old" then
                             spawn_coin = false
                             local newItem = CreateItem( "item_bag_of_gold", nil, nil )
                             local drop = CreateItemOnPositionForLaunch( PvpModule.vHomeCenter, newItem )
@@ -737,6 +742,8 @@ function Round:Begin()
                         hHero:AddNewModifier(hHero, nil, "modifier_duel_win_6sec", {duration = 6})
                         hHero:AddNewModifier(hHero, nil, "modifier_duel_win_15sec", {duration = 15})
                         hHero:AddNewModifier(hHero, nil, "modifier_duel_damage_check", {})
+                        hHero:RemoveModifierByName("modifier_skill_last_chance_cooldown")
+                        hHero:RemoveModifierByName("modifier_skill_second_life_cooldown")
 
                         EmitSoundOn("Hero_LegionCommander.Duel",hHero)
 
@@ -764,6 +771,8 @@ function Round:Begin()
                     })
                    
                     hHero.bJoiningPvp = true
+                    hHero:RemoveModifierByName("modifier_skill_last_chance_cooldown")
+                    hHero:RemoveModifierByName("modifier_skill_second_life_cooldown")
                     EmitSoundOn("Hero_LegionCommander.Duel",hHero)
                     Timers:CreateTimer({ endTime = 1.5, callback = function()
                         StopSoundOn("Hero_LegionCommander.Duel",hHero)
@@ -1029,30 +1038,44 @@ function Round:RoundTimeOver()
     CustomGameEventManager:Send_ServerToAllClients("UpdateRoundTimer", { name = "RoundTimeLimit", text = "#round_time_expire", svalue = 0, evalue = nRoundLimitTime, berserk = self.berserk_stack })
 end
 
-function Round:RoundTimeExceeded()
+function Round:RoundTimeExceededOldCHC()
     if PvpModule.bEnd == false and PvpModule.currentPair[1] and PvpModule.currentPair[2]  then
         local nTeamID1 = PvpModule.currentPair[1]
         local nTeamID2 = PvpModule.currentPair[2]
-        
+        local flPercentage1 = 0
+        local flTotalHeath1 = 0
+
         for i=1,PlayerResource:GetPlayerCountForTeam(nTeamID1) do
             local nPlayerID = PlayerResource:GetNthPlayerIDOnTeam(nTeamID1, i)
             local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-            if hHero and hHero:IsAlive() then
-                hHero:AddNewModifier(hHero, nil, "modifier_duel_curse", {})
-                for _, summon in pairs(Round:FindAllOwnedUnits(hHero:GetPlayerID())) do
-                    summon:AddNewModifier(hHero, nil, "modifier_duel_curse", {})
-                end
+            if hHero then
+                flPercentage1 =  flPercentage1 + hHero:GetHealthPercent()
+                flTotalHeath1 =  flTotalHeath1 + hHero:GetHealth()
             end
         end
 
+        local flPercentage2 = 0
+        local flTotalHeath2 = 0
         for i=1,PlayerResource:GetPlayerCountForTeam(nTeamID2) do
             local nPlayerID = PlayerResource:GetNthPlayerIDOnTeam(nTeamID2, i)
             local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-            if hHero and hHero:IsAlive() then
-                hHero:AddNewModifier(hHero, nil, "modifier_duel_curse", {})
-                for _, summon in pairs(Round:FindAllOwnedUnits(hHero:GetPlayerID())) do
-                    summon:AddNewModifier(hHero, nil, "modifier_duel_curse", {})
-                end
+            if hHero then
+                flPercentage2 =  flPercentage2 + hHero:GetHealthPercent()
+                flTotalHeath2 =  flTotalHeath2 + hHero:GetHealth()
+            end
+        end
+  
+        if flPercentage1==flPercentage2 then
+            if flTotalHeath1>flTotalHeath2 then
+                PvpModule:EndPvp(nTeamID1,nTeamID2)
+            else
+                PvpModule:EndPvp(nTeamID2,nTeamID1)
+            end
+        else
+            if flPercentage1>flPercentage2 then
+                PvpModule:EndPvp(nTeamID1,nTeamID2)
+            else
+                PvpModule:EndPvp(nTeamID2,nTeamID1)
             end
         end
     end
@@ -1064,18 +1087,94 @@ function Round:RoundTimeExceeded()
         local flHeath1 = 0
 
         local hHero1 = PlayerResource:GetSelectedHeroEntity(nPlayerID1)
-        if hHero1 and hHero1:IsAlive() then
-            hHero1:AddNewModifier(hHero1, nil, "modifier_duel_curse", {})
-            for _, summon in pairs(Round:FindAllOwnedUnits(hHero1:GetPlayerID())) do
-                summon:AddNewModifier(hHero1, nil, "modifier_duel_curse", {})
+        if hHero1 then
+            flPercentage1 =   hHero1:GetHealthPercent()
+            flHeath1 =   hHero1:GetHealth()
+        end
+        local flPercentage2 = 0
+        local flHeath2 = 0
+
+        local hHero2 = PlayerResource:GetSelectedHeroEntity(nPlayerID2)
+        if hHero2 then
+            flPercentage2 =   hHero2:GetHealthPercent()
+            flHeath2 =   hHero2:GetHealth()
+        end
+
+        if flPercentage1==flPercentage2 then
+            if flHeath1>flHeath2 then
+                PvpModule:EndSinglePvp(nPlayerID1,nPlayerID2)
+            else
+                PvpModule:EndSinglePvp(nPlayerID2,nPlayerID1)
+            end
+        else
+            if flPercentage1>flPercentage2 then
+                PvpModule:EndSinglePvp(nPlayerID1,nPlayerID2)
+            else
+                PvpModule:EndSinglePvp(nPlayerID2,nPlayerID1)
+            end
+        end
+    end
+ end
+
+function Round:RoundTimeExceeded()
+    if GetMapName() == "1x8_old" then
+        Round:RoundTimeExceededOldCHC()
+    else
+        if PvpModule.bEnd == false and PvpModule.currentPair[1] and PvpModule.currentPair[2]  then
+            local nTeamID1 = PvpModule.currentPair[1]
+            local nTeamID2 = PvpModule.currentPair[2]
+            
+            for i=1,PlayerResource:GetPlayerCountForTeam(nTeamID1) do
+                local nPlayerID = PlayerResource:GetNthPlayerIDOnTeam(nTeamID1, i)
+                local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
+                if GetMapName() ~= "1x8_old" then
+                    if hHero and hHero:IsAlive() then
+                        hHero:AddNewModifier(hHero, nil, "modifier_duel_curse", {})
+                        for _, summon in pairs(Round:FindAllOwnedUnits(hHero:GetPlayerID())) do
+                            summon:AddNewModifier(hHero, nil, "modifier_duel_curse", {})
+                        end
+                    end
+                end
+            end
+
+            for i=1,PlayerResource:GetPlayerCountForTeam(nTeamID2) do
+                local nPlayerID = PlayerResource:GetNthPlayerIDOnTeam(nTeamID2, i)
+                local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
+                if GetMapName() ~= "1x8_old" then
+                    if hHero and hHero:IsAlive() then
+                        hHero:AddNewModifier(hHero, nil, "modifier_duel_curse", {})
+                        for _, summon in pairs(Round:FindAllOwnedUnits(hHero:GetPlayerID())) do
+                            summon:AddNewModifier(hHero, nil, "modifier_duel_curse", {})
+                        end
+                    end
+                end
             end
         end
 
-        local hHero2 = PlayerResource:GetSelectedHeroEntity(nPlayerID2)
-        if hHero2 and hHero2:IsAlive() then
-            hHero2:AddNewModifier(hHero2, nil, "modifier_duel_curse", {})
-            for _, summon in pairs(Round:FindAllOwnedUnits(hHero2:GetPlayerID())) do
-                summon:AddNewModifier(hHero2, nil, "modifier_duel_curse", {})
+        if PvpModule.bEnd == false and PvpModule.currentSinglePair[1] and PvpModule.currentSinglePair[2]  then
+            local nPlayerID1 = PvpModule.currentSinglePair[1]
+            local nPlayerID2 = PvpModule.currentSinglePair[2]
+            local flPercentage1 = 0
+            local flHeath1 = 0
+
+            local hHero1 = PlayerResource:GetSelectedHeroEntity(nPlayerID1)
+            if hHero1 and hHero1:IsAlive() then
+                if GetMapName() ~= "1x8_old" then
+                    hHero1:AddNewModifier(hHero1, nil, "modifier_duel_curse", {})
+                    for _, summon in pairs(Round:FindAllOwnedUnits(hHero1:GetPlayerID())) do
+                        summon:AddNewModifier(hHero1, nil, "modifier_duel_curse", {})
+                    end
+                end
+            end
+
+            local hHero2 = PlayerResource:GetSelectedHeroEntity(nPlayerID2)
+            if hHero2 and hHero2:IsAlive() then
+                if GetMapName() ~= "1x8_old" then
+                    hHero2:AddNewModifier(hHero2, nil, "modifier_duel_curse", {})
+                    for _, summon in pairs(Round:FindAllOwnedUnits(hHero2:GetPlayerID())) do
+                        summon:AddNewModifier(hHero2, nil, "modifier_duel_curse", {})
+                    end
+                end
             end
         end
     end
@@ -1089,10 +1188,12 @@ function Round:RoundTimeStartCooldownDuel()
         for i=1,PlayerResource:GetPlayerCountForTeam(nTeamID1) do
             local nPlayerID = PlayerResource:GetNthPlayerIDOnTeam(nTeamID1, i)
             local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-            if hHero and hHero:IsAlive() then
-                hHero:AddNewModifier(hHero, nil, "modifier_duel_curse_cooldown", {})
-                for _, summon in pairs(Round:FindAllOwnedUnits(hHero:GetPlayerID())) do
-                    summon:AddNewModifier(hHero, nil, "modifier_duel_curse_cooldown", {})
+            if GetMapName() ~= "1x8_old" then
+                if hHero and hHero:IsAlive() then
+                    hHero:AddNewModifier(hHero, nil, "modifier_duel_curse_cooldown", {})
+                    for _, summon in pairs(Round:FindAllOwnedUnits(hHero:GetPlayerID())) do
+                        summon:AddNewModifier(hHero, nil, "modifier_duel_curse_cooldown", {})
+                    end
                 end
             end
         end
@@ -1100,10 +1201,12 @@ function Round:RoundTimeStartCooldownDuel()
         for i=1,PlayerResource:GetPlayerCountForTeam(nTeamID2) do
             local nPlayerID = PlayerResource:GetNthPlayerIDOnTeam(nTeamID2, i)
             local hHero = PlayerResource:GetSelectedHeroEntity(nPlayerID)
-            if hHero and hHero:IsAlive() then
-                hHero:AddNewModifier(hHero, nil, "modifier_duel_curse_cooldown", {})
-                for _, summon in pairs(Round:FindAllOwnedUnits(hHero:GetPlayerID())) do
-                    summon:AddNewModifier(hHero, nil, "modifier_duel_curse_cooldown", {})
+            if GetMapName() ~= "1x8_old" then
+                if hHero and hHero:IsAlive() then
+                    hHero:AddNewModifier(hHero, nil, "modifier_duel_curse_cooldown", {})
+                    for _, summon in pairs(Round:FindAllOwnedUnits(hHero:GetPlayerID())) do
+                        summon:AddNewModifier(hHero, nil, "modifier_duel_curse_cooldown", {})
+                    end
                 end
             end
         end
@@ -1117,17 +1220,21 @@ function Round:RoundTimeStartCooldownDuel()
 
         local hHero1 = PlayerResource:GetSelectedHeroEntity(nPlayerID1)
         if hHero1 and hHero1:IsAlive() then
-            hHero1:AddNewModifier(hHero1, nil, "modifier_duel_curse_cooldown", {})
-            for _, summon in pairs(Round:FindAllOwnedUnits(hHero1:GetPlayerID())) do
-                summon:AddNewModifier(hHero1, nil, "modifier_duel_curse_cooldown", {})
+            if GetMapName() ~= "1x8_old" then
+                hHero1:AddNewModifier(hHero1, nil, "modifier_duel_curse_cooldown", {})
+                for _, summon in pairs(Round:FindAllOwnedUnits(hHero1:GetPlayerID())) do
+                    summon:AddNewModifier(hHero1, nil, "modifier_duel_curse_cooldown", {})
+                end
             end
         end
 
         local hHero2 = PlayerResource:GetSelectedHeroEntity(nPlayerID2)
         if hHero2 and hHero2:IsAlive() then
-            hHero2:AddNewModifier(hHero2, nil, "modifier_duel_curse_cooldown", {})
-            for _, summon in pairs(Round:FindAllOwnedUnits(hHero2:GetPlayerID())) do
-                summon:AddNewModifier(hHero2, nil, "modifier_duel_curse_cooldown", {})
+            if GetMapName() ~= "1x8_old" then
+                hHero2:AddNewModifier(hHero2, nil, "modifier_duel_curse_cooldown", {})
+                for _, summon in pairs(Round:FindAllOwnedUnits(hHero2:GetPlayerID())) do
+                    summon:AddNewModifier(hHero2, nil, "modifier_duel_curse_cooldown", {})
+                end
             end
         end
     end

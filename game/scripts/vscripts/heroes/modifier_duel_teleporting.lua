@@ -14,6 +14,7 @@ function modifier_duel_teleporting:CheckState()
 end
 function modifier_duel_teleporting:OnCreated()
 	if not IsServer() then return end
+    self:GetParent():RemoveModifierByName("modifier_oracle_false_promise_custom")
 	self.teleportFromEffect = ParticleManager:CreateParticle("particles/items2_fx/teleport_start.vpcf", PATTACH_ABSORIGIN, self:GetCaster())
     ParticleManager:SetParticleControl(self.teleportFromEffect, 2, Vector(255, 255, 255))
 	self:GetCaster():EmitSound("Portal.Loop_Appear")

@@ -18,7 +18,7 @@ function modifier_skill_goldstealer:AttackLandedModifier(params)
 
 	local gold = 35 + self:GetParent():GetLevel()
 
-	self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_skill_goldstealer_cooldown", {duration = 3.5})
+	self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_skill_goldstealer_cooldown", {duration = 3})
 	self:GetParent():ModifyGold(gold, true, 0)
 
 	if params.target:IsRealHero() then

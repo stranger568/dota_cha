@@ -11,6 +11,9 @@ LinkLuaModifier("modifier_cha_vision", "modifiers/modifier_cha_vision", LUA_MODI
 LinkLuaModifier("modifier_cha_ban", "modifiers/modifier_cha_ban", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_cha_stranger", "modifiers/modifier_cha_stranger", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_gaben_int_fixed", "modifiers/modifier_gaben_int_fixed", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_cashback_creep_count", "modifiers/modifier_cashback_creep_count", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_centaur_return_unique_buff", "modifiers/modifier_centaur_return_unique_buff", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_underlord_atrophy_buff_custom", "modifiers/modifier_underlord_atrophy_buff_custom", LUA_MODIFIER_MOTION_NONE)
 
 if HeroBuilder == nil then 
     HeroBuilder = class({}) 
@@ -98,6 +101,9 @@ scepterLinkAbilities["bloodseeker_thirst"]={"bloodseeker_blood_mist_custom"}
 scepterLinkAbilities["leshrac_pulse_nova"]={"leshrac_greater_lightning_storm"}
 scepterLinkAbilities["kunkka_torrent"]={"kunkka_torrent_storm_custom"}
 scepterLinkAbilities["nyx_assassin_vendetta"]={"nyx_assassin_burrow","nyx_assassin_unburrow"}
+scepterLinkAbilities["tusk_walrus_punch"]={"tusk_walrus_kick"}
+scepterLinkAbilities["viper_corrosive_skin"]={"viper_nose_dive"}
+scepterLinkAbilities["visage_summon_familiars"]={"visage_silent_as_the_grave"}
 
 -- Способности с шарда которые привязаны к способности
 shardLinkAbilities = {}
@@ -112,7 +118,12 @@ shardLinkAbilities["alchemist_chemical_rage"]={"alchemist_berserk_potion"}
 shardLinkAbilities["jakiro_liquid_fire_lua"]={"jakiro_liquid_ice_lua"}
 shardLinkAbilities["lich_chain_frost_custom"]={"lich_ice_spire"}
 shardLinkAbilities["shredder_whirling_death"]={"shredder_flamethrower"}
---shardLinkAbilities["tidehunter_ravage"]={"tidehunter_arm_of_the_deep_custom"}
+shardLinkAbilities["tinker_laser"]={"tinker_warp_grenade"}
+shardLinkAbilities["venomancer_noxious_plague"]={"venomancer_latent_poison"}
+shardLinkAbilities["magnataur_shockwave"]={"magnataur_horn_toss"}
+shardLinkAbilities["pangolier_gyroshell"]={"pangolier_rollup"}
+shardLinkAbilities["sniper_shrapnel"]={"sniper_concussive_grenade"}
+shardLinkAbilities["ogre_magi_ignite_custom"]={"ogre_magi_smash"}
 shardLinkAbilities["zuus_arc_lightning_custom"]={"zuus_lightning_hands_custom"}
 
 -- Способности с шарда которые привязаны к герою
@@ -331,6 +342,9 @@ function HeroBuilder:Init()
     local allAbilityNames={}
 
     local abilityListKV = LoadKeyValues("scripts/npc/npc_abilities_list.txt")
+    if GetMapName() == "1x8_old" then
+        abilityListKV = LoadKeyValues("scripts/npc/npc_abilities_list_old.txt")
+    end
 
     for szHeroName, data in pairs(abilityListKV) do
         HeroBuilder.heroAbilityPool["npc_dota_hero_"..szHeroName]={}
@@ -633,9 +647,19 @@ function HeroBuilder:InitPlayerHero( hHero )
     hHero:AddNewModifier(hHero, nil, "modifier_hero_refreshing", {})
     hHero:AddNewModifier(hHero, nil, "modifier_cha_vision", {})
     hHero:AddNewModifier(hHero, nil, "modifier_gaben_int_fixed", {})
+    hHero:AddNewModifier(hHero, nil, "modifier_cashback_creep_count", {})
     if hHero:GetUnitName() == "npc_dota_hero_gyrocopter" then
         hHero:AddNewModifier(hHero, nil, "modifier_gyrocopter_flak_cannon_lua_scepter", {})
     end
+    if GetMapName() == "1x8_old" then
+        for team_find = 0, 24 do
+            if GetMapName() == "1x8_old" then
+                GameRules:SetItemStockCount( 3, team_find, "item_recipe_necronomicon", -1 )
+                GameRules:IncreaseItemStock(team_find, "item_recipe_necronomicon", 3, -1)
+            end
+        end
+    end
+    GameMode:AddItemWhiteList()
     hHero.selected_skills = {}
 
     if ChaServerData.PLAYERS_GLOBAL_INFORMATION[hHero:GetPlayerID()] ~= nil then
@@ -977,6 +1001,9 @@ function HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
 
         if RandomInt(1, 100) < 90 and #ownList > 0 then
             local count_abilities_from_all = 8
+            if hHero:HasModifier("modifier_skill_wide_choice") then
+                count_abilities_from_all = count_abilities_from_all + 2
+            end
             local random_ability_1 = nil
             local random_ability_2 = nil
             local random_ability_3 = nil
@@ -1027,6 +1054,9 @@ function HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
             end
         else
             local count_abilities_from_all = 8
+            if hHero:HasModifier("modifier_skill_wide_choice") then
+                count_abilities_from_all = count_abilities_from_all + 2
+            end
             local random_ability_1 = nil
             local random_ability_2 = nil
             local random_ability_3 = nil
@@ -1064,10 +1094,6 @@ function HeroBuilder:ShowRandomAbilitySelection(nPlayerID)
             if random_ability_3 ~= nil then
                 randomAbilityNames=table.join(randomAbilityNames, random_ability_3)
             end
-        end
-
-        if IsInToolsMode() then
-            randomAbilityNames=table.join(randomAbilityNames, "abyssal_underlord_firestorm_custom")
         end
 
         hHero.randomAbilityNames = randomAbilityNames
@@ -1524,7 +1550,7 @@ function HeroBuilder:SetAbilityToSlot(hHero, hAbility)
         local hSlotAbility = hHero:GetAbilityByIndex(i)
         
         if not hSlotAbility or hSlotAbility:IsNull() then
-            slot_ability = hero:AddAbility("empty_"..i)
+            slot_ability = hHero:AddAbility("empty_"..i)
 			slot_ability.placeholder = i + 1
         end
 
@@ -1560,6 +1586,12 @@ function HeroBuilder:AddAbility(nPlayerID, sAbilityName, nLevel, flCoolDown)
                     hNewAbility:SetRefCountsModifiers(true)
                     if hNewAbility:GetAbilityName() == "muerta_pierce_the_veil" then
                         hHero:AddNewModifier(hHero, hNewAbility, "modifier_muerta_pierce_the_veil", {})
+                    end
+                    if hNewAbility:GetAbilityName() == "centaur_return" then
+                        hHero:AddNewModifier(hHero, hNewAbility, "modifier_centaur_return_unique_buff", {})
+                    end
+                    if hNewAbility:GetAbilityName() == "abyssal_underlord_atrophy_aura" then
+                        hHero:AddNewModifier(hHero, hNewAbility, "modifier_underlord_atrophy_buff_custom", {})
                     end
                     if nLevel and nLevel>0 then
                         hNewAbility:SetLevel(nLevel)
@@ -2347,30 +2379,45 @@ function HeroBuilder:SelectNeutralReward(data)
 	local hero = PlayerResource:GetSelectedHeroEntity(id)
     local roshan = data.roshan
     local tier = data.tier
-    if hero == nil then return end
-    if not hero:IsAlive() then return end
+    if hero == nil then 
+        return 
+    end
+    if not hero:IsAlive() then
+        hero.neutral_select = false 
+        return 
+    end
 
     if roshan then
-        if HeroBuilder.RewardForPlayerRoshan[id][tier][choose] == nil then return end
+        if HeroBuilder.RewardForPlayerRoshan[id][tier][choose] == nil then 
+            hero.neutral_select = false
+            return 
+        end
         local item_name = HeroBuilder.RewardForPlayerRoshan[id][tier][choose]
         if hero and item_name then
             HeroBuilder.NeutralsHasRandomed[id][item_name] = true
             local neutralItem = CreateItem(item_name, hero, hero)
-            hero:AddItem(neutralItem)
-            neutralItem:SetPurchaseTime(0)
-            neutralItem.owner = hero
+            if neutralItem then
+                hero:AddItem(neutralItem)
+                neutralItem:SetPurchaseTime(0)
+                neutralItem.owner = hero
+            end
         end
         hero.neutral_select = false
         HeroBuilder.RewardForPlayerRoshan[id][tier] = {}
     else
-        if HeroBuilder.RewardForPlayer[id][tier][choose] == nil then return end
+        if HeroBuilder.RewardForPlayer[id][tier][choose] == nil then
+            hero.neutral_select = false 
+            return 
+        end
         local item_name = HeroBuilder.RewardForPlayer[id][tier][choose]
         if hero and item_name then
             HeroBuilder.NeutralsHasRandomed[id][item_name] = true
             local neutralItem = CreateItem(item_name, hero, hero)
-            hero:AddItem(neutralItem)
-            neutralItem:SetPurchaseTime(0)
-            neutralItem.owner = hero
+            if neutralItem then
+                hero:AddItem(neutralItem)
+                neutralItem:SetPurchaseTime(0)
+                neutralItem.owner = hero
+            end
         end
         hero.neutral_select = false
         HeroBuilder.RewardForPlayer[id][tier] = {}

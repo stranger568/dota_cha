@@ -1,4 +1,5 @@
 LinkLuaModifier("modifier_frostivus2018_weaver_geminate_attack_custom", "heroes/hero_weaver/frostivus2018_weaver_geminate_attack_custom", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_frostivus2018_weaver_geminate_attack_custom_dmg", "heroes/hero_weaver/frostivus2018_weaver_geminate_attack_custom", LUA_MODIFIER_MOTION_NONE)
 
 frostivus2018_weaver_geminate_attack_custom = class({})
 
@@ -28,10 +29,14 @@ function modifier_frostivus2018_weaver_geminate_attack_custom:AttackModifier(par
 		attacks = attacks + 1
 		Timers:CreateTimer(0.07 * i, function()
 			if enemy and not enemy:IsNull() and enemy:IsAlive() and not enemy:IsAttackImmune() and not enemy:IsInvulnerable() then
-				self:GetParent():PerformAttack(enemy, true, true, true, false, true, false, false) 
-				if enemy:HasModifier("modifier_shukuchi_geminate_attack_mark") then
-					self:GetParent():PerformAttack(enemy, true, true, true, false, true, false, false) 
-				end
+				local damage_modifier = self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_frostivus2018_weaver_geminate_attack_custom_dmg", {})
+                self:GetParent():PerformAttack(enemy, true, true, true, false, true, false, false) 
+                if enemy:HasModifier("modifier_shukuchi_geminate_attack_mark") then
+                    self:GetParent():PerformAttack(enemy, true, true, true, false, true, false, false) 
+                end
+                if damage_modifier then
+                    damage_modifier:Destroy()
+                end
 			end
 		end)
 	end
@@ -43,10 +48,14 @@ function modifier_frostivus2018_weaver_geminate_attack_custom:AttackModifier(par
 			attacks = attacks + 1
 			Timers:CreateTimer(0.07 * i, function()
 				if enemy and not enemy:IsNull() and enemy:IsAlive() and not enemy:IsAttackImmune() and not enemy:IsInvulnerable() then
+                    local damage_modifier = self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_frostivus2018_weaver_geminate_attack_custom_dmg", {})
 					self:GetParent():PerformAttack(enemy, true, true, true, false, true, false, false) 
 					if enemy:HasModifier("modifier_shukuchi_geminate_attack_mark") then
 						self:GetParent():PerformAttack(enemy, true, true, true, false, true, false, false) 
 					end
+                    if damage_modifier then
+                        damage_modifier:Destroy()
+                    end
 				end
 			end)
 		end
@@ -55,5 +64,16 @@ function modifier_frostivus2018_weaver_geminate_attack_custom:AttackModifier(par
 	self:GetAbility():UseResources(false, false, false, true)
 end
 
-
-
+modifier_frostivus2018_weaver_geminate_attack_custom_dmg = class({})
+function modifier_frostivus2018_weaver_geminate_attack_custom_dmg:IsHidden() return true end
+function modifier_frostivus2018_weaver_geminate_attack_custom_dmg:IsPurgable() return false end
+function modifier_frostivus2018_weaver_geminate_attack_custom_dmg:DeclareFunctions()
+    return
+    {
+        MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE
+    }
+end
+function modifier_frostivus2018_weaver_geminate_attack_custom_dmg:GetModifierPreAttack_BonusDamage()
+    if IsClient() then return 0 end
+    return self:GetAbility():GetSpecialValueFor("bonus_damage")
+end

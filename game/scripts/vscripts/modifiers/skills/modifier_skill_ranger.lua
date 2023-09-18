@@ -9,7 +9,8 @@ function modifier_skill_ranger:AllowIllusionDuplicate() return true end
 function modifier_skill_ranger:DeclareFunctions()
     local funcs = 
     {
-        MODIFIER_PROPERTY_ATTACK_RANGE_BONUS
+        MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
+        MODIFIER_PROPERTY_CAST_RANGE_BONUS 
     }
 
     return funcs
@@ -17,4 +18,8 @@ end
 
 function modifier_skill_ranger:GetModifierAttackRangeBonus()
     return 300
+end
+
+function modifier_skill_ranger:GetModifierCastRangeBonus()
+    return 200
 end

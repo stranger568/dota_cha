@@ -6,6 +6,8 @@ LinkLuaModifier( "modifier_monkey_king_jingu_mastery_talent_buff", "heroes/hero_
 
 monkey_king_jingu_mastery_lua = monkey_king_jingu_mastery_lua or class({})
 modifier_monkey_king_jingu_mastery_talent_buff = class({})
+function modifier_monkey_king_jingu_mastery_talent_buff:IsPurgable() return false end
+function modifier_monkey_king_jingu_mastery_talent_buff:IsPurgeException() return false end
 
 function monkey_king_jingu_mastery_lua:IsHiddenWhenStolen() return false end
 function monkey_king_jingu_mastery_lua:IsRefreshable() return false end
@@ -26,8 +28,9 @@ end
 
 
 modifier_monkey_king_jingu_mastery_lua = modifier_monkey_king_jingu_mastery_lua or class({})
-
 function modifier_monkey_king_jingu_mastery_lua:IsHidden() return true end
+function modifier_monkey_king_jingu_mastery_lua:IsPurgable() return false end
+function modifier_monkey_king_jingu_mastery_lua:IsPurgeException() return false end
 
 function modifier_monkey_king_jingu_mastery_lua:OnCreated(  )
 	self.caster = self:GetCaster()
@@ -106,6 +109,8 @@ function modifier_monkey_king_jingu_mastery_lua:AttackLandedModifier( keys )
 end
 
 modifier_monkey_king_jingu_mastery_lua_count_debuff = class({})
+function modifier_monkey_king_jingu_mastery_lua_count_debuff:IsPurgable() return false end
+function modifier_monkey_king_jingu_mastery_lua_count_debuff:IsPurgeException() return false end
 function modifier_monkey_king_jingu_mastery_lua_count_debuff:OnCreated( )
 	
 end
@@ -126,17 +131,23 @@ function modifier_monkey_king_jingu_mastery_lua_count_debuff:OnDestroy( )
 end
 
 modifier_monkey_king_jingu_mastery_lua_buff = class({})
+function modifier_monkey_king_jingu_mastery_lua_buff:IsPurgable() return false end
+function modifier_monkey_king_jingu_mastery_lua_buff:IsPurgeException() return false end
 
 function modifier_monkey_king_jingu_mastery_lua_buff:DeclareFunctions()
 
 	local funcs = {
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+        MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT
 	}
 
 	return funcs
 
 end
-
+function modifier_monkey_king_jingu_mastery_lua_buff:GetModifierAttackSpeedBonus_Constant()
+    if not self:GetCaster():HasTalent("special_bonus_unique_cha_monkey_king") then return end
+    return 100
+end
 function modifier_monkey_king_jingu_mastery_lua_buff:OnCreated( )
 	self.bonus_damage 			= self:GetAbility():GetSpecialValueFor("bonus_damage") 
 	self.lifesteal 				= self:GetAbility():GetSpecialValueFor("lifesteal")

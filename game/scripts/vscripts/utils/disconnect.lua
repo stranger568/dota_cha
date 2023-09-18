@@ -13,10 +13,12 @@ function Chadisconnect:OnDisconnect(table)
     if hHero and not hHero:IsNull() then
         Timers:CreateTimer(0, function()
             if PlayerResource:GetConnectionState(id) == nil or (PlayerResource:GetConnectionState(id) == DOTA_CONNECTION_STATE_ABANDONED or PlayerResource:GetConnectionState(id) == DOTA_CONNECTION_STATE_UNKNOWN ) or IsInToolsMode() then
-                for i=0,24 do
-                    local neutral_item = hHero:GetItemInSlot(i)
-                    if neutral_item then
-                        UTIL_Remove(neutral_item)
+                if hHero and not hHero:HasModifier("modifier_tempest_double_illusion") and not hHero:HasModifier("modifier_arc_warden_tempest_double_lua") then
+                    for i=0,24 do
+                        local neutral_item = hHero:GetItemInSlot(i)
+                        if neutral_item then
+                            UTIL_Remove(neutral_item)
+                        end
                     end
                 end
             end

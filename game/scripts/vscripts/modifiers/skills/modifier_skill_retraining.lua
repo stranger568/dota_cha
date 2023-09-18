@@ -39,9 +39,9 @@ function modifier_skill_retraining:CompensateRelearnBook(owner_skill)
         end
     end
 
-    if #dataList >= 4 then
+    if #dataList >= 3 then
         table.sort(dataList, function(a, b) return a.nGold > b.nGold end)
-        for dat_list = 4, #dataList do
+        for dat_list = 3, #dataList do
 	        if dataList[dat_list] and dataList[dat_list].nPlayerID then
 	        	local hHero = PlayerResource:GetSelectedHeroEntity(dataList[dat_list].nPlayerID)
 	            if hHero then

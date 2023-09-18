@@ -4,6 +4,7 @@
 	[
 		"1x8",
 		"2x6",
+        "1x8_old",
 		"1x8_pve",
 		"tournament_1x8",
 	]
@@ -22,6 +23,10 @@
 		{
 			MaxPlayers = 12
 			map = "2x6"
+		},
+        {
+			MaxPlayers = 8
+			map = "1x8_old"
 		},
 		{
 			MaxPlayers = 1

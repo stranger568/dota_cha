@@ -7,7 +7,7 @@
 //    {
 //        if (playerInfo.player_connection_state == 2)
 //        {
-//            let start_screen = $.CreatePanelWithProperties("Movie", $("#video_bar"), "Movie", { src: "file://{resources}/videos/custom_game/loading_screen_1.webm", autoplay:"onload", repeat:"true", style:"width:100%;height:100%;" });
+//            let start_screen = $.CreatePanel("Movie", $("#video_bar"), "Movie", { src: "file://{resources}/videos/custom_game/loading_screen_1.webm", autoplay:"onload", repeat:"true", style:"width:100%;height:100%;" });
 //
 //            $.Schedule( 9, function(){
 //                let start_screen = $.GetContextPanel().FindChildTraverse("Movie")
@@ -30,7 +30,7 @@
 
 (function()
 {
-    $.CreatePanelWithProperties("Movie", $("#LoadingScreenCup"), "Movie", { src: "file://{resources}/videos/custom_game/loading_screen_3.webm", style: "width:100%;height:100%;", controls: "none", repeat: "true", hittest: "false", autoplay: "onload" });
+    $.CreatePanel("Movie", $("#LoadingScreenCup"), "Movie", { src: "file://{resources}/videos/custom_game/loading_screen_3.webm", style: "width:100%;height:100%;", controls: "none", repeat: "true", hittest: "false", autoplay: "onload" });
 })(); 
 
 var hittestBlocker = $.GetContextPanel().GetParent().FindChild("SidebarAndBattleCupLayoutContainer");
